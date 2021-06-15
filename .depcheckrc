@@ -1,0 +1,17 @@
+ignore-dirs: ["dist", "node_modules", "storybook-static"]
+ignores: [
+    "jest",
+    "jest-*",
+    "eslint",
+    "babel-*",
+    "eslint-*",
+    "@babel/*",
+    "@storybook/*",
+    "size-limit",
+    "@size-limit/*",
+    "moment",
+    "plotly.js",
+    "postcss",
+    "postcss-cli",
+    "@tailwindcss/postcss7-compat",
+]

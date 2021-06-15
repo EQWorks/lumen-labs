@@ -1,0 +1,50 @@
+{
+  "name": "@eqworks/lumen-labs",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "source": "src/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": "EQ Inc.",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src stories",
+    "lint:watch:fix": "esw --fix --watch src stories",
+    "build": "babel src --out-dir dist --copy-files",
+    "build-storybook": "build-storybook",
+    "build-tailwindcss": "npx postcss src/styles/tailwind.css -o src/styles/index.css",
+    "build-tailwindcss-prod": "NODE_ENV=production npx postcss src/styles/tailwind.css -o src/styles/index.css",
+    "prepublishOnly": "yarn lint && yarn build-tailwindcss-prod && yarn build",
+    "start": "start-storybook -p 6006"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.15",
+    "@babel/core": "^7.13.15",
+    "@babel/eslint-parser": "^7.14.4",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/react": "^6.2.9",
+    "eslint": "^7.27.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-watch": "^7.0.0",
+    "@tailwindcss/postcss7-compat": "^2.1.2",
+    "tailwindcss": "yarn:@tailwindcss/postcss7-compat@^2.1.2",
+    "postcss": "^7",
+    "postcss-cli": "^7",
+    "autoprefixer": "^9.8.6"
+  }
+}

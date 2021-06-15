@@ -1,0 +1,53 @@
+name: Node.js Package
+
+on:
+  push:
+    tags:
+      - 'v*' # proceeds eg: v1.0
+      - '!v*-*' # skips eg: v1.2.99-beta1, v3.5.0-test, etc.
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout designated tagged commit
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://npm.pkg.github.com/
+          scope: '@eqworks'
+          always-auth: true
+      - run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
+      - run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://registry.npmjs.org/
+          scope: '@eqworks'
+          always-auth: true
+      - run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.CD_NPM_TOKEN_PUBLISH }}
+
+      - name: Generate tag associated release notes
+        if: ${{ success() }}
+        run: npx @eqworks/release changelog -v --head ${GITHUB_REF##*/} --github --skip alpha --skip beta --skip test
+        env:
+          GITHUB_OWNER: EQWorks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify on release notes update
+        if: ${{ success() }}
+        run: npx @eqworks/notify send "Release notes updated for ${GITHUB_REPOSITORY} ${GITHUB_REF##*/}" --link "https://github.com/${GITHUB_REPOSITORY}/releases/tag/${GITHUB_REF##*/}" --status $JOB_STATUS
+        env:
+          SLACK_HOOK: ${{ secrets.CD_SLACK_HOOK }}
+          JOB_STATUS: ${{ job.status }}

@@ -8,6 +8,19 @@ export default {
   component: DialogBase,
 }
 
+/** -- props:
+ * [classes] - object, custom styling supported keys:
+ *    root: dialog container div
+ *    button: dialog button container div
+ *    dialog: dialog content container div
+ *    overlay: overlay div (if [modal] is true)
+ * [button] - button (or any node) controlling dialog toggle
+ * [modal] - boolean (by default adds overlay)
+ * [open] - boolean, control dialog open/close
+ * [anchor] - string, control position of dialog relative to [button], supported postions = top/bottom/left/right
+ * [onClick] - function, click handler for [button] div container
+ */
+
 export const Base = () => {
   const button = (<button>Open Dialog</button>)
   return (
@@ -26,6 +39,22 @@ export const BaseModal = () => {
     <DialogBase modal button={button}>
       <p>
         I am just a simple modal.
+        More improvements needed to make my usage more flexible.
+      </p>
+    </DialogBase>
+  )
+}
+
+export const CustomModal = () => {
+  const button = (<button className='focus:outline-none'>Open Dialog</button>)
+  const customClasses = {
+    button: 'w-32 p-4 rounded-md cursor-pointer bg-blue-50 hover:bg-blue-100',
+    dialog: 'inline-flex z-50 p-4 shadow-md mt-1 bg-blue-200',
+  }
+  return (
+    <DialogBase classes={customClasses} button={button}>
+      <p>
+        I am just a simple dialog.
         More improvements needed to make my usage more flexible.
       </p>
     </DialogBase>

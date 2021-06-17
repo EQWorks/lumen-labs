@@ -12,6 +12,7 @@ export default {
  * [classes] - object, custom styling supported keys:
  *    root: dialog container div
  *    button: dialog button container div
+ *    modal: dialog content container div when [modal] is true
  *    dialog: dialog content container div
  *    overlay: overlay div (if [modal] is true)
  * [button] - button (or any node) controlling dialog toggle
@@ -36,7 +37,7 @@ export const Base = () => {
 export const BaseModal = () => {
   const button = (<button>Open Modal</button>)
   return (
-    <DialogBase modal button={button}>
+    <DialogBase modal button={button} classes={{ modal: 'bg-white' }}>
       <p>
         I am just a simple modal.
         More improvements needed to make my usage more flexible.

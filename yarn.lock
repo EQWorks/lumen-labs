@@ -2103,6 +2103,13 @@
     resolve-from "^5.0.0"
     store2 "^2.12.0"
 
+"@streamlinehq/streamlinehq@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/@streamlinehq/streamlinehq/-/streamlinehq-3.0.3.tgz#2c3f66d9c5a9a2305ba6a49ecbfd2ceb7dd9c09d"
+  integrity sha512-+Y+gHVsrSv+TgoA+7Q6hKUZnELs/QsK+C+G9QYy2x+iAYMM6H4pjxB15fIWRSqnW1Vg1cmsKp5v8ApbFQGpDwQ==
+  dependencies:
+    dotenv "^8.2.0"
+
 "@tailwindcss/postcss7-compat@^2.1.2", "tailwindcss@yarn:@tailwindcss/postcss7-compat@^2.1.2":
   version "2.1.4"
   resolved "https://registry.npmjs.org/@tailwindcss/postcss7-compat/-/postcss7-compat-2.1.4.tgz#427a2fd1837a3d9a54a296cc8b86a3f76b1452a7"
@@ -4380,7 +4387,7 @@ dotenv@^6.2.0:
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
   integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
 
-dotenv@^8.0.0:
+dotenv@^8.0.0, dotenv@^8.2.0:
   version "8.6.0"
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
   integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==

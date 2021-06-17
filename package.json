@@ -50,6 +50,7 @@
     "tailwindcss": "yarn:@tailwindcss/postcss7-compat@^2.1.2"
   },
   "dependencies": {
+    "@streamlinehq/streamlinehq": "^3.0.3",
     "clsx": "^1.1.1",
     "prop-types": "^15.7.2"
   }

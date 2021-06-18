@@ -26,6 +26,21 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
+
+      /* -- custom styles --*/
+      primary: '#0075FF',
+      'primary-10': '#F2F6FC',
+      'primary-50': '#E2F3FF',
+      'primary-100': '#BAE0FF',
+      'primary-200': '#8BCEFF',
+      'primary-300': '#53BAFF',
+      'primary-400': '#14AAFF',
+      'primary-500': '#009AFF',
+      'primary-600': '#008BFF',
+      'primary-700': '#0075FF',
+      'primary-800': '#1564EC',
+      'primary-900': '#2242CD',
+      error: '#EA0000',
     },
     spacing: {
       px: '1px',
@@ -63,6 +78,9 @@ module.exports = {
       72: '18rem',
       80: '20rem',
       96: '24rem',
+
+      /* -- custom styles -- */
+      sm: '8px 10px 8px 10px',
     },
     animation: {
       none: 'none',
@@ -139,7 +157,7 @@ module.exports = {
     borderOpacity: (theme) => theme('opacity'),
     borderRadius: {
       none: '0px',
-      sm: '0.125rem',
+      // sm: '0.125rem',
       DEFAULT: '0.25rem',
       md: '0.375rem',
       lg: '0.5rem',
@@ -147,6 +165,9 @@ module.exports = {
       '2xl': '1rem',
       '3xl': '1.5rem',
       full: '9999px',
+
+      /* -- custom styles --*/
+      sm: '4px',
     },
     borderWidth: {
       DEFAULT: '1px',
@@ -164,6 +185,10 @@ module.exports = {
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       none: 'none',
+
+      /* -- custom styles --*/
+      'focused-primary': '0 0 2px 2px rgba(0,117,255, 0.25)',
+      'focused-error': '0 0 2px 2px rgba(234,0,0, 0.25)',
     },
     contrast: {
       0: '0',

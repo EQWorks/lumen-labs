@@ -17,14 +17,14 @@ export default {
  * [button] - button (or any node) controlling dialog toggle
  * [modal] - boolean (by default adds overlay)
  * [open] - boolean, control dialog open/close
- * [anchor] - string, control position of dialog relative to [button], supported postions = top/bottom/left/right
+ * [anchor] - string, control position of dialog relative to [button], supported positions = horizontal/vertical
  * [onClick] - function, click handler for [button] div container
  */
 
 export const Base = () => {
   const button = (<button>Open Dialog</button>)
   return (
-    <DialogBase button={button}>
+    <DialogBase classes={{ dialog: 'w-screen' }} button={button}>
       <p>
         I am just a simple dialog.
         More improvements needed to make my usage more flexible.
@@ -45,11 +45,11 @@ export const BaseModal = () => {
   )
 }
 
-export const CustomModal = () => {
+export const CustomDialog = () => {
   const button = (<button className='focus:outline-none'>Open Dialog</button>)
   const customClasses = {
     button: 'w-32 p-4 rounded-md cursor-pointer bg-blue-50 hover:bg-blue-100',
-    dialog: 'inline-flex z-50 p-4 shadow-md mt-1 bg-blue-200',
+    dialog: 'w-96 p-4 shadow-md mt-1 bg-blue-200',
   }
   return (
     <DialogBase classes={customClasses} button={button}>

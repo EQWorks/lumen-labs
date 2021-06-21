@@ -19,14 +19,15 @@
     "build-tailwindcss": "npx postcss src/styles/tailwind.css -o src/styles/index.css",
     "build-tailwindcss-prod": "NODE_ENV=production npx postcss src/styles/tailwind.css -o src/styles/index.css",
     "prepublishOnly": "yarn lint && yarn build-tailwindcss-prod && yarn build",
-    "start": "start-storybook -p 6006"
+    "start": "start-storybook -p 6006",
+    "chromatic": "npx chromatic --skip 'dependabot/**'"
   },
   "peerDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.1.2",
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "postcss": "^7",
-    "autoprefixer": "^9.8.6",
-    "@tailwindcss/postcss7-compat": "^2.1.2",
     "tailwindcss": "yarn:@tailwindcss/postcss7-compat@^2.1.2"
   },
   "devDependencies": {

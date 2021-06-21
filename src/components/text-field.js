@@ -16,7 +16,7 @@ const _inputBaseClasses = ({ focus, error, width, filled }) => ({
     { 'border-primary bg-primary-10': filled },
   ),
   input: clsx('outline-none text-primary-700', { 'bg-primary-10': filled }),
-  startIcon: 'mt-2 mr-1',
+  startIcon: 'mt-0.5 mr-1',
   endIcon: 'mt-0.5 mx-1',
 })
 

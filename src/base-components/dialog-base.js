@@ -11,7 +11,7 @@ const _baseClasses = ({ anchor }) => ({
     'flex-col': anchor === 'vertical',
   }),
   dialog: 'absolute',
-  modal: 'fixed z-20 max-h-full max-w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-auto bg-white',
+  modal: 'fixed z-20 max-h-full max-w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
   overlay: 'absolute z-10 inset-0 w-full h-full bg-black bg-opacity-50 transition-opacity duration-200',
 })
 
@@ -35,9 +35,9 @@ const DialogBase = ({ classes, button, children, modal, open, anchor, onClick })
   return (
     <>
       <div ref={ref} className={`${baseClasses.root} ${classes.root}`}>
-        <span className={classes.button} onClick={handleClick}>{button}</span>
+        {button && <span className={classes.button} onClick={handleClick}>{button}</span>}
         {_open &&<span><div className={clsx({
-          [baseClasses.modal]: modal,
+          [`${baseClasses.modal} ${classes.modal}`]: modal,
           [`${baseClasses.dialog} ${classes.dialog}`]: !modal,
         })}
         >{children}</div></span>}
@@ -48,8 +48,8 @@ const DialogBase = ({ classes, button, children, modal, open, anchor, onClick })
 }
 
 DialogBase.propTypes = {
-  button: PropTypes.node.isRequired,
   children: PropTypes.node.isRequired,
+  button: PropTypes.node,
   classes: PropTypes.object,
   modal: PropTypes.bool,
   open: PropTypes.bool,
@@ -57,7 +57,8 @@ DialogBase.propTypes = {
   onClick: PropTypes.func,
 }
 DialogBase.defaultProps = {
-  classes: { root: '', button: '', dialog: '' },
+  classes: { root: '', button: '', modal: '', dialog: '', overlay: '' },
+  button: null,
   modal: false,
   open: undefined,
   anchor: 'vertical',

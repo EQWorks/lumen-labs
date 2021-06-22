@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 
 const ButtonBase = ({ children, classes, startIcon, endIcon, ...rest }) => {
   return (
-    <button className={`inline-flex ${classes.button}`} {...rest}>
+    <button className={`flex flex-row justify-between items-center ${classes.button}`} {...rest}>
       {startIcon && <div className={classes.startIcon}>{startIcon}</div>}
-      {children}
+      <span className={classes.content}>{children}</span>
       {endIcon && <div className={classes.endIcon}>{endIcon}</div>}
     </button>
   )
@@ -19,7 +19,7 @@ ButtonBase.propTypes = {
   endIcon: PropTypes.node,
 }
 ButtonBase.defaultProps = {
-  classes: { button: '', startIcon: '', endIcon: '' },
+  classes: { button: '', content: '', startIcon: '', endIcon: '' },
   startIcon: null,
   endIcon: null,
 }

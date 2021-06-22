@@ -40,6 +40,18 @@ module.exports = {
       'primary-700': '#0075FF',
       'primary-800': '#1564EC',
       'primary-900': '#2242CD',
+
+      'secondary-50': '#fafafa',
+      'secondary-100': '#f5f5f5',
+      'secondary-200': '#eeeeee',
+      'secondary-300': '#e0e0e0',
+      'secondary-400': '#bdbdbd',
+      'secondary-500': '#9e9e9e',
+      'secondary-600': '#757575',
+      'secondary-700': '#616161',
+      'secondary-800': '#424242',
+      'secondary-900': '#212121',
+
       error: '#EA0000',
     },
     spacing: {

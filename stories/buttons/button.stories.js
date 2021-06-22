@@ -29,4 +29,4 @@ export const Base = () => <BaseStory />
  */
 export const Outlined = () => <ButtonStory variant='outlined' />
 export const Borderless = () => <ButtonStory variant='borderless' />
-// export const Shaded = () => <ButtonStory variant='shaded' />
+export const Shaded = () => <ButtonStory variant='shaded' />

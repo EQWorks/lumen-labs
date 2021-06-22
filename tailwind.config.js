@@ -52,7 +52,12 @@ module.exports = {
       'secondary-800': '#424242',
       'secondary-900': '#212121',
 
+      success: '#00D308',
+      'success-light': '#EEF8EE',
+      warning: '#F4B000',
+      'warning-light': '#FAF6EE',
       error: '#EA0000',
+      'error-light': '#F9EEEE',
     },
     spacing: {
       px: '1px',
@@ -303,8 +308,14 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+
+      /* -- custom styles --*/
+      body: ['"Open Sans"', 'sans-serif'],
     },
     fontSize: {
+      /* -- custom styles --*/
+      xxs: ['0.625rem', { lineHeight: '1rem' }],
+  
       xs: ['0.75rem', { lineHeight: '1rem' }],
       sm: ['0.875rem', { lineHeight: '1.25rem' }],
       base: ['1rem', { lineHeight: '1.5rem' }],

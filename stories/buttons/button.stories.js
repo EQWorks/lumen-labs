@@ -25,6 +25,7 @@ export const Base = () => <BaseStory />
 /** -- props (Button):
  * [variant] - string, includes: outlined/borderless/shaded/filled
  * [size] - string, includes: lg/md/sm
+ * [color] - string, includes: default/normal/warning/error
  * [...rest] - any button element attributes
  */
 export const Outlined = () => <ButtonStory variant='outlined' />

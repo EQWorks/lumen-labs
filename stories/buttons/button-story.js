@@ -5,59 +5,56 @@ import { Button } from '../../src'
 import { Add } from '../../src/icons'
 
 
-const label = {
-  primary: 'text-blue-300 mt-5 mb-1',
-  secondary: 'pr-20 text-secondary-600',
+const styles = {
+  container: 'mb-5 flex flex-row justify-between items-end',
+  label: 'text-blue-300 mt-5 mb-1',
 }
 
 /** -- props (Button):
  * [variant] - string, includes: outlined/borderless/shaded/filled
  * [size] - string, includes: lg/md/sm
+ * [color] - string, includes: default/normal/warning/error
  * [...rest] - any button element attributes
  */
 
 const ButtonStory = ({ variant }) => {
-  const iconClass = `w-3.5 h-3.5 fill-current ${variant === 'filled' ? 'text-white' : 'text-primary-700'}`
   return (
     <>
-      <p className={label.primary}>Default:</p>
-      <div className='flex flex-row'>
-        <span className={label.secondary}>
-          <p>Large:</p>
-          <Button variant={variant} size='lg'>Button</Button>
-        </span>
-        <span className={label.secondary}>
-          <p>Medium:</p>
-          <Button variant={variant} size='md'>Button</Button>
-        </span>
-        <span className={label.secondary}>
-          <p>Small:</p>
-          <Button variant={variant} size='sm'>Button</Button>
-        </span>
+      <div className={styles.container}>
+        <p className={styles.label}>Large:</p>
+        <Button variant={variant} size='lg'>Button</Button>
+        <Button variant={variant} size='lg' startIcon={<Add size='lg' />}>Button</Button>
+        <Button variant={variant} size='lg' endIcon={<Add size='lg' />}>Button</Button>
+        <Button variant={variant} size='lg'><Add size='lg' /></Button>
+        <Button variant={variant} size='lg' color='normal'>Normal</Button>
+        <Button variant={variant} size='lg' color='warning'>Warning</Button>
+        <Button variant={variant} size='lg' color='error'>Error</Button>
+        <Button disabled variant={variant} size='lg'>Disabled</Button>
       </div>
-      <p className={label.primary}>Icons:</p>
-      <div className='flex flex-row'>
-        <span className={label.secondary}>
-          <p>Start Icon:</p>
-          <Button variant={variant} size='lg' startIcon={<Add className={iconClass} />}>Button</Button>
-          <div className='pt-5'><Button variant={variant} size='md' startIcon={<Add className={iconClass} />}>Button</Button></div>
-          <div className='pt-5'><Button variant={variant} size='sm' startIcon={<Add className={iconClass} />}>Button</Button></div>
-        </span>
-        <span className={label.secondary}>
-          <p>End Icon:</p>
-          <Button variant={variant} size='lg' endIcon={<Add className={iconClass} />}>Button</Button>
-          <div className='pt-5'><Button variant={variant} size='md' endIcon={<Add className={iconClass} />}>Button</Button></div>
-          <div className='pt-5'><Button variant={variant} size='sm' endIcon={<Add className={iconClass} />}>Button</Button></div>
-        </span>
-        <span className={label.secondary}>
-          <p>Icon Only:</p>
-          <Button variant={variant} size='lg'><Add className={iconClass} /></Button>
-          <div className='pt-5'><Button variant={variant} size='md'><Add className={iconClass} /></Button></div>
-          <div className='pt-5'><Button variant={variant} size='sm'><Add className={iconClass} /></Button></div>
-        </span>
+
+      <div className={styles.container}>
+        <p className={styles.label}>Medium:</p>
+        <Button variant={variant} size='md'>Button</Button>
+        <Button variant={variant} size='md' startIcon={<Add size='md' />}>Button</Button>
+        <Button variant={variant} size='md' endIcon={<Add size='md' />}>Button</Button>
+        <Button variant={variant} size='md'><Add size='md' /></Button>
+        <Button variant={variant} size='md' color='normal'>Normal</Button>
+        <Button variant={variant} size='md' color='warning'>Warning</Button>
+        <Button variant={variant} size='md' color='error'>Error</Button>
+        <Button disabled variant={variant} size='md'>Disabled</Button>
       </div>
-      <p className={label.primary}>Disabled:</p>
-      <Button disabled variant={variant} size='lg'>Disabled</Button>
+
+      <div className={styles.container}>
+        <p className={styles.label}>Small:</p>
+        <Button variant={variant} size='sm'>Button</Button>
+        <Button variant={variant} size='sm' startIcon={<Add size='sm' />}>Button</Button>
+        <Button variant={variant} size='sm' endIcon={<Add size='sm' />}>Button</Button>
+        <Button variant={variant} size='sm'><Add size='sm' /></Button>
+        <Button variant={variant} size='sm' color='normal'>Normal</Button>
+        <Button variant={variant} size='sm' color='warning'>Warning</Button>
+        <Button variant={variant} size='sm' color='error'>Error</Button>
+        <Button disabled variant={variant} size='sm'>Disabled</Button>
+      </div>
     </>
   )
 }

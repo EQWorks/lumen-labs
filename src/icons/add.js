@@ -2,9 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const Add = ({ className }) => (
+const iconSize = {
+  lg: 'w-3.5 h-3.5',
+  md: 'w-3 h-3',
+  sm: 'w-2.5, h-2.5',
+}
+const Add = ({ className, size }) => (
   <svg
-    className={`${className}`}
+    className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
@@ -21,7 +26,7 @@ const Add = ({ className }) => (
   </svg>
 )
 
-Add.propTypes = { className: PropTypes.string }
-Add.defaultProps = { className: '' }
+Add.propTypes = { className: PropTypes.string, size: PropTypes.string }
+Add.defaultProps = { className: '', size: '' }
 
 export default Add

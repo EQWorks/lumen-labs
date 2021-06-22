@@ -10,18 +10,32 @@ const buttonConfigs = () => ({
     outlined: {
       default: { border: 'border-primary-700', text: 'text-primary-700', hover: 'hover:bg-primary-50' },
       normal: { border: 'border-success', text: 'text-success', hover: 'hover:bg-success-light' },
-      warning: {
-        border: 'border-warning',
-        text: 'text-warning',
-        hover: 'hover:bg-warning-light',
-      },
-      error: {
-        border: 'border-error',
-        text: 'text-error',
-        hover: 'hover:bg-error-light',
-      },
+      warning: { border: 'border-warning', text: 'text-warning', hover: 'hover:bg-warning-light' },
+      error: { border: 'border-error', text: 'text-error', hover: 'hover:bg-error-light' },
       borderDisabled: 'border-secondary-500',
       textDisabled: 'text-secondary-500',
+    },
+    borderless: {
+      default: { bgColor: 'bg-primary-10', text: 'text-primary-700', hover: 'hover:bg-primary-50' },
+      normal: { bgColor: 'bg-success-light', text: 'text-success', hover: 'hover:bg-success hover:bg-opacity-50' },
+      warning: { bgColor: 'bg-warning-light', text: 'text-warning', hover: 'hover:bg-warning hover:bg-opacity-50' },
+      error: { bgColor: 'bg-error-light', text: 'text-error', hover: 'hover:bg-error hover:bg-opacity-50' },
+      bgColorDisabled: 'bg-secondary-50',
+      textDisabled: 'text-secondary-500',
+    },
+    shaded: {
+      default: { text: 'text-primary-700', hover: 'hover:border-primary-700' },
+      normal: { text: 'text-success', hover: 'hover:border-success' },
+      warning: { text: 'text-warning', hover: 'hover:border-warning' },
+      error: { text: 'text-error', hover: 'hover:border-error' },
+      textDisabled: 'text-secondary-500',
+    },
+    filled: {
+      default: { bgColor: 'bg-primary-700', hover: 'hover:bg-primary-800' },
+      normal: { bgColor: 'bg-success', hover: 'hover:bg-success-hover' },
+      warning: { bgColor: 'bg-warning', hover: 'hover:bg-warning-hover' },
+      error: { bgColor: 'bg-error', hover: 'hover:bg-error-hover' },
+      bgColorDisabled: 'bg-secondary-500',
     },
   },
   sizes: {
@@ -43,41 +57,27 @@ const buttonConfigs = () => ({
 
 const Button = ({ children, variant, size, color, disabled, ...rest }) => {
   const { colors, sizes } = buttonConfigs()
-
-  const effects = {
-    outlined: {
-      // borderColor: disabled ? colors[color].borderDisabled : colors[color].border,
-      // hover: disabled ? 'cursor-default' : colors[color].hover,
-      // text: disabled ? colors[color].textDisabled : colors[color].text,
-      // bgColor: '',
-    },
-    borderless: {
-      bgColor: disabled ? 'bg-secondary-50' : 'bg-primary-10',
-      hover: disabled ? 'cursor-default' : 'hover:bg-primary-50',
-      text: disabled ? 'text-secondary-500' : 'text-primary-700',
-    },
-    shaded: {
-      hover: disabled ? 'cursor-default' : 'hover:border-primary-700',
-      text: disabled ? 'text-secondary-500' : 'text-primary-700',
-    },
-    filled: {
-      bgColor: disabled ? 'bg-secondary-500' : 'bg-primary-700',
-      hover: disabled ? 'cursor-default' : 'hover:bg-primary-800',
-      text: 'text-white',
-    },
-  }
   const variants = {
-    outlined: clsx(`border border-1 rounded-sm font-body font-normal tracking-wide ${sizes.text[size]}`, {
+    outlined: clsx('border border-1', {
       [`${colors[variant].borderDisabled} cursor-default ${colors[variant].textDisabled}`]: disabled,
       [`${colors[variant][color].border} ${colors[variant][color].hover} ${colors[variant][color].text}`]: !disabled,
     }),
-    borderless: `${effects[variant].bgColor} rounded-sm ${effects[variant].hover}`,
-    shaded: `border border-1 border-white bg-white rounded-sm ${effects[variant].hover}`,
-    filled: `rounded-sm ${effects[variant].bgColor} ${effects[variant].hover}`,
+    borderless: clsx({
+      [`${colors[variant].bgColorDisabled} cursor-default ${colors[variant].textDisabled}`]: disabled,
+      [`${colors[variant][color].bgColor} ${colors[variant][color].hover} ${colors[variant][color].text}`]: !disabled,
+    }),
+    shaded: clsx('border border-1 border-white bg-white', {
+      [`${colors[variant].textDisabled} cursor-default shadow-10`]: disabled,
+      [`${colors[variant][color].text} ${colors[variant][color].hover} shadow-blue-10 hover:shadow-blue-30`]: !disabled,
+    }),
+    filled: clsx('text-white', {
+      [`${colors[variant].bgColorDisabled} cursor-default`]: disabled,
+      [`${colors[variant][color].bgColor} ${colors[variant][color].hover}`]: !disabled,
+    }),
   }
 
   const classes = {
-    button: clsx(`focus:outline-none ${variants[variant]}`, {
+    button: clsx(`focus:outline-none rounded-sm ${sizes.text[size]} font-body font-normal tracking-wide ${variants[variant]}`, {
       [sizes[size]]: typeof children === 'string',
       [sizes.squared[size]]: typeof children !== 'string',
     }),

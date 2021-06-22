@@ -53,10 +53,13 @@ module.exports = {
       'secondary-900': '#212121',
 
       success: '#00D308',
+      'success-hover': '#00b306',
       'success-light': '#EEF8EE',
       warning: '#F4B000',
+      'warning-hover': '#cf9500',
       'warning-light': '#FAF6EE',
       error: '#EA0000',
+      'error-hover': '#c60000',
       'error-light': '#F9EEEE',
     },
     spacing: {
@@ -207,6 +210,9 @@ module.exports = {
       /* -- custom styles --*/
       'focused-primary': '0 0 2px 2px rgba(0,117,255, 0.25)',
       'focused-error': '0 0 2px 2px rgba(234,0,0, 0.25)',
+      '10': '0 1px 4px 0 rgba(12,12,13, 0.1)',
+      'blue-10': '0 1px 4px 0 rgba(0,117,255, 0.1)',
+      'blue-30': '0 4px 12px 0 rgba(0,117,255, 0.2)',
     },
     caretColor: (theme) => theme('colors'),
     contrast: {
@@ -310,7 +316,7 @@ module.exports = {
       ],
 
       /* -- custom styles --*/
-      body: ['"Open Sans"', 'sans-serif'],
+      body: ['Open Sans', 'sans-serif'],
     },
     fontSize: {
       /* -- custom styles --*/

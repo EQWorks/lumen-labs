@@ -17,7 +17,7 @@ const label = {
  */
 
 const ButtonStory = ({ variant }) => {
-  const iconClass = 'w-3.5 h-3.5 fill-current text-primary-700'
+  const iconClass = `w-3.5 h-3.5 fill-current ${variant === 'filled' ? 'text-white' : 'text-primary-700'}`
   return (
     <>
       <p className={label.primary}>Default:</p>

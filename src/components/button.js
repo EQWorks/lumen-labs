@@ -12,9 +12,15 @@ const Button = ({ children, variant, size, disabled, ...rest }) => {
       hover: disabled ? 'cursor-default' : 'hover:bg-primary-50',
       text: disabled ? 'text-secondary-500' : 'text-primary-700',
     },
+    borderless: {
+      bgColor: disabled ? 'bg-secondary-50' : 'bg-primary-10',
+      hover: disabled ? 'cursor-default' : 'hover:bg-primary-50',
+      text: disabled ? 'text-secondary-500' : 'text-primary-700',
+    },
   }
   const variants = {
     outlined: `border border-1 ${effects[variant].borderColor} rounded-sm ${effects[variant].hover}`,
+    borderless: `${effects[variant].bgColor} rounded-sm ${effects[variant].hover}`,
   }
   const sizes = {
     lg: 'h-9 py-2 px-4',

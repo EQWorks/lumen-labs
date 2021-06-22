@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Button } from '../../src'
 import { BaseStory } from './base-story'
-import { OutlinedStory } from './outlined-story'
+import ButtonStory from './button-story'
 
 
 export default {
@@ -27,4 +27,6 @@ export const Base = () => <BaseStory />
  * [size] - string, includes: lg/md/sm
  * [...rest] - any button element attributes
  */
-export const Outlined = () => <OutlinedStory />
+export const Outlined = () => <ButtonStory variant='outlined' />
+export const Borderless = () => <ButtonStory variant='borderless' />
+// export const Shaded = () => <ButtonStory variant='shaded' />

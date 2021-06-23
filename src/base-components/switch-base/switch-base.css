@@ -1,0 +1,32 @@
+.switch-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switch-label .switch-button {
+  position: absolute;
+}
+
+.switch-checkbox:checked + .switch-label .switch-button {
+  left: calc(100% - 1px);
+  transform: translateX(-100%);
+}
+
+@media screen and (max-width: 991px) {
+  .switch-label {
+    transform: scale(0.9);
+  }
+}
+@media screen and (max-width: 767px) {
+  .switch-label {
+    transform: scale(0.825);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .switch-label {
+    transform: scale(0.75);
+  }
+}

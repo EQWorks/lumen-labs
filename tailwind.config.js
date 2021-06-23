@@ -538,6 +538,11 @@ module.exports = {
       wide: '0.025em',
       wider: '0.05em',
       widest: '0.1em',
+
+      /* -- custom styles --*/
+      lg: '1px',
+      md: '0.4px',
+      sm: '0.25px',
     },
     lineHeight: {
       none: '1',

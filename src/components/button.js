@@ -48,9 +48,21 @@ const buttonConfigs = () => ({
       sm: 'p-1',
     },
     text: {
-      lg: 'text-sm',
-      md: 'text-xs',
-      sm: 'text-xxs',
+      lg: 'text-sm tracking-sm',
+      md: 'text-xs tracking-md',
+      sm: 'text-xxs tracking-lg',
+    },
+    iconPadding: {
+      startIcon: {
+        sm: 'pr-2.5',
+        md: 'pr-3',
+        lg: 'pr-3.5',
+      },
+      endIcon: {
+        sm: 'pl-2.5',
+        md: 'pl-3',
+        lg: 'pl-3.5',
+      },
     },
   },
 })
@@ -77,12 +89,12 @@ const Button = ({ children, variant, size, color, disabled, ...rest }) => {
   }
 
   const classes = {
-    button: clsx(`focus:outline-none rounded-sm ${sizes.text[size]} font-body font-normal tracking-wide ${variants[variant]}`, {
+    button: clsx(`focus:outline-none rounded-sm ${sizes.text[size]} font-body font-normal ${variants[variant]}`, {
       [sizes[size]]: typeof children === 'string',
       [sizes.squared[size]]: typeof children !== 'string',
     }),
-    startIcon: 'pr-2.5',
-    endIcon: 'pl-2.5',
+    startIcon: sizes.iconPadding.startIcon[size],
+    endIcon: sizes.iconPadding.endIcon[size],
   }
 
   return (

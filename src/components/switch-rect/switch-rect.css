@@ -6,7 +6,6 @@
   box-shadow: 0 0 1px 0 rgba(10, 10, 10, 0.29);
 }
 
-.switch-checkbox:checked + .switch-label .switch-button {
+.switch-checkbox:checked + .switch-label .switch-rect-button {
   left: calc(100% - 0.25rem);
-  transform: translateX(-100%);
 }

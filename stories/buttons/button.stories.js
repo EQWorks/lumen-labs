@@ -23,6 +23,10 @@ export default {
 export const Base = () => <BaseStory />
 
 /** -- props (Button):
+ * [classes] - object, custom styling supported keys:
+ *    button: button element of ButtonBase
+ *    startIcon: startIcon container div of ButtonBase
+ *    endIcon: endIcon container div of ButtonBase
  * [variant] - string, includes: outlined/borderless/shaded/filled
  * [size] - string, includes: lg/md/sm
  * [color] - string, includes: default/normal/warning/error

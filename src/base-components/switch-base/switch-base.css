@@ -14,6 +14,16 @@
   transform: translateX(-100%);
 }
 
+.switch-disabled-label {
+  outline: 1px solid #bdbdbd;
+  background-color: white;
+  cursor: not-allowed;
+}
+
+.switch-disabled-label .switch-disabled-button {
+  background-color: #bdbdbd;
+}
+
 @media screen and (max-width: 991px) {
   .switch-label {
     transform: scale(0.9);

@@ -11,13 +11,17 @@ export default {
 }
 
 /** -- props:
+ * [id] - string, identity of the component
  * [classes] - object, custom styling supported keys:
- *    icon: classes applied to icon svg
- *    message: classes applied to message beside icon
- * [backdrop] - boolean, renders loader as backdrop
- * [open] - boolean, control loader open/close
- * [message] - string, descriptive text beside icon if [backdrop] is true
- * [Icon] - node, any svg icon
+ *    label: classes applied the outer container
+ *    button: classes applied to the inner button
+ * [styles] - object, custom in-line styling supported keys:
+ *    label: classes applied the outer container
+ *    button: classes applied to the inner button
+ * [checked] - boolean, flag state to watch the status. If true, the component is checked.
+ * [onChange] - function, callback fired when the state is changed.
+ * [disabled] - boolean, if true, the switch will be disabled.
+ * [tabIndex] - number, indicates that its element can be focused, and where it participates in 
  */
 
 export const Base = () => {
@@ -31,6 +35,15 @@ export const Base = () => {
     />
   )
 }
+
+/** -- props:
+ * [id] - string, identity of the component
+ * [checked] - boolean, flag state to watch the status. If true, the component is checked.
+ * [onChange] - function, callback fired when the state is changed.
+ * [disabled] - boolean, if true, the switch will be disabled.
+ * [tabIndex] - number, indicates that its element can be focused, and where it participates in 
+ * [color] - string, set outer container color - hex value or tailwind class color palette
+ */
 
 export const Rounded = () => {
   const [checked, setChecked] = useState(true)
@@ -52,6 +65,34 @@ export const Rectangle = () => {
       id='rect'                         
       checked={checked}
       onChange={() => setChecked(!checked)}
+      disabled={true}
     />
+  )
+}
+
+export const Disabled = () => {
+  const [checked, setChecked] = useState(true)
+
+  return (
+    <>
+      <div className="container my-4">
+        <span>Rounded</span>
+        <SwitchRound
+          id='round'                         
+          checked={checked}
+          onChange={() => setChecked(!checked)}
+          disabled={true}
+        />
+      </div>
+      <div className="container my-4">
+        <span>Rectangle</span>
+        <SwitchRect
+          id='rect'                         
+          checked={checked}
+          onChange={() => setChecked(!checked)}
+          disabled={true}
+        />
+      </div>
+    </>
   )
 }

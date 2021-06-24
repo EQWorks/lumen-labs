@@ -5,7 +5,6 @@ import './switch-base.css'
 
 const _switchClasses = () => ({
   checkbox: 'w-0 h-0 hidden',
-  disabled: 'opacity-50 cursor-not-allowed',
 })
 
 const SwitchBase = ({ id, classes, styles, checked, onChange, disabled, tabIndex }) => {
@@ -17,18 +16,18 @@ const SwitchBase = ({ id, classes, styles, checked, onChange, disabled, tabIndex
         className={`switch-checkbox ${switchClasses.checkbox}`}
         id={`switch-checkbox-${id}`}
         type="checkbox"        
-        checked={checked}
+        checked={disabled ? false : checked}
         onChange={onChange}
         disabled={disabled}
       />
       <label
-        className={`switch-label ${classes.label} ${disabled && switchClasses.disabled}`}
-        styles={styles.label}
+        className={`switch-label ${classes.label} ${disabled && 'switch-disabled-label'}`}
+        style={styles.label}
         htmlFor={`switch-checkbox-${id}`} 
         tabIndex={disabled ? -1 : 1}
       >
         <span 
-          className={`switch-button ${classes.button} ${disabled && switchClasses.disabled}`}
+          className={`switch-button ${classes.button} ${disabled && 'switch-disabled-button'}`}
           style={styles.button} 
           tabIndex={tabIndex}
         />

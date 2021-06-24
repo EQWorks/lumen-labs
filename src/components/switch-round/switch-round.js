@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import './switch-round.css'
-import SwitchBase from '../../base-components/switch-base/switch-base'
+import SwitchBase from '../../base-components/switch-base'
 
 const _switchRoundClasses = ({ checked, color }) => ({
   label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
@@ -15,7 +15,7 @@ const SwitchRound = ({ id, checked, onChange, disabled, tabIndex, color }) => {
 
   return (
     <SwitchBase 
-      id={id}      
+      id={id} 
       classes={switchRoundClasses}                   
       checked={checked}
       onChange={onChange}

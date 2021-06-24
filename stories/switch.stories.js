@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import SwitchBase from '../src/base-components/switch-base/switch-base'
+import SwitchBase from '../src/base-components/switch-base'
 import SwitchRound from '../src/components/switch-round/switch-round'
 import SwitchRect from '../src/components/switch-rect/switch-rect'
 
@@ -9,6 +9,17 @@ export default {
   title: 'Switch',
   component: SwitchBase,
 }
+
+const multipleSwitch = [
+  {
+    type: 'Rounded',
+    color: 'bg-red-500',
+  },
+  {
+    type: 'Rectangle',
+    color: 'bg-green-500',
+  },
+]
 
 /** -- props:
  * [id] - string, identity of the component
@@ -29,7 +40,7 @@ export const Base = () => {
 
   return (
     <SwitchBase 
-      id='base'                         
+      id='base'                   
       checked={checked}
       onChange={() => setChecked(!checked)}
     />
@@ -42,7 +53,7 @@ export const Base = () => {
  * [onChange] - function, callback fired when the state is changed.
  * [disabled] - boolean, if true, the switch will be disabled.
  * [tabIndex] - number, indicates that its element can be focused, and where it participates in 
- * [color] - string, set outer container color - hex value or tailwind class color palette
+ * [color] - string, set outer container color - only classes color palette
  */
 
 export const Rounded = () => {
@@ -50,7 +61,7 @@ export const Rounded = () => {
 
   return (
     <SwitchRound
-      id='round'                         
+      id='round'                        
       checked={checked}
       onChange={() => setChecked(!checked)}
     />
@@ -65,8 +76,55 @@ export const Rectangle = () => {
       id='rect'                         
       checked={checked}
       onChange={() => setChecked(!checked)}
-      disabled={true}
     />
+  )
+}
+
+export const CustomColor = () => {
+  const [checkedItems, setCheckedItems] = useState({})
+
+  const handleOnChange = (event) => {
+    
+    setCheckedItems({
+      ...checkedItems,
+      [event.target.name]: event.target.checked,
+    })
+  }
+
+  const renderMultipleSwitch = (data, index) => {
+    switch(data.type) {
+    case 'Rounded':
+      return (
+        <SwitchRound
+          id={`${data.type}-${index}`}                         
+          checked={checkedItems[`${data.type}-${index}`]}
+          onChange={handleOnChange}
+          color={data.color}
+        />
+      )
+    case 'Rectangle':
+      return (
+        <SwitchRect
+          id={`${data.type}-${index}`}                         
+          checked={checkedItems[`${data.type}-${index}`]}
+          onChange={handleOnChange}
+          color={data.color}
+        />
+      )
+    default:
+      break
+    }
+  }
+
+  return (
+    <>
+      {multipleSwitch.map((data, index) => (
+        <div key={index} className="container my-4">
+          <span>{data.type} - Class {data.color}</span>
+          {renderMultipleSwitch(data, index)}
+        </div>
+      ))}
+    </>
   )
 }
 

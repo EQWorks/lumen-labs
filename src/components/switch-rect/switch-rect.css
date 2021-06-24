@@ -1,7 +1,7 @@
 .switch-label .switch-rect-button {
   content: "";
   width: 0.4rem;
-  height: 1.285rem;
+  height: 1.2rem;
   border-radius: 1rem;
   box-shadow: 0 0 1px 0 rgba(10, 10, 10, 0.29);
 }

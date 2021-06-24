@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import './switch-base.css'
@@ -7,14 +7,16 @@ const _switchClasses = () => ({
   checkbox: 'w-0 h-0 hidden',
 })
 
-const SwitchBase = ({ id, classes, styles, checked, onChange, disabled, tabIndex }) => {
+const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex }, ref) => {
   const switchClasses = _switchClasses()
 
   return (
     <>
       <input
+        ref={ref}
         className={`switch-checkbox ${switchClasses.checkbox}`}
         id={`switch-checkbox-${id}`}
+        name={id}
         type="checkbox"        
         checked={disabled ? false : checked}
         onChange={onChange}
@@ -34,7 +36,7 @@ const SwitchBase = ({ id, classes, styles, checked, onChange, disabled, tabIndex
       </label>
     </>
   )
-}
+})
 
 SwitchBase.propTypes = {
   id: PropTypes.string.isRequired,
@@ -58,9 +60,11 @@ SwitchBase.defaultProps = {
     button: 'w-4 h-3.5 top-px left-px bg-white', 
   },
   styles: { label: {}, button: {} },
-  checked: true,
+  checked: false,
   disabled: false,
   tabIndex: 1,
 }
+
+SwitchBase.displayName = 'SwitchBase'
 
 export default SwitchBase

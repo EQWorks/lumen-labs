@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import './switch-rect.css'
-import SwitchBase from '../../base-components/switch-base/switch-base'
+import SwitchBase from '../../base-components/switch-base'
 
 const _switchRectClasses = ({ checked, color }) => ({
   label: `w-10 h-6 cursor-pointer rounded-sm transition ease-in duration-200 

@@ -27,7 +27,7 @@ export const Wrapper = () => {
   const button = (<button
     onClick={() => setOpen(!open)}
     className={`
-      focus:outline-none w-24 p-2 rounded-md cursor-pointer 
+      focus:outline-none w-24 p-2 rounded-sm cursor-pointer 
       hover:bg-blue-100 ${open ? 'bg-blue-100 text-blue-100' : 'bg-blue-50'}
     `}
   >Click</button>)

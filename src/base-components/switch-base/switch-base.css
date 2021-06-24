@@ -16,7 +16,7 @@
 
 .switch-disabled-label {
   outline: 1px solid #bdbdbd;
-  background-color: white;
+  background-color: #fafafa;
   cursor: not-allowed;
 }
 

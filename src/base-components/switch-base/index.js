@@ -3,12 +3,10 @@ import PropTypes from 'prop-types'
 
 import './switch-base.css'
 
-const _switchClasses = () => ({
-  checkbox: 'w-0 h-0 hidden',
-})
-
 const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex }, ref) => {
-  const switchClasses = _switchClasses()
+  const switchClasses = Object.freeze({
+    checkbox: 'w-0 h-0 hidden',
+  })
 
   return (
     <>

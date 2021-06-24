@@ -1,17 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './switch-round.css'
 import SwitchBase from '../../base-components/switch-base'
 
-const _switchRoundClasses = ({ checked, color }) => ({
-  label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
-      ${checked ? color : 'bg-gray-400'}`,
-  button: 'switch-round-button top-px left-px bg-white duration-200',
-})
+import './switch-round.css'
 
 const SwitchRound = ({ id, checked, onChange, disabled, tabIndex, color }) => {
-  const switchRoundClasses = _switchRoundClasses({ checked, color })
+  const switchRoundClasses = Object.freeze({
+    label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
+        ${checked ? color : 'bg-gray-400'}`,
+    button: 'switch-round-button top-px left-px bg-white duration-200',
+  })
 
   return (
     <SwitchBase 

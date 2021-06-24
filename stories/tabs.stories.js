@@ -6,6 +6,7 @@ import { TabBase } from '../src/base-components'
 export default {
   title: 'Tabs',
   component: TabBase,
+  argTypes: { onChange: { action: 'clicked' } },
 }
 
 const tabs = [
@@ -32,14 +33,15 @@ const tabs = [
  *    tabContent: content container div wrapper
  * [tabs] - array, tabs with tab label + tab content
  * [index] - number, specify initial active index
+ * [direction] - string, direction of tabs: horizontal/vertical
  * [onChange] - function, returns current active tab (tab, index)
  */
 
-export const Base = () => {
-  const onChange = (tab, index) => {
-    console.log('tab: ', tab)
-    console.log('index: ', index)
-  }
+const Template = (args) => <TabBase {...args} />
 
-  return (<TabBase tabs={tabs} index={1} onChange={onChange} />)
+export const Base = Template.bind({})
+Base.args = {
+  tabs: tabs,
+  index: 1,
+  classes: { tabListItem: 'pr-2' },
 }

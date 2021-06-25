@@ -41,7 +41,15 @@ module.exports = {
         'error-hover': '#c60000',
         'error-light': '#F9EEEE',
       },
-      spacing: { sm: '8px 10px 8px 10px' },
+      spacing: {
+        '48.5': '12.125rem',
+        33: '8.25rem',
+        '57.5': '14.375rem',
+        '92.5': '23.125rem',
+        '112.5': '28.125rem',
+        '120.5': '30.525rem',
+        sm: '8px 10px 8px 10px',
+      },
       borderRadius: { sm: '4px' },
       boxShadow: {
         'focused-primary': '0 0 2px 2px rgba(0, 117, 255, 0.25)',

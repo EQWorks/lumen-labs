@@ -5,6 +5,7 @@ import SwitchBase from '../../base-components/switch-base'
 
 import './switch-round.css'
 
+
 const SwitchRound = ({ id, checked, onChange, disabled, tabIndex, color }) => {
   const switchRoundClasses = Object.freeze({
     label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 

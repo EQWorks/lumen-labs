@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import SwitchBase from '../src/base-components/switch-base'
 import SwitchRound from '../src/components/switch-round/switch-round'
 import SwitchRect from '../src/components/switch-rect/switch-rect'
+import SwitchSquare from '../src/components/switch-square/switch-square'
 
 
 export default {
@@ -18,6 +19,10 @@ const multipleSwitch = [
   {
     type: 'Rectangle',
     color: 'bg-green-500',
+  },
+  {
+    type: 'Square',
+    color: 'bg-yellow-500',
   },
 ]
 
@@ -80,6 +85,19 @@ export const Rectangle = () => {
   )
 }
 
+export const Square = () => {
+  const [checked, setChecked] = useState(true)
+
+  return (
+    <SwitchSquare
+      id='square'                         
+      checked={checked}
+      onChange={() => setChecked(!checked)}
+    />
+  )
+}
+
+
 export const CustomColor = () => {
   const [checkedItems, setCheckedItems] = useState({})
 
@@ -105,6 +123,15 @@ export const CustomColor = () => {
     case 'Rectangle':
       return (
         <SwitchRect
+          id={`${data.type}-${index}`}                         
+          checked={checkedItems[`${data.type}-${index}`]}
+          onChange={handleOnChange}
+          color={data.color}
+        />
+      )
+    case 'Square':
+      return (
+        <SwitchSquare
           id={`${data.type}-${index}`}                         
           checked={checkedItems[`${data.type}-${index}`]}
           onChange={handleOnChange}
@@ -146,6 +173,15 @@ export const Disabled = () => {
         <span>Rectangle</span>
         <SwitchRect
           id='rect'                         
+          checked={checked}
+          onChange={() => setChecked(!checked)}
+          disabled={true}
+        />
+      </div>
+      <div className="container my-4">
+        <span>Square</span>
+        <SwitchSquare
+          id='square'                         
           checked={checked}
           onChange={() => setChecked(!checked)}
           disabled={true}

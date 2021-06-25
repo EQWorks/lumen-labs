@@ -1,0 +1,31 @@
+.switch-checkbox:checked + .switch-label .switch-button {
+  flex-direction: column;
+  left: calc(100% - 0.13rem);
+  bottom: 1px;
+}
+
+.switch-checkbox + .switch-label .switch-button .line {
+  height: 0.2rem;
+}
+
+.switch-checkbox + .switch-label .switch-button .dot {
+  width: 4px;
+  height: 4px;
+  border: 1px solid white;
+  border-radius: 2px;
+  margin-bottom: 0.25rem;
+}
+
+.switch-checkbox:checked + .switch-label .switch-button .line {
+  width: 1rem;
+  height: 0.2rem;
+  margin-bottom: 0.5rem;
+  border-radius: 1rem;
+}
+
+.switch-checkbox:checked + .switch-label .switch-button .dot {
+  width: 0.4rem;
+  height: 1px;
+  border: none;
+  background-color: white;
+}

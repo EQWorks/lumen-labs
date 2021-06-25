@@ -5,6 +5,7 @@ import SwitchBase from '../../base-components/switch-base'
 
 import './switch-rect.css'
 
+
 const SwitchRect = ({ id, checked, onChange, disabled, tabIndex, color }) => {
   const switchRectClasses = Object.freeze({
     label: `w-10 h-6 cursor-pointer rounded-sm transition ease-in duration-200 

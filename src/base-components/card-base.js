@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import { Close } from '../icons'
 
 
-
 const CardBase = ({ classes, header, content, footer, onClose }) => {
   const contentRows = clsx({
     'row-span-4': header && footer,
@@ -14,9 +13,7 @@ const CardBase = ({ classes, header, content, footer, onClose }) => {
   })
   return (
     <div className={`inline-flex flex-col border ${classes.root}`}>
-      {onClose && <span className='self-end cursor-pointer'>
-        <Close size='md' className={`self-end ${classes.closeIcon}`} onClick={onClose} />
-      </span>}
+      {onClose && <Close size='md' className={`self-end cursor-pointer ${classes.closeIcon}`} onClick={onClose} />}
       <div className='grid grid-rows-6 h-full'>
         {header && <div className={`row-span-1 ${classes.header}`}>{header}</div>}
         <div className={`${contentRows} ${classes.content}`}>{content}</div>

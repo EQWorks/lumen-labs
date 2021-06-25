@@ -46,8 +46,9 @@ module.exports = {
         33: '8.25rem',
         '57.5': '14.375rem',
         '92.5': '23.125rem',
+        '107.5': '26.875rem',
         '112.5': '28.125rem',
-        '120.5': '30.525rem',
+        '120.5': '30.625rem',
         sm: '8px 10px 8px 10px',
       },
       borderRadius: { sm: '4px' },
@@ -536,17 +537,19 @@ module.exports = {
       prose: '65ch',
       ...breakpoints(theme('screens')),
     }),
-    minHeight: {
+    minHeight: (theme) => ({
+      ...theme('spacing'),
       0: '0px',
       full: '100%',
       screen: '100vh',
-    },
-    minWidth: {
+    }),
+    minWidth: (theme) => ({
+      ...theme('spacing'),
       0: '0px',
       full: '100%',
       min: 'min-content',
       max: 'max-content',
-    },
+    }),
     objectPosition: {
       bottom: 'bottom',
       center: 'center',

@@ -1,4 +1,4 @@
-.switch-checkbox:checked + .switch-label .switch-button {
+.switch-checkbox:checked + .switch-label .switch-square-button {
   flex-direction: column;
   left: calc(100% - 0.13rem);
   bottom: 1px;

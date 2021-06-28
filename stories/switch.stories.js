@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
 import SwitchBase from '../src/base-components/switch-base'
-import SwitchRound from '../src/components/switch-round/switch-round'
-import SwitchRect from '../src/components/switch-rect/switch-rect'
-import SwitchSquare from '../src/components/switch-square/switch-square'
+import SwitchRound from '../src/components/switch-round'
+import SwitchRect from '../src/components/switch-rect'
+import SwitchSquare from '../src/components/switch-square'
 
 
 export default {

@@ -10,7 +10,7 @@ const SwitchSquare = ({ id, checked, onChange, disabled, tabIndex, color }) => {
   const switchSquareClasses = Object.freeze({
     label: `w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
         ${checked ? color : 'bg-gray-400'}`,
-    button: 'flex flex-col-reverse items-center w-4 h-4 left-0.5',
+    button: 'switch-square-button flex flex-col-reverse items-center w-4 h-4 left-0.5',
   })
 
   return (

@@ -11,7 +11,12 @@ const Layout = ({ children, className }) => {
 
   return (
     <div className={`${layoutClass} ${className}`}>
-      {React.Children.map(children, (child) => React.cloneElement(child, { setSider }))}
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, { setSider })
+        }
+        return child
+      })}
     </div>
   )
 }
@@ -21,7 +26,7 @@ Layout.defaultProps = { className: 'w-full' }
 
 Layout.Sider = Sider
 Layout.Header = generateElement({ tagName: 'header', displayName: 'Header' })
-Layout.Footer = generateElement({ tagName: 'header', displayName: 'Footer' })
+Layout.Footer = generateElement({ tagName: 'footer', displayName: 'Footer' })
 Layout.Content = generateElement({ tagName: 'main', displayName: 'Content' })
 
 export default Layout

@@ -1,27 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import clsx from 'clsx'
 
 import { Close } from '../icons'
+import Layout from '../components/layout'
 
 
-const CardBase = ({ classes, header, content, footer, onClose }) => {
-  const contentRows = clsx({
-    'row-span-4': header && footer,
-    'row-span-5': (header && !footer) || (!header && footer),
-    'row-span-6': !header && !footer,
-  })
-  return (
-    <div className={`inline-flex flex-col border ${classes.root}`}>
-      {onClose && <Close size='md' className={`self-end cursor-pointer ${classes.closeIcon}`} onClick={onClose} />}
-      <div className='grid grid-rows-6 h-full'>
-        {header && <div className={`row-span-1 ${classes.header}`}>{header}</div>}
-        <div className={`${contentRows} ${classes.content}`}>{content}</div>
-        {footer && <div className={`row-span-1 ${classes.footer}`}>{footer}</div>}
-      </div>
-    </div>
-  )
-}
+const CardBase = ({ classes, header, content, footer, onClose }) => (
+  <div className={`inline-flex flex-col border ${classes.root}`}>
+    {onClose && <Close size='md' className={`self-end cursor-pointer ${classes.closeIcon}`} onClick={onClose} />}
+    <Layout className='h-full'>
+      {header && <Layout.Header className={classes.header}>{header}</Layout.Header>}
+      <Layout.Content className={`h-full ${classes.content}`}>{content}</Layout.Content>
+      {footer && <Layout.Footer className={classes.footer}>{footer}</Layout.Footer>}
+    </Layout>
+  </div>
+)
 
 CardBase.propTypes = {
   content: PropTypes.any.isRequired,

@@ -8,21 +8,73 @@ export default {
   component: Layout,
 }
 
-const { Header, Sider, Footer, Content } = Layout
-export const LayoutBase = () => {
+export const Normal = () => {
+  const headerClass = 'bg-primary-200 text-white text-center h-10'
+  const contentClass = 'bg-primary-400 text-white text-center h-40 w-full'
+  const siderClass = 'bg-primary-300 text-white text-center w-48'
+
   return (
-    <Layout>
-      <Sider className='border border-red-300'>Sider Outside</Sider>
+    <>
+      <p className='text-blue-300 mt-5 mb-1'>Basic:</p>
       <Layout>
-        <Header className='border border-red-300'>Header</Header>
+        <Layout.Header className={headerClass}>Header</Layout.Header>
+        <Layout.Content className={contentClass}>Content</Layout.Content>
+        <Layout.Footer className={headerClass}>Footer</Layout.Footer>
+      </Layout>
+
+      <p className='text-blue-300 mt-5 mb-1'>Sider Variation 1:</p>
+      <Layout>
+        <Layout.Header className={headerClass}>Header</Layout.Header>
         <Layout>
-          <Sider className='border border-primary-300 w-32'>Sider</Sider>
+          <Layout.Sider className={siderClass}>Sider</Layout.Sider>
+          <Layout.Content className={contentClass}>Content</Layout.Content>
+        </Layout>
+        <Layout.Footer className={headerClass}>Footer</Layout.Footer>
+      </Layout>
+
+      <p className='text-blue-300 mt-5 mb-1'>Sider Variation 2:</p>
+      <Layout>
+        <Layout.Header className={headerClass}>Header</Layout.Header>
+        <Layout>
+          <Layout.Content className={contentClass}>Content</Layout.Content>
+          <Layout.Sider className={siderClass}>Sider</Layout.Sider>
+        </Layout>
+        <Layout.Footer className={headerClass}>Footer</Layout.Footer>
+      </Layout>
+
+      <p className='text-blue-300 mt-5 mb-1'>Sider Variation 3:</p>
+      <Layout>
+        <Layout.Sider className={siderClass}>Sider</Layout.Sider>
+        <Layout>
+          <Layout.Header className={headerClass}>Header</Layout.Header>
+          <Layout.Content className={contentClass}>Content</Layout.Content>
+          <Layout.Footer className={headerClass}>Footer</Layout.Footer>
+        </Layout>
+      </Layout>
+
+      <p className='text-blue-300 mt-5 mb-1'>Sider Variation 4:</p>
+      <Layout>
+        <Layout.Header className={headerClass}>Header</Layout.Header>
+        <Layout>
+          <Layout.Sider className={siderClass}>Sider</Layout.Sider>
           <Layout>
-            <Content className='border border-red-300 h-80 w-full'>Content</Content>
-            <Footer className='border border-red-300'>Footer</Footer>
+            <Layout.Content className={contentClass}>Content</Layout.Content>
+            <Layout.Footer className={headerClass}>Footer</Layout.Footer>
           </Layout>
         </Layout>
       </Layout>
-    </Layout>
+
+      <p className='text-blue-300 mt-5 mb-1'>Sider Variation 5:</p>
+      <Layout>
+        <Layout>
+          <Layout.Sider className={siderClass}>Sider</Layout.Sider>
+          <Layout>
+            <Layout.Header className={headerClass}>Header</Layout.Header>
+            <Layout.Content className={contentClass}>Content</Layout.Content>
+          </Layout>
+        </Layout>
+        <Layout.Footer className={headerClass}>Footer</Layout.Footer>
+      </Layout>
+    </>
   )
 }

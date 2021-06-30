@@ -40,7 +40,27 @@ module.exports = {
       'primary-700': '#0075FF',
       'primary-800': '#1564EC',
       'primary-900': '#2242CD',
+
+      'secondary-50': '#fafafa',
+      'secondary-100': '#f5f5f5',
+      'secondary-200': '#eeeeee',
+      'secondary-300': '#e0e0e0',
+      'secondary-400': '#bdbdbd',
+      'secondary-500': '#9e9e9e',
+      'secondary-600': '#757575',
+      'secondary-700': '#616161',
+      'secondary-800': '#424242',
+      'secondary-900': '#212121',
+
+      success: '#00D308',
+      'success-hover': '#00b306',
+      'success-light': '#EEF8EE',
+      warning: '#F4B000',
+      'warning-hover': '#cf9500',
+      'warning-light': '#FAF6EE',
       error: '#EA0000',
+      'error-hover': '#c60000',
+      'error-light': '#F9EEEE',
     },
     spacing: {
       px: '1px',
@@ -190,6 +210,9 @@ module.exports = {
       /* -- custom styles --*/
       'focused-primary': '0 0 2px 2px rgba(0,117,255, 0.25)',
       'focused-error': '0 0 2px 2px rgba(234,0,0, 0.25)',
+      '10': '0 1px 4px 0 rgba(12,12,13, 0.1)',
+      'blue-10': '0 1px 4px 0 rgba(0,117,255, 0.1)',
+      'blue-30': '0 4px 12px 0 rgba(0,117,255, 0.2)',
     },
     caretColor: (theme) => theme('colors'),
     contrast: {
@@ -291,8 +314,14 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+
+      /* -- custom styles --*/
+      body: ['Open Sans', 'sans-serif'],
     },
     fontSize: {
+      /* -- custom styles --*/
+      xxs: ['0.625rem', { lineHeight: '1rem' }],
+  
       xs: ['0.75rem', { lineHeight: '1rem' }],
       sm: ['0.875rem', { lineHeight: '1.25rem' }],
       base: ['1rem', { lineHeight: '1.5rem' }],
@@ -509,6 +538,11 @@ module.exports = {
       wide: '0.025em',
       wider: '0.05em',
       widest: '0.1em',
+
+      /* -- custom styles --*/
+      lg: '1px',
+      md: '0.4px',
+      sm: '0.25px',
     },
     lineHeight: {
       none: '1',

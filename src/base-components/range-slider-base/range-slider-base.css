@@ -1,0 +1,51 @@
+/* Removing the default appearance */
+.thumb {
+  -webkit-appearance: none;
+}
+
+.thumb::-webkit-slider-thumb,
+.thumb::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.thumb-left {
+  z-index: 3;
+}
+
+.thumb-right {
+  z-index: 4;
+}
+
+.slider_track,
+.slider_range {
+  position: absolute;
+}
+
+.slider_track {
+  width: 100%;
+  z-index: 1;
+}
+
+.slider_range {
+  z-index: 2;
+}
+
+.slider_left-value,
+.slider_right-value {
+  position: absolute;
+}
+
+.slider_left-value {
+  left: 6px;
+}
+
+.slider_right-value {
+  right: -4px;
+}

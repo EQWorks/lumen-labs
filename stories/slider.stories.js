@@ -1,19 +1,19 @@
 import React from 'react'
 
-import { SliderBase } from '../src/base-components'
+import { RangeSliderBase } from '../src/base-components'
 
 
 export default {
-  title: 'Slider',
-  component: SliderBase,
+  title: 'Range Slider',
+  component: RangeSliderBase,
 }
 
 export const Base = () => {
-
+  
   return (
-    <div className="container">
+    <div>
       <div className="container">hello</div>
-      <SliderBase min={0} max={1000}/>
+      <RangeSliderBase min={0} max={1000} values={[200, 1000]} />
       <div className="container">test</div>
     </div>
   )

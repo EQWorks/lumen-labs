@@ -1,21 +1,18 @@
 import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '../../../tailwind.config'
 
 import { RangeSliderBase } from '../../base-components'
 
 import './range-slider-label.css'
+import { getTailwindConfigColor } from '../../hooks/getTailwindConfigColor'
 
 
 const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, showLabel, showTooltip, disabled }) => {
-  const fullConfig = resolveConfig(tailwindConfig)
-
-  const tumb = color.thumb.split('-')
-  const tooltip = color.tooltip.split('-')
+  //pseudo elements dynamic color
+  const tooltipTailColor = getTailwindConfigColor(color.tooltip)
 
   const sliderClasses = Object.freeze({
-    thumbColor: fullConfig.theme.borderColor[tumb[0]][tumb[1]],
+    thumbColor: color.thumb,
     sliderTrack: color.sliderTrack ? `bg-${color.sliderTrack}` : 'bg-blue-200',
     sliderRange: color.sliderRange ? `bg-${color.sliderRange}` : 'bg-blue-500',
   })
@@ -70,14 +67,14 @@ const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, s
         <output 
           className={`left-tooltip ${classes.tooltip} bg-${color.tooltip ? color.tooltip : 'blue-500'}`} 
           name='tooltip' 
-          style={{ '--tooltip-tail-color': `${fullConfig.theme.borderColor[tooltip[0]][tooltip[1]]} transparent transparent transparent` }}
+          style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
         >
           {values[0]}
         </output>
         <output 
           className={`right-tooltip ${classes.tooltip} bg-${color.tooltip ? color.tooltip : 'blue-500'}`} 
           name='tooltip'
-          style={{ '--tooltip-tail-color': `${fullConfig.theme.borderColor[tooltip[0]][tooltip[1]]} transparent transparent transparent` }}
+          style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
         >
           {values[1]}
         </output>

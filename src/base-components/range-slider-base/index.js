@@ -1,14 +1,22 @@
 import React, { forwardRef, useState, useRef, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
+import { getTailwindConfigColor } from '../../hooks/getTailwindConfigColor'
+
 import './range-slider-base.css'
 
 
 const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled }, ref) => {
+  //pseudo elements dynamic color
+  const thumbColor = getTailwindConfigColor(classes.thumbColor)
+
   const sliderClasses = Object.freeze({
     sliderContainer: `${width} relative my-2.5 h-px`,
     thumb: `${width}`,
+    thumbColor: thumbColor ? thumbColor : '#000',
     slider: 'h-1 rounded-sm',
+    sliderTrack: `${classes.sliderTrack ? classes.sliderTrack : 'bg-gray-300'}`,
+    sliderRange: `${classes.sliderRange ? classes.sliderRange : 'bg-black'}`,
   })
 
   const [minVal, setMinVal] = useState(values[0])
@@ -56,7 +64,7 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
         }}
         className={`thumb thumb-left ${sliderClasses.thumb} ${disabled && 'slider-disabled'}`}
         style={{ 
-          '--slider-thumb-color': classes.thumbColor && classes.thumbColor,
+          '--slider-thumb-color': sliderClasses.thumbColor && sliderClasses.thumbColor,
           zIndex: minVal > max - 100 && '5',
         }}
         disabled={disabled}
@@ -74,14 +82,14 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
         }}
         className={`thumb thumb-right ${sliderClasses.thumb} ${disabled && 'slider-disabled'}`}
         style={{ 
-          '--slider-thumb-color': classes.thumbColor && classes.thumbColor,
+          '--slider-thumb-color': sliderClasses.thumbColor && sliderClasses.thumbColor,
         }}
         disabled={disabled}
       />
-      <div className={`slider-track absolute ${sliderClasses.slider} ${classes.sliderTrack} ${disabled && 'slider-disabled'}`}/>
+      <div className={`slider-track absolute ${sliderClasses.slider} ${sliderClasses.sliderTrack} ${disabled && 'slider-disabled'}`}/>
       <div 
         ref={range} 
-        className={`slider-range absolute ${sliderClasses.slider} ${classes.sliderRange} ${disabled && 'slider-disabled'}`} 
+        className={`slider-range absolute ${sliderClasses.slider} ${sliderClasses.sliderRange} ${disabled && 'slider-disabled'}`} 
       />
       { children && children }
     </div>
@@ -105,6 +113,7 @@ RangeSliderBase.propTypes = {
 
 RangeSliderBase.defaultProps = {
   classes: {
+    thumbColor: 'black',
     sliderTrack: 'bg-gray-300',
     sliderRange: 'bg-black',
   },

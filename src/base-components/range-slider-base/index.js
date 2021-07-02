@@ -1,14 +1,14 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react'
+import React, { forwardRef, useState, useRef, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import './range-slider-base.css'
 
 
-const RangeSliderBase = ({ classes, min, max, values, onChange, width, children }) => {
+const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled }, ref) => {
   const sliderClasses = Object.freeze({
-    thumb: `${width} h-0 absolute pointer-events-none outline-none`,
-    slider: `${width} relative`,
-    sliderContainer: `${width} relative my-2.5 ${children || 'h-px'}`,
+    sliderContainer: `${width} relative my-2.5 h-px`,
+    thumb: `${width}`,
+    slider: 'h-1 rounded-sm',
   })
 
   const [minVal, setMinVal] = useState(values[0])
@@ -42,7 +42,7 @@ const RangeSliderBase = ({ classes, min, max, values, onChange, width, children 
   }, [maxVal, getPercent])
 
   return (
-    <div className={`slider-container ${sliderClasses.sliderContainer}`}>      
+    <div ref={ref} className={`slider-container ${sliderClasses.sliderContainer}`}>      
       <input
         type="range"
         min={min}
@@ -54,8 +54,12 @@ const RangeSliderBase = ({ classes, min, max, values, onChange, width, children 
           onChange && onChange(event, [value, maxVal])
           minValRef.current = value
         }}
-        className={`thumb thumb-left ${sliderClasses.thumb}`}
-        style={{ zIndex: minVal > max - 100 && '5' }}
+        className={`thumb thumb-left ${sliderClasses.thumb} ${disabled && 'slider-disabled'}`}
+        style={{ 
+          '--slider-thumb-color': classes.thumbColor && classes.thumbColor,
+          zIndex: minVal > max - 100 && '5',
+        }}
+        disabled={disabled}
       />
       <input
         type="range"
@@ -68,21 +72,27 @@ const RangeSliderBase = ({ classes, min, max, values, onChange, width, children 
           onChange && onChange(event, [minVal, value])
           maxValRef.current = value
         }}
-        className={`thumb thumb-right ${sliderClasses.thumb}`}
+        className={`thumb thumb-right ${sliderClasses.thumb} ${disabled && 'slider-disabled'}`}
+        style={{ 
+          '--slider-thumb-color': classes.thumbColor && classes.thumbColor,
+        }}
+        disabled={disabled}
       />
-      <div className={`slider_track ${classes.sliderLine} ${classes.sliderTrack}`} />
-      <div ref={range} className={`slider_range ${classes.sliderLine} ${classes.sliderRange}`} />
+      <div className={`slider-track absolute ${sliderClasses.slider} ${classes.sliderTrack} ${disabled && 'slider-disabled'}`}/>
+      <div 
+        ref={range} 
+        className={`slider-range absolute ${sliderClasses.slider} ${classes.sliderRange} ${disabled && 'slider-disabled'}`} 
+      />
       { children && children }
     </div>
   )
-}
+})
 
 RangeSliderBase.propTypes = {
   classes: PropTypes.exact({
-    sliderLine: PropTypes.string,
+    thumbColor: PropTypes.string,
     sliderTrack: PropTypes.string,
     sliderRange: PropTypes.string,
-    sliderValue: PropTypes.string,
   }),
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
@@ -90,16 +100,18 @@ RangeSliderBase.propTypes = {
   onChange: PropTypes.func,
   width: PropTypes.string,
   children: PropTypes.node,
+  disabled: PropTypes.bool,
 }
 
 RangeSliderBase.defaultProps = {
   classes: {
-    sliderLine: 'h-1 rounded-sm',
     sliderTrack: 'bg-gray-300',
     sliderRange: 'bg-black',
-    sliderValue: 'mt-5 text-xs',
   },
   width: 'w-48',
+  disabled: false,
 }
+
+RangeSliderBase.displayName = 'RangeSliderBase'
 
 export default RangeSliderBase

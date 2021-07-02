@@ -1,5 +1,11 @@
+@import "../../styles/constants.css";
+
 /* Removing the default appearance */
 .thumb {
+  height: 0;
+  position: absolute;
+  pointer-events: none;
+  outline: none;
   -webkit-appearance: none;
 }
 
@@ -7,10 +13,9 @@
 .thumb::-moz-range-thumb {
   height: 18px;
   width: 18px;
-  background-color: #f1f5f7;
+  background-color: var(--slider-thumb-color);
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 1px 1px #ced4da;
   cursor: pointer;
   pointer-events: all;
 }
@@ -23,29 +28,18 @@
   z-index: 4;
 }
 
-.slider_track,
-.slider_range {
-  position: absolute;
-}
-
-.slider_track {
+.slider-track {
   width: 100%;
   z-index: 1;
 }
 
-.slider_range {
+.slider-range {
   z-index: 2;
 }
 
-.slider_left-value,
-.slider_right-value {
-  position: absolute;
-}
-
-.slider_left-value {
-  left: 6px;
-}
-
-.slider_right-value {
-  right: -4px;
+.slider-disabled,
+.slider-disabled::-webkit-slider-thumb,
+.slider-disabled::-moz-range-thumb {
+  background-color: #dbdbdb;
+  cursor: not-allowed;
 }

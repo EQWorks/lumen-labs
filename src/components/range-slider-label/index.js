@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { RangeSliderBase } from '../../base-components'
 
 import './range-slider-label.css'
-import { getTailwindConfigColor } from '../../hooks/getTailwindConfigColor'
+import { getTailwindConfigColor } from '../../hooks/tailwind-config-color'
 
 
 const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, showLabel, showTooltip, disabled }) => {
@@ -99,7 +99,7 @@ RangeSliderLabel.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   values: PropTypes.arrayOf(PropTypes.number).isRequired,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   showLabel: PropTypes.bool,
   showTooltip: PropTypes.bool,
   disabled: PropTypes.bool,

@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useRef, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { getTailwindConfigColor } from '../../hooks/getTailwindConfigColor'
+import { getTailwindConfigColor } from '../../hooks/tailwind-config-color'
 
 import './range-slider-base.css'
 

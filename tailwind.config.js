@@ -6,6 +6,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      extend: {
+        transitionProperty: { height: 'height' },
+      },
       colors: {
         primary: '#0075FF',
         'primary-10': '#F2F6FC',

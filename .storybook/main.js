@@ -12,6 +12,10 @@ module.exports = {
     '@storybook/addon-postcss',
   ],
   webpackFinal: async (config) => {
+    config.node = {
+      fs: 'empty'
+    };
+
     config.module.rules.push({
       test: /\,css&/,
       use: [

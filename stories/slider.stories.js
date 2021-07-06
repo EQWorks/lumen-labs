@@ -1,0 +1,107 @@
+import React, { useState } from 'react'
+
+import { RangeSliderBase } from '../src/base-components'
+import RangeSliderLabel from '../src/components/range-slider-label'
+
+
+export default {
+  title: 'Range Slider',
+  component: RangeSliderBase,
+}
+
+export const Base = () => {
+  const [minValue, setMinValue] = useState(200)
+  const [maxValue, setMaxValue] = useState(1000)
+  
+  const handleOnChange = (e, values) => {
+    setMinValue(values[0])
+    setMaxValue(values[1])
+  }
+
+  return (
+    <RangeSliderBase min={0} max={1000} values={[minValue, maxValue]} onChange={handleOnChange}/>
+  )
+}
+
+export const Label = () => {
+  const [minValue, setMinValue] = useState(200)
+  const [maxValue, setMaxValue] = useState(1000)
+  
+  const handleOnChange = (e, values) => {
+    setMinValue(values[0])
+    setMaxValue(values[1])
+  }
+
+  return (
+    <div className="container h-32 flex items-center">
+      <RangeSliderLabel min={0} max={1000} values={[minValue, maxValue]} onChange={handleOnChange}/>
+    </div>
+  )
+}
+
+export const CustomColor = () => {
+  const [minValue, setMinValue] = useState(200)
+  const [maxValue, setMaxValue] = useState(1000)
+  
+  const handleOnChange = (e, values) => {
+    setMinValue(values[0])
+    setMaxValue(values[1])
+  }
+
+  const classes = [
+    {
+      thumbColor: 'green-500',
+      sliderTrack: 'bg-green-200',
+      sliderRange: 'bg-green-500',
+    },
+    {
+      thumbColor: 'pink-500',
+      sliderTrack: 'bg-pink-200',
+      sliderRange: 'bg-pink-500',
+    },
+  ]
+
+  const color = {
+    thumb: 'red-500',
+    sliderTrack: 'red-200',
+    sliderRange: 'red-500',
+    tooltip: 'green-500',
+  }
+
+  return (
+    <>
+      <div className="container h-32 flex items-center">
+        <RangeSliderLabel min={0} max={1000} values={[minValue, maxValue]} onChange={handleOnChange} color={color}/>
+      </div>
+      {classes.map((data, index) => {
+        return (
+          <div key={`slider-container-${index}`} className="container h-10 flex items-center">
+            <RangeSliderBase min={0} max={1000} values={[200, 800]} classes={data}/>
+          </div>
+        )
+      })}
+    </>
+  )
+}
+
+export const Disabled = () => {
+  const [minValue, setMinValue] = useState(200)
+  const [maxValue, setMaxValue] = useState(1000)
+  
+  const handleOnChange = (e, values) => {
+    setMinValue(values[0])
+    setMaxValue(values[1])
+  }
+
+  return (
+    <>
+      <span>Base</span>
+      <RangeSliderBase min={0} max={1000} values={[minValue, maxValue]} onChange={handleOnChange} disabled={true}/>
+      <div className="container h-32 flex flex-col justify-center">
+        <span>Label</span>
+        <RangeSliderLabel min={0} max={1000} values={[minValue, maxValue]} onChange={handleOnChange} disabled={true}/>
+      </div>
+    </>
+  )
+}
+

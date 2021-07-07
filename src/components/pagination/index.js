@@ -6,61 +6,61 @@ import { ChevronLeft, ChevronRight } from '../../icons'
 import './pagination.css'
 
 
-const Pagination = ({classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, rowsPerPage}) => {
+const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, rowsPerPage }) => {
   const paginationClasses = Object.freeze({
     container: `${classes.container ? classes.container : 'flex justify-center items-center bg-primary-500'}`,
     item: `${classes.item ? classes.item : 'px-2 cursor-pointer hover:bg-primary-700 hover:text-white'}`,
     arrow: `${classes.arrow ? classes.arrow : 'rounded-full'}`,
     pageItem: `${classes.pageItem ? classes.pageItem : 'w-7 flex justify-center'}` ,
-    currentPageColor: `${classes.currentPageColor ? classes.currentPageColor : 'bg-red-500'}`
+    currentPageColor: `${classes.currentPageColor ? classes.currentPageColor : 'bg-red-500'}`,
   })
 
   const [pager, setPager] = useState({})
   const [rowsPerPageSize, setRowsPerPageSize] = useState(rowsPerPage ? rowsPerPage[0] : pageSize)
 
   const setPage = (page) => {
-    let _pager = pager;
+    let _pager = pager
 
     if (page < 1 || page > _pager.totalPages) {
-      return;
+      return
     }
 
-    _pager = getPagerObject(items.length, page, rowsPerPageSize);
+    _pager = getPagerObject(items.length, page, rowsPerPageSize)
 
-    let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1);
+    let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1)
 
-    setPager(_pager);
-    onChangePage(pageOfItems);
+    setPager(_pager)
+    onChangePage(pageOfItems)
   }
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {
 
-    currentPage = currentPage || 1;
-    pageSize = pageSize || 10;
+    currentPage = currentPage || 1
+    pageSize = pageSize || 10
     
-    let totalPages = Math.ceil(totalItems / pageSize);
+    let totalPages = Math.ceil(totalItems / pageSize)
 
-    let startPage, endPage;
+    let startPage, endPage
     if (totalPages <= 10) {
-      startPage = 1;
-      endPage = totalPages;
+      startPage = 1
+      endPage = totalPages
     } else {
       if (currentPage <= 6) {
-        startPage = 1;
-        endPage = 10;
+        startPage = 1
+        endPage = 10
       } else if (currentPage + 4 >= totalPages) {
-        startPage = totalPages - 9;
-        endPage = totalPages;
+        startPage = totalPages - 9
+        endPage = totalPages
       } else {
-        startPage = currentPage - 5;
-        endPage = currentPage + 4;
+        startPage = currentPage - 5
+        endPage = currentPage + 4
       }
     }
 
-    let startIndex = (currentPage - 1) * pageSize;
-    let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+    let startIndex = (currentPage - 1) * pageSize
+    let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1)
 
-    let pages = [...Array((endPage + 1) - startPage).keys()].map(i => startPage + i);
+    let pages = [...Array((endPage + 1) - startPage).keys()].map(i => startPage + i)
 
     return {
       totalItems: totalItems,
@@ -71,8 +71,8 @@ const Pagination = ({classes, items, onChangePage, initialPage, pageSize, showPa
       endPage: endPage,
       startIndex: startIndex,
       endIndex: endIndex,
-      pages: pages
-    };
+      pages: pages,
+    }
   }
 
   useEffect(() => {
@@ -81,12 +81,12 @@ const Pagination = ({classes, items, onChangePage, initialPage, pageSize, showPa
 
   return (
     <>
-    {pager.pages &&     
+      {pager.pages &&     
       <ul className={`pagination ${paginationClasses.container}`}>
         { rowsPerPage && 
-          <li className={`px-2`}>
-            <span className={`mx-2`}>rows per page: </span>
-            <select className={`rows-selection pr-4`} name="rowsPerPage" id="rowsPerPage" onChange={e => setRowsPerPageSize(parseInt(e.target.value))}>
+          <li className={'px-2'}>
+            <span className={'mx-2'}>rows per page: </span>
+            <select className={'rows-selection pr-4'} name="rowsPerPage" id="rowsPerPage" onChange={e => setRowsPerPageSize(parseInt(e.target.value))}>
               {rowsPerPage.map((data, index) => {
                 return(
                   <option key={index} value={data}>{data}</option>
@@ -119,7 +119,7 @@ const Pagination = ({classes, items, onChangePage, initialPage, pageSize, showPa
             `}
           >
             <a onClick={() => setPage(page)}>{page}</a>
-          </li>
+          </li>,
         )}
         <li 
           className={`

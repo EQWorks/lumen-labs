@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Layout } from '../src'
-import Pagination from '../src/components/pagination'
+import { Pagination } from '../src'
 
 
 export default {
@@ -9,7 +9,7 @@ export default {
   component: Pagination,
 }
 
-const exampleItems = [...Array(12).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) }));
+const exampleItems = [...Array(200).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) }));
 
 export const Normal = () => {
   const [item, setItem] = useState({
@@ -17,8 +17,8 @@ export const Normal = () => {
     pageOfItems: []
   })
 
-  const headerClass = 'bg-primary-200 text-white text-center h-full'
-  const contentClass = 'bg-primary-400 text-white text-center h-full w-full'
+  const headerClass = 'bg-primary-200 text-black text-center h-full'
+  const contentClass = 'bg-primary-400 text-black text-center h-full w-full'
 
   const onChangePage = (pageOfItems) => {
     setItem({ ...item, pageOfItems: pageOfItems });
@@ -26,14 +26,14 @@ export const Normal = () => {
 
   return (
     <Layout>
-      <Layout.Header className={headerClass}>Header</Layout.Header>
+      <Layout.Header className={headerClass}>Normal type with default styling</Layout.Header>
       <Layout.Content className={contentClass}>
         {item.pageOfItems.map(item =>
           <div key={item.id}>{item.name}</div>
         )}
       </Layout.Content>
       <Layout.Footer className={headerClass}>
-        <Pagination items={item.exampleItems} onChangePage={onChangePage}/>
+        <Pagination items={item.exampleItems} onChangePage={onChangePage} rowsPerPage={[5,10,20]}/>
       </Layout.Footer>
     </Layout>
   )

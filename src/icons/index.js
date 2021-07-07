@@ -1,5 +1,7 @@
 export { default as ChevronUp } from './chevron-up'
 export { default as ChevronDown } from './chevron-down'
+export { default as ChevronLeft } from './chevron-left'
+export { default as ChevronRight } from './chevron-right'
 export { default as CircleLoader } from './circle-loader'
 export { default as Add } from './add'
 export { default as Close } from './close'

@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from '../../icons'
 import './pagination.css'
 
 
-const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, rowsPerPage }) => {
+const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
   const paginationClasses = Object.freeze({
     container: `${classes.container ? classes.container : 'flex justify-center items-center bg-primary-500'}`,
     item: `${classes.item ? classes.item : 'px-2 cursor-pointer hover:bg-primary-700 hover:text-white'}`,
@@ -95,6 +95,11 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             </select> 
           </li>
         }
+        { counter && 
+          <li className={'px-2'}>
+            <span>{pager.startIndex + 1}-{pager.endIndex + 1} of {pager.totalItems}</span>
+          </li>
+        }
         { firstLast &&
           <li className={`${paginationClasses.item} ${pager.currentPage === 1 ? 'disabled' : ''}`}>
             <a onClick={() => setPage(1)}>First</a>
@@ -155,6 +160,7 @@ Pagination.propTypes = {
   pageSize: PropTypes.number,
   showPage: PropTypes.bool,
   firstLast: PropTypes.bool,
+  counter: PropTypes.bool,
   rowsPerPage: PropTypes.arrayOf(PropTypes.number),
 }
 
@@ -170,6 +176,7 @@ Pagination.defaultProps = {
   pageSize: 10,
   showPage: true,
   firstLast: true,
+  counter: true,
 }
 
 export default Pagination

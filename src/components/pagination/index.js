@@ -16,7 +16,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
   })
 
   const [pager, setPager] = useState({})
-  const [rowsPerPageSize, setRowsPerPageSize] = useState(rowsPerPage ? rowsPerPage[0] : pageSize)
+  const [rowsPerPageSize, setRowsPerPageSize] = useState(pageSize)
 
   const setPage = (page) => {
     let _pager = pager
@@ -30,7 +30,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1)
 
     setPager(_pager)
-    onChangePage(pageOfItems)
+    onChangePage(pageOfItems, _pager.currentPage)
   }
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {
@@ -96,51 +96,53 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             </select> 
           </li>
         }
-        { counter && 
-          <li className={'px-2'}>
-            <span>{pager.startIndex + 1}-{pager.endIndex + 1} of {pager.totalItems}</span>
-          </li>
-        }
-        { firstLast &&
-          <li className={`${paginationClasses.item} ${pager.currentPage === 1 ? 'disabled' : ''}`}>
-            <a onClick={() => setPage(1)}>First</a>
-          </li>
-        }
-        <li 
-          className={`
-            ${paginationClasses.item} 
-            ${pager.currentPage === 1 ? 'disabled' : ''}
-          `}
-        >
-          <a onClick={() => setPage(pager.currentPage - 1)}><ChevronLeft /></a>
-        </li>
-        {showPage && pager.pages.map((page, index) =>
+        { rowsPerPageSize !== pager.totalItems && <>
+          { counter && 
+            <li className={'px-2'}>
+              <span>{pager.startIndex + 1}-{pager.endIndex + 1} of {pager.totalItems}</span>
+            </li>
+          }
+          { firstLast &&
+            <li className={`${paginationClasses.item} ${pager.currentPage === 1 ? 'disabled' : ''}`}>
+              <a onClick={() => setPage(1)}>First</a>
+            </li>
+          }
           <li 
-            key={index} 
             className={`
-              ${paginationClasses.item}
-              ${paginationClasses.arrow}
-              ${paginationClasses.pageItem}
-              ${pager.currentPage === page ? paginationClasses.currentPageColor : ''}
+              ${paginationClasses.item} 
+              ${pager.currentPage === 1 ? 'disabled' : ''}
             `}
           >
-            <a onClick={() => setPage(page)}>{page}</a>
-          </li>,
-        )}
-        <li 
-          className={`
-            ${paginationClasses.item}
-            ${paginationClasses.arrow} 
-            ${pager.currentPage === pager.totalPages ? 'disabled' : ''}
-          `}
-        >
-          <a onClick={() => setPage(pager.currentPage + 1)}><ChevronRight /></a>
-        </li>
-        {firstLast && 
-          <li className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
-            <a onClick={() => setPage(pager.totalPages)}>Last</a>
+            <a onClick={() => setPage(pager.currentPage - 1)}><ChevronLeft /></a>
           </li>
-        }
+          { showPage && pager.pages.map((page, index) =>
+            <li 
+              key={index} 
+              className={`
+                ${paginationClasses.item}
+                ${paginationClasses.arrow}
+                ${paginationClasses.pageItem}
+                ${pager.currentPage === page ? paginationClasses.currentPageColor : ''}
+              `}
+            >
+              <a onClick={() => setPage(page)}>{page}</a>
+            </li>,
+          )}
+          <li 
+            className={`
+              ${paginationClasses.item}
+              ${paginationClasses.arrow} 
+              ${pager.currentPage === pager.totalPages ? 'disabled' : ''}
+            `}
+          >
+            <a onClick={() => setPage(pager.currentPage + 1)}><ChevronRight /></a>
+          </li>
+          { firstLast && 
+            <li className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+              <a onClick={() => setPage(pager.totalPages)}>Last</a>
+            </li>
+          }
+        </> }
       </ul>
       }
     </>

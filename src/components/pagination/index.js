@@ -86,12 +86,13 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
         { rowsPerPage && 
           <li className={'px-2'}>
             <span className={'mx-2'}>rows per page: </span>
-            <select className={'rows-selection pr-4'} name="rowsPerPage" id="rowsPerPage" onChange={e => setRowsPerPageSize(parseInt(e.target.value))}>
+            <select className={'rows-selection pr-5'} name="rowsPerPage" id="rowsPerPage" onChange={e => setRowsPerPageSize(parseInt(e.target.value))}>
               {rowsPerPage.map((data, index) => {
                 return(
                   <option key={index} value={data}>{data}</option>
                 )
               })}
+              <option value={pager.totalItems}>All</option>
             </select> 
           </li>
         }

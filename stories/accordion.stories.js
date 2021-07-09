@@ -80,26 +80,80 @@ export const Base = () => {
  */
 export const Default = () => {
   return (
-    <Accordion className='w-full'>
-      <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={ChevronDown} classes={{ details: 'h-10 p-2 bg-secondary-200' }}>
-        Details 1
-      </Accordion.Panel>
-      <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={ChevronDown} classes={{ details: 'h-10 p-2 bg-secondary-200' }}>
-        Details 2
-      </Accordion.Panel>
-    </Accordion>
+    <>
+      <Accordion className='w-full'>
+        <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={ChevronDown}>
+          Details 1
+        </Accordion.Panel>
+        <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={ChevronDown}>
+          Details 2
+        </Accordion.Panel>
+      </Accordion>
+
+      <p className='text-blue-300 mt-5 mb-1'>Colour themes (arbitrary colour input):</p>
+      <Accordion className='w-full' color='primary'>
+        <Accordion.Panel id='1' header='COLOR = PRIMARY' ExpandIcon={ChevronDown}>
+          Details
+        </Accordion.Panel>
+      </Accordion>
+      <Accordion className='w-full' color='secondary'>
+        <Accordion.Panel id='1' header='COLOR = SECONDARY' ExpandIcon={ChevronDown}>
+          Details
+        </Accordion.Panel>
+      </Accordion>
+      <Accordion className='w-full' color='red'>
+        <Accordion.Panel id='1' header='COLOR = RED' ExpandIcon={ChevronDown}>
+          Details
+        </Accordion.Panel>
+      </Accordion>
+      <Accordion className='w-full' color='purple'>
+        <Accordion.Panel id='1' header='COLOR = PURPLE' ExpandIcon={ChevronDown}>
+          Details
+        </Accordion.Panel>
+      </Accordion>
+    </>
   )
 }
 
 export const LeftBordered = () => {
   return (
-    <Accordion variant='left-bordered' className='w-1/3'>
-      <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={Add} CompressIcon={Remove}>
-        Details 1
-      </Accordion.Panel>
-      <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={Add} CompressIcon={Remove}>
-        Details 2
-      </Accordion.Panel>
-    </Accordion>
+    <>
+      <Accordion variant='left-bordered' className='w-1/3'>
+        <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={Add} CompressIcon={Remove}>
+          Details 1
+        </Accordion.Panel>
+        <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={Add} CompressIcon={Remove}>
+          Details 2
+        </Accordion.Panel>
+      </Accordion>
+
+      <p className='text-blue-300 mt-5 mb-1'>Colour themes (arbitrary colour input):</p>
+      <div>
+        <Accordion variant='left-bordered' className='w-1/3' color='secondary'>
+          <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={Add} CompressIcon={Remove}>
+            Details 1
+          </Accordion.Panel>
+          <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={Add} CompressIcon={Remove}>
+            Details 2
+          </Accordion.Panel>
+        </Accordion>
+        <Accordion variant='left-bordered' className='w-1/3' color='purple'>
+          <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={Add} CompressIcon={Remove}>
+            Details 1
+          </Accordion.Panel>
+          <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={Add} CompressIcon={Remove}>
+            Details 2
+          </Accordion.Panel>
+        </Accordion>
+        <Accordion variant='left-bordered' className='w-1/3' color='green'>
+          <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={Add} CompressIcon={Remove}>
+            Details 1
+          </Accordion.Panel>
+          <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={Add} CompressIcon={Remove}>
+            Details 2
+          </Accordion.Panel>
+        </Accordion>
+      </div>
+    </>
   )
 }

@@ -19,17 +19,20 @@ const variants = Object.freeze({
 })
 
 const colorConfig = ({ color }) => {
+  // temporary adjustment before color themes are finalized:
+  const bgShade = color === 'primary' ? `bg-${color}-10` : `bg-${color}-50`
+
   if (!color) return {}
   return ({
     default: {
       icon: `text-${color}-700`,
       header: `text-${color}-700`,
-      details: `bg-${color}-10`,
+      details: bgShade,
     },
     'left-bordered': {
       icon: `text-${color}-700`,
-      header: `text-${color}-700 bg-${color}-10`,
-      details: `bg-${color}-10`,
+      header: `text-${color}-700 ${bgShade}`,
+      details: bgShade,
     },
   })
 }

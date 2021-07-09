@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { AccordionBase } from '../src/base-components'
+import { Accordion } from '../src'
 import { ChevronDown, Add, Remove } from '../src/icons'
 
 
@@ -18,6 +19,7 @@ export default {
  *    header: panel summary section
  *    detials: panel details section
  *    icon: [ExpandIcon] or [CompressIcon] classes
+ *    iconRoot: wrapper div for [ExpandIcon] or [CompressIcon]
  * [id] - string|number, unique identifier for each panel
  * [header] - any, panel summary
  * [ExpandIcon] - elementType, icon for panel expansion
@@ -63,5 +65,41 @@ export const Base = () => {
         >Details 2</AccordionBase.PanelBase>
       </AccordionBase>
     </>
+  )
+}
+
+/** -- props (Accordion):
+ * [variant] - string, style variant of component
+ * [color] - color theme for icon/header/details
+ * [...rest] - any AccordionBase component props
+ */
+/** -- props (Panel):
+ * [thmees] - object, style theme support for:
+ *    color: uniform color for border/bg/text/icons
+ * [...rest] - any PanelBase component props
+ */
+export const Default = () => {
+  return (
+    <Accordion className='w-full'>
+      <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={ChevronDown} classes={{ details: 'h-10 p-2 bg-secondary-200' }}>
+        Details 1
+      </Accordion.Panel>
+      <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={ChevronDown} classes={{ details: 'h-10 p-2 bg-secondary-200' }}>
+        Details 2
+      </Accordion.Panel>
+    </Accordion>
+  )
+}
+
+export const LeftBordered = () => {
+  return (
+    <Accordion variant='left-bordered' className='w-1/3'>
+      <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={Add} CompressIcon={Remove}>
+        Details 1
+      </Accordion.Panel>
+      <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={Add} CompressIcon={Remove}>
+        Details 2
+      </Accordion.Panel>
+    </Accordion>
   )
 }

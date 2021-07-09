@@ -4,13 +4,21 @@ import clsx from 'clsx'
 
 
 const PanelBase = ({ children, classes, id, header, ExpandIcon, CompressIcon, alignIcon, open, setOpen, onChange }) => {
+  const detailsNoHeight = classes.details.split(/\bh-\w+|\bp-\w+|\bpy-\w+/).map((r) => r.trim()).filter((r) => r).join(' ')
   const Icon = open.includes(id) ? ExpandIcon : CompressIcon ? CompressIcon : ExpandIcon
-  const renderIcon = () => (
-    <Icon className={clsx(`${classes.icon} transition-transform duration-300 ease-in-out origin-center transform`, {
-      'rotate-180': open.includes(id),
-      'rotate-0': !open.includes(id),
-    })
-    } />)
+  const renderIcon = () => {
+    if (Icon) {
+      return (
+        <span className={`${classes.iconRoot}`}>
+          <Icon className={clsx(`${classes.icon} transition-transform duration-300 ease-in-out origin-center transform`, {
+            'rotate-180': open.includes(id),
+            'rotate-0': !open.includes(id),
+          })} />
+        </span>
+      )
+    }
+    return null
+  }
 
   const handleClick = () => setOpen((prev) => {
     if (prev.includes(id)) {
@@ -31,12 +39,12 @@ const PanelBase = ({ children, classes, id, header, ExpandIcon, CompressIcon, al
         onClick={handleClick}
       >
         {alignIcon === 'start' && renderIcon()}
-        {header}
+        <span className='inline-block align-baseline'>{header}</span>
         {alignIcon === 'end' && renderIcon()}
       </div>
-      <div className={clsx('transition-height ease-out duration-300 overflow-y-hidden', {
+      <div className={clsx('transition-height ease-in-out duration-300 overflow-y-hidden', {
         [classes.details]: open.includes(id),
-        'h-0': ~open.includes(id),
+        [`${detailsNoHeight} h-0`]: !open.includes(id),
       })}>
         {children}
       </div>
@@ -62,7 +70,7 @@ PanelBase.propTypes = {
 PanelBase.defaultProps = {
   open: [],
   setOpen: () => {},
-  classes: { header: '', details: 'h-10', icon: '' },
+  classes: { header: '', details: 'h-10', icon: '', iconRoot: '' },
   onChange: () => {},
   ExpandIcon: null,
   CompressIcon: null,

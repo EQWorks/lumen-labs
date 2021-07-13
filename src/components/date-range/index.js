@@ -9,19 +9,21 @@ const DateRange = forwardRef(({ classes, defaultValue, setFromValue, setToValue,
     form: `${classes.form ? classes.form : 'container w-96 flex'}`,
     field: `${classes.form ? classes.field : 'w-full mx-2'}`,
     label: `${classes.form ? classes.label : 'text-xs text-gray-500'}`,
-    input: `${classes.form ? classes.input : 'w-full pb-2 text-sm border-b border-gray-500 focus:outline-none'}`,
+    input: `${classes.form ? classes.input : 'w-full pb-2 text-sm border-b border-gray-500 hover:border-black focus:outline-none'}`,
   })
 
   return (
     <form ref={ref} className={`${dateRangeClasses.form}`} noValidate>
       <div className={`fieldContainer ${dateRangeClasses.field}`}>
         {showLabel && <label className={`${dateRangeClasses.label}`} htmlFor="from">From</label>}
-        <input className={`date-input ${dateRangeClasses.input}`} type="date" id="from" name="from"
+        <input className={`date-input ${dateRangeClasses.input}`} 
+          type="date" id="from" name="from" pattern="\d{4}-\d{2}-\d{2}"
           value={defaultValue[0] || ''} onChange={({ target: { value } }) => setFromValue(value)}/>
       </div>
       <div className={`fieldContainer ${dateRangeClasses.field}`}>
         {showLabel && <label className={`${dateRangeClasses.label}`} htmlFor="to">To</label>}
-        <input className={`date-input ${dateRangeClasses.input}`} type="date" id="to" name="to"
+        <input className={`date-input ${dateRangeClasses.input}`} 
+          type="date" id="to" name="to" pattern="\d{4}-\d{2}-\d{2}"
           value={defaultValue[1] || ''} onChange={({ target: { value } }) => setToValue(value)}/>
       </div>
     </form>

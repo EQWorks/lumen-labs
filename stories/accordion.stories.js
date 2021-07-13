@@ -91,26 +91,30 @@ export const Default = () => {
       </Accordion>
 
       <p className='text-blue-300 mt-5 mb-1'>Colour themes (arbitrary colour input):</p>
-      <Accordion className='w-full' color='primary'>
+      <Accordion className='w-1/3' color='primary'>
         <Accordion.Panel id='1' header='COLOR = PRIMARY' ExpandIcon={ChevronDown}>
           Details
         </Accordion.Panel>
       </Accordion>
-      <Accordion className='w-full' color='secondary'>
-        <Accordion.Panel id='1' header='COLOR = SECONDARY' ExpandIcon={ChevronDown}>
+      <div>
+        <Accordion className='w-1/3' color='secondary'>
+          <Accordion.Panel id='1' header='COLOR = SECONDARY' ExpandIcon={ChevronDown}>
+            Details
+          </Accordion.Panel>
+        </Accordion>
+      </div>
+      <Accordion className='w-1/3' color='red'>
+        <Accordion.Panel id='1' header='COLOR = RED' ExpandIcon={ChevronDown} alignIcon='end'>
           Details
         </Accordion.Panel>
       </Accordion>
-      <Accordion className='w-full' color='red'>
-        <Accordion.Panel id='1' header='COLOR = RED' ExpandIcon={ChevronDown}>
-          Details
-        </Accordion.Panel>
-      </Accordion>
-      <Accordion className='w-full' color='purple'>
-        <Accordion.Panel id='1' header='COLOR = PURPLE' ExpandIcon={ChevronDown}>
-          Details
-        </Accordion.Panel>
-      </Accordion>
+      <div>
+        <Accordion className='w-1/3' color='purple'>
+          <Accordion.Panel id='1' header='COLOR = PURPLE' ExpandIcon={ChevronDown} alignIcon='end'>
+            Details
+          </Accordion.Panel>
+        </Accordion>
+      </div>
     </>
   )
 }

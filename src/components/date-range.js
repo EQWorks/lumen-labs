@@ -1,15 +1,13 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
-import './date-range.css'
-
 
 const DateRange = forwardRef(({ classes, defaultValue, setFromValue, setToValue, showLabel }, ref) => {
   const dateRangeClasses = Object.freeze({
     form: `${classes.form ? classes.form : 'container w-96 flex'}`,
-    field: `${classes.form ? classes.field : 'w-full mx-2'}`,
-    label: `${classes.form ? classes.label : 'text-xs text-gray-500'}`,
-    input: `${classes.form ? classes.input : 'w-full pb-2 text-sm border-b border-gray-500 hover:border-black focus:outline-none'}`,
+    field: `${classes.field ? classes.field : 'w-full mx-2'}`,
+    label: `${classes.label ? classes.label : 'text-xs text-gray-500'}`,
+    input: `${classes.input ? classes.input : 'w-full pb-2 text-sm border-b border-gray-500 hover:border-black hover:border-b-2 focus:outline-none'}`,
   })
 
   return (
@@ -44,12 +42,12 @@ DateRange.propTypes = {
 }
 
 DateRange.defaultProps = {
-  classes: PropTypes.exact({
+  classes: {
     form: '',
     field: '',
     label: '',
     input: '',
-  }),
+  },
   showLabel: true,
 }
 

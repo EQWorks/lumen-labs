@@ -1,13 +1,14 @@
 {
   "name": "@eqworks/lumen-labs",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0-alpha.1",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.js",
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "tailwind.config.js"
   ],
   "author": "EQ Inc.",
   "license": "MIT",

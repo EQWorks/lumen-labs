@@ -75,7 +75,7 @@ export const Base = () => {
  */
 /** -- props (Panel):
  * [thmees] - object, style theme support for:
- *    color: uniform color for border/bg/text/icons
+ *    color: color theme for border/bg/text/icons
  * [...rest] - any PanelBase component props
  */
 export const Default = () => {

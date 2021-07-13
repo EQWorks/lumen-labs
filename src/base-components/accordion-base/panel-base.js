@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
 
-const PanelBase = ({ children, classes, id, header, ExpandIcon, CompressIcon, alignIcon, open, setOpen, onChange }) => {
+const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon, CompressIcon, alignIcon, open, setOpen, onChange }, ref) => {
   const detailsNoHeight = classes.details.split(/\bh-\w+|\bp-\w+|\bpy-\w+/).map((r) => r.trim()).filter((r) => r).join(' ')
   const Icon = open.includes(id) ? ExpandIcon : CompressIcon ? CompressIcon : ExpandIcon
   const renderIcon = () => {
@@ -31,7 +31,7 @@ const PanelBase = ({ children, classes, id, header, ExpandIcon, CompressIcon, al
   })
 
   return (
-    <>
+    <div ref={ref}>
       <div
         className={clsx(`${classes.header} cursor-pointer flex flex-row`, {
           'justify-between': alignIcon === 'end',
@@ -48,9 +48,9 @@ const PanelBase = ({ children, classes, id, header, ExpandIcon, CompressIcon, al
       })}>
         {children}
       </div>
-    </>
+    </div>
   )
-}
+})
 
 PanelBase.propTypes = {
   children: PropTypes.node.isRequired,
@@ -77,4 +77,5 @@ PanelBase.defaultProps = {
   alignIcon: 'start',
 }
 
+PanelBase.displayName = 'PanelBase'
 export default PanelBase

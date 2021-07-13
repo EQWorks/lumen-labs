@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import PanelBase from './panel-base'
 
 
-const AccordionBase = ({ children, className, onChange, defaultActivePanels }) => {
+const AccordionBase = React.forwardRef(({ children, className, onChange, defaultActivePanels }, ref) => {
   const [open, setOpen] = useState([])
   useEffect(() => {
     setOpen(defaultActivePanels)
   }, [])
   return (
-    <div className={`inline-flex flex-col ${className}`}>
+    <div ref={ref} className={`inline-flex flex-col ${className}`}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, { open, setOpen, onChange })
@@ -19,7 +19,7 @@ const AccordionBase = ({ children, className, onChange, defaultActivePanels }) =
       })}
     </div>
   )
-}
+})
 
 AccordionBase.propTypes = {
   children: PropTypes.node.isRequired,
@@ -33,5 +33,6 @@ AccordionBase.defaultProps = {
   defaultActivePanels: [],
 }
 
+AccordionBase.displayName = 'AccordionBase'
 AccordionBase.PanelBase = PanelBase
 export default AccordionBase

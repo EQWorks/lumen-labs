@@ -20,18 +20,20 @@ const variants = Object.freeze({
 
 const colorConfig = ({ color }) => {
   // temporary adjustment before color themes are finalized:
-  const bgShade = color === 'primary' ? `bg-${color}-10` : `bg-${color}-50`
+  const _bgShade = color === 'primary' ? '10' : '50'
+  const bgShade = ['bg', color, _bgShade].join('-')
+  const textColor = ['text', color, '700'].join('-')
 
   if (!color) return {}
   return ({
     default: {
-      icon: `text-${color}-700`,
-      header: `text-${color}-700`,
+      icon: textColor,
+      header: textColor,
       details: bgShade,
     },
     'left-bordered': {
-      icon: `text-${color}-700`,
-      header: `text-${color}-700 ${bgShade}`,
+      icon: textColor,
+      header: `${textColor} ${bgShade}`,
       details: bgShade,
     },
   })

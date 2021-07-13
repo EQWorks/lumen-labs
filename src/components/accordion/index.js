@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import clsx from 'clsx'
 
 import AccordionBase from '../../base-components/accordion-base'
 import Panel from './panel'
-import clsx from 'clsx'
 
 
 const variants = Object.freeze({
@@ -12,9 +12,11 @@ const variants = Object.freeze({
 
 const Accordion = ({ children, variant, color, className, ...props }) => {
   const _color = (variant !== 'default') && !color ? 'primary' : color
+  const borderColor = ['border', _color, '700'].join('-')
+
   return (
     <AccordionBase className={clsx(`${variants[variant]} ${className}`, {
-      [`border-${_color}-700`]: _color,
+      [borderColor]: _color,
     })} {...props}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {

@@ -74,8 +74,6 @@ export const Base = () => {
  * [...rest] - any AccordionBase component props
  */
 /** -- props (Panel):
- * [thmees] - object, style theme support for:
- *    color: color theme for border/bg/text/icons
  * [...rest] - any PanelBase component props
  */
 export const Default = () => {

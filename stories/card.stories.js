@@ -41,9 +41,9 @@ export const Normal = () => {
   const cardProps = { header: 'Header section', content: 'Content section', footer: 'Footer section' }
   const _classes = {
     root: 'ml-5',
-    header: 'bg-primary-10 text-xs text-center h-10',
+    header: 'bg-neutral-50 text-xs text-center h-10',
     content: 'bg-primary-50 text-xs text-center',
-    footer: 'bg-primary-10 text-xs text-center h-10',
+    footer: 'bg-neutral-50 text-xs text-center h-10',
   }
   return (
     <>

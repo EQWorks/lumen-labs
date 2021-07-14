@@ -12,7 +12,7 @@ const variants = Object.freeze({
 
 const Accordion = ({ children, variant, color, className, ...props }) => {
   const _color = (variant !== 'default') && !color ? 'primary' : color
-  const borderColor = ['border', _color, '700'].join('-')
+  const borderColor = ['border', (_color === 'primary' ? 'interactive' : _color), (_color === 'primary' ? 500 : 700)].join('-')
 
   return (
     <AccordionBase className={clsx(`${variants[variant]} ${className}`, {

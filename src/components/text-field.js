@@ -11,11 +11,11 @@ const _textFieldClasses = ({ error }) => ({
 })
 const _inputBaseClasses = ({ focus, error, width, filled }) => ({
   root: clsx(`${width} rounded-sm p-sm`,
-    { 'border-primary shadow-focused-primary': focus && !error },
+    { 'border-primary-700 shadow-focused-primary': focus && !error },
     { 'border-error shadow-focused-error': focus && error },
-    { 'border-primary bg-primary-10': filled },
+    { 'border-primary-700 bg-neutral-50': filled },
   ),
-  input: clsx('outline-none text-primary-700', { 'bg-primary-10': filled }),
+  input: clsx('outline-none text-primary-700', { 'bg-neutral-50': filled }),
   startIcon: 'mt-0.5 mr-1',
   endIcon: 'mt-0.5 mx-1',
 })

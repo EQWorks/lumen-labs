@@ -7,12 +7,13 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const ChevronUp = ({ className, size }) => (
+const ChevronUp = ({ className, size, ...props }) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
     fill="currentColor"
+    {...props}
   >
     <path
       fillRule="evenodd"

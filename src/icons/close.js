@@ -7,11 +7,12 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Close = ({ className, size }) => (
+const Close = ({ className, size, ...props }) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <g transform="matrix(5.833333333333333,0,0,5.833333333333333,0,0)">
       <path

@@ -1,11 +1,12 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: [],
+  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      transitionProperty: { height: 'height, background-color, padding, margin' },
       colors: {
         primary: '#0075FF',
         'primary-10': '#F2F6FC',

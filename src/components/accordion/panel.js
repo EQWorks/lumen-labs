@@ -18,11 +18,10 @@ const variants = Object.freeze({
   }),
 })
 
+
 const colorConfig = ({ color }) => {
-  // temporary adjustment before color themes are finalized:
-  const _bgShade = color === 'primary' ? '10' : '50'
-  const bgShade = ['bg', color, _bgShade].join('-')
-  const textColor = ['text', color, '700'].join('-')
+  const bgShade = ['bg', (color === 'primary' ? 'neutral' : color), 50].join('-')
+  const textColor = ['text', (color === 'primary' ? 'interactive' : color), (color === 'primary' ? 500 : 700)].join('-')
 
   if (!color) return {}
   return ({

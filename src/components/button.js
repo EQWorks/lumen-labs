@@ -15,7 +15,7 @@ const buttonConfigs = Object.freeze({
       disabled: 'border-secondary-500 text-secondary-500 cursor-default',
     }),
     borderless: Object.freeze({
-      default: 'bg-primary-10 text-primary-700 hover:bg-primary-50',
+      default: 'bg-primary-50 text-primary-700 hover:bg-primary-100',
       normal: 'bg-success-light text-success hover:bg-success hover:bg-opacity-50',
       warning: 'bg-warning-light text-warning hover:bg-warning hover:bg-opacity-50',
       error: 'bg-error-light text-error hover:bg-error hover:bg-opacity-50',

@@ -105,7 +105,7 @@ module.exports = {
         '120.5': '30.625rem',
         sm: '8px 10px 8px 10px',
       },
-      borderRadius: { sm: '4px' },
+      borderRadius: { sm: '4px', md: '0.375rem', xl: '0.75rem' },
       boxShadow: {
         'focused-primary': '0 0 2px 2px rgba(0, 117, 255, 0.25)',
         'focused-error': '0 0 2px 2px rgba(234, 0, 0, 0.25)',

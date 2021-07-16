@@ -1,7 +1,7 @@
 ---
 name: Design Update - Design Tokens
 about: Use this template to announce new design token updates
-title: ''
+title: 'Design Tokens: UPDATE_MESSAGE'
 labels: design
 assignees: ''
 

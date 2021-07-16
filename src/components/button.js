@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -12,8 +12,17 @@ const styles = makeStyles({
   squaredSm: { padding: '0.3rem' },
 })
 
+const sizes = Object.freeze({
+  lg: 'py-2 px-4', md: 'py-1.5 px-2.5', sm: 'py-0.5 px-1.5',
+  squared: Object.freeze({ lg: styles.squaredLg, md: styles.squaredMd, sm: styles.squaredSm }),
+  text: Object.freeze({ lg: 'text-sm tracking-sm', md: 'text-xs tracking-md', sm: 'text-xxs tracking-lg' }),
+  iconPadding: Object.freeze({
+    startIcon: Object.freeze({ sm: 'pr-1', md: 'pr-1.5', lg: 'pr-2.5' }),
+    endIcon: Object.freeze({ sm: 'pl-1', md: 'pl-1.5', lg: 'pl-2.5' }),
+  }),
+})
+
 const buttonColoursTransform = (type = 'primary', target = [], shade = [], customShades = []) => {
-  if (!target) return
   const shades = {
     default: customShades[0] || 500,
     hover: customShades[1] || 600,
@@ -24,124 +33,54 @@ const buttonColoursTransform = (type = 'primary', target = [], shade = [], custo
   )).join(' ')
 }
 
-const _shadedDefault = [
-  'text-primary-500',
-  'hover:text-primary-600',
-  'hover:border-primary-600',
-  'hover:shadow-light-60',
-  'active:border-white',
-  'active:text-primary-700',
-  'active:shadow-blue-10',
-].join(' ')
-const buttonConfigs = Object.freeze({
-  colors: Object.freeze({
-    outlined: Object.freeze({
-      default: [
-        buttonColoursTransform('primary', ['border', 'text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('primary', ['bg'], ['hover', 'active'], [50, 50, 100]),
-      ].join(' '),
-      normal: [
-        'border-none',
-        buttonColoursTransform('success', ['text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('success', ['bg'], ['hover', 'active'], [50, 50, 100]),
-      ].join(' '),
-      warning: [
-        'border-none',
-        buttonColoursTransform('warning', ['text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('warning', ['bg'], ['hover', 'active'], [50, 50, 100]),
-      ].join(' '),
-      error: [
-        'border-none',
-        buttonColoursTransform('error', ['text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('error', ['bg'], ['hover', 'active'], [50, 50, 100]),
-      ].join(' '),
-      disabled: [
-        'cursor-default',
-        buttonColoursTransform('secondary', ['border', 'text'], ['default']),
-      ].join(' '),
-    }),
-    borderless: Object.freeze({
-      default: [
-        buttonColoursTransform('primary', ['text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('primary', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
-      ].join(' '),
-      normal: [
-        buttonColoursTransform('success', ['text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('success', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
-      ].join(' '),
-      warning: [
-        buttonColoursTransform('warning', ['text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('warning', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
-      ].join(' '),
-      error: [
-        buttonColoursTransform('error', ['text'], ['default', 'hover', 'active']),
-        buttonColoursTransform('error', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
-      ].join(' '),
-      disabled: 'bg-secondary-200 text-secondary-500 cursor-default',
-    }),
-    shaded: Object.freeze({
-      default: _shadedDefault,
-      normal: 'text-success hover:border-success',
-      warning: 'text-warning hover:border-warning',
-      error: 'text-error hover:border-error',
-      disabled: 'text-secondary-500 cursor-default',
-    }),
-    filled: Object.freeze({
-      default: 'bg-primary-700 hover:bg-primary-800',
-      normal: 'bg-success hover:bg-success-hover',
-      warning: 'bg-warning hover:bg-warning-hover',
-      error: 'bg-error hover:bg-error-hover',
-      disabled: 'bg-secondary-500 cursor-default',
-    }),
-  }),
-  //sizes + text
-  sizes: Object.freeze({
-    lg: 'py-2 px-4',
-    md: 'py-1.5 px-2.5',
-    sm: 'py-0.5 px-1.5',
-    squared: Object.freeze({
-      lg: styles.squaredLg,
-      md: styles.squaredMd,
-      sm: styles.squaredSm,
-    }),
-    text: Object.freeze({
-      lg: 'text-sm tracking-sm',
-      md: 'text-xs tracking-md',
-      sm: 'text-xxs tracking-lg',
-    }),
-    iconPadding: Object.freeze({
-      startIcon: Object.freeze({
-        sm: 'pr-1',
-        md: 'pr-1.5',
-        lg: 'pr-2.5',
-      }),
-      endIcon: Object.freeze({
-        sm: 'pl-1',
-        md: 'pl-1.5',
-        lg: 'pl-2.5',
-      }),
-    }),
-  }),
+const colourTransform = (type) => ({
+  outlined: {
+    [type]: [
+      (type !== 'primary' ? 'border-none' : ''),
+      buttonColoursTransform(type, ['border', 'text'], ['default', 'hover', 'active']),
+      buttonColoursTransform(type, ['bg'], ['hover', 'active'], [50, 50, 100]),
+    ].join(' '),
+    disabled: 'border-secondary-500 text-secondary-500 cursor-default',
+  },
+  borderless: {
+    [type]: [
+      buttonColoursTransform(type, ['text'], ['default', 'hover', 'active']),
+      buttonColoursTransform(type, ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
+    ].join(' '),
+    disabled: 'bg-secondary-200 text-secondary-500 cursor-default',
+  },
+  elevated: {
+    [type]: [
+      'active:border-white', 'hover:shadow-light-60', 'active:shadow-blue-10',      
+      buttonColoursTransform(type, ['text'], ['default', 'hover', 'active']),
+      buttonColoursTransform(type, ['border'], ['hover']),
+    ].join(' '),
+    disabled: 'text-secondary-500 cursor-default',
+  },
+  filled: {
+    [type]: buttonColoursTransform(type, ['bg'], ['default', 'hover', 'active']),
+    disabled: 'bg-secondary-500 cursor-default',
+  },
 })
 
-const Button = ({ children, classes, variant, size, color, disabled, ...rest }) => {
-  const { colors, sizes } = buttonConfigs
+const Button = ({ children, classes, variant, size, type, disabled, ...rest }) => {
+  const colors = useMemo(() => colourTransform(type), [type])
   const variants = {
     outlined: clsx('border border-1', {
       [colors[variant].disabled]: disabled,
-      [colors[variant][color]]: !disabled,
+      [colors[variant][type]]: !disabled,
     }),
     borderless: clsx({
       [colors[variant].disabled]: disabled,
-      [colors[variant][color]]: !disabled,
+      [colors[variant][type]]: !disabled,
     }),
-    shaded: clsx('border border-white bg-white shadow-light-10', {
+    elevated: clsx('border border-white bg-white shadow-light-10', {
       [`${colors[variant].disabled}`]: disabled,
-      [`${colors[variant][color]}`]: !disabled,
+      [`${colors[variant][type]}`]: !disabled,
     }),
     filled: clsx('text-white', {
       [colors[variant].disabled]: disabled,
-      [colors[variant][color]]: !disabled,
+      [colors[variant][type]]: !disabled,
     }),
   }
 
@@ -170,14 +109,14 @@ Button.propTypes = {
   classes: PropTypes.object,
   variant: PropTypes.string,
   size: PropTypes.string,
-  color: PropTypes.string,
+  type: PropTypes.string,
   disabled: PropTypes.bool,
 }
 Button.defaultProps = {
   classes: { button: '', startIcon: '', endIcon: '' },
   variant: 'outlined',
   size: '',
-  color: 'default',
+  type: 'primary',
   disabled: false,
 }
 

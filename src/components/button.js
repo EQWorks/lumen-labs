@@ -1,28 +1,86 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { ButtonBase } from '../base-components'
 import clsx from 'clsx'
 
+import { ButtonBase } from '../base-components'
+import { makeStyles } from '../utils/make-styles'
 
+
+const styles = makeStyles({
+  squaredLg: { padding: '0.7rem' },
+  squaredMd: { padding: '0.5rem' },
+  squaredSm: { padding: '0.3rem' },
+})
+
+const buttonColoursTransform = (type = 'primary', target = [], shade = [], customShades = []) => {
+  if (!target) return
+  const shades = {
+    default: customShades[0] || 500,
+    hover: customShades[1] || 600,
+    active: customShades[2] || 700,
+  }
+  return shade.map((s) => (
+    target.map((t) => [(s !== 'default' ? `${s}:${t}` : t), type, shades[s]].join('-')).join(' ')
+  )).join(' ')
+}
+
+const _shadedDefault = [
+  'text-primary-500',
+  'hover:text-primary-600',
+  'hover:border-primary-600',
+  'hover:shadow-light-60',
+  'active:border-white',
+  'active:text-primary-700',
+  'active:shadow-blue-10',
+].join(' ')
 const buttonConfigs = Object.freeze({
   colors: Object.freeze({
     outlined: Object.freeze({
-      default: 'border-primary-700 text-primary-700 hover:bg-primary-50',
-      normal: 'border-success text-success hover:bg-success-light',
-      warning: 'border-warning text-warning hover:bg-warning-light',
-      error: 'border-error text-error hover:bg-error-light',
-      disabled: 'border-secondary-500 text-secondary-500 cursor-default',
+      default: [
+        buttonColoursTransform('primary', ['border', 'text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('primary', ['bg'], ['hover', 'active'], [50, 50, 100]),
+      ].join(' '),
+      normal: [
+        'border-none',
+        buttonColoursTransform('success', ['text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('success', ['bg'], ['hover', 'active'], [50, 50, 100]),
+      ].join(' '),
+      warning: [
+        'border-none',
+        buttonColoursTransform('warning', ['text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('warning', ['bg'], ['hover', 'active'], [50, 50, 100]),
+      ].join(' '),
+      error: [
+        'border-none',
+        buttonColoursTransform('error', ['text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('error', ['bg'], ['hover', 'active'], [50, 50, 100]),
+      ].join(' '),
+      disabled: [
+        'cursor-default',
+        buttonColoursTransform('secondary', ['border', 'text'], ['default']),
+      ].join(' '),
     }),
     borderless: Object.freeze({
-      default: 'bg-primary-50 text-primary-700 hover:bg-primary-100',
-      normal: 'bg-success-light text-success hover:bg-success hover:bg-opacity-50',
-      warning: 'bg-warning-light text-warning hover:bg-warning hover:bg-opacity-50',
-      error: 'bg-error-light text-error hover:bg-error hover:bg-opacity-50',
-      disabled: 'bg-secondary-50 text-secondary-500 cursor-default',
+      default: [
+        buttonColoursTransform('primary', ['text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('primary', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
+      ].join(' '),
+      normal: [
+        buttonColoursTransform('success', ['text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('success', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
+      ].join(' '),
+      warning: [
+        buttonColoursTransform('warning', ['text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('warning', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
+      ].join(' '),
+      error: [
+        buttonColoursTransform('error', ['text'], ['default', 'hover', 'active']),
+        buttonColoursTransform('error', ['bg'], ['default', 'hover', 'active'], [50, 100, 200]),
+      ].join(' '),
+      disabled: 'bg-secondary-200 text-secondary-500 cursor-default',
     }),
     shaded: Object.freeze({
-      default: 'text-primary-700 hover:border-primary-700',
+      default: _shadedDefault,
       normal: 'text-success hover:border-success',
       warning: 'text-warning hover:border-warning',
       error: 'text-error hover:border-error',
@@ -36,14 +94,15 @@ const buttonConfigs = Object.freeze({
       disabled: 'bg-secondary-500 cursor-default',
     }),
   }),
+  //sizes + text
   sizes: Object.freeze({
-    lg: 'h-9 py-2 px-4',
-    md: 'h-6.5 py-1 px-2.5',
-    sm: 'h-5 py-px px-1',
+    lg: 'py-2 px-4',
+    md: 'py-1.5 px-2.5',
+    sm: 'py-0.5 px-1.5',
     squared: Object.freeze({
-      lg: 'p-2.5',
-      md: 'p-1.5',
-      sm: 'p-1',
+      lg: styles.squaredLg,
+      md: styles.squaredMd,
+      sm: styles.squaredSm,
     }),
     text: Object.freeze({
       lg: 'text-sm tracking-sm',
@@ -52,14 +111,14 @@ const buttonConfigs = Object.freeze({
     }),
     iconPadding: Object.freeze({
       startIcon: Object.freeze({
-        sm: 'pr-2.5',
-        md: 'pr-3',
-        lg: 'pr-3.5',
+        sm: 'pr-1',
+        md: 'pr-1.5',
+        lg: 'pr-2.5',
       }),
       endIcon: Object.freeze({
-        sm: 'pl-2.5',
-        md: 'pl-3',
-        lg: 'pl-3.5',
+        sm: 'pl-1',
+        md: 'pl-1.5',
+        lg: 'pl-2.5',
       }),
     }),
   }),
@@ -76,9 +135,9 @@ const Button = ({ children, classes, variant, size, color, disabled, ...rest }) 
       [colors[variant].disabled]: disabled,
       [colors[variant][color]]: !disabled,
     }),
-    shaded: clsx('border border-1 border-white bg-white', {
-      [`${colors[variant].disabled} shadow-10`]: disabled,
-      [`${colors[variant][color]} shadow-blue-10 hover:shadow-blue-30`]: !disabled,
+    shaded: clsx('border border-white bg-white shadow-light-10', {
+      [`${colors[variant].disabled}`]: disabled,
+      [`${colors[variant][color]}`]: !disabled,
     }),
     filled: clsx('text-white', {
       [colors[variant].disabled]: disabled,
@@ -88,7 +147,7 @@ const Button = ({ children, classes, variant, size, color, disabled, ...rest }) 
 
   const _classes = {
     button: clsx(
-      `focus:outline-none rounded-sm ${sizes.text[size]} font-body font-normal ${variants[variant]} ${classes.button}`,
+      `focus:outline-none rounded-sm font-normal ${sizes.text[size]} ${variants[variant]} ${classes.button}`,
       {
         [sizes[size]]: typeof children === 'string',
         [sizes.squared[size]]: typeof children !== 'string',

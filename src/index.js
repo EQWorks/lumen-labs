@@ -12,5 +12,6 @@ export { default as Pagination } from './components/pagination'
 export { default as DateRange } from './components/date-range'
 export { default as Accordion } from './components/accordion'
 export { default as List } from './components/list'
+export { default as Chip } from './components/chip'
 
 export { makeStyles } from './utils/make-styles'

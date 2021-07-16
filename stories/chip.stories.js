@@ -84,7 +84,7 @@ export const Multiple = () => {
   )
 }
 
-export const usage = () => {
+export const Usage = () => {
   const [options, setOptions] = useState(sampleData)
   const [selectedOptions, setSelectedOptions] = useState([])
 

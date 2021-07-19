@@ -13,8 +13,8 @@ const Chip = ({ classes, children, startIcon, endIcon, color, disabled, ...rest 
       ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
     `, 
     content: `${classes.content ? classes.content : 'text-xs'}`, 
-    startIcon: `${classes.startIcon ? classes.startIcon : 'w-1.5 h-1.5 mr-1'}`, 
-    endIcon: `${classes.endIcon ? classes.endIcon : 'w-1.5 h-1.5 ml-1'}`,
+    startIcon: `${classes.startIcon ? classes.startIcon : 'mr-1'}`, 
+    endIcon: `${classes.endIcon ? classes.endIcon : 'ml-1'}`,
   })
 
   return (

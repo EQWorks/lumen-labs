@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Chip } from '../src'
-import { Add, Close } from '../src/icons'
+import { Info, Close } from '../src/icons'
 
 
 export default {
@@ -15,26 +15,26 @@ const description = {
 
 const sampleData = [
   { 
-    color: 'red',
+    color: 'semantic-error',
   },
   { 
-    color: 'blue',
+    color: 'interactive',
     icon: 'end',
   },
   { 
-    color: 'green',
+    color: 'semantic-success',
     icon: 'start',
   },
   {
-    color: 'yellow',
+    color: 'semantic-warning',
     icon: 'start',
   },
   {
-    color: 'purple',
+    color: 'semantic-info',
     icon: 'end',
   },
   {
-    color: 'pink',
+    color: 'secondary',
     icon: 'start',
   },
 ]
@@ -55,11 +55,11 @@ export const Normal = () => {
   return (
     <>
       <p className={description.p}>Default: </p>
-      <Chip>CHIP</Chip>
+      <Chip>CHIP</Chip><Info size='sm'/>
       <p className={description.p}>Start Icon: </p>
-      <Chip startIcon={<Add />}>CHIP</Chip>
+      <Chip startIcon={<Info size='sm'/>}>CHIP</Chip>
       <p className={description.p}>End Icon: </p>
-      <Chip endIcon={<Add />}>CHIP</Chip>
+      <Chip endIcon={<Info size='sm'/>}>CHIP</Chip>
     </>
   )
 }
@@ -72,8 +72,8 @@ export const Multiple = () => {
           <div key={index}>
             <p className={description.p}>{data.color}: </p>
             {data.icon ?
-              ( data.icon === 'start' && <Chip color={data.color} startIcon={<Add />}>CHIP</Chip> ) ||
-              ( data.icon === 'end' && <Chip color={data.color} endIcon={<Add />}>CHIP</Chip> )
+              ( data.icon === 'start' && <Chip color={data.color} startIcon={<Info className='w-3 h-3'/>}>CHIP</Chip> ) ||
+              ( data.icon === 'end' && <Chip color={data.color} endIcon={<Info className='w-3 h-3'/>}>CHIP</Chip> )
               : 
               <Chip color={data.color}>CHIP</Chip>
             }
@@ -131,7 +131,7 @@ export const Usage = () => {
         {selectedOptions.map((data, index) => {
           return (
             <div className='mr-1' key={index}>
-              <Chip color={data.color} endIcon={<Close />} onClick={() => handleRemoveChip(data)}>CHIP</Chip>
+              <Chip color={data.color} endIcon={<Close size='sm'/>} onClick={() => handleRemoveChip(data)}>CHIP</Chip>
             </div>
           )
         })}

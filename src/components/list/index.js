@@ -31,20 +31,23 @@ ListCol.propTypes = { children: PropTypes.node.isRequired, colSpan: PropTypes.nu
 ListCol.defaultProps = { className: '' }
 
 /*-- ListItem --*/
-const ListItem = React.forwardRef(({ children, className, gridCols, onClick }, ref) => {
+const ListItem = React.forwardRef(({ children, className, classes, gridCols, selected, onClick }, ref) => {
   const _grid = gridCols > 0 ? ['grid grid-cols', gridCols].join('-') : ''
+  const _selected = selected ? classes.selected ? classes.selected : 'bg-secondary-100' : ''
   return (
-    <li ref={ref} onClick={onClick} className={`${_grid} ${className} `}>{children}</li>
+    <li ref={ref} onClick={onClick} className={`${_grid} ${_selected} ${className}`}>{children}</li>
   )
 })
 ListItem.displayName = 'ListItem'
 ListItem.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  classes: PropTypes.object,
   gridCols: PropTypes.number,
+  selected: PropTypes.bool,
   onClick: PropTypes.func,
 }
-ListItem.defaultProps = { className: '', gridCols: 0, onClick: () => {} }
+ListItem.defaultProps = { className: '', classes: {}, gridCols: 0, selected: false, onClick: () => {} }
 
 /*-- List --*/
 const renderListItems = ({ data, gridCols, renderItem }) => {
@@ -60,7 +63,7 @@ const List = React.forwardRef(({ classes, data, renderHeader, renderFooter, rend
   return (
     <div ref={ref} className={classes.root}>
       {renderHeader && <div className={`${_grid} ${classes.header}`}>{gridCols ? renderHeader(ListCol) : renderHeader()}</div>}
-      <ListBase className={`flex flex-col ${_spacing} overflow-auto scrollbar ${classes.list}`} gridCols={gridCols}>
+      <ListBase className={`flex flex-col ${_spacing} overflow-y-scroll scrollbar ${classes.list}`} classes={classes} gridCols={gridCols}>
         {renderListItems({ data, gridCols, renderItem })}
       </ListBase>
       {renderFooter && <div className={`${_grid} ${classes.footer}`}>{gridCols ? renderFooter(ListCol) : renderFooter()}</div>}
@@ -91,7 +94,7 @@ List.propTypes = {
   gridCols: PropTypes.number,
 }
 List.defaultProps = {
-  classes: { root: '', header: '', list: '', footer: '' },
+  classes: { root: '', header: '', list: '', footer: '', selected: '' },
   renderHeader: null,
   renderFooter: null,
   spacing: 0,

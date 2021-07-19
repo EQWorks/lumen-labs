@@ -9,7 +9,7 @@ import './switch-square.css'
 const SwitchSquare = ({ id, checked, onChange, disabled, tabIndex, color }) => {
   const switchSquareClasses = Object.freeze({
     label: `w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? color : 'bg-gray-400'}`,
+        ${checked ? `bg-${color}-500` : 'bg-secondary-400'}`,
     button: 'switch-square-button flex flex-col-reverse items-center w-4 h-4 left-0.5',
   })
 
@@ -26,7 +26,7 @@ const SwitchSquare = ({ id, checked, onChange, disabled, tabIndex, color }) => {
         className={`switch-button ${switchSquareClasses.button}`}
       >
         <span 
-          className={`line w-4 bg-white rounded-2xl ${disabled && 'switch-disabled-button'}`}
+          className={`line w-4 bg-white rounded-xl ${disabled && 'switch-disabled-button'}`}
           tabIndex={tabIndex}
         />
         <span 
@@ -52,7 +52,7 @@ SwitchSquare.defaultProps = {
   checked: true,
   disabled: false,
   tabIndex: 1,
-  color: 'bg-blue-500',
+  color: 'interactive',
 }
 
 export default SwitchSquare

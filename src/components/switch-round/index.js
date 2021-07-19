@@ -9,7 +9,7 @@ import './switch-round.css'
 const SwitchRound = ({ id, checked, onChange, disabled, tabIndex, color }) => {
   const switchRoundClasses = Object.freeze({
     label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
-        ${checked ? color : 'bg-gray-400'}`,
+        ${checked ? `bg-${color}-500` : 'bg-secondary-400'}`,
     button: 'switch-round-button top-px left-px bg-white duration-200',
   })
 
@@ -38,7 +38,7 @@ SwitchRound.defaultProps = {
   checked: true,
   disabled: false,
   tabIndex: 1,
-  color: 'bg-blue-500',
+  color: 'interactive',
 }
 
 export default SwitchRound

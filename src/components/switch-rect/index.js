@@ -9,7 +9,7 @@ import './switch-rect.css'
 const SwitchRect = ({ id, checked, onChange, disabled, tabIndex, color }) => {
   const switchRectClasses = Object.freeze({
     label: `w-10 h-6 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? color : 'bg-gray-400'}`,
+        ${checked ? `bg-${color}-500` : 'bg-secondary-400'}`,
     button: 'switch-rect-button top-0.5 left-1 bg-white duration-200',
   })
 
@@ -38,7 +38,7 @@ SwitchRect.defaultProps = {
   checked: true,
   disabled: false,
   tabIndex: 1,
-  color: 'bg-blue-500',
+  color: 'interactive',
 }
 
 export default SwitchRect

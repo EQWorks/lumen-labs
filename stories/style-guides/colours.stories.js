@@ -29,5 +29,5 @@ const renderColourShades = (variant, to) => {
 
 export const Shades = () => ['primary', 'secondary'].map((v) => renderColourShades(v))
 export const Default = () => ['neutral', 'interactive'].map((v) => renderColourShades(v, 700))
-export const Semantic = () => ['semantic-success', 'semantic-warning', 'semantic-error', 'semantic-info']
+export const Semantic = () => ['success', 'warning', 'error', 'info']
   .map((v) => renderColourShades(v, 700))

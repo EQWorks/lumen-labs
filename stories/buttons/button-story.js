@@ -26,9 +26,9 @@ const ButtonStory = ({ variant }) => {
         <Button variant={variant} size='lg' startIcon={<Add size='lg' />}>Button</Button>
         <Button variant={variant} size='lg' endIcon={<Add size='lg' />}>Button</Button>
         <Button variant={variant} size='lg'><Add size='lg' /></Button>
-        <Button variant={variant} size='lg' color='normal'>Normal</Button>
-        <Button variant={variant} size='lg' color='warning'>Warning</Button>
-        <Button variant={variant} size='lg' color='error'>Error</Button>
+        <Button variant={variant} size='lg' type='success'>Success</Button>
+        <Button variant={variant} size='lg' type='warning'>Warning</Button>
+        <Button variant={variant} size='lg' type='error'>Error</Button>
         <Button disabled variant={variant} size='lg'>Disabled</Button>
       </div>
 
@@ -38,9 +38,9 @@ const ButtonStory = ({ variant }) => {
         <Button variant={variant} size='md' startIcon={<Add size='md' />}>Button</Button>
         <Button variant={variant} size='md' endIcon={<Add size='md' />}>Button</Button>
         <Button variant={variant} size='md'><Add size='md' /></Button>
-        <Button variant={variant} size='md' color='normal'>Normal</Button>
-        <Button variant={variant} size='md' color='warning'>Warning</Button>
-        <Button variant={variant} size='md' color='error'>Error</Button>
+        <Button variant={variant} size='md' type='success'>Success</Button>
+        <Button variant={variant} size='md' type='warning'>Warning</Button>
+        <Button variant={variant} size='md' type='error'>Error</Button>
         <Button disabled variant={variant} size='md'>Disabled</Button>
       </div>
 
@@ -50,9 +50,9 @@ const ButtonStory = ({ variant }) => {
         <Button variant={variant} size='sm' startIcon={<Add size='sm' />}>Button</Button>
         <Button variant={variant} size='sm' endIcon={<Add size='sm' />}>Button</Button>
         <Button variant={variant} size='sm'><Add size='sm' /></Button>
-        <Button variant={variant} size='sm' color='normal'>Normal</Button>
-        <Button variant={variant} size='sm' color='warning'>Warning</Button>
-        <Button variant={variant} size='sm' color='error'>Error</Button>
+        <Button variant={variant} size='sm' type='success'>Success</Button>
+        <Button variant={variant} size='sm' type='warning'>Warning</Button>
+        <Button variant={variant} size='sm' type='error'>Error</Button>
         <Button disabled variant={variant} size='sm'>Disabled</Button>
       </div>
     </>

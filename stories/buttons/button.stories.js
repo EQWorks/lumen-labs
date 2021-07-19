@@ -29,10 +29,10 @@ export const Base = () => <BaseStory />
  *    endIcon: endIcon container div of ButtonBase
  * [variant] - string, includes: outlined/borderless/shaded/filled
  * [size] - string, includes: lg/md/sm
- * [color] - string, includes: default/normal/warning/error
+ * [type] - string, includes: default/normal/warning/error
  * [...rest] - any button element attributes
  */
 export const Outlined = () => <ButtonStory variant='outlined' />
 export const Borderless = () => <ButtonStory variant='borderless' />
-export const Shaded = () => <ButtonStory variant='shaded' />
+export const Elevated = () => <ButtonStory variant='elevated' />
 export const Filled = () => <ButtonStory variant='filled' />

@@ -15,22 +15,22 @@ const description = {
 
 const sampleData = [
   { 
-    color: 'semantic-error',
+    color: 'error',
   },
   { 
     color: 'interactive',
     icon: 'end',
   },
   { 
-    color: 'semantic-success',
+    color: 'success',
     icon: 'start',
   },
   {
-    color: 'semantic-warning',
+    color: 'warning',
     icon: 'start',
   },
   {
-    color: 'semantic-info',
+    color: 'info',
     icon: 'end',
   },
   {
@@ -55,7 +55,7 @@ export const Normal = () => {
   return (
     <>
       <p className={description.p}>Default: </p>
-      <Chip>CHIP</Chip><Info size='sm'/>
+      <Chip>CHIP</Chip>
       <p className={description.p}>Start Icon: </p>
       <Chip startIcon={<Info size='sm'/>}>CHIP</Chip>
       <p className={description.p}>End Icon: </p>
@@ -72,8 +72,8 @@ export const Multiple = () => {
           <div key={index}>
             <p className={description.p}>{data.color}: </p>
             {data.icon ?
-              ( data.icon === 'start' && <Chip color={data.color} startIcon={<Info className='w-3 h-3'/>}>CHIP</Chip> ) ||
-              ( data.icon === 'end' && <Chip color={data.color} endIcon={<Info className='w-3 h-3'/>}>CHIP</Chip> )
+              ( data.icon === 'start' && <Chip color={data.color} startIcon={<Info size='sm'/>}>CHIP</Chip> ) ||
+              ( data.icon === 'end' && <Chip color={data.color} endIcon={<Info size='sm'/>}>CHIP</Chip> )
               : 
               <Chip color={data.color}>CHIP</Chip>
             }

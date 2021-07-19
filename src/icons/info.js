@@ -2,20 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const Info = ({ className, ...props }) => (
+const iconSize = Object.freeze({
+  lg: 'w-3.5 h-3.5',
+  md: 'w-3 h-3',
+  sm: 'w-2.5, h-2.5',
+})
+
+const Info = ({ className, size, ...props }) => (
   <svg
-    className={className}
-    viewBox="0 0 20 20"
+    className={`${iconSize[size]} ${className}`}
+    viewBox="0 0 140 140"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
     stroke="currentColor"
     {...props}
   >
-    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+    <g transform="matrix(5.833333333333333,0,0,5.833333333333333,0,0)">
+      <path 
+        d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm.25,5a1.5,1.5,0,1,1-1.5,1.5A1.5,1.5,0,0,1,12.25,5ZM14.5,18.5h-4a1,1,0,0,1,0-2h.75a.25.25,0,0,0,.25-.25v-4.5a.25.25,0,0,0-.25-.25H10.5a1,1,0,0,1,0-2h1a2,2,0,0,1,2,2v4.75a.25.25,0,0,0,.25.25h.75a1,1,0,1,1,0,2Z" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        strokeWidth="0"
+      />
+    </g>
   </svg>
 )
 
-Info.propTypes = { className: PropTypes.string }
-Info.defaultProps = { className: '' }
+Info.propTypes = { className: PropTypes.string, size: PropTypes.string }
+Info.defaultProps = { className: '', size: '' }
 
 export default Info

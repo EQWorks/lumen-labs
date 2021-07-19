@@ -11,5 +11,6 @@ export { default as Layout } from './components/layout'
 export { default as Pagination } from './components/pagination'
 export { default as DateRange } from './components/date-range'
 export { default as Accordion } from './components/accordion'
+export { default as List } from './components/list'
 
 export { makeStyles } from './utils/make-styles'

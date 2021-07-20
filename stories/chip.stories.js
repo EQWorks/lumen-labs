@@ -59,7 +59,7 @@ export const Normal = () => {
       <p className={description.p}>Start Icon: </p>
       <Chip startIcon={<Info size='sm'/>}>CHIP</Chip>
       <p className={description.p}>End Icon: </p>
-      <Chip endIcon={<Info size='sm'/>}>CHIP</Chip>
+      <Chip endIcon={<Close size='xsm'/>} disabled={true}>CHIP</Chip>
     </>
   )
 }

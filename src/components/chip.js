@@ -8,13 +8,12 @@ const Chip = ({ classes, children, startIcon, endIcon, color, disabled, ...rest 
   const chipClasses = Object.freeze({
     button: `
       ${classes.chip ? classes.chip : 'px-1.5 py-px rounded-md'}
-      border bg-${color}-100 border-${color}-100 fill-current text-${color}-500
-      focus:border-${color}-500 hover:border-${color}-500 focus:outline-none
-      ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
+      bg-${color}-100 fill-current text-${color}-500
+      ${disabled ? 'cursor-not-allowed focus:outline-none hover:outline-none' : 'cursor-pointer focus:outline-sm hover:outline-sm'}
     `, 
-    content: `${classes.content ? classes.content : 'text-xxs font-semibold tracking-lg leading-relaxed'}`, 
-    startIcon: `${classes.startIcon ? classes.startIcon : 'mr-1'}`, 
-    endIcon: `${classes.endIcon ? classes.endIcon : 'ml-1'}`,
+    content: `${classes.content ? classes.content : 'text-xxs font-semibold tracking-lg leading-1.6'}`, 
+    startIcon: `${classes.startIcon ? classes.startIcon : 'mr-5px'}`, 
+    endIcon: `${classes.endIcon ? classes.endIcon : 'ml-5px'}`,
   })
 
   return (

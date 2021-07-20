@@ -104,6 +104,7 @@ module.exports = {
         '112.5': '28.125rem',
         '120.5': '30.625rem',
         sm: '8px 10px 8px 10px',
+        '5px': '0.313rem'
       },
       borderRadius: { sm: '4px', md: '0.375rem', xl: '0.75rem' },
       boxShadow: {
@@ -132,6 +133,12 @@ module.exports = {
         md: '0.4px',
         sm: '0.25px',
       },
+      outline: {
+        sm: ['0.5px solid'],
+      },
+      lineHeight: {
+        '1.6': 1.6,
+      }
     },
     screens: {
       sm: '640px',
@@ -958,7 +965,8 @@ module.exports = {
     objectPosition: ['responsive'],
     opacity: ['responsive', 'group-hover', 'focus-within', 'hover', 'focus'],
     order: ['responsive'],
-    outline: ['responsive', 'focus-within', 'focus'],
+    outline: ['responsive', 'focus-within', 'focus', 'hover'],
+    outlineColor: ['focus', 'hover'],
     overflow: ['responsive'],
     overscrollBehavior: ['responsive'],
     padding: ['responsive'],

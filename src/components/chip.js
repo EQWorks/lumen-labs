@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 import { ButtonBase } from '../base-components'
 
 
-const Chip = ({ classes, children, startIcon, endIcon, color, disabled, ...rest }) => {
+const Chip = ({ classes, children, startIcon, endIcon, color, selectable, ...rest }) => {
   const chipClasses = Object.freeze({
     button: `
-      ${classes.chip ? classes.chip : 'px-1.5 py-px rounded-md'}
-      bg-${color}-100 fill-current text-${color}-500
-      ${disabled ? 'cursor-not-allowed focus:outline-none hover:outline-none' : 'cursor-pointer focus:outline-sm hover:outline-sm'}
+      ${classes.chip ? classes.chip : 'px-5px rounded-md'}
+      border bg-${color}-100 border-${color}-100 fill-current text-${color}-500
+      focus:outline-none focus:border-${color}-500 hover:border-${color}-500
+      ${selectable ? 'cursor-pointer' : 'pointer-events-none'}
     `, 
     content: `${classes.content ? classes.content : 'text-xxs font-semibold tracking-lg leading-1.6'}`, 
     startIcon: `${classes.startIcon ? classes.startIcon : 'mr-5px'}`, 
@@ -17,7 +18,7 @@ const Chip = ({ classes, children, startIcon, endIcon, color, disabled, ...rest 
   })
 
   return (
-    <ButtonBase classes={chipClasses} startIcon={startIcon} endIcon={endIcon} disabled={disabled} {...rest}>
+    <ButtonBase classes={chipClasses} startIcon={startIcon} endIcon={endIcon} disabled={!selectable} {...rest}>
       {children}
     </ButtonBase>
   )
@@ -29,7 +30,7 @@ Chip.propTypes = {
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
   color: PropTypes.string,
-  disabled: PropTypes.bool,
+  selectable: PropTypes.bool,
 }
 
 Chip.defaultProps = {
@@ -37,7 +38,7 @@ Chip.defaultProps = {
   startIcon: null,
   endIcon: null,
   color: 'primary',
-  disabled: false,
+  selectable: true,
 }
 
 export default Chip

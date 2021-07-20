@@ -16,26 +16,27 @@ const description = {
 const sampleData = [
   { 
     color: 'error',
+    selectable: true,
   },
   { 
     color: 'interactive',
     icon: 'end',
+    selectable: true,
   },
   { 
     color: 'success',
     icon: 'start',
+    selectable: true,
   },
   {
     color: 'warning',
     icon: 'start',
-  },
-  {
-    color: 'info',
-    icon: 'end',
+    selectable: true,
   },
   {
     color: 'secondary',
     icon: 'start',
+    selectable: true,
   },
 ]
 
@@ -59,7 +60,9 @@ export const Normal = () => {
       <p className={description.p}>Start Icon: </p>
       <Chip startIcon={<Info size='sm'/>}>CHIP</Chip>
       <p className={description.p}>End Icon: </p>
-      <Chip endIcon={<Close size='xsm'/>} disabled={true}>CHIP</Chip>
+      <Chip endIcon={<Close size='xsm'/>}>CHIP</Chip>
+      <p className={description.p}>no selectable: </p>
+      <Chip selectable={false}>CHIP</Chip>
     </>
   )
 }
@@ -86,7 +89,13 @@ export const Multiple = () => {
 
 export const Usage = () => {
   const [options, setOptions] = useState(sampleData)
-  const [selectedOptions, setSelectedOptions] = useState([])
+  const [selectedOptions, setSelectedOptions] = useState([
+    { 
+      color: 'info',
+      icon: 'end',
+      selectable: false,
+    },
+  ])
 
   const handleAddChip = (data) => { 
     const filterOptions = []
@@ -126,12 +135,19 @@ export const Usage = () => {
           )
         })}
       </div>
-      <p className={description.p}>Selected: </p>
+      <p className={description.p}>Selected (default selected item is not removable): </p>
       <div className='flex flex-row'>
         {selectedOptions.map((data, index) => {
           return (
             <div className='mr-1' key={index}>
-              <Chip color={data.color} endIcon={<Close size='xsm'/>} onClick={() => handleRemoveChip(data)}>CHIP</Chip>
+              <Chip 
+                color={data.color} 
+                endIcon={data.selectable !== false && <Close size='xsm'/>} 
+                selectable={data.selectable} 
+                onClick={() => handleRemoveChip(data)}
+              >
+                CHIP
+              </Chip>
             </div>
           )
         })}

@@ -8,15 +8,15 @@ import './range-slider-base.css'
 
 const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled }, ref) => {
   //pseudo elements dynamic color
-  const thumbColor = getTailwindConfigColor(classes.thumbColor)
+  const thumbColor = getTailwindConfigColor(`${classes.thumbColor}-500`)
 
   const sliderClasses = Object.freeze({
     sliderContainer: `${width} relative my-2.5 h-px`,
     thumb: `${width}`,
     thumbColor: thumbColor ? thumbColor : '#000',
     slider: 'h-1 rounded-sm',
-    sliderTrack: `${classes.sliderTrack ? classes.sliderTrack : 'bg-gray-300'}`,
-    sliderRange: `${classes.sliderRange ? classes.sliderRange : 'bg-black'}`,
+    sliderTrack: `${classes.sliderTrack ? `bg-${classes.sliderTrack}-200` : 'bg-secondary-400'}`,
+    sliderRange: `${classes.sliderRange ? `bg-${classes.sliderRange}-500` : 'bg-black'}`,
   })
 
   const [minVal, setMinVal] = useState(values[0])
@@ -113,9 +113,9 @@ RangeSliderBase.propTypes = {
 
 RangeSliderBase.defaultProps = {
   classes: {
-    thumbColor: 'black',
-    sliderTrack: 'bg-gray-300',
-    sliderRange: 'bg-black',
+    thumbColor: '',
+    sliderTrack: '',
+    sliderRange: '',
   },
   width: 'w-48',
   disabled: false,

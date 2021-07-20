@@ -131,7 +131,7 @@ export const Usage = () => {
         {selectedOptions.map((data, index) => {
           return (
             <div className='mr-1' key={index}>
-              <Chip color={data.color} endIcon={<Close size='sm'/>} onClick={() => handleRemoveChip(data)}>CHIP</Chip>
+              <Chip color={data.color} endIcon={<Close size='xsm'/>} onClick={() => handleRemoveChip(data)}>CHIP</Chip>
             </div>
           )
         })}

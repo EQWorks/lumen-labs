@@ -7,7 +7,7 @@ import { ButtonBase } from '../base-components'
 const Chip = ({ classes, children, startIcon, endIcon, color, disabled, ...rest }) => {
   const chipClasses = Object.freeze({
     button: `
-      ${classes.chip ? classes.chip : 'px-2 py-0.5 rounded-md'}
+      ${classes.chip ? classes.chip : 'px-1.5 p-py rounded-md'}
       border bg-${color}-100 border-${color}-100 fill-current text-${color}-500
       focus:border-${color}-500 hover:border-${color}-500 focus:outline-none
       ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
-import { concatStateColor, concatTargetColor } from '../hooks'
+import { concatStateColor, concatTargetColor } from '../utils/concat-color'
 
 import { ButtonBase } from '../base-components'
 

@@ -1,15 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { concatStateColor, concatTargetColor } from '../hooks'
+
 import { ButtonBase } from '../base-components'
 
 
 const Chip = ({ classes, children, startIcon, endIcon, color, selectable, ...rest }) => {
+  const borderElementsColor = concatStateColor(color, 'border', ['focus', 'hover'], [500])
+  const buttonColor = concatTargetColor(color, ['bg', 'border', 'text'], [100, 100, 500])
+
   const chipClasses = Object.freeze({
     button: `
       ${classes.chip ? classes.chip : 'px-5px rounded-md'}
-      border bg-${color}-100 border-${color}-100 fill-current text-${color}-500
-      focus:outline-none focus:border-${color}-500 hover:border-${color}-500
+      border fill-current ${buttonColor} 
+      focus:outline-none ${borderElementsColor}
       ${selectable ? 'cursor-pointer' : 'pointer-events-none'}
     `, 
     content: `${classes.content ? classes.content : 'text-xxs font-semibold tracking-lg leading-1.6'}`, 

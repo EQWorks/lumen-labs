@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { concatStateColor, concatTargetColor } from '../hooks'
@@ -6,7 +6,7 @@ import { concatStateColor, concatTargetColor } from '../hooks'
 import { ButtonBase } from '../base-components'
 
 
-const Chip = ({ classes, children, startIcon, endIcon, color, selectable, ...rest }) => {
+const Chip = forwardRef(({ classes, children, startIcon, endIcon, color, selectable, ...rest }, ref) => {
   const borderElementsColor = concatStateColor(color, 'border', ['focus', 'hover'], [500])
   const buttonColor = concatTargetColor(color, ['bg', 'border', 'text'], [100, 100, 500])
 
@@ -23,11 +23,11 @@ const Chip = ({ classes, children, startIcon, endIcon, color, selectable, ...res
   })
 
   return (
-    <ButtonBase classes={chipClasses} startIcon={startIcon} endIcon={endIcon} disabled={!selectable} {...rest}>
+    <ButtonBase ref={ref} classes={chipClasses} startIcon={startIcon} endIcon={endIcon} disabled={!selectable} {...rest}>
       {children}
     </ButtonBase>
   )
-}
+})
 
 Chip.propTypes = {
   children: PropTypes.any.isRequired,
@@ -45,5 +45,7 @@ Chip.defaultProps = {
   color: 'primary',
   selectable: true,
 }
+
+Chip.displayName = 'Chip'
 
 export default Chip

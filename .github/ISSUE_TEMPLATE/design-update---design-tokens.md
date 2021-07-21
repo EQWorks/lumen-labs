@@ -11,7 +11,7 @@ assignees: ''
 - What is the purpose of this design token?
 
 # 🧩 Style Variations 
-- List of style variations and corresponding when-to-use descriptions
+- `style` → style description
 
 # 🔗 Zeplin Link
 - [TOKEN_NAME](url)

@@ -11,10 +11,13 @@ assignees: ''
 - What are the use cases for this component?
 
 # 🎭  Behaviours
-- Description of how the component will behave under different circumstances. Reference to associated guides (i.e. color, typography, spacing, etc...)
+- **behaviour**: Description of how the component will behave under different circumstances. Reference to associated guides (i.e. color, typography, spacing, etc...)
 
 # 🧩 Style Variations 
-- List of style variations and corresponding when-to-use descriptions
+- `style` → style description
+
+# 💟 Icons Used
+- [icon_name](url)
 
 # 🔗 Zeplin Link
 - [COMPONENT_NAME](url)

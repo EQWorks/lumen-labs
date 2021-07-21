@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
+
+import { concatTargetColor } from '../../utils/concat-color'
 
 import SwitchBase from '../../base-components/switch-base'
 
 import './switch-square.css'
 
 
-const SwitchSquare = ({ id, checked, onChange, disabled, tabIndex, color }) => {
+const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, color, ...rest }) => {
+  const labelColor = concatTargetColor(color, ['bg'], [500])
+
   const switchSquareClasses = Object.freeze({
     label: `w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? `bg-${color}-500` : 'bg-secondary-400'}`,
+        ${checked ? labelColor : 'bg-secondary-400'}`,
     button: 'switch-square-button flex flex-col-reverse items-center w-4 h-4 left-0.5',
   })
 
@@ -21,6 +25,7 @@ const SwitchSquare = ({ id, checked, onChange, disabled, tabIndex, color }) => {
       onChange={onChange}
       disabled={disabled}
       tabIndex={tabIndex}
+      {...rest}
     >
       <div 
         className={`switch-button ${switchSquareClasses.button}`}
@@ -37,7 +42,7 @@ const SwitchSquare = ({ id, checked, onChange, disabled, tabIndex, color }) => {
       </div>
     </SwitchBase>
   )
-}
+})
 
 SwitchSquare.propTypes = {
   id: PropTypes.string.isRequired,
@@ -54,5 +59,7 @@ SwitchSquare.defaultProps = {
   tabIndex: 1,
   color: 'interactive',
 }
+
+SwitchSquare.displayName = 'SwitchSquare'
 
 export default SwitchSquare

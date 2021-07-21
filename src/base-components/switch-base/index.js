@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './switch-base.css'
 
 
-const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex, children }, ref) => {
+const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex, children, ...rest }, ref) => {
   const switchClasses = Object.freeze({
     label: `${classes.label ? classes.label : 'w-9 h-4 bg-secondary-400'}`,
     button: `${classes.button ? classes.button : 'w-4 h-3.5 top-px left-px bg-white'}`,
@@ -22,6 +22,7 @@ const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disable
         checked={disabled ? false : checked}
         onChange={onChange}
         disabled={disabled}
+        {...rest}
       />
       <label
         className={`switch-label ${switchClasses.label} ${disabled && 'switch-disabled-label'}`}

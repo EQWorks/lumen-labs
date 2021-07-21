@@ -1,29 +1,35 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
+
+import { concatTargetColor } from '../../utils/concat-color'
 
 import SwitchBase from '../../base-components/switch-base'
 
 import './switch-round.css'
 
 
-const SwitchRound = ({ id, checked, onChange, disabled, tabIndex, color }) => {
+const SwitchRound = forwardRef(({ id, checked, onChange, disabled, tabIndex, color, ...rest }, ref) => {
+  const labelColor = concatTargetColor(color, ['bg'], [500])
+
   const switchRoundClasses = Object.freeze({
     label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
-        ${checked ? `bg-${color}-500` : 'bg-secondary-400'}`,
+        ${checked ? labelColor : 'bg-secondary-400'}`,
     button: 'switch-round-button top-px left-px bg-white duration-200',
   })
 
   return (
     <SwitchBase 
       id={id} 
+      ref={ref}
       classes={switchRoundClasses}                   
       checked={checked}
       onChange={onChange}
       disabled={disabled}
       tabIndex={tabIndex}
+      {...rest}
     />
   )
-}
+})
 
 SwitchRound.propTypes = {
   id: PropTypes.string.isRequired,
@@ -40,5 +46,7 @@ SwitchRound.defaultProps = {
   tabIndex: 1,
   color: 'interactive',
 }
+
+SwitchRound.displayName = 'SwitchRound'
 
 export default SwitchRound

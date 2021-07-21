@@ -1,12 +1,15 @@
 import React, { forwardRef, useState, useRef, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { getTailwindConfigColor } from '../../hooks/tailwind-config-color'
+import { getTailwindConfigColor } from '../../utils/tailwind-config-color'
+import { concatTargetColor } from '../../utils/concat-color'
 
 import './range-slider-base.css'
 
 
-const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled }, ref) => {
+const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled, ...rest }, ref) => {
+  const sliderTrackColor = concatTargetColor(classes.sliderTrack, ['bg'], [200])
+  const sliderRangeColor = concatTargetColor(classes.sliderRange, ['bg'], [500])
   //pseudo elements dynamic color
   const thumbColor = getTailwindConfigColor(`${classes.thumbColor}-500`)
 
@@ -15,8 +18,8 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
     thumb: `${width}`,
     thumbColor: thumbColor ? thumbColor : '#000',
     slider: 'h-1 rounded-sm',
-    sliderTrack: `${classes.sliderTrack ? `bg-${classes.sliderTrack}-200` : 'bg-secondary-400'}`,
-    sliderRange: `${classes.sliderRange ? `bg-${classes.sliderRange}-500` : 'bg-black'}`,
+    sliderTrack: `${classes.sliderTrack ? sliderTrackColor : 'bg-secondary-400'}`,
+    sliderRange: `${classes.sliderRange ? sliderRangeColor : 'bg-black'}`,
   })
 
   const [minVal, setMinVal] = useState(values[0])
@@ -50,7 +53,7 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
   }, [maxVal, getPercent])
 
   return (
-    <div ref={ref} className={`slider-container ${sliderClasses.sliderContainer}`}>      
+    <div ref={ref} className={`slider-container ${sliderClasses.sliderContainer}`} {...rest}>      
       <input
         type="range"
         min={min}

@@ -75,17 +75,17 @@ export const Default = () => {
       />
       <p className={labelClass}>Start Icon:</p>
       <TextField
-        inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/> }}
+        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/> }}
         label='Label'
         helperText='I am helper text'
       />
       <p className={labelClass}>End Icon:</p>
       <TextField        
-        inputProps={{ ...inputProps, endIcon: <Search size='lg'/> }}
+        inputProps={{ ...inputProps, endIcon: <Search size='md'/> }}
         label='Label - search icon'
       />
       <TextField        
-        inputProps={{ ...inputProps, endIcon: <ArrowDown size='lg'/> }}
+        inputProps={{ ...inputProps, endIcon: <ArrowDown size='md'/> }}
         label='Label - arrow down icon'
       />
       <p className={labelClass}>Prefix & Suffix: </p>
@@ -97,21 +97,21 @@ export const Default = () => {
       <p className={labelClass}>Success:</p>
       <TextField 
         success 
-        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Check size='lg'/> }}
+        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Check size='md'/> }}
         label='Label' 
         helperText='Success state' 
       />
       <p className={labelClass}>Error:</p>
       <TextField 
         error 
-        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Alert size='lg'/> }}
+        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Alert size='md'/> }}
         label='Label' 
         helperText='Error state' 
       />
       <p className={labelClass}>Disabled:</p>
       <TextField 
         disabled 
-        inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/>, endIcon: <Search size='lg'/> }}
+        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Search size='md'/> }}
         label='Label' 
         helperText='Disabled state' 
       />
@@ -119,10 +119,9 @@ export const Default = () => {
   )
 }
 
-export const Custom = () => {
+export const SizeLarge = () => {
   const inputProps = { placeholder: 'Placeholder text' }
   const classes = { 
-    root: 'h-7 mt-1.5 rounded-sm py-1.5 px-2.5 font-sans text-xs tracking-md leading-1.33',
     container: 'w-96 flex flex-col', 
   }
   
@@ -131,31 +130,36 @@ export const Custom = () => {
       <p className={labelClass}>Label + Helper Text:</p>
       <TextField
         classes={classes}
+        size='lg'
         inputProps={inputProps} 
         label='Label' 
         helperText='I am helper text' 
       />
       <p className={labelClass}>Start Icon:</p>
       <TextField
-        classes={classes}        
-        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/> }}
+        classes={classes}
+        size='lg'        
+        inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/> }}
         label='Label'
         helperText='I am helper text'
       />
       <p className={labelClass}>End Icon:</p>
       <TextField
-        classes={classes}        
-        inputProps={{ ...inputProps, endIcon: <Search size='md'/> }}
+        classes={classes}
+        size='lg'        
+        inputProps={{ ...inputProps, endIcon: <Search size='lg'/> }}
         label='Label - search icon'
       />
       <TextField
-        classes={classes}        
-        inputProps={{ ...inputProps, endIcon: <ArrowDown size='md'/> }}
+        classes={classes}
+        size='lg'        
+        inputProps={{ ...inputProps, endIcon: <ArrowDown size='lg'/> }}
         label='Label - arrow down icon'
       />
       <p className={labelClass}>Prefix & Suffix: </p>
       <TextField
-        classes={classes} 
+        classes={classes}
+        size='lg' 
         inputProps={{ ...inputProps, prefix: 'https://', suffix: '.com' }}
         label='Label'
         helperText='I am helper text'
@@ -163,24 +167,27 @@ export const Custom = () => {
       <p className={labelClass}>Success:</p>
       <TextField
         classes={classes}
+        size='lg'
         success 
-        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Check size='md'/> }}
+        inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/>, endIcon: <Check size='lg'/> }}
         label='Label' 
         helperText='Success state' 
       />
       <p className={labelClass}>Error:</p>
       <TextField
         classes={classes}
+        size='lg'
         error 
-        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Alert size='md'/> }}
+        inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/>, endIcon: <Alert size='lg'/> }}
         label='Label' 
         helperText='Error state' 
       />
       <p className={labelClass}>Disabled:</p>
       <TextField
         classes={classes}
+        size='lg'
         disabled 
-        inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Search size='md'/> }}
+        inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/>, endIcon: <Search size='lg'/> }}
         label='Label' 
         helperText='Disabled state' 
       />
@@ -247,9 +254,9 @@ export const Usage = () => {
         /> 
         <div className='ml-5'>
           {success ? 
-            <Button variant='filled' size='lg' type='success'>Submit</Button>
+            <Button variant='filled' size='md' type='success'>Submit</Button>
             :
-            <Button variant='filled' size='lg' disabled>Submit</Button>
+            <Button variant='filled' size='md' disabled>Submit</Button>
           }
         </div>
       </div>

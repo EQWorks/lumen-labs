@@ -4,34 +4,51 @@ import clsx from 'clsx'
 
 import { TextareaBase } from '../base-components'
 
+const inputSizes = (size) => {
+  let inputSize = ''
 
-const _areaClasses = ({ container }) => ({
-  container: `${container ? container : 'w-96 flex flex-col'}`,
+  switch(size) {
+  case 'lg':
+    inputSize = 'text-sm tracking-sm leading-1.43'
+    break
+  case 'md':
+    inputSize = 'text-xs tracking-md leading-1.33'
+    break
+  default:
+    break
+  }
+  
+  return inputSize
+}
+
+
+const _areaClasses = ({ container, size }) => ({
+  container: `font-sans ${container ? container : 'w-96 flex flex-col'} ${inputSizes(size)}`,
   label: 'text-secondary-600',
   helperText: 'mt-1.5 text-secondary-600',
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
 const _textareaBaseClasses = ({ focus, root, filled, disabled }) => ({
-  root: clsx(`${root ? root : 'w-96 h-24 mt-1.5 rounded-sm p-sm font-sans text-sm tracking-sm leading-1.43'}`,
-    { 'border-secondary-600': !disabled },
+  root: clsx(`${root ? root : 'h-24 mt-1.5 rounded-sm p-sm'}`,
+    { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus },
     { 'border-interactive-500 shadow-focused-interactive': focus },
-    { 'border-interactive-500 bg-neutral-50': filled },
+    { 'border-interactive-500 bg-secondary-50': filled },
     { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
   ),
   textarea: clsx('outline-none text-secondary-800', 
-    { 'bg-neutral-50': filled },
+    { 'bg-secondary-50': filled },
     { 'bg-secondary-100 placeholder-secondary-300': disabled },
   ),
 })
 
-const Area = ({ classes, inputProps, label, maxLength, helperText, disabled, onSubmit }) => {
+const Area = ({ classes, size, inputProps, label, maxLength, helperText, disabled, onSubmit }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
   const { root, container } = classes
-  const areaClasses = _areaClasses({ container })
-  const textareaBaseClasses = _textareaBaseClasses({ focus, root, filled, disabled })
+  const areaClasses = _areaClasses({ container, size })
+  const textareaBaseClasses = _textareaBaseClasses({ size, focus, root, filled, disabled })
 
   const handleChange = (val) => {
     setValue(val)
@@ -73,6 +90,7 @@ const Area = ({ classes, inputProps, label, maxLength, helperText, disabled, onS
 
 Area.propTypes = {
   classes: PropTypes.object,
+  size: PropTypes.string,
   inputProps: PropTypes.object,
   label: PropTypes.string,
   maxLength: PropTypes.number,
@@ -82,6 +100,7 @@ Area.propTypes = {
 }
 Area.defaultProps = {
   classes: { root: '', container: '' },
+  size: 'md',
   inputProps: {},
   label: '',
   maxLength: 125,

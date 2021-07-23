@@ -5,9 +5,31 @@ import clsx from 'clsx'
 import { InputBase } from '../base-components'
 import Area from './area'
 
+const _inputSize = ({ size }) => {
+  let inputSize = ''
 
-const _textFieldClasses = ({ container, success, error }) => ({
-  container: `${container ? container : 'w-250px flex flex-col'}`,
+  switch(size) {
+  case 'lg':
+    inputSize = {
+      box: 'h-9 p-sm',
+      font: 'text-sm tracking-sm leading-1.43',
+    }
+    break
+  case 'md':
+    inputSize = {
+      box: 'h-7 py-1.5 px-2.5',
+      font: 'text-xs tracking-md leading-1.33',
+    }
+    break
+  default:
+    break
+  }
+  
+  return inputSize
+}
+
+const _textFieldClasses = ({ container, inputSize, success, error }) => ({
+  container: `font-sans ${container ? container : 'w-250px flex flex-col'} ${inputSize.font}`,
   label: 'text-secondary-600',
   helperText: clsx('mt-1.5 text-secondary-600', { 
     'text-error-500': error, 
@@ -16,17 +38,17 @@ const _textFieldClasses = ({ container, success, error }) => ({
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
-const _inputBaseClasses = ({ focus, success, error, root, filled, disabled }) => ({
-  root: clsx(`${root ? root : 'h-9 mt-1.5 rounded-sm p-sm font-sans text-sm tracking-sm leading-1.43'}`,
-    { 'border-secondary-600': !disabled },
+const _inputBaseClasses = ({ inputSize, focus, success, error, root, filled, disabled }) => ({
+  root: clsx(`${root ? root : `mt-1.5 rounded-sm ${inputSize.box}`}`,
+    { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus && !error & !success },
     { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
     { 'border-error-500 shadow-focused-error': error },
     { 'border-success-500 shadow-focused-success': success },
-    { 'border-interactive-500 bg-neutral-50': filled },
+    { 'border-interactive-500 bg-secondary-50': filled },
     { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
   ),
   input: clsx('outline-none text-secondary-800', 
-    { 'bg-neutral-50': filled },
+    { 'bg-secondary-50': filled },
     { 'bg-secondary-100 placeholder-secondary-300': disabled },
   ),
   startIcon: clsx('mt-0.5 mr-4 fill-current stroke-current', { 'text-secondary-600': !disabled }),
@@ -42,13 +64,14 @@ const _inputBaseClasses = ({ focus, success, error, root, filled, disabled }) =>
   suffix: 'ml-2.5 text-secondary-600',
 })
 
-const TextField  = ({ classes, inputProps, label, maxLength, helperText, success, error, disabled, onChange, onSubmit }) => {
+const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, disabled, onChange, onSubmit }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
   const { root, container } = classes
-  const textFieldClasses = _textFieldClasses({ container, success, error })
-  const inputBaseClasses = _inputBaseClasses({ focus, success, error, root, filled, disabled })
+  const inputSize = _inputSize({ size })
+  const textFieldClasses = _textFieldClasses({ container, inputSize, success, error })
+  const inputBaseClasses = _inputBaseClasses({ inputSize, focus, success, error, root, filled, disabled })
 
   const handleChange = (val) => {
     setValue(val)
@@ -91,6 +114,7 @@ const TextField  = ({ classes, inputProps, label, maxLength, helperText, success
 
 TextField.propTypes = {
   classes: PropTypes.object,
+  size: PropTypes.string,
   inputProps: PropTypes.object,
   label: PropTypes.string,
   maxLength: PropTypes.number,
@@ -103,6 +127,7 @@ TextField.propTypes = {
 }
 TextField.defaultProps = {
   classes: { root: '', container: '' },
+  size: 'md',
   inputProps: {},
   label: '',
   maxLength: null,

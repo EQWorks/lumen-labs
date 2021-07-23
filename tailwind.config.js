@@ -110,9 +110,9 @@ module.exports = {
       borderRadius: { sm: '4px', md: '0.375rem', xl: '0.75rem' },
       boxShadow: {
         'focused-primary': '0 0 2px 2px rgba(0, 117, 255, 0.25)',
-        'focused-interactive': '0 0 2px 2px #3174d5',
-        'focused-error': '0 0 2px 2px #d43e34',
-        'focused-success': '0 0 2px 2px #258715',
+        'focused-interactive': '0 0 0 2px rgba(49, 116, 213, 0.25)',
+        'focused-error': '0 0 0 2px rgba(212, 62, 52, 0.25)',
+        'focused-success': '0 0 0 2px rgba(37, 135, 21, 0.25)',
         10: '0 1px 4px 0 rgba(12, 12, 13, 0.1)',
         20: '0px 2px 8px rgba(12, 12, 13, 0.15)',
         30: '0px 4px 12px rgba(12, 12, 13, 0.2)',

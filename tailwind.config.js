@@ -104,12 +104,15 @@ module.exports = {
         '112.5': '28.125rem',
         '120.5': '30.625rem',
         sm: '8px 10px 8px 10px',
-        '5px': '0.313rem'
+        '5px': '0.313rem',
+        '250px': '15.625rem'
       },
       borderRadius: { sm: '4px', md: '0.375rem', xl: '0.75rem' },
       boxShadow: {
         'focused-primary': '0 0 2px 2px rgba(0, 117, 255, 0.25)',
-        'focused-error': '0 0 2px 2px rgba(234, 0, 0, 0.25)',
+        'focused-interactive': '0 0 2px 2px #3174d5',
+        'focused-error': '0 0 2px 2px #d43e34',
+        'focused-success': '0 0 2px 2px #258715',
         10: '0 1px 4px 0 rgba(12, 12, 13, 0.1)',
         20: '0px 2px 8px rgba(12, 12, 13, 0.15)',
         30: '0px 4px 12px rgba(12, 12, 13, 0.2)',
@@ -138,7 +141,9 @@ module.exports = {
       },
       lineHeight: {
         '1.6': 1.6,
-      }
+        '1.43': 1.43,
+        '1.33': 1.33,
+      },
     },
     screens: {
       sm: '640px',

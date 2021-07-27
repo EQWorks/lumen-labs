@@ -8,7 +8,7 @@ import './range-slider-base.css'
 
 
 const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled, ...rest }, ref) => {
-  const sliderTrackColor = concatTargetColor(classes.sliderTrack, ['bg'], [200])
+  const sliderTrackColor = concatTargetColor(classes.sliderTrack, ['bg'], [100])
   const sliderRangeColor = concatTargetColor(classes.sliderRange, ['bg'], [500])
   //pseudo elements dynamic color
   const thumbColor = getTailwindConfigColor(`${classes.thumbColor}-500`)
@@ -18,7 +18,7 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
     thumb: `${width}`,
     thumbColor: thumbColor ? thumbColor : '#000',
     slider: 'h-1 rounded-sm',
-    sliderTrack: `${classes.sliderTrack ? sliderTrackColor : 'bg-secondary-400'}`,
+    sliderTrack: `${classes.sliderTrack ? sliderTrackColor : 'bg-secondary-300'}`,
     sliderRange: `${classes.sliderRange ? sliderRangeColor : 'bg-black'}`,
   })
 

@@ -13,8 +13,8 @@ const SwitchRect = forwardRef(({ id, checked, onChange, disabled, tabIndex, colo
 
   const switchRectClasses = Object.freeze({
     label: `w-10 h-6 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? labelColor : 'bg-secondary-400'}`,
-    button: 'switch-rect-button top-0.5 left-1 bg-white duration-200',
+        ${checked ? labelColor : 'bg-secondary-300'}`,
+    button: 'switch-rect-button inset-0.5 left-1 bg-white duration-200',
   })
 
   return (

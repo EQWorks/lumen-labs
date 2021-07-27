@@ -6,7 +6,7 @@ import './switch-base.css'
 
 const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex, children, ...rest }, ref) => {
   const switchClasses = Object.freeze({
-    label: `${classes.label ? classes.label : 'w-9 h-4 bg-secondary-400'}`,
+    label: `${classes.label ? classes.label : 'w-9 h-4 bg-secondary-200'}`,
     button: `${classes.button ? classes.button : 'w-4 h-3.5 top-px left-px bg-white'}`,
     checkbox: 'w-0 h-0 hidden',
   })

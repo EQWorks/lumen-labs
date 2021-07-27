@@ -13,7 +13,7 @@ const SwitchRound = forwardRef(({ id, checked, onChange, disabled, tabIndex, col
 
   const switchRoundClasses = Object.freeze({
     label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
-        ${checked ? labelColor : 'bg-secondary-400'}`,
+        ${checked ? labelColor : 'bg-secondary-300'}`,
     button: 'switch-round-button top-px left-px bg-white duration-200',
   })
 

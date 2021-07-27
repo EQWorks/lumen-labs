@@ -15,13 +15,13 @@
 }
 
 .switch-disabled-label {
-  outline: 1px solid #bdbdbd;
-  background-color: #fafafa;
+  outline: 1px solid #eaeaea;
+  background-color: #f7f7f7;
   cursor: not-allowed;
 }
 
 .switch-disabled-label .switch-disabled-button {
-  background-color: #bdbdbd;
+  background-color: #eaeaea;
 }
 
 @media screen and (max-width: 991px) {

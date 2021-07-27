@@ -13,7 +13,7 @@ const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, co
 
   const switchSquareClasses = Object.freeze({
     label: `w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? labelColor : 'bg-secondary-400'}`,
+        ${checked ? labelColor : 'bg-secondary-300'}`,
     button: 'switch-square-button flex flex-col-reverse items-center w-4 h-4 left-0.5',
   })
 
@@ -36,7 +36,7 @@ const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, co
         />
         <span 
           className='dot'
-          style={{ borderColor: disabled && '#bdbdbd' }}
+          style={{ borderColor: disabled && '#eaeaea' }}
           tabIndex={tabIndex}
         />
       </div>

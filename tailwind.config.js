@@ -108,7 +108,7 @@ module.exports = {
         '5px': '0.313rem',
         '7px': '0.438rem',
         '9px': '0.563rem',
-        '250px': '15.625rem'
+        '250px': '15.625rem',
       },
       borderRadius: { sm: '4px', md: '0.375rem', xl: '0.75rem' },
       boxShadow: {

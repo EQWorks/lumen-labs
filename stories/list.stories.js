@@ -21,18 +21,18 @@ export default {
  * [renderItem] - func/elementType, list-item component
  * [renderHeader] - func/elementType, header component
  * [renderFooter] - func/elementType, footer component
- * [spacing] - number, gap between list items
+ * [rowHeight] - number, required prop for react-window, determining height of each row
  * [gridCols] - number, number of columns to render for header/list/footer
  */
 export const Normal = () => {
   return (
     <List
       classes={{ list: 'h-40', root: 'w-96', header: 'border', footer: 'border' }}
-      spacing={2}
       renderHeader={() => <h2>HEADER</h2>}
       renderFooter={() => <h2>FOOTER</h2>}
+      rowHeight={40}
       data={['item1', 'item2', 'item3', 'item4', 'item1', 'item2', 'item3', 'item4']}
-      renderItem={(item, index) => <List.ListItem key={index}>{item}</List.ListItem>}
+      renderItem={({ item, index }) => <List.ListItem key={index}>{item}</List.ListItem>}
     />
   )
 }
@@ -42,7 +42,7 @@ export const Grid = () => {
     <List
       gridCols={4}
       classes={{ root: 'w-96', list: 'h-40', header: 'border', footer: 'border' }}
-      spacing={2}
+      rowHeight={40}
       renderHeader={(ListCol) => {
         return (
           <>
@@ -62,7 +62,7 @@ export const Grid = () => {
         )
       }}
       data={['item1', 'item2', 'item3', 'item4', 'item1', 'item2', 'item3', 'item4']}
-      renderItem={(item, index, ListCol) => {
+      renderItem={({ item, index, ListCol }) => {
         return <List.ListItem key={index}>
           <ListCol colSpan={2}>hello</ListCol>
           <ListCol colSpan={1}>{item}</ListCol>

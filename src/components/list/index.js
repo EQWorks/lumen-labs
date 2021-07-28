@@ -1,105 +1,93 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
 
+import { FixedSizeList, FixedSizeGrid } from 'react-window'
+import AutoSizer from 'react-virtualized-auto-sizer'
+
+import { ListItemsContainer, ListItem, ListCol } from './list-item'
 import './scrollbar.css'
 
 
-/*-- ListBase - base component for List --*/
-const ListBase = React.forwardRef(({ children, className, ...props }, ref) => {
-  return (
-    <ul ref={ref} className={className}>
-      {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child, { ...props })
-        }
-        return child
-      })}
-    </ul>
-  )
-})
-ListBase.displayName = 'ListBase'
-ListBase.propTypes = { children: PropTypes.node.isRequired, className: PropTypes.string }
-ListBase.defaultProps = { className: '' }
-
-/*-- ListCol - grid column component wrapper if gridCols > 0 --*/
-const ListCol = React.forwardRef(({ children, className, colSpan }, ref) => {
-  const _colSpan = ['col-span', colSpan].join('-')
-  return (<div ref={ref} className={`${_colSpan} ${className}`}>{children}</div>)
-})
-ListCol.displayName = 'ListCol'
-ListCol.propTypes = { children: PropTypes.node.isRequired, colSpan: PropTypes.number.isRequired, className: PropTypes.string }
-ListCol.defaultProps = { className: '' }
-
-/*-- ListItem --*/
-const ListItem = React.forwardRef(({ children, className, classes, gridCols, selected, onClick }, ref) => {
-  const _grid = gridCols > 0 ? ['grid grid-cols', gridCols].join('-') : ''
-  const _selected = selected ? classes.selected ? classes.selected : 'bg-secondary-100' : ''
-  return (
-    <li ref={ref} onClick={onClick} className={`${_grid} ${_selected} ${className}`}>{children}</li>
-  )
-})
-ListItem.displayName = 'ListItem'
-ListItem.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  classes: PropTypes.object,
-  gridCols: PropTypes.number,
-  selected: PropTypes.bool,
-  onClick: PropTypes.func,
-}
-ListItem.defaultProps = { className: '', classes: {}, gridCols: 0, selected: false, onClick: () => {} }
-
-/*-- List --*/
-const renderListItems = ({ data, gridCols, renderItem }) => {
-  if (gridCols) {
-    return data.map((item, index) => renderItem(item, index, ListCol))
+const _renderItems = ({ data, index, columnIndex, rowIndex, style }) => ({ renderItem, gridCols, isGrid, columnCount }) => {
+  const _index = isGrid ? (columnCount*rowIndex + columnIndex) : index
+  if (gridCols > -1) {
+    return renderItem({ item: data[_index] || {}, index: _index, columnIndex, rowIndex, style, ListCol })
   }
-  return data.map(renderItem)
+  return renderItem({ item: data[_index] || {}, index: _index, columnIndex, rowIndex, style })
 }
 
-const List = React.forwardRef(({ classes, data, renderHeader, renderFooter, renderItem, spacing, gridCols }, ref) => {
+const ListBase = ({
+  classes, data, rowHeight, gridCols, renderItem, renderHeader, renderFooter, scrollbar,
+  columnCount, columnWidth, rowCount, rowWidth,
+}) => {
+  const isGrid = columnCount > -1 || columnWidth > -1 || rowCount > -1 || rowWidth > -1
+  const props = isGrid ? { columnCount, columnWidth, rowCount, rowWidth, rowHeight } : { itemSize: rowHeight }
+  const ListElement = isGrid ? FixedSizeGrid : FixedSizeList
+  const ref = createRef()
   const _grid = gridCols > 0 ? ['grid grid-cols', gridCols].join('-') : ''
-  const _spacing = ['space-y', spacing].join('-')
+  const _scrollbar = scrollbar ? 'scrollbar' : 'noscrollbar'
+
   return (
-    <div ref={ref} className={classes.root}>
-      {renderHeader && <div className={`${_grid} ${classes.header}`}>{gridCols ? renderHeader(ListCol) : renderHeader()}</div>}
-      <ListBase className={`flex flex-col ${_spacing} overflow-y-scroll scrollbar ${classes.list}`} classes={classes} gridCols={gridCols}>
-        {renderListItems({ data, gridCols, renderItem })}
-      </ListBase>
-      {renderFooter && <div className={`${_grid} ${classes.footer}`}>{gridCols ? renderFooter(ListCol) : renderFooter()}</div>}
+    <div className={classes.root}>
+      {renderHeader && <div className={`${_grid} ${classes.header}`}>
+        {gridCols ? renderHeader(ListCol) : renderHeader()}
+      </div>}
+
+      <div className={classes.list}>
+        <AutoSizer>
+          {({ height, width }) => (
+            <ListElement
+              ref={ref}
+              className={`overflow-y-scroll ${_scrollbar} ${classes.list}`}
+              width={width}
+              height={height}
+              itemData={data}
+              itemCount={data.length}
+              {...props}
+            >
+              {(v) => (
+                <ListItemsContainer style={v.style} gridCols={gridCols} classes={classes}>
+                  {_renderItems(v)({ renderItem, gridCols, isGrid, columnCount })}
+                </ListItemsContainer>
+              )}
+            </ListElement>
+          )}
+        </AutoSizer>
+      </div>
+
+      {renderFooter && <div className={`${_grid} ${classes.footer}`}>
+        {gridCols ? renderFooter(ListCol) : renderFooter()}
+      </div>}
     </div>
   )
-})
+}
 
-List.displayName = 'List'
-List.propTypes = {
+ListBase.propTypes = {
   data: PropTypes.array.isRequired,
-  renderItem: PropTypes.oneOfType([
-    PropTypes.func.isRequired,
-    PropTypes.elementType.isRequired,
-  ]),
+  rowHeight: PropTypes.number.isRequired,
+  renderItem: PropTypes.func.isRequired,
   classes: PropTypes.object,
-  renderHeader: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.elementType,
-  ]),
-  renderFooter: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.elementType,
-  ]),
-  spacing: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
   gridCols: PropTypes.number,
+  renderHeader: PropTypes.func,
+  renderFooter: PropTypes.func,
+  scrollbar: PropTypes.bool,
+  columnCount: PropTypes.number,
+  columnWidth: PropTypes.number,
+  rowCount: PropTypes.number,
+  rowWidth: PropTypes.number,
 }
-List.defaultProps = {
-  classes: { root: '', header: '', list: '', footer: '', selected: '' },
-  renderHeader: null,
-  renderFooter: null,
-  spacing: 0,
-  gridCols: 0,
+ListBase.defaultProps = {
+  classes: { root: 'w-full h-2/3', list: 'w-full h-full' },
+  width: null,
+  gridCols: -1,
+  renderHeader: () => {},
+  renderFooter: () => {},
+  scrollbar: true,
+  columnCount: -1,
+  columnWidth: -1,
+  rowCount: -1,
+  rowWidth: -1,
 }
 
-List.ListItem = ListItem
-export default List
+ListBase.ListItem = ListItem
+export default ListBase

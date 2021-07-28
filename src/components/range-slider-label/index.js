@@ -22,7 +22,7 @@ const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, s
 
   const sliderLabelClasses = Object.freeze({
     label: `${classes.label ? classes.label : 'pt-5 text-xs'}`,
-    tooltip: `${classes.tooltip ? classes.tooltip : 'py-1 px-3 text-white rounded-sm z-10'}`,
+    tooltip: `z-10 ${classes.tooltip ? classes.tooltip : 'py-1 px-3 text-white rounded-sm '}`,
   })
 
   const sliderBaseRef = useRef(null)

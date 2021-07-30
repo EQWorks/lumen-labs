@@ -60,7 +60,7 @@ export const Normal = () => {
       <p className={description.p}>Start Icon: </p>
       <Chip startIcon={<Info size='sm'/>}>CHIP</Chip>
       <p className={description.p}>End Icon: </p>
-      <Chip endIcon={<Close size='xsm'/>}>CHIP</Chip>
+      <Chip endIcon={<Close size='xs'/>}>CHIP</Chip>
       <p className={description.p}>no selectable: </p>
       <Chip selectable={false}>CHIP</Chip>
     </>
@@ -142,7 +142,7 @@ export const Usage = () => {
             <div className='mr-1' key={index}>
               <Chip 
                 color={data.color} 
-                endIcon={data.selectable !== false && <Close size='xsm'/>} 
+                endIcon={data.selectable !== false && <Close size='xs'/>} 
                 selectable={data.selectable} 
                 onClick={() => handleRemoveChip(data)}
               >

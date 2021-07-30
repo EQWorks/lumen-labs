@@ -13,5 +13,6 @@ export { default as DateRange } from './components/date-range'
 export { default as Accordion } from './components/accordion'
 export { default as List } from './components/list'
 export { default as Chip } from './components/chip'
+export { default as DropdownSelect } from './components/dropdown-select'
 
 export { makeStyles } from './utils/make-styles'

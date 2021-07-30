@@ -38,8 +38,8 @@ const _textFieldClasses = ({ container, inputSize, success, error }) => ({
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
-const _inputBaseClasses = ({ inputSize, focus, success, error, root, filled, disabled }) => ({
-  root: clsx(`${root ? root : `mt-1.5 rounded-sm ${inputSize.box}`}`,
+const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, filled, disabled }) => ({
+  root: clsx(`${root ? root : `rounded-sm ${label && 'mt-1.5'} ${inputSize.box}`}`,
     { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus && !error & !success },
     { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
     { 'border-error-500 shadow-focused-error': error },
@@ -64,14 +64,14 @@ const _inputBaseClasses = ({ inputSize, focus, success, error, root, filled, dis
   suffix: 'ml-2.5 text-secondary-600',
 })
 
-const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, onChange, onSubmit }) => {
+const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, onChange, onSubmit , ...rest }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
   const { root, container } = classes
   const inputSize = _inputSize({ size })
   const textFieldClasses = _textFieldClasses({ container, inputSize, success, error })
-  const inputBaseClasses = _inputBaseClasses({ inputSize, focus, success, error, root, filled, disabled })
+  const inputBaseClasses = _inputBaseClasses({ label, inputSize, focus, success, error, root, filled, disabled })
 
   const handleChange = (val) => {
     setValue(val)
@@ -105,6 +105,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
+          {...rest}
         />
       </form>
       <div className="grid grid-cols-2">

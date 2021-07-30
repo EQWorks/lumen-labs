@@ -31,7 +31,7 @@ const DialogBase = ({ classes, button, children, modal, open, anchor, onClick })
     }
     onClick()
   }
-
+  
   return (
     <>
       <div ref={ref} className={`${baseClasses.root} ${classes.root}`}>

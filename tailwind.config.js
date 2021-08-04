@@ -104,7 +104,10 @@ module.exports = {
         '112.5': '28.125rem',
         '120.5': '30.625rem',
         sm: '8px 10px 8px 10px',
+        '3px': '0.188rem',
         '5px': '0.313rem',
+        '7px': '0.438rem',
+        '9px': '0.563rem',
         '250px': '15.625rem'
       },
       borderRadius: { sm: '4px', md: '0.375rem', xl: '0.75rem' },
@@ -130,7 +133,10 @@ module.exports = {
         'blue-50': '0px 4px 20px rgba(54, 111, 228, 0.1)',
         'blue-60': '0px 4px 24px rgba(54, 111, 228, 0.1)',
       },
-      fontSize: { xxs: ['0.625rem', { lineHeight: '1rem' }] },
+      fontSize: { 
+        xxs: ['0.625rem', { lineHeight: '1rem' }], 
+        '11px': ['0.688rem', { lineHeight: 1.45 }],
+      },
       letterSpacing: {
         lg: '1px',
         md: '0.4px',

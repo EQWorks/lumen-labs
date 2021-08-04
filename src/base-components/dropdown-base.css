@@ -1,0 +1,17 @@
+.dropdown-content {
+  scrollbar-width: thin;
+  overflow-x: overlay;
+}
+
+.dropdown-content::-webkit-scrollbar {
+  height: 2px;
+}
+
+.dropdown-content::-webkit-scrollbar-track {
+  background: #f2f2f2;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb {
+  background: #c8c8c8;
+  border-radius: 4px;
+}

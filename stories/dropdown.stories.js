@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { DropdownBase } from '../src/base-components'
-import { DropdownSelect, Chip } from '../src'
+import { DropdownSelect } from '../src'
 
 import { Dollar, Info, Alert, ArrowDown } from '../src/icons'
 
@@ -29,7 +29,9 @@ export default {
  * [...rest] - any input element properties
  */
 
-const sampleData = [
+const sampleData1 = ['test', 'hello', 'sample']
+
+const sampleData = (size = 'md') => ([
   {
     items: [
       {
@@ -37,59 +39,59 @@ const sampleData = [
       },
       {
         title: 'english',
-      }
-    ]
+      },
+    ],
   },
   {
-    type: 'social sciences',
+    type: {
+      title: 'social sciences',
+    },
     items: [
       {
         title: 'geography',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
+        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
       {
         title: 'psychology',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
       },
       {
         title: 'history',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
+        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
       {
         title: 'sociology',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
+        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
-    ]
+    ],
   },
   {
-    type: 'Sciences',
-    endIcon: <Info size='lg'/>,
+    type: {
+      title: 'Sciences',
+      endIcon: <Info size={size}/>,
+    },
     items: [
       {
         title: 'physics',
         description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        startIcon: <Alert size='lg'/>,
+        startIcon: <Alert size={size}/>,
       },
       {
         title: 'chemistry',
         description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        endIcon: <Dollar size='lg'/>,
+        endIcon: <Dollar size={size}/>,
       },
       {
         title: 'biology',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        startIcon: <Info size='lg'/>,
+        startIcon: <Info size={size}/>,
       },
-    ]
+    ],
   },
-]
-
-const sampleData1 = ['test', 'hello', 'sample']
+])
 
 export const Base = () => {
   return (
     <>
-      <DropdownBase endIcon={<ArrowDown size='lg'/>}>
+      <DropdownBase endIcon={<ArrowDown size='md'/>}>
         <ul>
           {sampleData1.map((item, index) => {
             return (
@@ -105,51 +107,31 @@ export const Base = () => {
 export const Normal = () => {
   return (
     <>
-      <DropdownSelect data={sampleData} endIcon={<ArrowDown size='lg'/>} />
+      <DropdownSelect data={sampleData()} endIcon={<ArrowDown size='md'/>}/>
+    </>
+  )
+}
+
+export const Large = () => {
+  return (
+    <>
+      <DropdownSelect data={sampleData('lg')} size='lg' endIcon={<ArrowDown size='lg'/>} multiSelect/>
     </>
   )
 }
 
 export const MultiSelect = () => {
-  const [options, setOptions] = useState(sampleData)
-  const [selectedOptions, setSelectedOptions] = useState([])
-
-  const handleOnClick = (val) => {
-    const filterOptions = []
-
-    options.forEach(item => {
-      if (item !== val) {
-        filterOptions.push(item)
-      }
-    })
-
-    setOptions(filterOptions)
-    selectedOptions.push(val)
-  }
-
-  const renderOptions = () => {
-    return (
-      <>
-        {selectedOptions.map((item, index) => {
-          return (
-            <Chip key={index} selectable={false}>{item}</Chip>
-          )
-        })}
-      </>
-    )
-  }
-
   return (
     <>
-      <DropdownBase renderOptions={renderOptions} endIcon={<ArrowDown size='lg'/>}>
-        <ul>
-          {sampleData1.map((item, index) => {
-            return (
-              <li key={index} onClick={() => handleOnClick(item)}>{item}</li>
-            )
-          })}
-        </ul>
-      </DropdownBase>
+      <DropdownSelect data={sampleData()} endIcon={<ArrowDown size='md'/>} multiSelect/>
+    </>
+  )
+}
+
+export const Disabled = () => {
+  return (
+    <>
+      <DropdownSelect data={sampleData()} endIcon={<ArrowDown size='md'/>} disabled/>
     </>
   )
 }

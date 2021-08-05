@@ -1,5 +1,8 @@
 .dropdown-content {
   scrollbar-width: thin;
+}
+
+.scroll-overlay {
   overflow-x: overlay;
 }
 

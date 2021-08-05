@@ -12,7 +12,7 @@ const _contentSize = (size) => {
   switch(size) {
   case 'lg':
     contentSize = {
-      optionSize: 'pb-9px',
+      optionSize: 'mb-9px',
       itemContainer: 'py-5px',
       contentContainer: 'py-5px',
       type: 'py-2.5',
@@ -21,7 +21,7 @@ const _contentSize = (size) => {
     break
   case 'md':
     contentSize = {
-      optionSize: 'pb-5px',
+      optionSize: 'mb-5px',
       itemContainer: 'py-3px',
       contentContainer: 'py-3px',
       type: 'py-1.5',
@@ -35,7 +35,7 @@ const _contentSize = (size) => {
   return contentSize
 }
 
-const DropdownSelect = forwardRef(({ classes, data, size, startIcon, endIcon, multiSelect, disabled, ...rest }, ref) => {
+const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, endIcon, multiSelect, overflow, disabled, ...rest }, ref) => {
   const [options, setOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([])
 
@@ -45,11 +45,17 @@ const DropdownSelect = forwardRef(({ classes, data, size, startIcon, endIcon, mu
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
     contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 ${contentSize.contentContainer} ${classes.contentContainer}`,
     contentHeader: `w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
-    type: `px-5px flex items-center text-secondary-400 ${contentSize.type} ${classes.type}`,
+    type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
     title: `flex items-center cursor-pointer ${classes.title}`,
-    description: `pt-5px text-secondary-500 ${contentSize.description} ${classes.description}`,
+    description: `pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
     startIcon: 'mr-2.5 fill-current stroke-current',
     endIcon: 'ml-2.5 fill-current stroke-current',
+  })
+
+  const dropdownClasses = Object.freeze({
+    dropdown: classes.dropdown,
+    container: classes.container,
+    content: classes.content,
   })
 
   useEffect(() => {
@@ -137,6 +143,7 @@ const DropdownSelect = forwardRef(({ classes, data, size, startIcon, endIcon, mu
         setSelectedOptions(value)
       }
     }
+    onSelect(selectedOptions)
   }
 
   const onClickClose = (e, value) => {
@@ -146,12 +153,14 @@ const DropdownSelect = forwardRef(({ classes, data, size, startIcon, endIcon, mu
   
   return (
     <DropdownBase 
-      ref={ref} 
+      ref={ref}
+      classes={dropdownClasses} 
       size={size}
       renderOptions={renderOptions} 
       startIcon={startIcon} 
       endIcon={endIcon}
       multiSelect={multiSelect} 
+      overflow={overflow}
       disabled={disabled} 
       {...rest}
     >
@@ -172,10 +181,10 @@ const DropdownSelect = forwardRef(({ classes, data, size, startIcon, endIcon, mu
                           ${dropdownSelectClasses.contentContainer}
                           ${multiSelect ? 
                     selectedOptions.includes(item) && 
-                              'bg-interactive-100 hover:bg-interactive-100 text-secondary-900 hover:text-secondary-900'
+                              'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100'
                     :
                     selectedOptions === item && 
-                              'bg-interactive-100 hover:bg-interactive-100 text-secondary-900 hover:text-secondary-900'
+                              'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100'
                   } 
                         `}
                     >
@@ -215,15 +224,19 @@ DropdownSelect.propTypes = {
     }),
   ),
   size: PropTypes.string,
-  onClick: PropTypes.func,
+  onSelect: PropTypes.func,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
   multiSelect: PropTypes.bool,
+  overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
 }
 
 DropdownSelect.defaultProps = {
   classes: {
+    dropdown: '',
+    container: '',
+    content: '',
     listContainer: '',
     itemContainer: '',
     contentContainer: '',
@@ -234,10 +247,11 @@ DropdownSelect.defaultProps = {
   },
   data: [],
   size: 'md',
-  onClick: () => {},
+  onSelect: () => {},
   startIcon: null,
   endIcon: null,
   multiSelect: false,
+  overflow: 'horizontal',
   disabled: false,
 }
 

@@ -2,7 +2,7 @@ import React, { useState, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
-import DialogBase from '../base-components/dialog-base'
+import DialogBase from '../dialog-base'
 
 import './dropdown-base.css'
 
@@ -15,14 +15,14 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
     contentSize = {
       box: `min-h-9 px-2.5 ${ selectedOptions && multiSelect ? 'py-9px' : 'py-2'}`,
       font: 'text-sm tracking-sm leading-1.43',
-      icon: 'pb-9px',
+      icon: 'mb-9px',
     }
     break
   case 'md':
     contentSize = {
       box: `min-h-7 px-2.5 ${ selectedOptions && multiSelect ? 'p-5px' : 'py-1.5'}`,
       font: 'text-xs tracking-md leading-1.33',
-      icon: 'pb-5px',
+      icon: 'mb-5px',
     }
     break
   default:
@@ -49,7 +49,7 @@ const DropdownBase = forwardRef((
 
   const contentSize = _contentSize(size, multiSelect, selectedOptions)
   const dropdownClasses = Object.freeze({
-    container: clsx(`font-sans ${classes.container ? classes.container : 'w-250px border rounded-sm'}`,
+    container: clsx(`font-sans cursor-pointer ${classes.container ? classes.container : 'w-250px border rounded-sm'}`,
       { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus },
       { 'border-interactive-500 shadow-focused-interactive': focus && !disabled },
       { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
@@ -69,7 +69,7 @@ const DropdownBase = forwardRef((
   
   const dialogClasses = Object.freeze({
     root: `${contentSize.font}`,
-    dialog: `font-sans ${classes.dropdown ? classes.dropdown : 'w-250px h-auto mt-5px border rounded-sm border-secondary-400'}`,
+    dialog: `font-sans bg-white z-10 ${classes.dropdown ? classes.dropdown : 'w-250px h-auto mt-5px border rounded-sm border-secondary-400'}`,
   })
 
   const handleFocus = () => {
@@ -81,9 +81,9 @@ const DropdownBase = forwardRef((
       <div className={`${selectedOptions && multiSelect && 'pb-0'} ${dropdownClasses.content}`}>
         {startIcon && <div className={dropdownClasses.startIcon}>{startIcon}</div>}
         <div className={
-          `dropdown-content flex flex-row capitalize 
-          ${overflow === 'vertical' && selectedOptions && multiSelect && 'flex-wrap'}
-          ${overflow === 'horizontal' && selectedOptions && multiSelect && 'overflow-auto'}`
+          `dropdown-content flex flex-row capitalize whitespace-nowrap 
+          ${overflow === 'vertical' && selectedOptions && 'flex-wrap'}
+          ${overflow === 'horizontal' && selectedOptions && 'scroll-overlay overflow-auto'}`
         }>
           { selectedOptions ? 
             renderOptions()

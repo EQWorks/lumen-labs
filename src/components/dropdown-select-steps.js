@@ -32,7 +32,19 @@ const _contentSize = (size) => {
   return contentSize
 }
 
-const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIcon, endIcon, disabled, ...rest }, ref) => {
+const DropdownSelectSteps = forwardRef(({ 
+  classes, 
+  data, 
+  size, 
+  onSelect, 
+  startIcon, 
+  endIcon, 
+  placeholder, 
+  showType, 
+  showDivider, 
+  disabled, 
+  ...rest 
+}, ref) => {
   const [options, setOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState('')
   const [categoryData, setCategoryData] = useState('')
@@ -43,11 +55,10 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
     listContainer: `w-250px h-full mr-5 border rounded-sm border-secondary-400 ${classes.listContainer}`,
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
     contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 ${contentSize.contentContainer} ${classes.contentContainer}`,
-    contentHeader: `w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
+    contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
     type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
     dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
-    title: `flex items-center cursor-pointer ${classes.title}`,
     startIcon: 'mr-2.5 fill-current stroke-current',
     endIcon: 'ml-2.5 fill-current stroke-current',
     selected: 'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
@@ -110,7 +121,7 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
       item: {
         type: subCategoryData.type,
         title: subCategoryData.title,
-        item: value,
+        subItem: value,
         index,
       },
     }
@@ -196,6 +207,7 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
       renderOptions={renderOptions} 
       startIcon={startIcon} 
       endIcon={endIcon}
+      placeholder={placeholder}
       disabled={disabled} 
       {...rest}
     >
@@ -204,28 +216,36 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
       </ul>
       { categoryData.items && 
         <ul className={dropdownSelectStepsClasses.listContainer}>
-          <label className={`capitalize ${dropdownSelectStepsClasses.type}`} htmlFor="span">{renderListItem(categoryData)}</label>
+          {showType && categoryData.type && 
+          <label className={`capitalize ${dropdownSelectStepsClasses.type}`} htmlFor="span">
+            {renderListItem(categoryData)}
+          </label>}
           { renderList(categoryData.items, 'subcategory') }
+          {showDivider && categoryData.type && 
           <div 
             className={`capitalize ${dropdownSelectStepsClasses.dividerContainer}`} 
             onClick={() => handleCategoryOnClick(categoryData)}
           >
             <ArrowLeft className={dropdownSelectStepsClasses.startIcon} size={size}/>
-            <span>{categoryData.title}</span>
-          </div>
+            <span>{categoryData.type}</span>
+          </div>}
         </ul>
       }
       { subCategoryData.items && 
         <ul className={dropdownSelectStepsClasses.listContainer}>
-          <label className={dropdownSelectStepsClasses.type} htmlFor="span">{renderListItem(subCategoryData)}</label>
+          {showType && categoryData.type && 
+          <label className={dropdownSelectStepsClasses.type} htmlFor="span">
+            {renderListItem(subCategoryData)}
+          </label>}
           { renderList(subCategoryData.items, 'item') }
+          {showDivider && subCategoryData.type &&
           <div 
             className={dropdownSelectStepsClasses.dividerContainer} 
             onClick={() => handleSubCategoryOnClick(subCategoryData)}
           >
             <ArrowLeft className={dropdownSelectStepsClasses.startIcon} size={size}/>
-            <span>{subCategoryData.title}</span>
-          </div>
+            <span>{subCategoryData.type}</span>
+          </div>}
         </ul>
       }
     </DropdownBase>
@@ -234,11 +254,37 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
 
 DropdownSelectSteps.propTypes = {
   classes: PropTypes.object,
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      title: PropTypes.string,
+      startIcon: PropTypes.node,
+      endIcon: PropTypes.node,
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          type: PropTypes.string,
+          title: PropTypes.string,
+          startIcon: PropTypes.node,
+          endIcon: PropTypes.node,
+          items: PropTypes.arrayOf(
+            PropTypes.shape({
+              type: PropTypes.string,
+              title: PropTypes.string,
+              startIcon: PropTypes.node,
+              endIcon: PropTypes.node,
+            }),
+          ),
+        }),
+      ),
+    }),
+  ),
   size: PropTypes.string,
   onSelect: PropTypes.func,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
+  placeholder: PropTypes.string,
+  showType: PropTypes.bool,
+  showDivider: PropTypes.bool,
   disabled: PropTypes.bool,
 }
 
@@ -252,14 +298,16 @@ DropdownSelectSteps.defaultProps = {
     contentContainer: '',
     contentHeader: '',
     type: '',
-    title: '',
-    description: '',
+    dividerContainer: '',
   },
   data: [],
   size: 'md',
   onSelect: () => {},
   startIcon: null,
   endIcon: null,
+  placeholder: 'Select',
+  showType: true,
+  showDivider: true,
   disabled: false,
 }
 

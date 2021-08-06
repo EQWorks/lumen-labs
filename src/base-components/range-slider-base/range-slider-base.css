@@ -62,6 +62,6 @@
 .slider-disabled,
 .slider-disabled::-webkit-slider-thumb,
 .slider-disabled::-moz-range-thumb {
-  background-color: #dbdbdb;
+  background-color: #eaeaea;
   cursor: not-allowed;
 }

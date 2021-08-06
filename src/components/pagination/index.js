@@ -8,10 +8,10 @@ import './pagination.css'
 
 const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
   const paginationClasses = Object.freeze({
-    container: `${classes.container ? classes.container : 'flex justify-center items-center bg-primary-500'}`,
-    item: `${classes.item ? classes.item : 'px-2 cursor-pointer hover:bg-primary-700 hover:text-white'}`,
+    container: `flex justify-center items-center ${classes.container ? classes.container : 'bg-primary-500'}`,
+    item: `px-2 cursor-pointer ${classes.item ? classes.item : 'hover:bg-primary-700 hover:text-white'}`,
     arrow: `${classes.arrow ? classes.arrow : 'rounded-full'}`,
-    pageItem: `${classes.pageItem ? classes.pageItem : 'w-7 flex justify-center'}` ,
+    pageItem: `flex justify-center ${classes.pageItem ? classes.pageItem : 'w-7'}` ,
     currentPageColor: `${classes.currentPageColor ? classes.currentPageColor : 'bg-red-500'}`,
   })
 

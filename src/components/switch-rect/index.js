@@ -1,29 +1,35 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
+
+import { concatTargetColor } from '../../utils/concat-color'
 
 import SwitchBase from '../../base-components/switch-base'
 
 import './switch-rect.css'
 
 
-const SwitchRect = ({ id, checked, onChange, disabled, tabIndex, color }) => {
+const SwitchRect = forwardRef(({ id, checked, onChange, disabled, tabIndex, color , ...rest }, ref) => {
+  const labelColor = concatTargetColor(color, ['bg'], [500])
+
   const switchRectClasses = Object.freeze({
     label: `w-10 h-6 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? color : 'bg-gray-400'}`,
-    button: 'switch-rect-button top-0.5 left-1 bg-white duration-200',
+        ${checked ? labelColor : 'bg-secondary-300'}`,
+    button: 'switch-rect-button inset-0.5 left-1 bg-white duration-200',
   })
 
   return (
     <SwitchBase 
-      id={id}      
+      id={id}  
+      ref={ref}    
       classes={switchRectClasses}                   
       checked={checked}
       onChange={onChange}
       disabled={disabled}
       tabIndex={tabIndex}
+      {...rest}
     />
   )
-}
+})
 
 SwitchRect.propTypes = {
   id: PropTypes.string.isRequired,
@@ -38,7 +44,9 @@ SwitchRect.defaultProps = {
   checked: true,
   disabled: false,
   tabIndex: 1,
-  color: 'bg-blue-500',
+  color: 'interactive',
 }
+
+SwitchRect.displayName = 'SwitchRect'
 
 export default SwitchRect

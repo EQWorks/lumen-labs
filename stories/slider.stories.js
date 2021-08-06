@@ -50,22 +50,22 @@ export const CustomColor = () => {
 
   const classes = [
     {
-      thumbColor: 'green-500',
-      sliderTrack: 'bg-green-200',
-      sliderRange: 'bg-green-500',
+      thumbColor: 'success',
+      sliderTrack: 'success',
+      sliderRange: 'success',
     },
     {
-      thumbColor: 'pink-500',
-      sliderTrack: 'bg-pink-200',
-      sliderRange: 'bg-pink-500',
+      thumbColor: 'warning',
+      sliderTrack: 'warning',
+      sliderRange: 'warning',
     },
   ]
 
   const color = {
-    thumb: 'red-500',
-    sliderTrack: 'red-200',
-    sliderRange: 'red-500',
-    tooltip: 'green-500',
+    thumb: 'error',
+    sliderTrack: 'error',
+    sliderRange: 'error',
+    tooltip: 'success',
   }
 
   return (

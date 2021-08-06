@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import './switch-base.css'
 
 
-const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex, children }, ref) => {
+const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex, children, ...rest }, ref) => {
   const switchClasses = Object.freeze({
+    label: `w-9 h-4 ${classes.label ? classes.label : 'bg-secondary-200'}`,
+    button: `w-4 h-3.5 top-px left-px ${classes.button ? classes.button : 'bg-white'}`,
     checkbox: 'w-0 h-0 hidden',
   })
 
@@ -20,9 +22,10 @@ const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disable
         checked={disabled ? false : checked}
         onChange={onChange}
         disabled={disabled}
+        {...rest}
       />
       <label
-        className={`switch-label ${classes.label} ${disabled && 'switch-disabled-label'}`}
+        className={`switch-label ${switchClasses.label} ${disabled && 'switch-disabled-label'}`}
         style={styles.label}
         htmlFor={`switch-checkbox-${id}`} 
         tabIndex={disabled ? -1 : 1}
@@ -31,7 +34,7 @@ const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disable
           children 
           :
           <span 
-            className={`switch-button ${classes.button} ${disabled && 'switch-disabled-button'}`}
+            className={`switch-button ${switchClasses.button} ${disabled && 'switch-disabled-button'}`}
             style={styles.button} 
             tabIndex={tabIndex}
           />
@@ -60,8 +63,8 @@ SwitchBase.propTypes = {
 
 SwitchBase.defaultProps = {
   classes: { 
-    label: 'w-9 h-4 bg-gray-400', 
-    button: 'w-4 h-3.5 top-px left-px bg-white', 
+    label: '', 
+    button: '', 
   },
   styles: { label: {}, button: {} },
   checked: false,

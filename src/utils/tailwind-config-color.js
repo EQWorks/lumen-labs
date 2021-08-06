@@ -5,11 +5,9 @@ import tailwindConfig from '../../tailwind.config'
 export const getTailwindConfigColor = (color) => {
   const fullConfig = resolveConfig(tailwindConfig)
   const parseColor = color.split('-')
-
-  const value = parseColor.length > 1 ? 
-    fullConfig.theme.colors[parseColor[0]][parseColor[1]]
-    :
-    fullConfig.theme.colors[parseColor[0]]
+  
+  const value = parseColor.length > 1 &&
+    fullConfig.theme.colors[color]
     
   return value
 }

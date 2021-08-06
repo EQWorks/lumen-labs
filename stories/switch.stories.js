@@ -14,15 +14,15 @@ export default {
 const multipleSwitch = [
   {
     type: 'Rounded',
-    color: 'bg-red-500',
+    color: 'error',
   },
   {
     type: 'Rectangle',
-    color: 'bg-green-500',
+    color: 'success',
   },
   {
     type: 'Square',
-    color: 'bg-yellow-500',
+    color: 'warning',
   },
 ]
 
@@ -147,7 +147,7 @@ export const CustomColor = () => {
     <>
       {multipleSwitch.map((data, index) => (
         <div key={index} className="container my-4">
-          <span>{data.type} - Class {data.color}</span>
+          <span>{data.type} - Color {data.color}</span>
           {renderMultipleSwitch(data, index)}
         </div>
       ))}

@@ -1,22 +1,25 @@
 import React, { forwardRef, useState, useRef, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { getTailwindConfigColor } from '../../hooks/tailwind-config-color'
+import { getTailwindConfigColor } from '../../utils/tailwind-config-color'
+import { concatTargetColor } from '../../utils/concat-color'
 
 import './range-slider-base.css'
 
 
-const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled }, ref) => {
+const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, children, disabled, ...rest }, ref) => {
+  const sliderTrackColor = concatTargetColor(classes.sliderTrack, ['bg'], [100])
+  const sliderRangeColor = concatTargetColor(classes.sliderRange, ['bg'], [500])
   //pseudo elements dynamic color
-  const thumbColor = getTailwindConfigColor(classes.thumbColor)
+  const thumbColor = getTailwindConfigColor(`${classes.thumbColor}-500`)
 
   const sliderClasses = Object.freeze({
     sliderContainer: `${width} relative my-2.5 h-px`,
     thumb: `${width}`,
     thumbColor: thumbColor ? thumbColor : '#000',
     slider: 'h-1 rounded-sm',
-    sliderTrack: `${classes.sliderTrack ? classes.sliderTrack : 'bg-gray-300'}`,
-    sliderRange: `${classes.sliderRange ? classes.sliderRange : 'bg-black'}`,
+    sliderTrack: `${classes.sliderTrack ? sliderTrackColor : 'bg-secondary-300'}`,
+    sliderRange: `${classes.sliderRange ? sliderRangeColor : 'bg-black'}`,
   })
 
   const [minVal, setMinVal] = useState(values[0])
@@ -50,7 +53,7 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
   }, [maxVal, getPercent])
 
   return (
-    <div ref={ref} className={`slider-container ${sliderClasses.sliderContainer}`}>      
+    <div ref={ref} className={`slider-container ${sliderClasses.sliderContainer}`} {...rest}>      
       <input
         type="range"
         min={min}
@@ -113,9 +116,9 @@ RangeSliderBase.propTypes = {
 
 RangeSliderBase.defaultProps = {
   classes: {
-    thumbColor: 'black',
-    sliderTrack: 'bg-gray-300',
-    sliderRange: 'bg-black',
+    thumbColor: '',
+    sliderTrack: '',
+    sliderRange: '',
   },
   width: 'w-48',
   disabled: false,

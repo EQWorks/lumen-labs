@@ -45,7 +45,8 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
     contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 ${contentSize.contentContainer} ${classes.contentContainer}`,
     contentHeader: `w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
     type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
-    dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer ${contentSize.dividerContainer}`,
+    dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
+      ${contentSize.dividerContainer} ${classes.dividerContainer}`,
     title: `flex items-center cursor-pointer ${classes.title}`,
     startIcon: 'mr-2.5 fill-current stroke-current',
     endIcon: 'ml-2.5 fill-current stroke-current',
@@ -53,7 +54,7 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
   })
 
   const dropdownClasses = Object.freeze({
-    dropdown: `w-auto h-auto mt-5px flex flex-row ${classes.dropdown}`,
+    dropdown: `w-auto mt-5px flex flex-row ${classes.dropdown}`,
     container: classes.container,
     content: classes.content,
   })
@@ -65,7 +66,7 @@ const DropdownSelectSteps = forwardRef(({ classes, data, size, onSelect, startIc
   const renderOptions = () => (
     <>
       {categoryData.title ? 
-        (<span className='mr-2.5'>
+        (<span className='mr-2.5 text-secondary-800'>
           {`${categoryData.title} ${subCategoryData && `> ${subCategoryData.title}`} ${selectedOptions && `> ${selectedOptions.title}`}`}
         </span>) 
         : 

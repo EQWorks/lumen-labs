@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { DropdownBase } from '../src/base-components'
 import { DropdownSelect, DropdownSelectSteps } from '../src'
 
-import { Dollar, Info, Alert, ArrowDown } from '../src/icons'
+import { ArrowDown } from '../src/icons'
+import { sampleDataBasic, sampleData, sampleDataLarge, sampleDataSteps, sampleDataLinked, sampleDataSubLinked } from '../src/data/dropdown-data'
 
 
 export default {
   title: 'Select Dropdown',
   component: DropdownBase,
+}
+
+const classes = {
+  dividerContainer: 'text-error-500',
 }
 
 /** -- props (InputBase):
@@ -29,196 +34,6 @@ export default {
  * [...rest] - any input element properties
  */
 
-const sampleDataBasic = ['test', 'hello', 'sample']
-
-const sampleData = (size = 'md') => ([
-  {
-    items: [
-      {
-        title: 'mathematics',
-      },
-      {
-        title: 'english',
-      },
-    ],
-  },
-  {
-    type: {
-      title: 'social sciences',
-    },
-    items: [
-      {
-        title: 'geography',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-      },
-      {
-        title: 'psychology',
-      },
-      {
-        title: 'history',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-      },
-      {
-        title: 'sociology',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-      },
-    ],
-  },
-  {
-    type: {
-      title: 'Sciences',
-      endIcon: <Info size={size}/>,
-    },
-    items: [
-      {
-        title: 'physics',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        startIcon: <Alert size={size}/>,
-      },
-      {
-        title: 'chemistry',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        endIcon: <Dollar size={size}/>,
-      },
-      {
-        title: 'biology',
-        startIcon: <Info size={size}/>,
-      },
-    ],
-  },
-])
-
-const sampleDataSteps = (size = 'md') => ([
-  {
-    type: 'brands',
-    title: 'microsoft',
-    startIcon: <Info size={size}/>,
-    items: [
-      {
-        type: 'products',
-        title: 'products option',
-        items: [
-          {
-            title: 'option1',
-          },
-          {
-            title: 'option2',
-          },
-        ],
-      },
-      {
-        type: 'products',
-        title: 'products option1',
-      },
-      {
-        type: 'products',
-        title: 'products option2',
-      },
-    ],
-  },
-  {
-    type: 'brands',
-    title: 'apple',
-    endIcon: <Dollar size={size}/>,
-    items: [
-      {
-        type: 'products',
-        title: 'Mac',
-        items: [
-          {
-            title: 'MacBook Air',
-          },
-          {
-            title: 'MacBook Pro',
-          },
-          {
-            title: 'iMac Pro',
-          },
-          {
-            title: 'iMac 24"',
-          },
-        ],
-      },
-      {
-        type: 'products',
-        title: 'iPad',
-      },
-      {
-        type: 'products',
-        title: 'iPhone',
-      },
-      {
-        type: 'products',
-        title: 'Watch',
-      },
-    ],
-  },
-  {
-    type: 'brands',
-    title: 'huawei',
-    items: [
-      {
-        type: 'products',
-        title: 'products option',
-        items: [
-          {
-            title: 'option1',
-          },
-          {
-            title: 'option2',
-          },
-        ],
-      },
-      {
-        type: 'products',
-        title: 'products option1',
-      },
-      {
-        type: 'products',
-        title: 'products option2',
-      },
-    ],
-  },
-  {
-    type: 'brands',
-    title: 'google',
-    items: [
-      {
-        type: 'products',
-        title: 'products option',
-        items: [
-          {
-            title: 'option',
-          },
-          {
-            title: 'option',
-          },
-        ],
-      },
-      {
-        type: 'products',
-        title: 'products option',
-      },
-      {
-        type: 'products',
-        title: 'products option',
-      },
-      {
-        type: 'products',
-        title: 'products option',
-      },
-      {
-        type: 'products',
-        title: 'products option',
-      },
-      {
-        type: 'products',
-        title: 'products option',
-      },
-    ],
-  },
-])
-
 export const Base = () => {
   return (
     <>
@@ -238,7 +53,7 @@ export const Base = () => {
 export const Normal = () => {
   return (
     <>
-      <DropdownSelect data={sampleData()} endIcon={<ArrowDown size='md'/>}/>
+      <DropdownSelect classes={classes} data={sampleData} endIcon={<ArrowDown size='md'/>} showType/>
     </>
   )
 }
@@ -250,11 +65,11 @@ export const MultiSelect = () => {
       <div className={'flex flex-row'}>
         <div className='mr-5'>
           <p>Multi Select - horizontal</p>
-          <DropdownSelect data={sampleData()} endIcon={<ArrowDown size='md'/>} multiSelect/>
+          <DropdownSelect classes={classes} data={sampleData} endIcon={<ArrowDown size='md'/>} multiSelect showType/>
         </div>
         <div>
           <p>Multi Select - vertical</p>
-          <DropdownSelect data={sampleData()} endIcon={<ArrowDown size='md'/>} multiSelect overflow='vertical'/>
+          <DropdownSelect classes={classes} data={sampleData} endIcon={<ArrowDown size='md'/>} multiSelect showType overflow='vertical'/>
         </div>
       </div>
     </>
@@ -264,30 +79,102 @@ export const MultiSelect = () => {
 export const StepsSelect = () => {
   return (
     <>
-      <DropdownSelectSteps data={sampleDataSteps()} endIcon={<ArrowDown size='md'/>}/>
+      <DropdownSelectSteps data={sampleDataSteps} endIcon={<ArrowDown size='md'/>}/>
     </>
   )
 }
 
+export const LinkedSelect = () => {
+  const [value, setValue] = useState('')
+  const [subData, setSubData] = useState([])
+  const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    value && sampleDataSubLinked.forEach((data) => {
+      if (value.title === data.type) {
+        setSubData([{ items: data.items }])
+        setDisabled(false)
+      }
+    })
+    console.log(value)
+    if (!value) {
+      setDisabled(true)
+    }
+  }, [value])
+
+  const onSelect = (selected) => {
+    if (value === selected) {
+      setValue('')
+    } else {
+      setValue(selected)
+    }
+  }
+  
+  return (
+    <div className={'flex flex-row'}>
+      <div className='mr-2.5'>
+        <DropdownSelect data={sampleDataLinked} onSelect={onSelect} endIcon={<ArrowDown size='md'/>}/>
+      </div>
+      <div>
+        <DropdownSelect data={subData} endIcon={<ArrowDown size='md'/>} disabled={disabled}/>
+      </div>
+    </div>
+  )
+}
+
 export const Large = () => {
+  const [value, setValue] = useState('')
+  const [subData, setSubData] = useState([])
+  const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    value && sampleDataSubLinked.forEach((data) => {
+      if (value.title === data.type) {
+        setSubData([{ items: data.items }])
+        setDisabled(false)
+      }
+    })
+    console.log(value)
+    if (!value) {
+      setDisabled(true)
+    }
+  }, [value])
+
+  const onSelect = (selected) => {
+    if (value === selected) {
+      setValue('')
+    } else {
+      setValue(selected)
+    }
+  }
+
   return (
     <>
       <div className={'flex flex-row'}>
         <div className='mr-5'>
           <p>Select</p>
-          <DropdownSelect data={sampleData('lg')} size='lg' endIcon={<ArrowDown size='lg'/>} />
+          <DropdownSelect classes={classes} data={sampleDataLarge} size='lg' endIcon={<ArrowDown size='lg'/>} showType/>
         </div>
         <div className='mr-5'>
           <p>Multi Select - horizontal</p>
-          <DropdownSelect data={sampleData('lg')} size='lg' endIcon={<ArrowDown size='lg'/>} multiSelect/>
+          <DropdownSelect classes={classes} data={sampleDataLarge} size='lg' endIcon={<ArrowDown size='lg'/>} multiSelect showType/>
         </div>
         <div>
           <p>Multi Select - vertical</p>
-          <DropdownSelect data={sampleData('lg')} size='lg' endIcon={<ArrowDown size='lg'/>} multiSelect overflow='vertical'/>
+          <DropdownSelect classes={classes} data={sampleDataLarge} size='lg' endIcon={<ArrowDown size='lg'/>} multiSelect showType overflow='vertical'/>
         </div>
       </div>
       <p>Steps Select</p>
-      <DropdownSelectSteps data={sampleDataSteps('lg')} size='lg' endIcon={<ArrowDown size='lg'/>}/>
+      <DropdownSelectSteps data={sampleDataSteps} size='lg' endIcon={<ArrowDown size='lg'/>}/>
+      <p>Linked Select</p>
+      <div className='flex flex-row'>
+        <div className='mr-2.5'>
+          <DropdownSelect data={sampleDataLinked} size='lg' onSelect={onSelect} endIcon={<ArrowDown size='lg'/>}/>
+        </div>
+        <div>
+          <DropdownSelect data={subData} size='lg' endIcon={<ArrowDown size='lg'/>} disabled={disabled}/>
+        </div>
+      </div>
     </>
   )
 }
@@ -295,7 +182,7 @@ export const Large = () => {
 export const Disabled = () => {
   return (
     <>
-      <DropdownSelect data={sampleData()} endIcon={<ArrowDown size='md'/>} disabled/>
+      <DropdownSelect data={sampleData} endIcon={<ArrowDown size='md'/>} disabled/>
     </>
   )
 }

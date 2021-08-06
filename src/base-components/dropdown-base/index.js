@@ -69,7 +69,7 @@ const DropdownBase = forwardRef((
   
   const dialogClasses = Object.freeze({
     root: `${contentSize.font}`,
-    dialog: `font-sans bg-white z-10 ${classes.dropdown ? classes.dropdown : 'w-250px h-auto mt-5px border rounded-sm border-secondary-400'}`,
+    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 ${classes.dropdown ? classes.dropdown : 'w-250px mt-5px border rounded-sm border-secondary-400'}`,
   })
 
   const handleFocus = () => {

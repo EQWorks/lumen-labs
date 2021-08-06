@@ -13,6 +13,7 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
   switch(size) {
   case 'lg':
     contentSize = {
+      dialog: 'pt-5px',
       box: `min-h-9 px-2.5 ${ selectedOptions && multiSelect ? 'py-9px' : 'py-2'}`,
       font: 'text-sm tracking-sm leading-1.43',
       icon: 'mb-9px',
@@ -20,6 +21,7 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
     break
   case 'md':
     contentSize = {
+      dialog: 'pt-3px',
       box: `min-h-7 px-2.5 ${ selectedOptions && multiSelect ? 'p-5px' : 'py-1.5'}`,
       font: 'text-xs tracking-md leading-1.33',
       icon: 'mb-5px',
@@ -32,18 +34,20 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
   return contentSize
 }
 
-const DropdownBase = forwardRef((
-  { classes, 
-    renderOptions, 
-    startIcon, 
-    endIcon, 
-    size, 
-    children, 
-    placeholder, 
-    multiSelect, 
-    overflow,
-    disabled,
-  }, ref) => {
+const DropdownBase = forwardRef(({ 
+  classes, 
+  renderOptions, 
+  open,
+  startIcon, 
+  endIcon, 
+  size, 
+  children, 
+  placeholder, 
+  multiSelect, 
+  overflow,
+  disabled,
+  ...rest
+}, ref) => {
   const [focus, setFocus] = useState(false)
   const selectedOptions = renderOptions() && renderOptions().props.children ? true : false
 
@@ -55,7 +59,7 @@ const DropdownBase = forwardRef((
       { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
-    placeholder: `${disabled ? 'text-secondary-300' : 'text-secondary-400'}`,
+    placeholder: `normal-case ${disabled ? 'text-secondary-300' : 'text-secondary-400'}`,
     startIcon: clsx(`mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`, 
       { 'text-secondary-600': !disabled },
     ),
@@ -69,7 +73,8 @@ const DropdownBase = forwardRef((
   
   const dialogClasses = Object.freeze({
     root: `${contentSize.font}`,
-    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 ${classes.dropdown ? classes.dropdown : 'w-250px mt-5px border rounded-sm border-secondary-400'}`,
+    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 ${contentSize.dialog}
+      ${classes.dropdown ? classes.dropdown : 'w-250px mt-5px border rounded-sm border-secondary-400'}`,
   })
 
   const handleFocus = () => {
@@ -77,7 +82,7 @@ const DropdownBase = forwardRef((
   }
 
   const button = (
-    <div className={`${dropdownClasses.container}`}>
+    <div className={`${dropdownClasses.container}`} {...rest}>
       <div className={`${selectedOptions && multiSelect && 'pb-0'} ${dropdownClasses.content}`}>
         {startIcon && <div className={dropdownClasses.startIcon}>{startIcon}</div>}
         <div className={
@@ -90,7 +95,7 @@ const DropdownBase = forwardRef((
             : 
             (
               <span className={dropdownClasses.placeholder}>
-                {placeholder ? placeholder : 'Select' }
+                {placeholder}
               </span>
             )
           }
@@ -102,7 +107,7 @@ const DropdownBase = forwardRef((
 
   return (
     <>
-      <DialogBase ref={ref} classes={dialogClasses} button={button} onClick={handleFocus} open={focus} disabled={disabled}>
+      <DialogBase ref={ref} classes={dialogClasses} button={button} onClick={handleFocus} open={open ? open : focus} disabled={disabled}>
         {children}
       </DialogBase>
     </>
@@ -116,7 +121,8 @@ DropdownBase.propTypes = {
     dropdown: PropTypes.string,
   }),
   children: PropTypes.node,
-  renderOptions: PropTypes.func,
+  renderOptions: PropTypes.func.isRequired,
+  open: PropTypes.bool,
   size: PropTypes.string,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
@@ -133,11 +139,10 @@ DropdownBase.defaultProps = {
     dropdown: '',
   },
   children: null,
-  renderOptions: () => {},
   size: 'md',
   startIcon: null,
   endIcon: null,
-  placeholder: '',
+  placeholder: 'Select',
   multiSelect: false,
   overflow: 'horizontal',
   disabled: false,

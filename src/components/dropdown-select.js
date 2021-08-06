@@ -37,7 +37,21 @@ const _contentSize = (size) => {
   return contentSize
 }
 
-const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, endIcon, multiSelect, showType, overflow, disabled, ...rest }, ref) => {
+const DropdownSelect = forwardRef(({ 
+  classes, 
+  data, 
+  open, 
+  size, 
+  onSelect, 
+  startIcon, 
+  endIcon, 
+  placeholder, 
+  multiSelect, 
+  showType, 
+  overflow, 
+  disabled, 
+  ...rest 
+}, ref) => {
   const [options, setOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([])
 
@@ -47,9 +61,8 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
     contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 
       ${contentSize.contentContainer} ${classes.contentContainer}`,
-    contentHeader: `w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
+    contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
     type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
-    title: `flex items-center cursor-pointer ${classes.title}`,
     description: `pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
     dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
@@ -91,11 +104,7 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
       )
     }  
 
-    return (
-      <>
-        {render}
-      </>
-    )
+    return render
   }
 
   const renderList = (data) => (
@@ -117,9 +126,7 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
           } 
               `}
             >
-              <label className={dropdownSelectClasses.title} htmlFor="span">
-                {renderListItem(item)}
-              </label>
+              {renderListItem(item)}
               {item.description && <div className={dropdownSelectClasses.description}>{item.description}</div>}
             </div>
           </div>
@@ -192,9 +199,11 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
       ref={ref}
       classes={dropdownClasses} 
       size={size}
-      renderOptions={renderOptions} 
+      renderOptions={renderOptions}
+      open={open} 
       startIcon={startIcon} 
       endIcon={endIcon}
+      placeholder={placeholder}
       multiSelect={multiSelect} 
       overflow={overflow}
       disabled={disabled} 
@@ -232,12 +241,19 @@ DropdownSelect.propTypes = {
           endIcon: PropTypes.node,
         }),
       ),
+      divider: PropTypes.shape({
+        title: PropTypes.string,
+        startIcon: PropTypes.node,
+        endIcon: PropTypes.node,
+      }),
     }),
   ),
+  open: PropTypes.bool,
   size: PropTypes.string,
   onSelect: PropTypes.func,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
+  placeholder: PropTypes.string,
   multiSelect: PropTypes.bool,
   showType: PropTypes.bool,
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
@@ -253,15 +269,16 @@ DropdownSelect.defaultProps = {
     itemContainer: '',
     contentContainer: '',
     contentHeader: '',
-    type: '',
-    title: '',
     description: '',
+    type: '',
+    dividerContainer: '',
   },
   data: [],
   size: 'md',
   onSelect: () => {},
   startIcon: null,
   endIcon: null,
+  placeholder: 'Select',
   multiSelect: false,
   showType: false,
   overflow: 'horizontal',

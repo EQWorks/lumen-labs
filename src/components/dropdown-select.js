@@ -17,6 +17,7 @@ const _contentSize = (size) => {
       contentContainer: 'py-5px',
       type: 'py-2.5',
       description: 'text-xs',
+      dividerContainer: 'pt-3.5 pb-2.5',
     }
     break
   case 'md':
@@ -26,6 +27,7 @@ const _contentSize = (size) => {
       contentContainer: 'py-3px',
       type: 'py-1.5',
       description: 'text-11px',
+      dividerContainer: 'pt-2 pb-1.5',
     }
     break
   default:
@@ -35,7 +37,7 @@ const _contentSize = (size) => {
   return contentSize
 }
 
-const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, endIcon, multiSelect, overflow, disabled, ...rest }, ref) => {
+const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, endIcon, multiSelect, showType, overflow, disabled, ...rest }, ref) => {
   const [options, setOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([])
 
@@ -43,13 +45,17 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
   const dropdownSelectClasses = Object.freeze({
     listContainer: `capitalize ${classes.listContainer}`,
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
-    contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 ${contentSize.contentContainer} ${classes.contentContainer}`,
+    contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 
+      ${contentSize.contentContainer} ${classes.contentContainer}`,
     contentHeader: `w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
     type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
     title: `flex items-center cursor-pointer ${classes.title}`,
     description: `pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
+    dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
+      ${contentSize.dividerContainer} ${classes.dividerContainer}`,
     startIcon: 'mr-2.5 fill-current stroke-current',
     endIcon: 'ml-2.5 fill-current stroke-current',
+    selected: 'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
   })
 
   const dropdownClasses = Object.freeze({
@@ -66,9 +72,61 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
         initialOptions.push(item)
       })
     })
-
+    setSelectedOptions([])
     setOptions(initialOptions)
   }, [data])
+
+  const renderOptions = () => {
+    let render = selectedOptions.title ? (<span className='mr-2.5 text-secondary-800'>{selectedOptions.title}</span>) : ''
+
+    if (multiSelect && selectedOptions.length) {
+      render = (
+        selectedOptions.map((item, index) => {
+          return (
+            <div key={`chip-${index}`} className={`mr-2.5 z-10 ${contentSize.optionSize}`}>
+              <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)}/>}>{item.title}</Chip>
+            </div>
+          )
+        })
+      )
+    }  
+
+    return (
+      <>
+        {render}
+      </>
+    )
+  }
+
+  const renderList = (data) => (
+    <>
+      {data.map((item, index) => {
+        return (
+          <div 
+            key={`item-container-${index}`} 
+            className={dropdownSelectClasses.itemContainer} 
+            onClick={() => handleOnClick(item)}
+          >
+            <div 
+              className={`
+                ${dropdownSelectClasses.contentContainer}
+                ${multiSelect ? 
+            selectedOptions.includes(item) && dropdownSelectClasses.selected
+            :
+            selectedOptions === item && dropdownSelectClasses.selected
+          } 
+              `}
+            >
+              <label className={dropdownSelectClasses.title} htmlFor="span">
+                {renderListItem(item)}
+              </label>
+              {item.description && <div className={dropdownSelectClasses.description}>{item.description}</div>}
+            </div>
+          </div>
+        )
+      })}
+    </>
+  )
 
   const renderListItem = (item) => {
     let selected = null
@@ -88,28 +146,6 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
         </div>
         {selected}
       </div>
-    )
-  }
-
-  const renderOptions = () => {
-    let render = selectedOptions.title ? (<span className='mr-2.5'>{selectedOptions.title}</span>) : ''
-
-    if (multiSelect && selectedOptions.length) {
-      render = (
-        selectedOptions.map((item, index) => {
-          return (
-            <div key={`chip-${index}`} className={`mr-2.5 z-10 ${contentSize.optionSize}`}>
-              <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)}/>}>{item.title}</Chip>
-            </div>
-          )
-        })
-      )
-    }  
-
-    return (
-      <>
-        {render}
-      </>
     )
   }
 
@@ -143,14 +179,14 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
         setSelectedOptions(value)
       }
     }
-    onSelect(selectedOptions)
+    onSelect(value)
   }
-
+  
   const onClickClose = (e, value) => {
     e.stopPropagation()
     handleOnClick(value)
   }
-  
+
   return (
     <DropdownBase 
       ref={ref}
@@ -168,34 +204,9 @@ const DropdownSelect = forwardRef(({ classes, data, size, onSelect, startIcon, e
         {data && data.map((el, index) => {
           return (
             <li key={`list-container-${index}`} className={dropdownSelectClasses.listContainer}>
-              {el.type && <label className={dropdownSelectClasses.type} htmlFor="span">{renderListItem(el.type)}</label>}
-              { el.items.map((item, index) => {
-                return (
-                  <div 
-                    key={`item-container-${index}`} 
-                    className={dropdownSelectClasses.itemContainer} 
-                    onClick={() => handleOnClick(item)}
-                  >
-                    <div 
-                      className={`
-                          ${dropdownSelectClasses.contentContainer}
-                          ${multiSelect ? 
-                    selectedOptions.includes(item) && 
-                              'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100'
-                    :
-                    selectedOptions === item && 
-                              'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100'
-                  } 
-                        `}
-                    >
-                      <label className={dropdownSelectClasses.title} htmlFor="span">
-                        {renderListItem(item)}
-                      </label>
-                      {item.description && <div className={dropdownSelectClasses.description}>{item.description}</div>}
-                    </div>
-                  </div>
-                )
-              })}
+              {showType && el.type && <label className={dropdownSelectClasses.type} htmlFor="span">{renderListItem(el.type)}</label>}
+              {renderList(el.items)}
+              {el.divider && <div className={dropdownSelectClasses.dividerContainer}>{renderListItem(el.divider)}</div>}
             </li>
           )
         })}
@@ -228,6 +239,7 @@ DropdownSelect.propTypes = {
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
   multiSelect: PropTypes.bool,
+  showType: PropTypes.bool,
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
 }
@@ -251,6 +263,7 @@ DropdownSelect.defaultProps = {
   startIcon: null,
   endIcon: null,
   multiSelect: false,
+  showType: false,
   overflow: 'horizontal',
   disabled: false,
 }

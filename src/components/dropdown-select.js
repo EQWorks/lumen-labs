@@ -90,17 +90,19 @@ const DropdownSelect = forwardRef(({
   }, [data])
 
   const renderOptions = () => {
-    let render = selectedOptions.title ? (<span className='mr-2.5 text-secondary-800'>{selectedOptions.title}</span>) : ''
+    let render = selectedOptions.title ? (<span className='mr-2.5 text-secondary-800'>{selectedOptions.title}</span>) : <></>
 
     if (multiSelect && selectedOptions.length) {
       render = (
-        selectedOptions.map((item, index) => {
-          return (
-            <div key={`chip-${index}`} className={`mr-2.5 z-10 ${contentSize.optionSize}`}>
-              <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)}/>}>{item.title}</Chip>
-            </div>
-          )
-        })
+        <>
+          {selectedOptions.map((item, index) => {
+            return (
+              <div key={`chip-${index}`} className={`mr-2.5 z-10 ${contentSize.optionSize}`}>
+                <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)}/>}>{item.title}</Chip>
+              </div>
+            )
+          })}
+        </>
       )
     }  
 

@@ -13,7 +13,7 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
   switch(size) {
   case 'lg':
     contentSize = {
-      dialog: 'pt-5px',
+      dialog: 'py-5px',
       box: `min-h-9 px-2.5 ${ selectedOptions && multiSelect ? 'py-9px' : 'py-2'}`,
       font: 'text-sm tracking-sm leading-1.43',
       icon: 'mb-9px',
@@ -21,7 +21,7 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
     break
   case 'md':
     contentSize = {
-      dialog: 'pt-3px',
+      dialog: 'py-3px',
       box: `min-h-7 px-2.5 ${ selectedOptions && multiSelect ? 'p-5px' : 'py-1.5'}`,
       font: 'text-xs tracking-md leading-1.33',
       icon: 'mb-5px',
@@ -49,11 +49,11 @@ const DropdownBase = forwardRef(({
   ...rest
 }, ref) => {
   const [focus, setFocus] = useState(false)
-  const selectedOptions = renderOptions() && renderOptions().props.children ? true : false
+  const selectedOptions = renderOptions().props.children ? true : false
 
   const contentSize = _contentSize(size, multiSelect, selectedOptions)
   const dropdownClasses = Object.freeze({
-    container: clsx(`font-sans cursor-pointer ${classes.container ? classes.container : 'w-250px border rounded-sm'}`,
+    container: clsx(`font-sans cursor-pointer border rounded-sm ${classes.container ? classes.container : 'w-250px'}`,
       { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus },
       { 'border-interactive-500 shadow-focused-interactive': focus && !disabled },
       { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
@@ -73,8 +73,8 @@ const DropdownBase = forwardRef(({
   
   const dialogClasses = Object.freeze({
     root: `${contentSize.font}`,
-    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 ${contentSize.dialog}
-      ${classes.dropdown ? classes.dropdown : 'w-250px mt-5px border rounded-sm border-secondary-400'}`,
+    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 ${contentSize.dialog}
+      ${classes.dropdown ? classes.dropdown : 'w-full mt-5px border rounded-sm border-secondary-400'}`,
   })
 
   const handleFocus = () => {
@@ -88,7 +88,7 @@ const DropdownBase = forwardRef(({
         <div className={
           `dropdown-content flex flex-row capitalize whitespace-nowrap 
           ${overflow === 'vertical' && selectedOptions && 'flex-wrap'}
-          ${overflow === 'horizontal' && selectedOptions && 'scroll-overlay overflow-auto'}`
+          ${overflow === 'horizontal' && selectedOptions && 'scroll-overlay overflow-x-auto overflow-y-hidden'}`
         }>
           { selectedOptions ? 
             renderOptions()

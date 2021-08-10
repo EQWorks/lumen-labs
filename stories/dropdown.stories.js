@@ -4,16 +4,23 @@ import { DropdownBase } from '../src/base-components'
 import { DropdownSelect, DropdownSelectSteps } from '../src'
 
 import { ArrowDown } from '../src/icons'
-import { sampleDataBasic, sampleData, sampleDataLarge, sampleDataSteps, sampleDataLinked, sampleDataSubLinked } from './data/dropdown-data'
+import { 
+  sampleDataBasic, 
+  sampleDataGroups, 
+  sampleDataDivider, 
+  sampleDataIcons, 
+  sampleDataDescription, 
+  sampleDataMultiselect, 
+  sampleDataIconsLarge, 
+  sampleDataSteps, 
+  sampleDataLinked, 
+  sampleDataSubLinked, 
+} from './data/dropdown-data'
 
 
 export default {
   title: 'Select Dropdown',
   component: DropdownBase,
-}
-
-const classes = {
-  dividerContainer: 'text-error-500',
 }
 
 /** -- props (DropdownBase):
@@ -98,26 +105,101 @@ export const Base = () => {
  * [...rest] - any div element properties
  */
 
-export const Normal = () => {
+export const Groups = () => {
   return (
     <>
-      <DropdownSelect classes={classes} data={sampleData} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType/>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default</p>
+          <DropdownSelect data={sampleDataGroups} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType/>
+        </div>
+        <div>
+          <p>Large</p>
+          <DropdownSelect data={sampleDataGroups} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='Select a subject' showType/>
+        </div>
+      </div>
     </>
   )
 }
 
+export const Divider = () => {
+  const classes = {
+    dividerContainer: 'text-error-500',
+  }
+
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default</p>
+          <DropdownSelect classes={classes} data={sampleDataDivider} endIcon={<ArrowDown size='md'/>} placeholder='Select an action'/>
+        </div>
+        <div>
+          <p>Large</p>
+          <DropdownSelect classes={classes} data={sampleDataDivider} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='Select an action'/>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export const Icons = () => {
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default</p>
+          <DropdownSelect data={sampleDataIcons} endIcon={<ArrowDown size='md'/>} placeholder='Select an option'/>
+        </div>
+        <div>
+          <p>Large</p>
+          <DropdownSelect data={sampleDataIconsLarge} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='Select an option'/>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export const Description = () => {
+  const classes = {
+    container: 'w-80',
+  }
+
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default</p>
+          <DropdownSelect classes={classes} data={sampleDataDescription} endIcon={<ArrowDown size='md'/>} placeholder='Select an option'/>
+        </div>
+        <div>
+          <p>Large</p>
+          <DropdownSelect classes={classes} data={sampleDataDescription} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='Select an option'/>
+        </div>
+      </div>
+    </>
+  )
+}
 
 export const MultiSelect = () => {
   return (
     <>
-      <div className={'flex flex-row'}>
+      <div className='flex flex-row'>
         <div className='mr-5'>
-          <p>Multi Select - horizontal</p>
-          <DropdownSelect classes={classes} data={sampleData} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' multiSelect showType/>
+          <p>Default - horizontal</p>
+          <DropdownSelect data={sampleDataMultiselect} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' multiSelect/>
+        </div>
+        <div className='mr-5'>
+          <p>Default - vertical</p>
+          <DropdownSelect data={sampleDataMultiselect} endIcon={<ArrowDown size='md'/>} overflow='vertical' placeholder='Select a subject' multiSelect/>
+        </div>
+        <div className='mr-5'>
+          <p>Large - horizontal</p>
+          <DropdownSelect data={sampleDataMultiselect} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='Select a subject' multiSelect/>
         </div>
         <div>
-          <p>Multi Select - vertical</p>
-          <DropdownSelect classes={classes} data={sampleData} endIcon={<ArrowDown size='md'/>} overflow='vertical' placeholder='Select a subject' multiSelect showType/>
+          <p>Large - vertical</p>
+          <DropdownSelect data={sampleDataMultiselect} size='lg' endIcon={<ArrowDown size='lg'/>} overflow='vertical' placeholder='Select a subject' multiSelect/>
         </div>
       </div>
     </>
@@ -166,7 +248,16 @@ export const MultiSelect = () => {
 export const StepsSelect = () => {
   return (
     <>
-      <DropdownSelectSteps data={sampleDataSteps} endIcon={<ArrowDown size='md'/>} placeholder='Choose an option'/>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default</p>
+          <DropdownSelectSteps data={sampleDataSteps} endIcon={<ArrowDown size='md'/>} placeholder='Choose an option'/>
+        </div>
+        <div>
+          <p>Large</p>
+          <DropdownSelectSteps data={sampleDataSteps} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='Choose an option'/>
+        </div>
+      </div>
     </>
   )
 }
@@ -210,7 +301,7 @@ export const LinkedSelect = () => {
   )
 }
 
-export const Large = () => {
+export const LinkedSelectLarge = () => {
   const [value, setValue] = useState('')
   const [subData, setSubData] = useState([])
   const [disabled, setDisabled] = useState(true)
@@ -237,33 +328,14 @@ export const Large = () => {
   }
 
   return (
-    <>
-      <div className='flex flex-row'>
-        <div className='mr-5'>
-          <p>Select</p>
-          <DropdownSelect classes={classes} data={sampleDataLarge} size='lg' endIcon={<ArrowDown size='lg'/>} showType/>
-        </div>
-        <div className='mr-5'>
-          <p>Multi Select - horizontal</p>
-          <DropdownSelect classes={classes} data={sampleDataLarge} size='lg' endIcon={<ArrowDown size='lg'/>} multiSelect showType/>
-        </div>
-        <div>
-          <p>Multi Select - vertical</p>
-          <DropdownSelect classes={classes} data={sampleDataLarge} size='lg' endIcon={<ArrowDown size='lg'/>} multiSelect showType overflow='vertical'/>
-        </div>
+    <div className='flex flex-row'>
+      <div className='mr-2.5'>
+        <DropdownSelect data={sampleDataLinked} size='lg' onSelect={onSelect} endIcon={<ArrowDown size='lg'/>} placeholder='API Category'/>
       </div>
-      <p>Steps Select</p>
-      <DropdownSelectSteps data={sampleDataSteps} size='lg' endIcon={<ArrowDown size='lg'/>}/>
-      <p>Linked Select</p>
-      <div className='flex flex-row'>
-        <div className='mr-2.5'>
-          <DropdownSelect data={sampleDataLinked} size='lg' onSelect={onSelect} endIcon={<ArrowDown size='lg'/>}/>
-        </div>
-        <div>
-          <DropdownSelect data={subData} size='lg' endIcon={<ArrowDown size='lg'/>} disabled={disabled}/>
-        </div>
+      <div>
+        <DropdownSelect data={subData} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='API Subcategory' disabled={disabled}/>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -271,12 +343,12 @@ export const Disabled = () => {
   return (
     <div className='flex flex-row'>
       <div className='mr-5'>
-        <p>Medium</p>
-        <DropdownSelect classes={classes} endIcon={<ArrowDown size='lg'/>} disabled/>
+        <p>Default</p>
+        <DropdownSelect endIcon={<ArrowDown size='lg'/>} disabled/>
       </div>
       <div>
         <p>Large</p>
-        <DropdownSelect classes={classes} size='lg' endIcon={<ArrowDown size='lg'/>} disabled/>
+        <DropdownSelect size='lg' endIcon={<ArrowDown size='lg'/>} disabled/>
       </div>
     </div>
   )

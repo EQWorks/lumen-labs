@@ -5,7 +5,7 @@ import { Dollar, Info, Alert } from '../../src/icons'
 
 export const sampleDataBasic = ['test', 'hello', 'sample']
 
-export const sampleData = [
+export const sampleDataGroups = [
   {
     items: [
       {
@@ -23,7 +23,6 @@ export const sampleData = [
     items: [
       {
         title: 'geography',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
       {
         title: 'psychology',
@@ -33,93 +32,149 @@ export const sampleData = [
       },
       {
         title: 'sociology',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
     ],
   },
   {
     type: {
       title: 'Sciences',
-      endIcon: <Info size='md'/>,
     },
     items: [
       {
         title: 'physics',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        startIcon: <Alert size='md'/>,
       },
       {
         title: 'chemistry',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        endIcon: <Dollar size='md'/>,
       },
       {
         title: 'biology',
-        startIcon: <Info size='md'/>,
+      },
+    ],
+  },
+]
+
+export const sampleDataDivider = [
+  {
+    items: [
+      {
+        title: 'copy',
+      },
+      {
+        title: 'download',
+      },
+      {
+        title: 'export',
       },
     ],
     divider: {
-      title: 'Divider',
+      title: 'Reset',
     },
   },
 ]
 
-export const sampleDataLarge = [
+export const sampleDataIcons = [
   {
     items: [
       {
         title: 'mathematics',
+        startIcon: <Alert size='md'/>,
       },
       {
-        title: 'english',
+        title: 'economics',
+        startIcon: <Dollar size='md'/>,
       },
-    ],
-  },
-  {
-    type: {
-      title: 'social sciences',
-    },
-    items: [
       {
         title: 'geography',
+        startIcon: <Info size='md'/>,
+      },
+    ],
+  },
+]
+
+export const sampleDataDescription = [
+  {
+    items: [
+      {
+        title: 'Direct upload',
         description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
       {
-        title: 'psychology',
+        title: 'Google Sheets',
+        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
       {
-        title: 'history',
+        title: 'google analytics V4',
+        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
       {
-        title: 'sociology',
+        title: 'shopify',
+        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
+      },
+      {
+        title: 'stripe',
+        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
+      },
+      {
+        title: 'azure blob',
         description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
       },
     ],
   },
+]
+
+export const sampleDataMultiselect = [
   {
-    type: {
-      title: 'Sciences',
-      endIcon: <Info size='lg'/>,
-    },
     items: [
       {
-        title: 'physics',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
+        title: 'apple',
+      },
+      {
+        title: 'peach',
+      },
+      {
+        title: 'orange',
+      },
+      {
+        title: 'watermelon',
+      },
+      {
+        title: 'grapefruit',
+      },
+      {
+        title: 'mangosteen',
+      },
+      {
+        title: 'coconut',
+      },
+      {
+        title: 'pineapple',
+      },
+      {
+        title: 'pear',
+      },
+      {
+        title: 'durian',
+      },
+    ],
+  },
+]
+
+export const sampleDataIconsLarge = [
+  {
+    items: [
+      {
+        title: 'mathematics',
         startIcon: <Alert size='lg'/>,
       },
       {
-        title: 'chemistry',
-        description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-        endIcon: <Dollar size='lg'/>,
+        title: 'economics',
+        startIcon: <Dollar size='lg'/>,
       },
       {
-        title: 'biology',
+        title: 'geography',
         startIcon: <Info size='lg'/>,
       },
     ],
-    divider: {
-      title: 'Divider',
-    },
   },
 ]
 

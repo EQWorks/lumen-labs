@@ -52,7 +52,7 @@ const DropdownSelectSteps = forwardRef(({
 
   const contentSize = _contentSize(size)
   const dropdownSelectStepsClasses = Object.freeze({
-    listContainer: `w-250px h-full mr-5 border rounded-sm border-secondary-400 ${classes.listContainer}`,
+    listContainer: `w-250px h-auto border rounded-sm border-secondary-400 ${classes.listContainer}`,
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
     contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 ${contentSize.contentContainer} ${classes.contentContainer}`,
     contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
@@ -62,6 +62,8 @@ const DropdownSelectSteps = forwardRef(({
     startIcon: 'mr-2.5 fill-current stroke-current',
     endIcon: 'ml-2.5 fill-current stroke-current',
     selected: 'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
+    category: `${categoryData.items && 'hidden'}`,
+    subCategory: `${subCategoryData.items && 'hidden'}`,
   })
 
   const dropdownClasses = Object.freeze({
@@ -211,11 +213,11 @@ const DropdownSelectSteps = forwardRef(({
       disabled={disabled} 
       {...rest}
     >
-      <ul className={`capitalize ${dropdownSelectStepsClasses.listContainer}`}>
+      <ul className={`capitalize ${dropdownSelectStepsClasses.listContainer} ${dropdownSelectStepsClasses.category}`}>
         { options && renderList(options, 'category') }
       </ul>
       { categoryData.items && 
-        <ul className={dropdownSelectStepsClasses.listContainer}>
+        <ul className={`${dropdownSelectStepsClasses.listContainer} ${dropdownSelectStepsClasses.subCategory}`}>
           {showType && categoryData.type && 
           <label className={`capitalize ${dropdownSelectStepsClasses.type}`} htmlFor="span">
             {renderListItem(categoryData)}
@@ -268,7 +270,6 @@ DropdownSelectSteps.propTypes = {
           endIcon: PropTypes.node,
           items: PropTypes.arrayOf(
             PropTypes.shape({
-              type: PropTypes.string,
               title: PropTypes.string,
               startIcon: PropTypes.node,
               endIcon: PropTypes.node,

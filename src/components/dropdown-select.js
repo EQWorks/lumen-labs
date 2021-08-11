@@ -53,6 +53,7 @@ const DropdownSelect = forwardRef(({
 }, ref) => {
   const [options, setOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([])
+  const [open, setOpen] = useState(false)
 
   const contentSize = _contentSize(size)
   const dropdownSelectClasses = Object.freeze({
@@ -87,6 +88,10 @@ const DropdownSelect = forwardRef(({
     setSelectedOptions([])
     setOptions(initialOptions)
   }, [data])
+
+  const onClickSelect = () => {
+    setOpen(!open)
+  }
 
   const renderOptions = () => {
     let render = selectedOptions.title ? (<span className='mr-2.5 text-secondary-800'>{selectedOptions.title}</span>) : <></>
@@ -185,6 +190,7 @@ const DropdownSelect = forwardRef(({
         setSelectedOptions([])
       } else {
         setSelectedOptions(value)
+        setOpen(!open)
       }
     }
     onSelect(value)
@@ -199,8 +205,10 @@ const DropdownSelect = forwardRef(({
     <DropdownBase 
       ref={ref}
       classes={dropdownClasses} 
-      size={size}
       renderOptions={renderOptions}
+      onClick={onClickSelect}
+      open={open}
+      size={size}
       startIcon={startIcon} 
       endIcon={endIcon}
       placeholder={placeholder}

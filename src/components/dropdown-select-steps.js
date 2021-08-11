@@ -46,6 +46,7 @@ const DropdownSelectSteps = forwardRef(({
   ...rest 
 }, ref) => {
   const [options, setOptions] = useState([])
+  const [open, setOpen] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState('')
   const [categoryData, setCategoryData] = useState('')
   const [subCategoryData, setSubCategoryData] = useState('')
@@ -76,6 +77,10 @@ const DropdownSelectSteps = forwardRef(({
     setOptions(data)
   }, [data])
 
+  const onClickSelect = () => {
+    setOpen(!open)
+  }
+
   const renderOptions = () => (
     <>
       {categoryData.title ? 
@@ -95,6 +100,7 @@ const DropdownSelectSteps = forwardRef(({
       setSelectedOptions('')
     } else {
       setCategoryData(value)
+      !value.items && setOpen(!open)
       onSelect({ ...value, index })
     }
   }
@@ -112,6 +118,7 @@ const DropdownSelectSteps = forwardRef(({
       setSelectedOptions('')
     } else {
       setSubCategoryData(value)
+      !value.items && setOpen(!open)
       onSelect(selectedItem)
     }
   }
@@ -132,6 +139,7 @@ const DropdownSelectSteps = forwardRef(({
       setSelectedOptions('')
     } else {
       setSelectedOptions(value)
+      setOpen(!open)
       onSelect(selectedItem)
     }
   }
@@ -205,8 +213,10 @@ const DropdownSelectSteps = forwardRef(({
     <DropdownBase 
       ref={ref}
       classes={dropdownClasses} 
-      size={size}
       renderOptions={renderOptions} 
+      onClick={onClickSelect}
+      open={open}
+      size={size} 
       startIcon={startIcon} 
       endIcon={endIcon}
       placeholder={placeholder}

@@ -25,10 +25,16 @@ const DialogBase = ({ classes, button, children, modal, open, anchor, onClick, d
     _open = open
   }
 
+  if (!componentIsActive && open) {
+    onClick()
+  }
+  
   const handleClick = () => {
     if (!disabled) {
       if (!controlledOpen) {
         setComponentIsActive((state) => !state)
+      } else {
+        setComponentIsActive(!open)
       }
       onClick()
     }

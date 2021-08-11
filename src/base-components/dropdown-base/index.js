@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -37,6 +37,8 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
 const DropdownBase = forwardRef(({ 
   classes, 
   renderOptions, 
+  onClick,
+  open,
   startIcon, 
   endIcon, 
   size, 
@@ -47,14 +49,13 @@ const DropdownBase = forwardRef(({
   disabled,
   ...rest
 }, ref) => {
-  const [focus, setFocus] = useState(false)
   const selectedOptions = renderOptions().props.children ? true : false
 
   const contentSize = _contentSize(size, multiSelect, selectedOptions)
   const dropdownClasses = Object.freeze({
     container: clsx(`font-sans cursor-pointer border rounded-sm ${classes.container ? classes.container : 'w-250px'}`,
-      { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus },
-      { 'border-interactive-500 shadow-focused-interactive': focus && !disabled },
+      { 'border-secondary-400 hover:border-secondary-500': !disabled && !open },
+      { 'border-interactive-500 shadow-focused-interactive': open && !disabled },
       { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
@@ -66,7 +67,7 @@ const DropdownBase = forwardRef(({
       ${selectedOptions && multiSelect && contentSize.icon}
       ${overflow === 'horizontal' && 'ml-2.5'}`,
     { 'text-secondary-600': !disabled },
-    { 'text-interactive-500': focus && !disabled },
+    { 'text-interactive-500': open && !disabled },
     ),
   })
   
@@ -75,10 +76,6 @@ const DropdownBase = forwardRef(({
     dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 w-full mt-5px border rounded-sm border-secondary-400 
       ${contentSize.dialog} ${classes.dropdown && classes.dropdown}`,
   })
-
-  const handleFocus = () => {
-    setFocus(!focus)
-  }
 
   const button = (
     <div className={`${dropdownClasses.container}`} {...rest}>
@@ -106,7 +103,7 @@ const DropdownBase = forwardRef(({
 
   return (
     <>
-      <DialogBase ref={ref} classes={dialogClasses} button={button} onClick={handleFocus} open={focus} disabled={disabled}>
+      <DialogBase ref={ref} classes={dialogClasses} button={button} onClick={onClick} open={open} disabled={disabled}>
         {children}
       </DialogBase>
     </>
@@ -121,6 +118,8 @@ DropdownBase.propTypes = {
   }),
   children: PropTypes.node,
   renderOptions: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
   size: PropTypes.string,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,

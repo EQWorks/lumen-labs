@@ -43,6 +43,11 @@ export default {
 
 export const Base = () => {
   const [value, setValue] = useState('')
+  const [open, setOpen] = useState(false)
+
+  const handleOnClick = () => {
+    setOpen(!open)
+  }
 
   const renderOptions = () => (
     <span>{value}</span>
@@ -50,7 +55,7 @@ export const Base = () => {
 
   return (
     <>
-      <DropdownBase renderOptions={renderOptions} endIcon={<ArrowDown size='md'/>}>
+      <DropdownBase onClick={handleOnClick} open={open} renderOptions={renderOptions} endIcon={<ArrowDown size='md'/>}>
         <ul>
           {sampleDataBasic.map((item, index) => {
             return (

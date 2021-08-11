@@ -40,7 +40,6 @@ const _contentSize = (size) => {
 const DropdownSelect = forwardRef(({ 
   classes, 
   data, 
-  open, 
   size, 
   onSelect, 
   startIcon, 
@@ -72,7 +71,7 @@ const DropdownSelect = forwardRef(({
   })
 
   const dropdownClasses = Object.freeze({
-    dropdown: classes.dropdown,
+    dropdown: `${!data.length > 0 && 'hidden'} ${classes.dropdown}`,
     container: classes.container,
     content: classes.content,
   })
@@ -202,7 +201,6 @@ const DropdownSelect = forwardRef(({
       classes={dropdownClasses} 
       size={size}
       renderOptions={renderOptions}
-      open={open} 
       startIcon={startIcon} 
       endIcon={endIcon}
       placeholder={placeholder}
@@ -250,7 +248,6 @@ DropdownSelect.propTypes = {
       }),
     }),
   ),
-  open: PropTypes.bool,
   size: PropTypes.string,
   onSelect: PropTypes.func,
   startIcon: PropTypes.node,

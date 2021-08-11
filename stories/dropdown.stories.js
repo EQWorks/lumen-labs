@@ -92,7 +92,6 @@ export const Base = () => {
  *      startIcon: node, icon on left side of divider title
  *      endIcon: node, icon on right side of divider title
  *    }
- * [open] - boolean, control dropdown menu/select - open/close, default = false
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value
@@ -233,7 +232,6 @@ export const MultiSelect = () => {
  *        endIcon: node, icon on right side of item title
  *      ]
  *    ]
- * [open] - boolean, control dropdown menu/select - open/close, default = false
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value
@@ -288,14 +286,14 @@ export const LinkedSelect = () => {
       setValue(selected)
     }
   }
-  
+
   return (
     <div className={'flex flex-row'}>
       <div className='mr-2.5'>
         <DropdownSelect data={sampleDataLinked} onSelect={onSelect} endIcon={<ArrowDown size='md'/>} placeholder='API Category'/>
       </div>
       <div>
-        <DropdownSelect data={subData} open={value ? true : false} endIcon={<ArrowDown size='md'/>} placeholder='API Subcategory' disabled={disabled}/>
+        <DropdownSelect data={subData} endIcon={<ArrowDown size='md'/>} placeholder='API Subcategory' disabled={disabled}/>
       </div>
     </div>
   )

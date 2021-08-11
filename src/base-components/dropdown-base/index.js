@@ -37,7 +37,6 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
 const DropdownBase = forwardRef(({ 
   classes, 
   renderOptions, 
-  open,
   startIcon, 
   endIcon, 
   size, 
@@ -73,8 +72,8 @@ const DropdownBase = forwardRef(({
   
   const dialogClasses = Object.freeze({
     root: `${contentSize.font}`,
-    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 ${contentSize.dialog}
-      ${classes.dropdown ? classes.dropdown : 'w-full mt-5px border rounded-sm border-secondary-400'}`,
+    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 w-full mt-5px border rounded-sm border-secondary-400 
+      ${contentSize.dialog} ${classes.dropdown && classes.dropdown}`,
   })
 
   const handleFocus = () => {
@@ -107,7 +106,7 @@ const DropdownBase = forwardRef(({
 
   return (
     <>
-      <DialogBase ref={ref} classes={dialogClasses} button={button} onClick={handleFocus} open={open ? open : focus} disabled={disabled}>
+      <DialogBase ref={ref} classes={dialogClasses} button={button} onClick={handleFocus} open={focus} disabled={disabled}>
         {children}
       </DialogBase>
     </>
@@ -122,7 +121,6 @@ DropdownBase.propTypes = {
   }),
   children: PropTypes.node,
   renderOptions: PropTypes.func.isRequired,
-  open: PropTypes.bool,
   size: PropTypes.string,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,

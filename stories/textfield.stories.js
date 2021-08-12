@@ -54,11 +54,18 @@ export const Base = () => {
 
 /** -- props (TextField):
  * [classes] - object, custom styling supported keys:
- *    width: width of text field
+ *    root: base component styling classes
+ *    container: Input container classes
  * [inputProps] - object, accepts all InputBase props
+ * [size] - string, predefined sizes ['lg', 'md'], default - 'md'
  * [label] - string, label for text field
+ * [maxLength] - number, display amount of words
  * [helpertText] - string, small text at bottom of text field
+ * [success] - boolean, toggles success mode
  * [error] - boolean, toggles error mode
+ * [required] - boolean, add asterisk beside label
+ * [disabled] - boolean, toggles disable mode
+ * [onChange] - function, returns input value
  * [onSubmit] - function, form submit handler
  */
 
@@ -222,11 +229,28 @@ export const Area = () => {
 export const Usage = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState()
+  const [requiredError, setRequiredError] = useState(false)
+
+  const phoneClasses = {
+    container: 'w-40',
+  }
+
+  const extensionClasses = {
+    container: 'w-20',
+  }
 
   const handleOnChange = (val) => {
     let regex = /[0-9a-zA-Z]{6}/.test(val)
     setSuccess(regex)
     setError(!regex)
+  }
+
+  const requiredOnChange = (val) => {
+    if (!val) {
+      setRequiredError(true)
+    } else {
+      setRequiredError(false)
+    }
   }
 
   return (
@@ -242,6 +266,25 @@ export const Usage = () => {
         inputProps={{ placeholder: 'your_website', prefix: 'https://', suffix: '.com' }} 
         label='Website URL'
       />
+      <p className={labelClass}>Required Input</p>
+      <div className='flex flex-row'>
+        <TextField
+          classes={phoneClasses}
+          label='Home phone'
+          error={requiredError}
+          inputProps={{ placeholder: 'Required', endIcon: requiredError && <Alert size='md'/> }}
+          required
+          onChange={requiredOnChange}
+        /> 
+        <div className='ml-2'>
+          <TextField 
+            classes={extensionClasses}
+            label='Extension' 
+            inputProps={{ placeholder: 'Optional' }}
+          />
+        </div>
+      </div>
+
       <p className={labelClass}>Input with Buttons:</p>
       <div className={`flex flex-row ${error ? 'items-center' : 'items-end'}`}>
         <TextField

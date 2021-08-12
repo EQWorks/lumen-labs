@@ -35,6 +35,7 @@ const _contentSize = (size) => {
 const DropdownSelectSteps = forwardRef(({ 
   classes, 
   data, 
+  button, 
   size, 
   onSelect, 
   startIcon, 
@@ -81,7 +82,7 @@ const DropdownSelectSteps = forwardRef(({
     setOpen(!open)
   }
 
-  const renderOptions = () => (
+  const renderSelectedOptions = () => (
     <>
       {categoryData.title ? 
         (<span className='mr-2.5 text-secondary-800'>
@@ -213,7 +214,8 @@ const DropdownSelectSteps = forwardRef(({
     <DropdownBase 
       ref={ref}
       classes={dropdownClasses} 
-      renderOptions={renderOptions} 
+      renderSelectedOptions={renderSelectedOptions} 
+      button={button}
       onClick={onClickSelect}
       open={open}
       size={size} 
@@ -289,6 +291,7 @@ DropdownSelectSteps.propTypes = {
       ),
     }),
   ),
+  button: PropTypes.node,
   size: PropTypes.string,
   onSelect: PropTypes.func,
   startIcon: PropTypes.node,
@@ -312,6 +315,7 @@ DropdownSelectSteps.defaultProps = {
     dividerContainer: '',
   },
   data: [],
+  button: null,
   size: 'md',
   onSelect: () => {},
   startIcon: null,

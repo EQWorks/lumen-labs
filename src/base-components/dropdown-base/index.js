@@ -36,7 +36,8 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
 
 const DropdownBase = forwardRef(({ 
   classes, 
-  renderOptions, 
+  renderSelectedOptions, 
+  button, 
   onClick,
   open,
   startIcon, 
@@ -49,7 +50,7 @@ const DropdownBase = forwardRef(({
   disabled,
   ...rest
 }, ref) => {
-  const selectedOptions = renderOptions().props.children ? true : false
+  const selectedOptions = renderSelectedOptions().props.children ? true : false
 
   const contentSize = _contentSize(size, multiSelect, selectedOptions)
   const dropdownClasses = Object.freeze({
@@ -73,11 +74,11 @@ const DropdownBase = forwardRef(({
   
   const dialogClasses = Object.freeze({
     root: `${contentSize.font}`,
-    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 w-full mt-5px border rounded-sm border-secondary-400 
-      ${contentSize.dialog} ${classes.dropdown && classes.dropdown}`,
+    dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 mt-5px border rounded-sm border-secondary-400 
+      ${contentSize.dialog} ${classes.dropdown ? classes.dropdown : 'w-full'}`,
   })
 
-  const button = (
+  const _button = (
     <div className={`${dropdownClasses.container}`} {...rest}>
       <div className={`${selectedOptions && multiSelect && 'pb-0'} ${dropdownClasses.content}`}>
         {startIcon && <div className={dropdownClasses.startIcon}>{startIcon}</div>}
@@ -87,7 +88,7 @@ const DropdownBase = forwardRef(({
           ${overflow === 'horizontal' && selectedOptions && 'scroll-overlay overflow-x-auto overflow-y-hidden'}`
         }>
           { selectedOptions ? 
-            renderOptions()
+            renderSelectedOptions()
             : 
             (
               <span className={dropdownClasses.placeholder}>
@@ -103,7 +104,7 @@ const DropdownBase = forwardRef(({
 
   return (
     <>
-      <DialogBase ref={ref} classes={dialogClasses} button={button} onClick={onClick} open={open} disabled={disabled}>
+      <DialogBase ref={ref} classes={dialogClasses} button={button ? button : _button} onClick={onClick} open={open} disabled={disabled}>
         {children}
       </DialogBase>
     </>
@@ -117,7 +118,8 @@ DropdownBase.propTypes = {
     dropdown: PropTypes.string,
   }),
   children: PropTypes.node,
-  renderOptions: PropTypes.func.isRequired,
+  renderSelectedOptions: PropTypes.func,
+  button: PropTypes.node,
   onClick: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   size: PropTypes.string,
@@ -136,6 +138,7 @@ DropdownBase.defaultProps = {
     dropdown: '',
   },
   children: null,
+  button: null,
   size: 'md',
   startIcon: null,
   endIcon: null,

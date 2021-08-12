@@ -28,7 +28,9 @@ export default {
  *    container: select container div
  *    content: content container element
  *    dropdown: dropdown menu/select container div
- * [renderOptions] - function, to render selected options node, required!
+ * [renderSelectedOptions] - function, to render selected options views/value
+ * [button] - node, custom onClick element to trigger select/dropdown menu
+ * [onClick] - function, onClick trigger for select/dropdown menu
  * [open] - boolean, control dropdown menu/select - open/close, default = false
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
  * [placeholder] - string, helper value of input if value is empty
@@ -49,13 +51,13 @@ export const Base = () => {
     setOpen(!open)
   }
 
-  const renderOptions = () => (
+  const renderSelectedOptions = () => (
     <span>{value}</span>
   )
 
   return (
     <>
-      <DropdownBase onClick={handleOnClick} open={open} renderOptions={renderOptions} endIcon={<ArrowDown size='md'/>}>
+      <DropdownBase onClick={handleOnClick} open={open} renderSelectedOptions={renderSelectedOptions} endIcon={<ArrowDown size='md'/>}>
         <ul>
           {sampleDataBasic.map((item, index) => {
             return (
@@ -97,6 +99,7 @@ export const Base = () => {
  *      startIcon: node, icon on left side of divider title
  *      endIcon: node, icon on right side of divider title
  *    }
+ * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value
@@ -237,6 +240,7 @@ export const MultiSelect = () => {
  *        endIcon: node, icon on right side of item title
  *      ]
  *    ]
+ * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value

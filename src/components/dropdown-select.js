@@ -40,6 +40,7 @@ const _contentSize = (size) => {
 const DropdownSelect = forwardRef(({ 
   classes, 
   data, 
+  button, 
   size, 
   onSelect, 
   startIcon, 
@@ -93,7 +94,7 @@ const DropdownSelect = forwardRef(({
     setOpen(!open)
   }
 
-  const renderOptions = () => {
+  const renderSelectedOptions = () => {
     let render = selectedOptions.title ? (<span className='mr-2.5 text-secondary-800'>{selectedOptions.title}</span>) : <></>
 
     if (multiSelect && selectedOptions.length) {
@@ -205,7 +206,8 @@ const DropdownSelect = forwardRef(({
     <DropdownBase 
       ref={ref}
       classes={dropdownClasses} 
-      renderOptions={renderOptions}
+      renderSelectedOptions={renderSelectedOptions}
+      button={button}
       onClick={onClickSelect}
       open={open}
       size={size}
@@ -256,6 +258,7 @@ DropdownSelect.propTypes = {
       }),
     }),
   ),
+  button: PropTypes.node,
   size: PropTypes.string,
   onSelect: PropTypes.func,
   startIcon: PropTypes.node,
@@ -281,6 +284,7 @@ DropdownSelect.defaultProps = {
     dividerContainer: '',
   },
   data: [],
+  button: null,
   size: 'md',
   onSelect: () => {},
   startIcon: null,

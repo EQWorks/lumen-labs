@@ -195,7 +195,7 @@ const DropdownSelect = forwardRef(({
         setOpen(!open)
       }
     }
-    onSelect({value, index})
+    onSelect({ value, index })
   }
   
   const onClickClose = (e, value) => {

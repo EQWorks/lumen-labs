@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
-import { ToastVerticalBase } from '../src/base-components'
+import { ToastBase } from '../src/base-components'
 import { TextField, Button } from '../src'
 
 import { Alert, Close } from '../src/icons'
 
 
 export default {
-  title: 'ToastVerticalBase',
-  component: ToastVerticalBase,
+  title: 'ToastBase',
+  component: ToastBase,
 }
 
 const labelClass = 'text-blue-300 mt-5 mb-1'
@@ -36,9 +36,17 @@ export const Base = () => {
 
   return (
     <>
+      <p className={labelClass}>Horizontal</p>
+      <ToastBase 
+        title='horizontal' 
+        button={button}
+        startIcon={<Alert size='lg'/>} 
+        endIcon={<Close size='sm'/>} 
+      />
       <p className={labelClass}>Vertical</p>
-      <ToastVerticalBase 
-        title='vertical' 
+      <ToastBase 
+        title='vertical'
+        type='vertical' 
         description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.' 
         button={button}
         startIcon={<Alert size='lg'/>} 

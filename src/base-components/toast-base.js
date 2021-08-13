@@ -2,13 +2,9 @@ import React, { useState, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const _baseClasses = () => ({
-  root: '',
-  input: 'w-full',
-})
-
-const ToastVerticalBase = forwardRef(({
+const ToastBase = forwardRef(({
   classes,
+  type,
   title,
   description,
   button,
@@ -16,7 +12,7 @@ const ToastVerticalBase = forwardRef(({
   endIcon,
   ...rest
 }, ref) => {
-  const toastVerticalBaseClasses = Object.freeze({
+  const toastBaseClasses = Object.freeze({
     root: `flex flex-col p-2.5 border ${classes.root ? classes.root : 'w-80'}`,
     header: `flex flex-row justify-between items-center ${classes.header && classes.header}`,
     title: `flex flex-row items-center ${classes.title && classes.title}`,
@@ -27,24 +23,35 @@ const ToastVerticalBase = forwardRef(({
   })
   
   return (
-    <div ref={ref} className={`${toastVerticalBaseClasses.root} ${classes.root}`}>
-      <div className={toastVerticalBaseClasses.header}>
-        <div className={toastVerticalBaseClasses.title}>
-          {startIcon && <div className={toastVerticalBaseClasses.startIcon}>{startIcon}</div>}
+    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`}>
+    { type === 'horizontal' && <>
+      <div className={toastBaseClasses.title}>
+        {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
+        {title && <label>{title}</label>}
+        {button && button}
+        {endIcon && <div className={toastBaseClasses.endIcon}>{endIcon}</div>}
+      </div>
+    </>}
+    { type === 'vertical' && <>
+      <div className={toastBaseClasses.header}>
+        <div className={toastBaseClasses.title}>
+          {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
           {title && <label>{title}</label>}
         </div>
-        {endIcon && <div className={toastVerticalBaseClasses.endIcon}>{endIcon}</div>}
+        {endIcon && <div className={toastBaseClasses.endIcon}>{endIcon}</div>}
       </div>
-      <div className={toastVerticalBaseClasses.content}>
+      <div className={toastBaseClasses.content}>
         {description && <div>{description}</div>}
         {button && button}
       </div>
+    </>}
     </div>
   )
 })
 
-ToastVerticalBase.propTypes = {
+ToastBase.propTypes = {
   classes: PropTypes.object,
+  type: PropTypes.oneOf(['horizontal', 'vertical']),
   title: PropTypes.string,
   description: PropTypes.string,
   button: PropTypes.node,
@@ -52,7 +59,7 @@ ToastVerticalBase.propTypes = {
   endIcon: PropTypes.node,
 }
 
-ToastVerticalBase.defaultProps = {
+ToastBase.defaultProps = {
   classes: { 
     root: '', 
     header: '', 
@@ -62,6 +69,7 @@ ToastVerticalBase.defaultProps = {
     startIon: '', 
     endIcon: '', 
   },
+  type: 'horizontal',
   title: '',
   description: '',
   button: null,
@@ -69,6 +77,6 @@ ToastVerticalBase.defaultProps = {
   endIcon: null,
 }
 
-ToastVerticalBase.displayName = 'ToastVerticalBase'
+ToastBase.displayName = 'ToastBase'
 
-export default ToastVerticalBase
+export default ToastBase

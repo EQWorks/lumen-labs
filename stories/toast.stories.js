@@ -7,7 +7,7 @@ import { Alert, Close } from '../src/icons'
 
 
 export default {
-  title: 'ToastBase',
+  title: 'Toast',
   component: ToastBase,
 }
 

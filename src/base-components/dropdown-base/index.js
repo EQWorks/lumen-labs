@@ -73,7 +73,7 @@ const DropdownBase = forwardRef(({
   })
   
   const dialogClasses = Object.freeze({
-    root: `${contentSize.font}`,
+    root: `${contentSize.font} ${classes.root}`,
     dialog: `max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 mt-5px border rounded-sm border-secondary-400 
       ${contentSize.dialog} ${classes.dropdown ? classes.dropdown : 'w-full'}`,
   })
@@ -113,6 +113,7 @@ const DropdownBase = forwardRef(({
 
 DropdownBase.propTypes = {
   classes: PropTypes.exact({
+    root: PropTypes.string,
     container: PropTypes.string,
     content: PropTypes.string,
     dropdown: PropTypes.string,
@@ -133,6 +134,7 @@ DropdownBase.propTypes = {
 
 DropdownBase.defaultProps = {
   classes: { 
+    root: '',
     container: '',
     content: '',
     dropdown: '',

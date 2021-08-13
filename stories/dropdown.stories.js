@@ -25,6 +25,7 @@ export default {
 
 /** -- props (DropdownBase):
  * [classes] - object, custom styling supported keys:
+ *    root: main container of dropdown component
  *    container: select container div
  *    content: content container element
  *    dropdown: dropdown menu/select container div
@@ -72,6 +73,7 @@ export const Base = () => {
 
 /** -- props (DropdownSelect):
  * [classes] - object, custom styling supported keys:
+ *    root: main container of dropdown component
  *    container: select container div
  *    content: content container element
  *    dropdown: dropdown menu/select container div
@@ -215,6 +217,7 @@ export const MultiSelect = () => {
 
 /** -- props (DropdownSelectSteps):
  * [classes] - object, custom styling supported keys:
+ *    root: main container of dropdown component
  *    container: select container div
  *    content: content container element
  *    dropdown: dropdown menu/select container div

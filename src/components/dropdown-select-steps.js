@@ -69,6 +69,7 @@ const DropdownSelectSteps = forwardRef(({
   })
 
   const dropdownClasses = Object.freeze({
+    root: classes.root,
     dropdown: `w-auto mt-5px flex flex-row ${!data.length > 0 && 'hidden'} ${classes.dropdown}`,
     container: classes.container,
     content: classes.content,
@@ -304,6 +305,7 @@ DropdownSelectSteps.propTypes = {
 
 DropdownSelectSteps.defaultProps = {
   classes: {
+    root: '',
     dropdown: '',
     container: '',
     content: '',

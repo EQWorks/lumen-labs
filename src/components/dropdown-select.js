@@ -73,7 +73,7 @@ const DropdownSelect = forwardRef(({
   })
 
   const dropdownClasses = Object.freeze({
-    dropdown: `${!data.length > 0 && 'hidden'} ${classes.dropdown}`,
+    dropdown: `${!data.length > 0 && 'hidden'} ${classes.dropdown ? classes.dropdown : 'w-full'}`,
     container: classes.container,
     content: classes.content,
   })

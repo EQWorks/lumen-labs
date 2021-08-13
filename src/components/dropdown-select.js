@@ -73,6 +73,7 @@ const DropdownSelect = forwardRef(({
   })
 
   const dropdownClasses = Object.freeze({
+    root: classes.root,
     dropdown: `${!data.length > 0 && 'hidden'} ${classes.dropdown ? classes.dropdown : 'w-full'}`,
     container: classes.container,
     content: classes.content,
@@ -121,7 +122,7 @@ const DropdownSelect = forwardRef(({
           <div 
             key={`item-container-${index}`} 
             className={dropdownSelectClasses.itemContainer} 
-            onClick={() => handleOnClick(item)}
+            onClick={() => handleOnClick(index, item)}
           >
             <div 
               className={`
@@ -163,7 +164,7 @@ const DropdownSelect = forwardRef(({
     )
   }
 
-  const handleOnClick = (value) => {
+  const handleOnClick = (index, value) => {
     if (multiSelect) {
       const currOptions = options
       const filterOptions = []
@@ -194,7 +195,7 @@ const DropdownSelect = forwardRef(({
         setOpen(!open)
       }
     }
-    onSelect(value)
+    onSelect({ value, index })
   }
   
   const onClickClose = (e, value) => {
@@ -272,6 +273,7 @@ DropdownSelect.propTypes = {
 
 DropdownSelect.defaultProps = {
   classes: {
+    root: '',
     dropdown: '',
     container: '',
     content: '',

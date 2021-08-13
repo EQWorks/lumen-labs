@@ -29,7 +29,7 @@ const _inputSize = ({ size }) => {
 }
 
 const _textFieldClasses = ({ container, inputSize, success, error }) => ({
-  container: `font-sans ${container ? container : 'w-250px flex flex-col'} ${inputSize.font}`,
+  container: `flex flex-col font-sans ${container ? container : 'w-250px'} ${inputSize.font}`,
   label: 'text-secondary-600',
   helperText: clsx('mt-1.5 text-secondary-600', { 
     'text-error-500': error, 
@@ -64,7 +64,7 @@ const _inputBaseClasses = ({ inputSize, focus, success, error, root, filled, dis
   suffix: 'ml-2.5 text-secondary-600',
 })
 
-const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, disabled, onChange, onSubmit }) => {
+const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, onChange, onSubmit }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
@@ -94,7 +94,10 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
 
   return (
     <div className={textFieldClasses.container}>
-      {label && <p className={textFieldClasses.label}>{label}</p>}
+      {label && <div className='flex flex-row'>
+        <p className={textFieldClasses.label}>{label}</p>
+        {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
+      </div>}
       <form onSubmit={onSubmit}>
         <InputBase
           {...inputProps}
@@ -121,6 +124,7 @@ TextField.propTypes = {
   helperText: PropTypes.string,
   success: PropTypes.bool,
   error: PropTypes.bool,
+  required: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
@@ -134,6 +138,7 @@ TextField.defaultProps = {
   helperText: '',
   success: false,
   error: false,
+  required: false,
   disabled: false,
   onChange: () => {},
   onSubmit: () => {},

@@ -108,9 +108,15 @@ module.exports = {
         '5px': '0.313rem',
         '7px': '0.438rem',
         '9px': '0.563rem',
-        '250px': '15.625rem'
+        '250px': '15.625rem', 
+        '450px': '28.125rem', 
       },
-      borderRadius: { sm: '4px', md: '0.375rem', xl: '0.75rem' },
+      borderRadius: { 
+        sm: '4px', 
+        md: '0.375rem', 
+        xl: '0.75rem', 
+        '10px': '0.625rem', 
+      },
       boxShadow: {
         'focused-primary': '0 0 2px 2px rgba(0, 117, 255, 0.25)',
         'focused-interactive': '0 0 0 2px rgba(49, 116, 213, 0.25)',
@@ -1024,5 +1030,31 @@ module.exports = {
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities, theme }) {
+
+      let newUtilities = {};
+      const outlinePrefix = '1px solid';
+      const colors = theme('colors');
+      Object.keys(colors).forEach(color => {
+
+        const colorData = colors[color];
+        if (typeof colorData === 'string') {
+          newUtilities[`.outline-${color}`] = {
+            outline: `${outlinePrefix} ${colorData}`,
+          }
+        }
+        else {
+          Object.keys(colorData).forEach(colorVariation => {
+            newUtilities[`.outline-${color}-${colorVariation}`] = {
+              outline: `${outlinePrefix} ${colorData[colorVariation]}`,
+            }
+          });
+        }
+      });
+      addUtilities(newUtilities, {
+        variants: ['focus', 'hover', 'active']
+      });
+    }
+  ],
 }

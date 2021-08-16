@@ -1,10 +1,10 @@
-import React, { useState, forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
 const ToastBase = forwardRef(({
   classes,
-  type,
+  variant,
   title,
   description,
   button,
@@ -13,45 +13,47 @@ const ToastBase = forwardRef(({
   ...rest
 }, ref) => {
   const toastBaseClasses = Object.freeze({
-    root: `flex flex-col p-2.5 border ${classes.root ? classes.root : 'w-80'}`,
-    header: `flex flex-row justify-between items-center ${classes.header && classes.header}`,
+    root: `flex flex-col ${classes.root ? classes.root : 'w-80 border'}`,
+    header: `flex flex-row items-center ${classes.header && classes.header}`,
     title: `flex flex-row items-center ${classes.title && classes.title}`,
-    content: `mx-6 ${classes.content && classes.content}`,
-    description: `flex justify-center ${classes.description && classes.description}`,
-    startIcon: `mr-2.5 ${classes.startIcon && classes.startIcon}`,
+    content: `${classes.content && classes.content}`,
+    description: `${classes.description && classes.description}`,
+    startIcon: `${classes.startIcon && classes.startIcon}`,
     endIcon: `${classes.endIcon && classes.endIcon}`,
   })
   
   return (
-    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`}>
-    { type === 'horizontal' && <>
-      <div className={toastBaseClasses.title}>
-        {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
-        {title && <label>{title}</label>}
-        {button && button}
-        {endIcon && <div className={toastBaseClasses.endIcon}>{endIcon}</div>}
-      </div>
-    </>}
-    { type === 'vertical' && <>
-      <div className={toastBaseClasses.header}>
-        <div className={toastBaseClasses.title}>
+    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`} {...rest}>
+      { variant === 'horizontal' && <>
+        <div className={toastBaseClasses.header}>
           {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
-          {title && <label>{title}</label>}
+          <div className={toastBaseClasses.content}>
+            {title && <label>{title}</label>}
+            {button && button}
+          </div>
+          {endIcon && <div className={toastBaseClasses.endIcon}>{endIcon}</div>}
         </div>
-        {endIcon && <div className={toastBaseClasses.endIcon}>{endIcon}</div>}
-      </div>
-      <div className={toastBaseClasses.content}>
-        {description && <div>{description}</div>}
-        {button && button}
-      </div>
-    </>}
+      </>}
+      { variant === 'vertical' && <>
+        <div className={toastBaseClasses.header}>
+          <div className={toastBaseClasses.title}>
+            {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
+            {title && <label>{title}</label>}
+          </div>
+          {endIcon && <div className={toastBaseClasses.endIcon}>{endIcon}</div>}
+        </div>
+        <div className={toastBaseClasses.content}>
+          {description && <div className={toastBaseClasses.description}>{description}</div>}
+          {button && button}
+        </div>
+      </>}
     </div>
   )
 })
 
 ToastBase.propTypes = {
   classes: PropTypes.object,
-  type: PropTypes.oneOf(['horizontal', 'vertical']),
+  variant: PropTypes.oneOf(['horizontal', 'vertical']),
   title: PropTypes.string,
   description: PropTypes.string,
   button: PropTypes.node,
@@ -66,10 +68,10 @@ ToastBase.defaultProps = {
     title: '',
     content: '', 
     description: '',
-    startIon: '', 
+    startIcon: '', 
     endIcon: '', 
   },
-  type: 'horizontal',
+  variant: 'horizontal',
   title: '',
   description: '',
   button: null,

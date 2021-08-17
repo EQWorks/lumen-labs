@@ -1034,20 +1034,20 @@ module.exports = {
     function({ addUtilities, theme }) {
 
       let newUtilities = {};
-      const outlinePrefix = '1px solid';
+      const boxShadowPrefix = '0 0 0 1px';
       const colors = theme('colors');
       Object.keys(colors).forEach(color => {
 
         const colorData = colors[color];
         if (typeof colorData === 'string') {
-          newUtilities[`.outline-${color}`] = {
-            outline: `${outlinePrefix} ${colorData}`,
+          newUtilities[`.shadow-${color}`] = {
+            boxShadow: `${boxShadowPrefix} ${colorData}`,
           }
         }
         else {
           Object.keys(colorData).forEach(colorVariation => {
-            newUtilities[`.outline-${color}-${colorVariation}`] = {
-              outline: `${outlinePrefix} ${colorData[colorVariation]}`,
+            newUtilities[`.shadow-${color}-${colorVariation}`] = {
+              boxShadow: `${boxShadowPrefix} ${colorData[colorVariation]}`,
             }
           });
         }

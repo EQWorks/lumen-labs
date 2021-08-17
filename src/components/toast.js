@@ -34,7 +34,7 @@ const Toast = forwardRef(({
 
   const colorType = {
     light: {
-      root: 'outline-secondary-400 bg-secondary-50',
+      root: 'shadow-secondary-400 bg-secondary-50',
       header: 'text-secondary-900',
       description: 'text-secondary-800',
       icon: concatTargetColor(color, ['text'], [500]),
@@ -48,7 +48,7 @@ const Toast = forwardRef(({
       closeIcon: 'text-secondary-200',
     },
     'semantic-light': {
-      root: concatTargetColor(color, ['outline', 'bg'], [500, 100]),
+      root: concatTargetColor(color, ['shadow', 'bg'], [500, 100]),
       header: 'text-secondary-900',
       description: 'text-secondary-800',
       icon: concatTargetColor(color, ['text'], [500]),
@@ -79,17 +79,19 @@ const Toast = forwardRef(({
   const _button = <div className={toastClasses.button}>{button}</div>
 
   return (
-    <ToastBase
-      ref={ref}
-      classes={toastClasses}
-      variant={variant}
-      title={title} 
-      description={description}
-      button={button && _button}
-      startIcon={icon} 
-      endIcon={<Close size='sm' onClick={onClose}/>} 
-      {...rest}
-    />
+    <div className='inline-flex shadow-light-40'>
+      <ToastBase
+        ref={ref}
+        classes={toastClasses}
+        variant={variant}
+        title={title} 
+        description={description}
+        button={button && _button}
+        startIcon={icon} 
+        endIcon={<Close size='sm' onClick={onClose}/>} 
+        {...rest}
+      />
+    </div>
   )
 })
 

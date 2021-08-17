@@ -28,7 +28,7 @@ const ToastBase = forwardRef(({
         <div className={toastBaseClasses.header}>
           {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
           <div className={toastBaseClasses.content}>
-            {title && <label>{title}</label>}
+            {title && <label className={toastBaseClasses.title}>{title}</label>}
             {button && button}
           </div>
           {endIcon && <div className={toastBaseClasses.endIcon}>{endIcon}</div>}

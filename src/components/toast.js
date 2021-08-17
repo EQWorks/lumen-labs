@@ -76,10 +76,7 @@ const Toast = forwardRef(({
     endIcon: `cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
   })
 
-  const _button = 
-    <div className={toastClasses.button}>
-      {button}
-    </div>
+  const _button = <div className={toastClasses.button}>{button}</div>
 
   return (
     <ToastBase
@@ -88,7 +85,7 @@ const Toast = forwardRef(({
       variant={variant}
       title={title} 
       description={description}
-      button={_button}
+      button={button && _button}
       startIcon={icon} 
       endIcon={<Close size='sm' onClick={onClose}/>} 
       {...rest}
@@ -123,7 +120,7 @@ Toast.defaultProps = {
   color: 'info',
   title: '',
   description: '',
-  button: <button>button</button>,
+  button: null,
   icon: null,
 }
 

@@ -8,7 +8,7 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const ArrowLeft = ({ className, size, ...props }) => (
+const ArrowRight = ({ className, size, ...props }) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -19,7 +19,7 @@ const ArrowLeft = ({ className, size, ...props }) => (
   >
     <g transform="matrix(5.833333333333333,0,0,5.833333333333333,0,0)">
       <path 
-        d="M18.4.5,5.825,11.626a.5.5,0,0,0,0,.748L18.4,23.5" 
+        d="M5.5.75,16.22,11.47a.749.749,0,0,1,0,1.06L5.5,23.25"
         fill="none" 
         strokeLinecap="round" 
         strokeLinejoin="round"
@@ -31,7 +31,7 @@ const ArrowLeft = ({ className, size, ...props }) => (
 
 
 
-ArrowLeft.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ArrowLeft.defaultProps = { className: '', size: '' }
+ArrowRight.propTypes = { className: PropTypes.string, size: PropTypes.string }
+ArrowRight.defaultProps = { className: '', size: '' }
 
-export default ArrowLeft
+export default ArrowRight

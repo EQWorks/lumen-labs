@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-import { ArrowLeft, ArrowRight } from '../../icons'
+import { DialogBase } from '../../base-components'
+import { ArrowLeft, ArrowRight, ArrowUpDown } from '../../icons'
 
 import './pagination.css'
 
@@ -9,15 +10,23 @@ import './pagination.css'
 const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
   const paginationClasses = Object.freeze({
     container: `flex items-center text-xs tracking-md leading-1.33 
-      ${classes.container ? classes.container : 'bg-primary-500'}`,
-    item: `min-w-5 mr-5px py-0.5 flex justify-center cursor-pointer ${classes.item ? classes.item : 'hover:bg-primary-700 hover:text-white'}`,
+      ${classes.container ? classes.container : 'bg-secondary-50'}`,
+    item: `min-w-5 mr-5px py-0.5 flex justify-center text-secondary-400 cursor-pointer rounded-sm ${classes.item ? classes.item : 'hover:text-secondary-900'}`,
     arrow: `min-h-5 flex justify-center items-center ${classes.arrow && classes.arrow}`,
     pageItem: `${classes.pageItem && classes.pageItem}` ,
-    currentPageColor: `${classes.currentPageColor ? classes.currentPageColor : 'bg-red-500'}`,
+    currentPageColor: `${classes.currentPageColor ? classes.currentPageColor : 'bg-secondary-200 text-secondary-900'}`,
+  })
+
+  const dialogClasses = Object.freeze({
+    root: 'min-w-5 min-h-5',
   })
 
   const [pager, setPager] = useState({})
   const [rowsPerPageSize, setRowsPerPageSize] = useState(pageSize)
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(pageSize)
+  const [dropdownOffsetTop, setDropdownOffsetTop] = useState(0)
+  const dropdownRef = useRef(null)
 
   const setPage = (page) => {
     let _pager = pager
@@ -76,10 +85,36 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     }
   }
 
+  const handleSelectRowsOnClick = () => {
+    setOpen(!open)
+  }
+
+  const onSelectRowOptions = (item) => {
+    setOpen(!open)
+    setRowsPerPageSize(item)
+  }
+  
   useEffect(() => {
     setPage((items && items.length) && initialPage)
   }, [items, rowsPerPageSize])
 
+  useEffect(() => {
+    dropdownRef.current && dropdownRef.current.childNodes.forEach((node) => {
+      if (Number(node.innerText) === rowsPerPageSize) {
+        setDropdownOffsetTop(node.offsetTop)
+      }
+    })
+  }, [open])
+
+  const button = (
+    <div className='min-w-10 px-1.5 py-0.5 flex items-center text-interactive-500 cursor-pointer rounded-sm shadow-light-10'>
+      <span className='mr-1'>
+        {rowsPerPageSize}
+      </span>
+      <ArrowUpDown size='sm'/>
+    </div>
+  )
+  console.log(pager.totalPages)
   return (
     <>
       {pager.pages &&     
@@ -94,7 +129,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             className={`
               ${paginationClasses.item} 
               ${paginationClasses.arrow} 
-              ${pager.currentPage === 1 ? 'disabled' : ''}
+              ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
             `}
           >
             <ArrowLeft size='md' onClick={() => setPage(pager.currentPage - 1)}/>
@@ -110,9 +145,9 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
               onClick={() => setPage(page)}
             >
               {page}
-            </li>
+            </li>,
           )}
-          { firstLast && (pager.currentPage + 2) < pager.totalPages &&
+          { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
             <li className='flex'>
               <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
               <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={() => setPage(pager.totalPages)}>
@@ -124,23 +159,39 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             className={`
               ${paginationClasses.item}
               ${paginationClasses.arrow} 
-              ${pager.currentPage === pager.totalPages ? 'disabled' : ''}
+              ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
             `}
           >
             <ArrowRight size='md' onClick={() => setPage(pager.currentPage + 1)}/>
           </li>
         </> }
         { rowsPerPage && 
-          <li className={'px-2'}>
-            <span className={'mx-2'}>rows: </span>
-            <select className={'rows-selection pr-5'} name="rowsPerPage" id="rowsPerPage" onChange={e => setRowsPerPageSize(parseInt(e.target.value))}>
-              {rowsPerPage.map((data, index) => {
-                return(
-                  <option key={index} value={data}>{data}</option>
-                )
-              })}
-              <option value={pager.totalItems}>All</option>
-            </select> 
+          <li className='min-h-5 pl-5 flex items-center'>
+            <span className={'mr-2.5'}>Rows: </span>
+            <DialogBase classes={dialogClasses} open={open} button={button} onClick={handleSelectRowsOnClick}>
+              <ul 
+                ref={el => dropdownRef.current = el} 
+                className='min-w-10 relative rounded-sm shadow-light-10 bg-secondary-50'
+                style={{ top: `-${dropdownOffsetTop + 16}px` }}
+              >
+                {rowsPerPage.map((item, index) => {
+                  return (
+                    <li 
+                      key={index} 
+                      className={`rows-selection flex px-1.5 cursor-pointer rounded-sm 
+                          hover:bg-secondary-50 hover:shadow-light-10 
+                          active:text-interactive-500 hover:shadow-none
+                          ${item === active && 'text-interactive-500'}
+                        `} 
+                      onClick={() => onSelectRowOptions(item)}
+                      onPointerDown={() => setActive(item)}
+                    >
+                      {item}
+                    </li>
+                  )
+                })}
+              </ul>
+            </DialogBase>
           </li>
         }
       </ul>

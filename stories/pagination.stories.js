@@ -33,7 +33,8 @@ export const Normal = () => {
         )}
       </Layout.Content>
       <Layout.Footer className={headerClass}>
-        <Pagination items={data.exampleData} onChangePage={onChangePage} rowsPerPage={[5,10,20]}/>
+        <Pagination items={data.exampleData} onChangePage={onChangePage} rowsPerPage={[5,10,20,30,40,50]}/>
+        <div className="w-full h-40 bg-blue-50"></div>
       </Layout.Footer>
     </Layout>
   )

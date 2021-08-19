@@ -8,7 +8,7 @@ import SwitchBase from '../../base-components/switch-base'
 import './switch-square.css'
 
 
-const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, color, ...rest }) => {
+const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, color, ...rest }, ref) => {
   const labelColor = concatTargetColor(color, ['bg'], [500])
 
   const switchSquareClasses = Object.freeze({
@@ -19,7 +19,8 @@ const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, co
 
   return (
     <SwitchBase 
-      id={id}      
+      id={id}  
+      ref={ref}    
       classes={switchSquareClasses}                   
       checked={checked}
       onChange={onChange}

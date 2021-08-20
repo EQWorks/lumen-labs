@@ -19,8 +19,8 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     dropdownButton: `min-w-10 px-1.5 py-0.5 flex items-center text-interactive-500 cursor-pointer rounded-sm shadow-light-10
       ${classes.dropdownButton && classes.dropdownButton}`,
     dropdownMenu: `min-w-10 relative rounded-sm shadow-light-10 bg-secondary-50 ${classes.dropdownMenu && classes.dropdownMenu}`,
-    dropdownItem: `rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm 
-      hover:bg-secondary-50 hover:shadow-light-10 hover:shadow-none
+    dropdownItem: `rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm text-secondary-600
+      hover:bg-secondary-50 hover:text-secondary-800 hover:shadow-light-10 hover:shadow-none
       ${classes.dropdownItem && classes.dropdownItem}`,
   })
 

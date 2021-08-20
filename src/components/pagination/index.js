@@ -121,7 +121,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
       <ArrowUpDown size='sm'/>
     </div>
   )
-
+  console.log(pager)
   return (
     <>
       {pager.pages &&     
@@ -132,6 +132,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
               <span>{pager.startIndex + 1} - {pager.endIndex + 1} of {pager.totalItems} items</span>
             </li>
           }
+
           <li 
             className={`mr-5px
               ${paginationClasses.arrow} 
@@ -140,6 +141,14 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
           >
             <ArrowLeft size='md' onClick={() => setPage(pager.currentPage - 1)}/>
           </li>
+          { firstLast && pager.startPage > 1 &&
+            <li className='flex'>
+              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={() => setPage(1)}>
+                1
+              </div>
+              <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
+            </li>
+          }
 
           { showPage && pager.pages.map((page, index) =>
             <li 

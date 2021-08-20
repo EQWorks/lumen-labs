@@ -9,12 +9,19 @@ import './pagination.css'
 
 const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
   const paginationClasses = Object.freeze({
-    container: `flex items-center text-xs tracking-md leading-1.33 
-      ${classes.container ? classes.container : 'bg-secondary-50'}`,
-    item: `min-w-5 mr-5px py-0.5 flex justify-center text-secondary-400 cursor-pointer rounded-sm ${classes.item ? classes.item : 'hover:text-secondary-900'}`,
-    arrow: `min-h-5 flex justify-center items-center ${classes.arrow && classes.arrow}`,
+    container: `flex items-center text-xs tracking-md leading-1.33 bg-secondary-50
+      ${classes.container && classes.container}`,
+    item: `min-w-5 mr-5px py-0.5 flex justify-center text-secondary-400 cursor-pointer rounded-sm 'hover:text-secondary-900'
+      ${classes.item && classes.item}`,
+    arrow: `min-h-5 flex justify-center items-center cursor-pointer ${classes.arrow && classes.arrow}`,
     pageItem: `${classes.pageItem && classes.pageItem}` ,
-    currentPageColor: `${classes.currentPageColor ? classes.currentPageColor : 'bg-secondary-200 text-secondary-900'}`,
+    currentPageColor: `bg-secondary-200 text-secondary-900 ${classes.currentPageColor && classes.currentPageColor}`,
+    dropdownButton: `min-w-10 px-1.5 py-0.5 flex items-center text-interactive-500 cursor-pointer rounded-sm shadow-light-10
+      ${classes.dropdownButton && classes.dropdownButton}`,
+    dropdownMenu: `min-w-10 relative rounded-sm shadow-light-10 bg-secondary-50 ${classes.dropdownMenu && classes.dropdownMenu}`,
+    dropdownItem: `rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm 
+      hover:bg-secondary-50 hover:shadow-light-10 hover:shadow-none
+      ${classes.dropdownItem && classes.dropdownItem}`,
   })
 
   const dialogClasses = Object.freeze({
@@ -101,20 +108,20 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
   useEffect(() => {
     dropdownRef.current && dropdownRef.current.childNodes.forEach((node) => {
       if (Number(node.innerText) === rowsPerPageSize) {
-        setDropdownOffsetTop(node.offsetTop)
+        setDropdownOffsetTop(node.offsetTop + node.clientHeight)
       }
     })
   }, [open])
 
-  const button = (
-    <div className='min-w-10 px-1.5 py-0.5 flex items-center text-interactive-500 cursor-pointer rounded-sm shadow-light-10'>
+  const dropdown = (
+    <div className={paginationClasses.dropdownButton}>
       <span className='mr-1'>
         {rowsPerPageSize}
       </span>
       <ArrowUpDown size='sm'/>
     </div>
   )
-  console.log(pager.totalPages)
+
   return (
     <>
       {pager.pages &&     
@@ -126,14 +133,14 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             </li>
           }
           <li 
-            className={`
-              ${paginationClasses.item} 
+            className={`mr-5px
               ${paginationClasses.arrow} 
               ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
             `}
           >
             <ArrowLeft size='md' onClick={() => setPage(pager.currentPage - 1)}/>
           </li>
+
           { showPage && pager.pages.map((page, index) =>
             <li 
               key={index} 
@@ -147,6 +154,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
               {page}
             </li>,
           )}
+          
           { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
             <li className='flex'>
               <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
@@ -157,32 +165,28 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
           }
           <li 
             className={`
-              ${paginationClasses.item}
               ${paginationClasses.arrow} 
               ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
             `}
           >
             <ArrowRight size='md' onClick={() => setPage(pager.currentPage + 1)}/>
           </li>
-        </> }
+        </>}
+
         { rowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>
-            <DialogBase classes={dialogClasses} open={open} button={button} onClick={handleSelectRowsOnClick}>
+            <DialogBase classes={dialogClasses} open={open} button={dropdown} onClick={handleSelectRowsOnClick}>
               <ul 
                 ref={el => dropdownRef.current = el} 
-                className='min-w-10 relative rounded-sm shadow-light-10 bg-secondary-50'
-                style={{ top: `-${dropdownOffsetTop + 16}px` }}
+                className={paginationClasses.dropdownMenu}
+                style={{ top: `-${dropdownOffsetTop}px` }}
               >
                 {rowsPerPage.map((item, index) => {
                   return (
                     <li 
                       key={index} 
-                      className={`rows-selection flex px-1.5 cursor-pointer rounded-sm 
-                          hover:bg-secondary-50 hover:shadow-light-10 
-                          active:text-interactive-500 hover:shadow-none
-                          ${item === active && 'text-interactive-500'}
-                        `} 
+                      className={`${paginationClasses.dropdownItem} ${item === active && 'text-interactive-500'}`} 
                       onClick={() => onSelectRowOptions(item)}
                       onPointerDown={() => setActive(item)}
                     >
@@ -194,8 +198,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             </DialogBase>
           </li>
         }
-      </ul>
-      }
+      </ul>}
     </>
   )
 }
@@ -207,6 +210,9 @@ Pagination.propTypes = {
     arrow: PropTypes.string,
     pageItem: PropTypes.string,
     currentPageColor: PropTypes.string,
+    dropdownButton: PropTypes.string,
+    dropdownMenu: PropTypes.string,
+    dropdownItem: PropTypes.string,
   }),
   items: PropTypes.array.isRequired,
   onChangePage: PropTypes.func.isRequired,
@@ -219,13 +225,16 @@ Pagination.propTypes = {
 }
 
 Pagination.defaultProps = {
-  classes: PropTypes.exact({
+  classes: {
     container: '',
     item: '',
     arrow: '',
     pageItem: '',
     currentPageColor: '',
-  }),
+    dropdownButton: '',
+    dropdownMenu: '',
+    dropdownItem: '',
+  },
   initialPage: 1,
   pageSize: 10,
   showPage: true,

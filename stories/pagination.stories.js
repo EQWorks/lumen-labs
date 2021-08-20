@@ -33,7 +33,7 @@ export const Normal = () => {
         )}
       </Layout.Content>
       <Layout.Footer className={headerClass}>
-        <Pagination items={data.exampleData} onChangePage={onChangePage} rowsPerPage={[5,10,20,30,40,50]}/>
+        <Pagination items={data.exampleData} onChangePage={onChangePage} rowsPerPage={[10,20,30,40,50]}/>
         <div className="w-full h-40 bg-blue-50"></div>
       </Layout.Footer>
     </Layout>
@@ -67,40 +67,3 @@ export const NoAttachments = () => {
     </Layout>
   )
 }
-
-export const CustomClass = () => {
-  const [data, setData] = useState({
-    exampleData: exampleData,
-    pageOfItems: [],
-  })
-
-  const headerClass = 'bg-primary-200 text-black text-center h-full'
-  const contentClass = 'bg-primary-400 text-black text-center h-full w-full'
-
-  const classes = Object.freeze({ 
-    container: 'mt-5 flex justify-center items-center bg-black text-white',
-    item: 'px-2 cursor-pointer hover:bg-red-600',
-    pageItem: 'w-7 flex justify-center',
-    currentPageColor: 'bg-yellow-500',
-  })
-
-  const onChangePage = (pageOfItems) => {
-    setData({ ...data, pageOfItems: pageOfItems })
-  }
-
-  return (
-    <Layout>
-      <Layout.Header className={headerClass}>Custom class styling</Layout.Header>
-      <Layout.Content className={contentClass}>
-        {data.pageOfItems.map(item =>
-          <div key={item.id}>{item.name}</div>,
-        )}
-      </Layout.Content>
-      <Layout.Footer className={headerClass}>
-        <Pagination classes={classes} items={data.exampleData} onChangePage={onChangePage} rowsPerPage={[5,10,20]}/>
-      </Layout.Footer>
-    </Layout>
-  )
-}
-
-

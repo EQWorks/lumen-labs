@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { DialogBase } from '../src/base-components'
+import HeadlessUIDialog from '../src/base-components/headlessui-dialog-base'
 
 
 export default {
@@ -25,39 +26,76 @@ export default {
 export const Base = () => {
   const button = (<button>Open Dialog</button>)
   return (
-    <DialogBase classes={{ dialog: 'w-screen' }} button={button}>
-      <p>
-        I am just a simple dialog.
-        More improvements needed to make my usage more flexible.
-      </p>
-    </DialogBase>
+    <>
+      <DialogBase classes={{ dialog: 'w-screen' }} button={button}>
+        <p>
+          I am just a simple dialog.
+          More improvements needed to make my usage more flexible.
+        </p>
+      </DialogBase>
+
+      <div className='mt-20'>
+        <p>Headless Dialog example:</p>
+        <HeadlessUIDialog button={button}>
+          <p>
+            I am just a simple dialog.
+            More improvements needed to make my usage more flexible.
+          </p>
+        </HeadlessUIDialog>
+      </div>
+    </>
   )
 }
 
 export const BaseModal = () => {
   const button = (<button>Open Modal</button>)
   return (
-    <DialogBase modal button={button} classes={{ modal: 'bg-white' }}>
-      <p>
-        I am just a simple modal.
-        More improvements needed to make my usage more flexible.
-      </p>
-    </DialogBase>
+    <>
+      <DialogBase modal button={button} classes={{ modal: 'bg-white' }}>
+        <p>
+          I am just a simple modal.
+          More improvements needed to make my usage more flexible.
+        </p>
+      </DialogBase>
+
+      <div className='mt-20'>
+        <p>Headless Dialog example:</p>
+        <HeadlessUIDialog modal button={button} classes={{ modal: 'bg-white' }}>
+          <p>
+            I am just a simple dialog.
+            More improvements needed to make my usage more flexible.
+          </p>
+        </HeadlessUIDialog>
+      </div>
+    </>
   )
 }
 
 export const CustomDialog = () => {
-  const button = (<button className='focus:outline-none'>Open Dialog</button>)
+  const button = (<button className='focus:outline-none w-32 p-4 rounded-md cursor-pointer bg-blue-50 hover:bg-blue-100'>
+    Open Dialog
+  </button>)
   const customClasses = {
-    button: 'w-32 p-4 rounded-md cursor-pointer bg-blue-50 hover:bg-blue-100',
     dialog: 'w-96 p-4 shadow-md mt-1 bg-blue-200',
   }
   return (
-    <DialogBase classes={customClasses} button={button}>
-      <p>
-        I am just a simple dialog.
-        More improvements needed to make my usage more flexible.
-      </p>
-    </DialogBase>
+    <>
+      <DialogBase classes={customClasses} button={button}>
+        <p>
+          I am just a simple dialog.
+          More improvements needed to make my usage more flexible.
+        </p>
+      </DialogBase>
+
+      <div className='mt-20'>
+        <p>Headless Dialog example:</p>
+        <HeadlessUIDialog classes={customClasses} button={button}>
+          <p>
+            I am just a simple dialog.
+            More improvements needed to make my usage more flexible.
+          </p>
+        </HeadlessUIDialog>
+      </div>
+    </>
   )
 }

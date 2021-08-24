@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { Menu } from '@headlessui/react'
 
-import { DropdownBase } from '../src/base-components'
+import { DropdownBase, HeadlessDropdownBase } from '../src/base-components'
 import { DropdownSelect, DropdownSelectSteps } from '../src'
 
 import { ArrowDown } from '../src/icons'
@@ -45,6 +46,29 @@ export default {
  */
 
 export const Base = () => {
+  const [value, setValue] = useState('')
+  const [open, setOpen] = useState(false)
+
+  const handleOnClick = () => {
+    setOpen(!open)
+  }
+
+  const renderSelectedOptions = () => (
+    <span>{value}</span>
+  )
+
+  return (
+    <>
+      <HeadlessDropdownBase onClick={handleOnClick} open={open} renderSelectedOptions={renderSelectedOptions} endIcon={<ArrowDown size='md'/>}>
+        <Menu.Item>
+          <div>hello</div>
+        </Menu.Item>
+      </HeadlessDropdownBase>
+    </>
+  )
+}
+
+export const HeadlessBase = () => {
   const [value, setValue] = useState('')
   const [open, setOpen] = useState(false)
 

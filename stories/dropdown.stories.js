@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { DropdownBase } from '../src/base-components'
-import { DropdownSelect, DropdownSelectSteps } from '../src'
+import { DropdownSelect, DropdownSelectSteps, Button } from '../src'
 
 import { ArrowDown } from '../src/icons'
 import { 
@@ -347,6 +347,15 @@ export const LinkedSelectLarge = () => {
         <DropdownSelect data={subData} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='API Subcategory' disabled={disabled}/>
       </div>
     </div>
+  )
+}
+
+export const CustomButton = () => {
+  const button = <Button variant='outlined' size='lg'>Click me</Button>
+  return (
+    <>
+      <DropdownSelect data={sampleDataGroups} button={button} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType/>
+    </>
   )
 }
 

@@ -73,7 +73,7 @@ const DropdownBase = forwardRef(({
   
   const containerClasses = Object.freeze({
     root: `relative ${contentSize.font} ${classes.root}`,
-    menu: `absolute max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 mt-5px border rounded-sm border-secondary-400
+    menu: `absolute max-h-screen overflow-y-auto font-sans bg-white z-10 shadow-blue-30 mt-5px border rounded-sm border-secondary-400 focus:outline-none
       ${contentSize.menu} ${classes.menu ? classes.menu : 'w-full'}`,
   })
 
@@ -104,7 +104,7 @@ const DropdownBase = forwardRef(({
       <Menu>
         <Menu.Button as="div">
           <div className={`${button ? 'button-container' : dropdownClasses.button}`} onClick={onClick}>
-            {_button}
+            {button ? button : _button}
           </div>
         </Menu.Button>
         {open && (

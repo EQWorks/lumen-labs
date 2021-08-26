@@ -4,7 +4,7 @@ import { Menu } from '@headlessui/react'
 
 import { DropdownBase } from '../base-components'
 import { Chip } from '../'
-import { Close, ValidationCheck } from '../icons'
+import { Close, ValidationCheck, Delete } from '../icons'
 import { useComponentIsActive } from '../hooks'
 
 
@@ -172,7 +172,7 @@ const DropdownSelect = ({
     )
   }
 
-  const handleOnClick = (index, value) => {
+  const handleOnClick = (i, value) => {
     if (multiSelect) {
       const currOptions = options
       const filterOptions = []
@@ -194,6 +194,7 @@ const DropdownSelect = ({
       currOptions.forEach((item) => {
         filterOptions.push(item)
       })
+
       setOptions(filterOptions)
     } else {
       if (selectedOptions === value) {
@@ -203,12 +204,17 @@ const DropdownSelect = ({
         onClickSelect()
       }
     }
-    onSelect({ ...value, index })
+    onSelect({ ...value, i })
   }
   
   const onClickClose = (e, value) => {
     e.stopPropagation()
-    handleOnClick(value)
+    handleOnClick('', value)
+  }
+
+  const onClickDelete = (e) => {
+    e.stopPropagation()
+    setSelectedOptions([])
   }
 
   return (
@@ -221,7 +227,7 @@ const DropdownSelect = ({
       open={open}
       size={size}
       startIcon={startIcon} 
-      endIcon={endIcon}
+      endIcon={!multiSelect && selectedOptions.title ? <Delete size={size} onClick={(e) => onClickDelete(e)}/>: endIcon}
       placeholder={placeholder}
       multiSelect={multiSelect} 
       overflow={overflow}

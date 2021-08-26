@@ -8,7 +8,7 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const ArrowDown = ({ className, size, ...props }) => (
+const ArrowLeft = ({ className, size, ...props }) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -23,6 +23,7 @@ const ArrowDown = ({ className, size, ...props }) => (
         fill="none" 
         strokeLinecap="round" 
         strokeLinejoin="round"
+        strokeWidth="1.5"
       />
     </g>
   </svg>
@@ -30,7 +31,7 @@ const ArrowDown = ({ className, size, ...props }) => (
 
 
 
-ArrowDown.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ArrowDown.defaultProps = { className: '', size: '' }
+ArrowLeft.propTypes = { className: PropTypes.string, size: PropTypes.string }
+ArrowLeft.defaultProps = { className: '', size: '' }
 
-export default ArrowDown
+export default ArrowLeft

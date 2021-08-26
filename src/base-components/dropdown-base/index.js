@@ -49,7 +49,7 @@ const DropdownBase = forwardRef(({
   disabled,
   ...rest
 }, ref) => {
-  const selectedOptions = renderSelectedOptions().props.children ? true : false
+  const selectedOptions = typeof renderSelectedOptions === 'function' && Boolean(renderSelectedOptions()?.props?.children)
 
   const contentSize = _contentSize(size, multiSelect, selectedOptions)
   const dropdownClasses = Object.freeze({
@@ -146,6 +146,7 @@ DropdownBase.defaultProps = {
     menu: '',
   },
   children: null,
+  renderSelectedOptions: () => {},
   button: null,
   size: 'md',
   startIcon: null,

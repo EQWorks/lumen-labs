@@ -175,10 +175,10 @@ const DropdownSelectSteps = ({
             <Menu.Item
               as="li" 
               key={index} 
-              className={dropdownSelectStepsClasses.itemContainer} 
+              className={`item-container-${index} ${dropdownSelectStepsClasses.itemContainer}`} 
               onClick={() => handleOnClick(item, index)}
             >
-              <div className={`
+              <div className={`content-container-${index}
                 ${dropdownSelectStepsClasses.contentContainer} 
                 ${Object.values(selectedData).includes(item.title) && dropdownSelectStepsClasses.selected}
               `}>

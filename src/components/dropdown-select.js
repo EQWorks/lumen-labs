@@ -111,7 +111,7 @@ const DropdownSelect = ({
         <>
           {selectedOptions.map((item, index) => {
             return (
-              <div key={`chip-${index}`} className={`mr-2.5 z-10 ${contentSize.optionSize}`}>
+              <div key={`chip-${index}`} className={`chip-container-${index} mr-2.5 z-10 ${contentSize.optionSize}`}>
                 <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)}/>}>{item.title}</Chip>
               </div>
             )
@@ -129,11 +129,11 @@ const DropdownSelect = ({
         return (
           <div 
             key={`item-container-${index}`} 
-            className={dropdownSelectClasses.itemContainer} 
+            className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`} 
             onClick={() => handleOnClick(index, item)}
           >
             <div 
-              className={`
+              className={`content-container-${index}
                 ${dropdownSelectClasses.contentContainer}
                 ${multiSelect ? 
             selectedOptions.includes(item) && dropdownSelectClasses.selected
@@ -143,7 +143,7 @@ const DropdownSelect = ({
               `}
             >
               {renderListItem(item)}
-              {item.description && <div className={dropdownSelectClasses.description}>{item.description}</div>}
+              {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
             </div>
           </div>
         )
@@ -234,11 +234,11 @@ const DropdownSelect = ({
             <Menu.Item 
               as="li" 
               key={`list-container-${index}`} 
-              className={dropdownSelectClasses.listContainer}
+              className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
             >
-              {showType && el.type && <label className={dropdownSelectClasses.type} htmlFor="span">{renderListItem(el.type)}</label>}
+              {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
               {renderList(el.items)}
-              {el.divider && <div className={dropdownSelectClasses.dividerContainer}>{renderListItem(el.divider)}</div>}
+              {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
             </Menu.Item>
           )
         })}

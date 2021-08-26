@@ -1,9 +1,11 @@
-import React, { useState, forwardRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { Menu } from '@headlessui/react'
 
 import { DropdownBase } from '../base-components'
 import { Chip } from '../'
 import { Close, ValidationCheck } from '../icons'
+import { useComponentIsActive } from '../hooks'
 
 
 const _contentSize = (size) => {
@@ -37,7 +39,7 @@ const _contentSize = (size) => {
   return contentSize
 }
 
-const DropdownSelect = forwardRef(({ 
+const DropdownSelect = ({ 
   classes, 
   data, 
   button, 
@@ -51,11 +53,12 @@ const DropdownSelect = forwardRef(({
   overflow, 
   disabled, 
   ...rest 
-}, ref) => {
+}) => {
   const [options, setOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([])
   const [open, setOpen] = useState(false)
-
+  const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
+  
   const contentSize = _contentSize(size)
   const dropdownSelectClasses = Object.freeze({
     listContainer: `capitalize ${classes.listContainer}`,
@@ -74,8 +77,8 @@ const DropdownSelect = forwardRef(({
 
   const dropdownClasses = Object.freeze({
     root: classes.root,
-    dropdown: `${!data.length > 0 && 'hidden'} ${classes.dropdown ? classes.dropdown : 'w-full'}`,
-    container: classes.container,
+    menu: `${!data.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
+    button: classes.button,
     content: classes.content,
   })
 
@@ -91,7 +94,12 @@ const DropdownSelect = forwardRef(({
     setOptions(initialOptions)
   }, [data])
 
+  if (!componentIsActive && open) {
+    setOpen(!open)
+  }
+
   const onClickSelect = () => {
+    setComponentIsActive((state) => !state)
     setOpen(!open)
   }
 
@@ -192,10 +200,10 @@ const DropdownSelect = forwardRef(({
         setSelectedOptions([])
       } else {
         setSelectedOptions(value)
-        setOpen(!open)
+        onClickSelect()
       }
     }
-    onSelect({ value, index })
+    onSelect({ ...value, index })
   }
   
   const onClickClose = (e, value) => {
@@ -223,17 +231,21 @@ const DropdownSelect = forwardRef(({
       <ul>
         {data && data.map((el, index) => {
           return (
-            <li key={`list-container-${index}`} className={dropdownSelectClasses.listContainer}>
+            <Menu.Item 
+              as="li" 
+              key={`list-container-${index}`} 
+              className={dropdownSelectClasses.listContainer}
+            >
               {showType && el.type && <label className={dropdownSelectClasses.type} htmlFor="span">{renderListItem(el.type)}</label>}
               {renderList(el.items)}
               {el.divider && <div className={dropdownSelectClasses.dividerContainer}>{renderListItem(el.divider)}</div>}
-            </li>
+            </Menu.Item>
           )
         })}
       </ul>
     </DropdownBase>
   )
-})
+}
 
 DropdownSelect.propTypes = {
   classes: PropTypes.object,
@@ -274,8 +286,8 @@ DropdownSelect.propTypes = {
 DropdownSelect.defaultProps = {
   classes: {
     root: '',
-    dropdown: '',
-    container: '',
+    menu: '',
+    button: '',
     content: '',
     listContainer: '',
     itemContainer: '',

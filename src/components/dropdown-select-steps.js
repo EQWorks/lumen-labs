@@ -1,5 +1,6 @@
-import React, { useState, forwardRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { Menu } from '@headlessui/react'
 
 import { DropdownBase } from '../base-components'
 import { ArrowLeft, ValidationCheck } from '../icons'
@@ -32,7 +33,7 @@ const _contentSize = (size) => {
   return contentSize
 }
 
-const DropdownSelectSteps = forwardRef(({ 
+const DropdownSelectSteps = ({ 
   classes, 
   data, 
   button, 
@@ -45,7 +46,7 @@ const DropdownSelectSteps = forwardRef(({
   showDivider, 
   disabled, 
   ...rest 
-}, ref) => {
+}) => {
   const [options, setOptions] = useState([])
   const [open, setOpen] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState('')
@@ -54,7 +55,7 @@ const DropdownSelectSteps = forwardRef(({
 
   const contentSize = _contentSize(size)
   const dropdownSelectStepsClasses = Object.freeze({
-    listContainer: `w-250px h-auto ${classes.listContainer}`,
+    listContainer: `w-250px h-auto focus:outline-none ${classes.listContainer}`,
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
     contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 ${contentSize.contentContainer} ${classes.contentContainer}`,
     contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
@@ -70,8 +71,8 @@ const DropdownSelectSteps = forwardRef(({
 
   const dropdownClasses = Object.freeze({
     root: classes.root,
-    dropdown: `w-auto mt-5px flex flex-row ${!data.length > 0 && 'hidden'} ${classes.dropdown}`,
-    container: classes.container,
+    menu: `w-auto mt-5px flex flex-row ${!data.length > 0 && 'hidden'} ${classes.menu}`,
+    button: classes.container,
     content: classes.content,
   })
 
@@ -171,7 +172,8 @@ const DropdownSelectSteps = forwardRef(({
       <>
         { data.map((item, index) => {
           return (
-            <li 
+            <Menu.Item
+              as="li" 
               key={index} 
               className={dropdownSelectStepsClasses.itemContainer} 
               onClick={() => handleOnClick(item, index)}
@@ -182,7 +184,7 @@ const DropdownSelectSteps = forwardRef(({
               `}>
                 {renderListItem(item, selectedData)}
               </div>  
-            </li>
+            </Menu.Item>
           )
         })}
       </>
@@ -210,10 +212,9 @@ const DropdownSelectSteps = forwardRef(({
       </div>
     )
   }
-  
+
   return (
     <DropdownBase 
-      ref={ref}
       classes={dropdownClasses} 
       renderSelectedOptions={renderSelectedOptions} 
       button={button}
@@ -265,7 +266,7 @@ const DropdownSelectSteps = forwardRef(({
       }
     </DropdownBase>
   )
-})
+}
 
 DropdownSelectSteps.propTypes = {
   classes: PropTypes.object,
@@ -306,8 +307,8 @@ DropdownSelectSteps.propTypes = {
 DropdownSelectSteps.defaultProps = {
   classes: {
     root: '',
-    dropdown: '',
-    container: '',
+    menu: '',
+    button: '',
     content: '',
     listContainer: '',
     itemContainer: '',

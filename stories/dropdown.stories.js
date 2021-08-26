@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { DropdownBase } from '../src/base-components'
-import { DropdownSelect, DropdownSelectSteps } from '../src'
+import { DropdownSelect, DropdownSelectSteps, Button } from '../src'
 
 import { ArrowDown } from '../src/icons'
 import { 
@@ -26,9 +26,9 @@ export default {
 /** -- props (DropdownBase):
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component
- *    container: select container div
+ *    button: select button container div
  *    content: content container element
- *    dropdown: dropdown menu/select container div
+ *    menu: dropdown menu/select container div
  * [renderSelectedOptions] - function, to render selected options views/value
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [onClick] - function, onClick trigger for select/dropdown menu
@@ -74,9 +74,9 @@ export const Base = () => {
 /** -- props (DropdownSelect):
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component
- *    container: select container div
+ *    button: select button container div
  *    content: content container element
- *    dropdown: dropdown menu/select container div
+ *    menu: dropdown menu/select container div
  *    listContainer: each container div from the dropdown menu/select list
  *    itemContainer: item container inside a listContainer div
  *    contentContainer: content container inside a itemContainer div
@@ -171,7 +171,8 @@ export const Icons = () => {
 
 export const Description = () => {
   const classes = {
-    container: 'w-80',
+    button: 'w-80',
+    menu: 'w-80',
   }
 
   return (
@@ -218,9 +219,9 @@ export const MultiSelect = () => {
 /** -- props (DropdownSelectSteps):
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component
- *    container: select container div
+ *    button: select button container div
  *    content: content container element
- *    dropdown: dropdown menu/select container div
+ *    menu: dropdown menu/select container div
  *    listContainer: each container div from the dropdown menu/select list
  *    itemContainer: item container inside a listContainer div
  *    contentContainer: content container inside a itemContainer div
@@ -292,13 +293,13 @@ export const LinkedSelect = () => {
   }, [value])
 
   const onSelect = (selected) => {
-    if (value === selected) {
+    if (value.title === selected.title) {
       setValue('')
     } else {
       setValue(selected)
     }
   }
-
+  
   return (
     <div className={'flex flex-row'}>
       <div className='mr-2.5'>
@@ -330,7 +331,7 @@ export const LinkedSelectLarge = () => {
   }, [value])
 
   const onSelect = (selected) => {
-    if (value === selected) {
+    if (value.title === selected.title) {
       setValue('')
     } else {
       setValue(selected)
@@ -346,6 +347,15 @@ export const LinkedSelectLarge = () => {
         <DropdownSelect data={subData} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='API Subcategory' disabled={disabled}/>
       </div>
     </div>
+  )
+}
+
+export const CustomButton = () => {
+  const button = <Button variant='outlined' size='lg'>Click me</Button>
+  return (
+    <>
+      <DropdownSelect data={sampleDataGroups} button={button} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType/>
+    </>
   )
 }
 

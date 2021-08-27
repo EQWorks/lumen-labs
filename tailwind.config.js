@@ -4,7 +4,7 @@ module.exports = {
   purge: {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     safelist: {
-      standard: [/\b(primary|secondary|neutral|interactive|success|warning|info)\b/],
+      standard: [/\b(primary|secondary|neutral|interactive|success|warning|error|info)\b/],
     }
   },
   presets: [],

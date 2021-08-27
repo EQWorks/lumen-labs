@@ -1,6 +1,8 @@
 import React, { useState, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
+import { Delete } from '../icons'
+
 
 const _baseClasses = () => ({
   root: 'flex border',
@@ -18,6 +20,8 @@ const InputBase = forwardRef(({
   endIcon,
   prefix,
   suffix,
+  deleteButton,
+  size,
   ...rest
 }, ref) => {
   const baseClasses = _baseClasses()
@@ -46,6 +50,11 @@ const InputBase = forwardRef(({
       _setPlaceholder('')
     }
   }
+
+  const handleDelete = () => {
+    _setValue('')
+    onChange(`${prefix && prefix}` + '' + `${suffix && suffix}`)
+  }
   
   return (
     <div ref={ref} className={`${baseClasses.root} ${classes.root}`} onFocus={handleFocus} onBlur={handleBlur}>
@@ -60,7 +69,12 @@ const InputBase = forwardRef(({
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
-      {endIcon && <div className={classes.endIcon}>{endIcon}</div>}
+      {endIcon && !_value && !deleteButton && <div className={classes.endIcon}>{endIcon}</div>}
+      {_value && deleteButton && 
+        <div className={classes.endIcon} onClick={handleDelete}>
+          <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
+        </div>
+      }
     </div>
   )
 })
@@ -76,6 +90,8 @@ InputBase.propTypes = {
   endIcon: PropTypes.node,
   prefix: PropTypes.string,
   suffix: PropTypes.string,
+  deleteButton: PropTypes.bool,
+  size: PropTypes.string,
 }
 InputBase.defaultProps = {
   classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
@@ -88,6 +104,8 @@ InputBase.defaultProps = {
   endIcon: null,
   prefix: '',
   suffix: '',
+  deleteButton: true,
+  size: 'md',
 }
 
 InputBase.displayName = 'InputBase'

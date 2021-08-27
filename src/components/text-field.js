@@ -64,7 +64,7 @@ const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, fill
   suffix: 'ml-2.5 text-secondary-600',
 })
 
-const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, onChange, onSubmit , ...rest }) => {
+const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, deleteButton, onChange, onSubmit, ...rest }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
@@ -105,6 +105,8 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
+          size={size}
+          deleteButton={deleteButton}
           {...rest}
         />
       </form>
@@ -127,6 +129,7 @@ TextField.propTypes = {
   error: PropTypes.bool,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
+  deleteButton: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
 }
@@ -141,6 +144,7 @@ TextField.defaultProps = {
   error: false,
   required: false,
   disabled: false,
+  deleteButton: true,
   onChange: () => {},
   onSubmit: () => {},
 }

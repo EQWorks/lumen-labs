@@ -1,7 +1,13 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
+  purge: {
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './stories/**/*.{stories,js,jsx,ts,tsx}'],
+    safelist: [
+      /^(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
+      /^(hover|focus|active)\:(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
+    ],
+  },
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {

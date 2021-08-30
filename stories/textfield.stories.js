@@ -28,6 +28,7 @@ const labelClass = 'text-blue-300 mt-5 mb-1'
  * [endIcon] - node, icon on right side of input
  * [prefix] - string, value placed before the input value
  * [suffix] - string, value placed after the input value
+ * [deleteButton] - boolean, add delete input button
  * [...rest] - any input element properties
  */
 
@@ -65,6 +66,7 @@ export const Base = () => {
  * [error] - boolean, toggles error mode
  * [required] - boolean, add asterisk beside label
  * [disabled] - boolean, toggles disable mode
+ * [deleteButton] - boolean, add delete input button
  * [onChange] - function, returns input value
  * [onSubmit] - function, form submit handler
  */

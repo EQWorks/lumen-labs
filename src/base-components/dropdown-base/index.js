@@ -56,7 +56,7 @@ const DropdownBase = forwardRef(({
     button: clsx(`font-sans cursor-pointer border rounded-sm ${classes.button ? classes.button : 'w-250px'}`,
       { 'border-secondary-400 hover:border-secondary-500': !disabled && !open },
       { 'border-interactive-500 shadow-focused-interactive': open && !disabled },
-      { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
+      { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
     placeholder: `normal-case ${disabled ? 'text-secondary-300' : 'text-secondary-400'}`,

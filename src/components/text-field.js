@@ -38,8 +38,8 @@ const _textFieldClasses = ({ container, inputSize, success, error }) => ({
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
-const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, filled, disabled }) => ({
-  root: clsx(`${root ? root : `rounded-sm ${label && 'mt-1.5'} ${inputSize.box}`}`,
+const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, input, filled, disabled }) => ({
+  root: clsx(`${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box} ${root && root}`}`,
     { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus && !error & !success },
     { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
     { 'border-error-500 shadow-focused-error': error },
@@ -47,7 +47,7 @@ const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, fill
     { 'border-interactive-500 bg-secondary-50': filled },
     { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
   ),
-  input: clsx('outline-none text-secondary-800', 
+  input: clsx(`outline-none text-secondary-800 ${input && input}`, 
     { 'bg-secondary-50': filled },
     { 'bg-secondary-100 placeholder-secondary-400': disabled },
   ),
@@ -64,14 +64,14 @@ const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, fill
   suffix: 'ml-2.5 text-secondary-600',
 })
 
-const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, deleteButton, onChange, onSubmit, ...rest }) => {
+const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, deleteButton, onChange, onClick, onSubmit, ...rest }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
-  const { root, container } = classes
+  const { root, input, container } = classes
   const inputSize = _inputSize({ size })
   const textFieldClasses = _textFieldClasses({ container, inputSize, success, error })
-  const inputBaseClasses = _inputBaseClasses({ label, inputSize, focus, success, error, root, filled, disabled })
+  const inputBaseClasses = _inputBaseClasses({ label, inputSize, focus, success, error, root, input, filled, disabled })
 
   const handleChange = (val) => {
     setValue(val)
@@ -105,6 +105,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
+          onClick={onClick}
           size={size}
           deleteButton={deleteButton}
           {...rest}
@@ -131,10 +132,11 @@ TextField.propTypes = {
   disabled: PropTypes.bool,
   deleteButton: PropTypes.bool,
   onChange: PropTypes.func,
+  onClick: PropTypes.func,
   onSubmit: PropTypes.func,
 }
 TextField.defaultProps = {
-  classes: { root: '', container: '' },
+  classes: { root: '', input: '', container: '' },
   size: 'md',
   inputProps: {},
   label: '',
@@ -146,6 +148,7 @@ TextField.defaultProps = {
   disabled: false,
   deleteButton: true,
   onChange: () => {},
+  onClick: () => {},
   onSubmit: () => {},
 }
 

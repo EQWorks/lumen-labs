@@ -57,7 +57,8 @@ const DropdownSelectSteps = ({
   const dropdownSelectStepsClasses = Object.freeze({
     listContainer: `w-250px h-auto focus:outline-none ${classes.listContainer}`,
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
-    contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 ${contentSize.contentContainer} ${classes.contentContainer}`,
+    contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200 
+      ${contentSize.contentContainer} ${classes.contentContainer}`,
     contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
     type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
     dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 

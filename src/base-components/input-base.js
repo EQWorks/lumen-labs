@@ -51,11 +51,12 @@ const InputBase = forwardRef(({
     }
   }
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.stopPropagation()
     _setValue('')
     onChange(`${prefix && prefix}` + '' + `${suffix && suffix}`)
   }
-  
+
   return (
     <div ref={ref} className={`${baseClasses.root} ${classes.root}`} onFocus={handleFocus} onBlur={handleBlur}>
       {startIcon && <div className={classes.startIcon}>{startIcon}</div>}
@@ -69,8 +70,8 @@ const InputBase = forwardRef(({
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
-      {endIcon && !_value && !deleteButton && <div className={classes.endIcon}>{endIcon}</div>}
-      {_value && deleteButton && 
+      {endIcon && (value ? !value : !_value) && <div className={classes.endIcon}>{endIcon}</div>}
+      {deleteButton && (value ? value : _value) &&
         <div className={classes.endIcon} onClick={handleDelete}>
           <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
         </div>

@@ -1,6 +1,7 @@
 import React , { useState } from 'react'
 
 import { ModalBase } from '../src/base-components'
+import { Modal } from '../src'
 
 
 export default {
@@ -26,14 +27,36 @@ export const Base = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const onClose = () => {
-    console.log('close')
+    setIsOpen(false)
   }
 
   return (
-    <div className='flex flex-col'>
-      <button onClick={() => setIsOpen(!isOpen)}>modal open</button>
-      <ModalBase isOpen={isOpen} setIsOpen={setIsOpen} onClose={onClose}/>
-      <span>hello</span>
-    </div>
+    <>
+      <ModalBase open={isOpen} closeModal={onClose}>
+        <div className='flex flex-col'>
+          <button onClick={onClose}>X</button>
+        </div>
+      </ModalBase>
+      <div className='flex flex-col'>
+        <button onClick={() => setIsOpen(!isOpen)}>modal open</button>
+      </div>
+    </>
+  )
+}
+
+export const Normal = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const onClose = () => {
+    setIsOpen(false)
+  }
+
+  return (
+    <>
+      <Modal open={isOpen} closeModal={onClose}/>
+      <div className='flex flex-col'>
+        <button onClick={() => setIsOpen(!isOpen)}>modal open</button>
+      </div>
+    </>
   )
 }

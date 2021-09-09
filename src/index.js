@@ -19,5 +19,6 @@ export { default as Toast } from './components/toast'
 export { default as SwitchRound } from './components/switch-round'
 export { default as SwitchRect } from './components/switch-rect'
 export { default as SwitchSquare } from './components/switch-square'
+export { default as Modal } from './components/modal'
 
 export { makeStyles } from './utils/make-styles'

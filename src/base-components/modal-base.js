@@ -1,39 +1,29 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { Dialog } from '@headlessui/react'
 
-//isOpen, setIsOpen, onClose,
-const ModalBase = forwardRef(({ children, isOpen, setIsOpen, onClose, ...rest }, ref) => {
-  // const [isOpen, setIsOpen] = useState(true)
 
+const ModalBase = forwardRef(({ classes, children, open, closeModal, ...rest }, ref) => {
   return (
     <Dialog 
       as="div" 
-      className='fixed flex justify-center items-center inset-0 z-10 overflow-y-auto'
-      open={isOpen} 
-      onClose={onClose}
+      className='fixed inset-0 z-10 overflow-y-auto'
+      open={open} 
+      onClose={closeModal}
+      {...rest}
     >
-      <div className="min-h-screen px-4 text-center">
+      <div className={`min-h-screen flex justify-center items-center p-5 ${classes.root}`}>
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30"/>
-        <div className='w-full transition-all transform'>
-          <p>
-            Are you sure you want to deactivate your account? All of your data will
-            be permanently removed. This action cannot be undone.
-          </p>
-          <button onClick={() => setIsOpen(!isOpen)}>Cancel</button>
+        <div className={`w-full transition-all transform ${classes.main}`}>
+          {children ||         
+            <div className='flex flex-col'>
+              <button onClick={closeModal}>close modal</button>
+            </div>
+          }
         </div>
       </div>
     </Dialog>
   )
-  //   let [isOpen, setIsOpen] = useState(true)
-
-  // function closeModal() {
-  //   setIsOpen(false)
-  // }
-
-  // function openModal() {
-  //   setIsOpen(true)
-  // }
 })
 
 ModalBase.propTypes = {
@@ -41,17 +31,15 @@ ModalBase.propTypes = {
   classes: PropTypes.object,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
-  isOpen: PropTypes.bool,
-  setIsOpen: PropTypes.func,
-  onClose: PropTypes.func,
+  open: PropTypes.bool,
+  closeModal: PropTypes.func,
 }
 ModalBase.defaultProps = {
-  classes: { button: '', content: '', startIcon: '', endIcon: '' },
+  classes: { root: '', main: '', },
   startIcon: null,
   endIcon: null,
-  isOpen: false,
-  setIsOpen: () => {},
-  onClose: () => {},
+  open: false,
+  closeModal: () => {},
 }
 
 ModalBase.displayName = 'ModalBase'

@@ -156,7 +156,7 @@ const DropdownAutoComplete = ({
     
     onSelect({ ...value, i })
     setUserInput(value.title)
-    setFilteredOptions([])
+    setFilteredOptions(options)
   }
 
   const onChange = (val) => {
@@ -165,7 +165,7 @@ const DropdownAutoComplete = ({
         suggestion.title.toLowerCase().indexOf(val.toLowerCase()) > -1,
     )
 
-    if (!val) {
+    if (!val || val != selectedOptions.title) {
       setSelectedOptions([])
     }
 
@@ -174,11 +174,10 @@ const DropdownAutoComplete = ({
     } else {
       setOpen(false)
     }
-    
     setFilteredOptions(filteredSuggestions)
     setUserInput(val)
   }
-
+  
   const autoComplete = (
     <TextField 
       classes={textFieldClasses}

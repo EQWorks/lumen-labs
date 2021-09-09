@@ -103,7 +103,7 @@ const DropdownBase = forwardRef(({
   return (
     <div ref={ref} className={containerClasses.root} {...rest}>
       <Menu>
-        {customTrigger ? customTrigger : 
+        {customTrigger ||
           <Menu.Button as="div">
             <div className={`${button ? 'button-container' : dropdownClasses.button}`} onClick={onClick}>
               {button ? button : _button}

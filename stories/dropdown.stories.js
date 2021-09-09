@@ -249,10 +249,8 @@ export const MultiSelect = () => {
  *      endIcon: node, icon on right side of divider title
  *    }
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
- * [placeholder] - string, helper value of input if value is empty
+ * [inputProps] - object, accepts all InputBase props
  * [onSelect] - function, returns selected value
- * [startIcon] - node, icon on left side of select container
- * [endIcon] - node, icon on right side of select container
  * [showType] - bool, control displaying items type label if exists, default - false
  * [disabled] - bool, disable component status, default = false 
  * [...rest] - any div element properties
@@ -269,11 +267,22 @@ export const AutoComplete = () => {
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default</p>
-          <DropdownAutoComplete classes={classes} data={sampleDataGroups} endIcon={<Search size='md'/>} placeholder='Select a subject' showType/>
+          <DropdownAutoComplete 
+            classes={classes} 
+            data={sampleDataGroups} 
+            inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }} 
+            showType
+          />
         </div>
         <div>
           <p>Large</p>
-          <DropdownAutoComplete classes={classes} data={sampleDataGroups} size='lg' endIcon={<Search size='lg'/>} placeholder='Select a subject' showType/>
+          <DropdownAutoComplete 
+            classes={classes} 
+            data={sampleDataGroups} 
+            size='lg' 
+            inputProps={{ placeholder: 'Search', endIcon: <Search size='lg'/> }} 
+            showType
+          />
         </div>
       </div>
     </>

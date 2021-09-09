@@ -70,8 +70,8 @@ const InputBase = forwardRef(({
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
-      {endIcon && (value ? !value : !_value) && <div className={classes.endIcon}>{endIcon}</div>}
-      {deleteButton && (value ? value : _value) &&
+      {endIcon && !(value || _value) && <div className={classes.endIcon}>{endIcon}</div>}
+      {deleteButton && (value || _value) &&
         <div className={classes.endIcon} onClick={handleDelete}>
           <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
         </div>

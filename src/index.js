@@ -16,5 +16,8 @@ export { default as Chip } from './components/chip'
 export { default as DropdownSelect } from './components/dropdown-select'
 export { default as DropdownSelectSteps } from './components/dropdown-select-steps'
 export { default as Toast } from './components/toast'
+export { default as SwitchRound } from './components/switch-round'
+export { default as SwitchRect } from './components/switch-rect'
+export { default as SwitchSquare } from './components/switch-square'
 
 export { makeStyles } from './utils/make-styles'

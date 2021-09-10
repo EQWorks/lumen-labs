@@ -27,11 +27,10 @@ const multipleSwitch = [
 /** -- props:
  * [id] - string, identity of the component
  * [classes] - object, custom styling supported keys:
- *    label: classes applied the outer container
- *    button: classes applied to the inner button
- * [styles] - object, custom in-line styling supported keys:
- *    label: classes applied the outer container
- *    button: classes applied to the inner button
+ *    root: classes applied to the main container
+ *    container: classes applied the inner container
+ *    button: classes applied to the button inside the container
+ *    label: classes applied to the label
  * [checked] - boolean, flag state to watch the status. If true, the component is checked.
  * [onChange] - function, callback fired when the state is changed.
  * [disabled] - boolean, if true, the switch will be disabled.
@@ -52,6 +51,11 @@ export const Base = () => {
 
 /** -- props:
  * [id] - string, identity of the component
+ * [classes] - object, custom styling supported keys:
+ *    root: classes applied to the main container
+ *    container: classes applied the inner container
+ *    button: classes applied to the button inside the container
+ *    label: classes applied to the label
  * [checked] - boolean, flag state to watch the status. If true, the component is checked.
  * [onChange] - function, callback fired when the state is changed.
  * [disabled] - boolean, if true, the switch will be disabled.
@@ -100,7 +104,6 @@ export const CustomColor = () => {
   const [checkedItems, setCheckedItems] = useState({})
 
   const handleOnChange = (event) => {
-    
     setCheckedItems({
       ...checkedItems,
       [event.target.name]: event.target.checked,
@@ -115,15 +118,17 @@ export const CustomColor = () => {
           id={`${data.type}-${index}`}                         
           checked={checkedItems[`${data.type}-${index}`]}
           onChange={handleOnChange}
+          label='label'
           color={data.color}
         />
       )
     case 'Rectangle':
       return (
         <SwitchRect
-          id={`${data.type}-${index}`}                         
+          id={`${data.type}-${index}`}                       
           checked={checkedItems[`${data.type}-${index}`]}
           onChange={handleOnChange}
+          label='label'
           color={data.color}
         />
       )
@@ -133,6 +138,7 @@ export const CustomColor = () => {
           id={`${data.type}-${index}`}                         
           checked={checkedItems[`${data.type}-${index}`]}
           onChange={handleOnChange}
+          label='label'
           color={data.color}
         />
       )

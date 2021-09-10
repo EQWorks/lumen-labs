@@ -4,15 +4,17 @@ import PropTypes from 'prop-types'
 import './switch-base.css'
 
 
-const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disabled, tabIndex, children, ...rest }, ref) => {
+const SwitchBase = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, children, ...rest }, ref) => {
   const switchClasses = Object.freeze({
-    label: `${classes.label ? classes.label : 'w-9 h-4 bg-secondary-200'}`,
+    root: `flex items-center ${classes.root}`,
+    container: `${classes.container ? classes.container : 'w-9 h-4 bg-secondary-200'}`,
     button: `${classes.button ? classes.button : 'w-4 h-3.5 top-px left-px bg-white'}`,
+    label: `${classes.label}`,
     checkbox: 'w-0 h-0 hidden',
   })
 
   return (
-    <>
+    <div className={`switch-root ${switchClasses.root}`}>
       <input
         ref={ref}
         className={`switch-checkbox ${switchClasses.checkbox}`}
@@ -25,8 +27,7 @@ const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disable
         {...rest}
       />
       <label
-        className={`switch-label ${switchClasses.label} ${disabled && 'switch-disabled-label'}`}
-        style={styles.label}
+        className={`switch-container ${switchClasses.container} ${disabled && 'switch-disabled-container'}`}
         htmlFor={`switch-checkbox-${id}`} 
         tabIndex={disabled ? -1 : 1}
       >
@@ -34,26 +35,25 @@ const SwitchBase = forwardRef(({ classes, id, styles, checked, onChange, disable
           children 
           :
           <span 
-            className={`switch-button ${switchClasses.button} ${disabled && 'switch-disabled-button'}`}
-            style={styles.button} 
+            className={`switch-button ${switchClasses.button} ${disabled && 'switch-disabled-button'}`} 
             tabIndex={tabIndex}
           />
         }
       </label>
-    </>
+      {label && <span className={switchClasses.label}>{label}</span>}
+    </div>
   )
 })
 
 SwitchBase.propTypes = {
   id: PropTypes.string.isRequired,
   classes: PropTypes.exact({
-    label: PropTypes.string,
+    root: PropTypes.string,
+    container: PropTypes.string,
     button: PropTypes.string,
+    label: PropTypes.string,
   }),
-  styles: PropTypes.exact({
-    label: PropTypes.object,
-    button: PropTypes.object,
-  }),
+  label: PropTypes.string,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
@@ -63,10 +63,12 @@ SwitchBase.propTypes = {
 
 SwitchBase.defaultProps = {
   classes: { 
-    label: '', 
+    root: '',
+    container: '', 
     button: '', 
+    label: '',
   },
-  styles: { label: {}, button: {} },
+  label: '',
   checked: false,
   disabled: false,
   tabIndex: 1,

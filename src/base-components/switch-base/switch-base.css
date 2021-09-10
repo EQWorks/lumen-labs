@@ -1,42 +1,42 @@
-.switch-label {
+.switch-container {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.switch-label .switch-button {
+.switch-container .switch-button {
   position: absolute;
 }
 
-.switch-checkbox:checked + .switch-label .switch-button {
+.switch-checkbox:checked + .switch-container .switch-button {
   left: calc(100% - 1px);
   transform: translateX(-100%);
 }
 
-.switch-disabled-label {
+.switch-disabled-container {
   outline: 1px solid #eaeaea;
   background-color: #f7f7f7;
   cursor: not-allowed;
 }
 
-.switch-disabled-label .switch-disabled-button {
+.switch-disabled-container .switch-disabled-button {
   background-color: #eaeaea;
 }
 
 @media screen and (max-width: 991px) {
-  .switch-label {
+  .switch-container {
     transform: scale(0.9);
   }
 }
 @media screen and (max-width: 767px) {
-  .switch-label {
+  .switch-container {
     transform: scale(0.825);
   }
 }
 
 @media screen and (max-width: 575px) {
-  .switch-label {
+  .switch-container {
     transform: scale(0.75);
   }
 }

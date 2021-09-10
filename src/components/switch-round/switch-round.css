@@ -1,4 +1,4 @@
-.switch-label .switch-round-button {
+.switch-container .switch-round-button {
   content: "";
   width: 1.125rem;
   height: 1.125rem;
@@ -6,6 +6,6 @@
   box-shadow: 0 0 1px 0 rgba(10, 10, 10, 0.29);
 }
 
-.switch-label:active .switch-round-button {
+.switch-container:active .switch-round-button {
   width: 1.35rem;
 }

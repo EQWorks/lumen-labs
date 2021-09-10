@@ -8,13 +8,13 @@ import SwitchBase from '../../base-components/switch-base'
 import './switch-square.css'
 
 
-const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, color, ...rest }, ref) => {
+const SwitchSquare = forwardRef(({ classes, id, checked, onChange, disabled, tabIndex, color, ...rest }, ref) => {
   const labelColor = concatTargetColor(color, ['bg'], [500])
 
   const switchSquareClasses = Object.freeze({
     label: `w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? labelColor : 'bg-secondary-300'}`,
-    button: 'switch-square-button flex flex-col-reverse items-center w-4 h-4 left-0.5',
+        ${checked ? labelColor : 'bg-secondary-300'} ${classes.label}`,
+    button: `switch-square-button flex flex-col-reverse items-center w-4 h-4 left-0.5 ${classes.button}`,
   })
 
   return (
@@ -46,6 +46,7 @@ const SwitchSquare = forwardRef(({ id, checked, onChange, disabled, tabIndex, co
 })
 
 SwitchSquare.propTypes = {
+  classes: PropTypes.object,
   id: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -55,6 +56,7 @@ SwitchSquare.propTypes = {
 }
 
 SwitchSquare.defaultProps = {
+  classes: { label: '', button: '' },
   checked: true,
   disabled: false,
   tabIndex: 1,

@@ -8,13 +8,13 @@ import SwitchBase from '../../base-components/switch-base'
 import './switch-round.css'
 
 
-const SwitchRound = forwardRef(({ id, checked, onChange, disabled, tabIndex, color, ...rest }, ref) => {
+const SwitchRound = forwardRef(({ classes, id, checked, onChange, disabled, tabIndex, color, ...rest }, ref) => {
   const labelColor = concatTargetColor(color, ['bg'], [500])
 
   const switchRoundClasses = Object.freeze({
     label: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
-        ${checked ? labelColor : 'bg-secondary-300'}`,
-    button: 'switch-round-button top-px left-px bg-white duration-200',
+        ${checked ? labelColor : 'bg-secondary-300'} ${classes.label}`,
+    button: `switch-round-button top-px left-px bg-white duration-200 ${classes.button}`,
   })
 
   return (
@@ -32,6 +32,7 @@ const SwitchRound = forwardRef(({ id, checked, onChange, disabled, tabIndex, col
 })
 
 SwitchRound.propTypes = {
+  classes: PropTypes.object,
   id: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -41,6 +42,7 @@ SwitchRound.propTypes = {
 }
 
 SwitchRound.defaultProps = {
+  classes: { label: '', button: '' },
   checked: true,
   disabled: false,
   tabIndex: 1,

@@ -8,13 +8,13 @@ import SwitchBase from '../../base-components/switch-base'
 import './switch-rect.css'
 
 
-const SwitchRect = forwardRef(({ id, checked, onChange, disabled, tabIndex, color , ...rest }, ref) => {
+const SwitchRect = forwardRef(({ classes, id, checked, onChange, disabled, tabIndex, color , ...rest }, ref) => {
   const labelColor = concatTargetColor(color, ['bg'], [500])
 
   const switchRectClasses = Object.freeze({
     label: `w-10 h-6 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? labelColor : 'bg-secondary-300'}`,
-    button: 'switch-rect-button inset-0.5 left-1 bg-white duration-200',
+        ${checked ? labelColor : 'bg-secondary-300'} ${classes.label}`,
+    button: `switch-rect-button inset-0.5 left-1 bg-white duration-200 ${classes.button}`,
   })
 
   return (
@@ -32,6 +32,7 @@ const SwitchRect = forwardRef(({ id, checked, onChange, disabled, tabIndex, colo
 })
 
 SwitchRect.propTypes = {
+  classes: PropTypes.object,
   id: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -41,6 +42,7 @@ SwitchRect.propTypes = {
 }
 
 SwitchRect.defaultProps = {
+  classes: { label: '', button: '' },
   checked: true,
   disabled: false,
   tabIndex: 1,

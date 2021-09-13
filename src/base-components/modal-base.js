@@ -4,6 +4,12 @@ import { Dialog } from '@headlessui/react'
 
 
 const ModalBase = forwardRef(({ classes, children, open, closeModal, ...rest }, ref) => {
+  const modalClasses = Object.freeze({
+    root: `min-h-screen flex justify-center items-center ${classes.root}`,
+    main: `flex justify-center items-center transition-all transform ${classes.main}`,
+    overlay: `fixed inset-0 ${classes.overlay}`
+  })
+
   return (
     <Dialog 
       as="div" 
@@ -12,14 +18,10 @@ const ModalBase = forwardRef(({ classes, children, open, closeModal, ...rest }, 
       onClose={closeModal}
       {...rest}
     >
-      <div className={`min-h-screen flex justify-center items-center p-5 ${classes.root}`}>
-        <Dialog.Overlay className="fixed inset-0 bg-black opacity-30"/>
-        <div className={`w-full transition-all transform ${classes.main}`}>
-          {children ||         
-            <div className='flex flex-col'>
-              <button onClick={closeModal}>close modal</button>
-            </div>
-          }
+      <div className={modalClasses.root}>
+        <Dialog.Overlay className={modalClasses.overlay}/>
+        <div className={modalClasses.main}>
+          {children}
         </div>
       </div>
     </Dialog>
@@ -29,15 +31,11 @@ const ModalBase = forwardRef(({ classes, children, open, closeModal, ...rest }, 
 ModalBase.propTypes = {
   children: PropTypes.any.isRequired,
   classes: PropTypes.object,
-  startIcon: PropTypes.node,
-  endIcon: PropTypes.node,
   open: PropTypes.bool,
   closeModal: PropTypes.func,
 }
 ModalBase.defaultProps = {
   classes: { root: '', main: '', },
-  startIcon: null,
-  endIcon: null,
   open: false,
   closeModal: () => {},
 }

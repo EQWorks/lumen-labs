@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { Dialog } from '@headlessui/react'
 import { ModalBase } from '../base-components'
@@ -39,7 +39,7 @@ const Modal = forwardRef(({ classes, children, footerContent, open, closeModal, 
     header: `p-5 flex justify-between border-b ${classes.header}`,
     title: `font-bold text-xl font-sans text-secondary-900 tracking-xs leading-1.2 ${classes.title}`,
     close: `focus:outline-none text-secondary-600 fill-current ${classes.close}`,
-    content: `h-full px-5 my-15px overflow-y-auto ${modalSize.content} ${classes.content}`,
+    content: `h-full px-5 my-15px text-sm tracking-sm leading-1.43 overflow-y-auto ${modalSize.content} ${classes.content}`,
     footer: `p-5 border-t ${classes.footer}`,
   })
 
@@ -50,7 +50,7 @@ const Modal = forwardRef(({ classes, children, footerContent, open, closeModal, 
   })
   
   return (
-    <ModalBase classes={modalBaseClasses} open={open} closeModal={closeModal} {...rest}>
+    <ModalBase ref={ref} classes={modalBaseClasses} open={open} closeModal={closeModal} {...rest}>
       <div className={`modal-container ${modalClasses.container}`}>
         <div className={`header-container ${modalClasses.header}`}>
           <Dialog.Title as='span' className={modalClasses.title}>{title}</Dialog.Title>
@@ -75,7 +75,7 @@ Modal.propTypes = {
   children: PropTypes.any,
   footerContent: PropTypes.any,
   classes: PropTypes.object,
-  open: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
   closeModal: PropTypes.func,
   size: PropTypes.string,
   title: PropTypes.string,

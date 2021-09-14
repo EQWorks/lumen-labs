@@ -85,17 +85,17 @@ export const Normal = () => {
     <>
       {size === 'sm' ? 
         <>
-          <Button size='md' onClick={() => onClick('lg')}>Cancel</Button>
-          <Button variant='filled' size='md'>Submit</Button>
+          <Button size={size === 'lg' ? 'lg' : 'md'} onClick={() => onClick('lg')}>Cancel</Button>
+          <Button variant='filled' size={size === 'lg' ? 'lg' : 'md'}>Submit</Button>
         </>
         :
         <>
-          <Button size='md' type='error' onClick={() => onClick('lg')}>Cancel</Button>
+          <Button size={size === 'lg' ? 'lg' : 'md'} type='error' onClick={() => onClick('lg')}>Cancel</Button>
           <div className="right-button flex flex-row">
             <div className="pr-4">
-              <Button variant='outlined' size='md'>Reset</Button>
+              <Button variant='outlined' size={size === 'lg' ? 'lg' : 'md'}>Reset</Button>
             </div>
-            <Button variant='filled' size='md'>Save Selection</Button>
+            <Button variant='filled' size={size === 'lg' ? 'lg' : 'md'}>Save Selection</Button>
           </div>
         </>
       }

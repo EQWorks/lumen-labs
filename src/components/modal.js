@@ -40,7 +40,7 @@ const Modal = forwardRef(({ classes, children, footerContent, open, closeModal, 
     title: `font-bold text-xl font-sans text-secondary-900 tracking-xs leading-1.2 ${classes.title}`,
     close: `focus:outline-none text-secondary-600 fill-current ${classes.close}`,
     content: `h-full px-5 my-15px text-sm tracking-sm leading-1.43 overflow-y-auto ${modalSize.content} ${classes.content}`,
-    footer: `p-5 border-t ${classes.footer}`,
+    footer: `px-5 py-18px border-t ${classes.footer}`,
   })
 
   const modalBaseClasses = Object.freeze({

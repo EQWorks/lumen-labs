@@ -55,6 +55,16 @@ const ButtonStory = ({ variant }) => {
         <Button variant={variant} size='sm' type='error'>Error</Button>
         <Button disabled variant={variant} size='sm'>Disabled</Button>
       </div>
+
+      <div>
+        <p className={styles.label}>Customized border-radius:</p>
+        <span className='flex flex-row justify-start items-center'>
+          <Button classes={{ button: { borderRadius: 'rounded-r-sm mr-10' } }} variant={variant} size='lg'>Button</Button>
+          <Button classes={{ button: { borderRadius: 'rounded-l-sm mr-10' } }} variant={variant} size='lg'>Button</Button>
+          <Button classes={{ button: { borderRadius: 'rounded-t-sm mr-10' } }} variant={variant} size='lg'>Button</Button>
+          <Button classes={{ button: { borderRadius: 'rounded-b-sm' } }} variant={variant} size='lg'>Button</Button>
+        </span>
+      </div>
     </>
   )
 }

@@ -87,9 +87,10 @@ const DropdownAutoComplete = ({
 
     data && data.forEach((el) => {
       el.items.forEach((item) => {
-        initialOptions.push(item)
+        initialOptions.push({ ...item, type: el.type && el.type.title })
       })
     })
+
     setSelectedOptions([])
     setOptions(initialOptions)
     setFilteredOptions(initialOptions)
@@ -112,7 +113,7 @@ const DropdownAutoComplete = ({
             key={`item-container-${index}`} 
             className={`item-container-${index} 
               ${dropdownAutoCompleteClasses.itemContainer}
-              ${!filteredOptions.includes(item) && 'hidden'} 
+              ${!filteredOptions.some(op => op.title === item.title) && 'hidden'} 
             `} 
             onClick={() => handleOnClick(index, item)}
           >
@@ -133,7 +134,6 @@ const DropdownAutoComplete = ({
 
   const renderListItem = (item) => {
     let selected = null
-
     return (
       <div className={dropdownAutoCompleteClasses.contentHeader}>
         <div className='flex flex-row items-center'>
@@ -162,7 +162,8 @@ const DropdownAutoComplete = ({
   const onChange = (val) => {
     const filteredSuggestions = options.filter(
       suggestion =>
-        suggestion.title.toLowerCase().indexOf(val.toLowerCase()) > -1,
+        suggestion.title.toLowerCase().indexOf(val.toLowerCase()) > -1 || 
+        suggestion.type && suggestion.type.toLowerCase().indexOf(val.toLowerCase()) > -1,
     )
 
     if (!val || val != selectedOptions.title) {
@@ -207,7 +208,17 @@ const DropdownAutoComplete = ({
               key={`list-container-${index}`} 
               className={`list-container-${index} ${dropdownAutoCompleteClasses.listContainer}`}
             >
-              {showType && el.type && <label className={`type-container-${index} ${dropdownAutoCompleteClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
+              {showType && el.type && 
+                <label 
+                  className={`
+                    type-container-${index} ${dropdownAutoCompleteClasses.type}
+                    ${!filteredOptions.some(op => op.type === el.type.title) && 'hidden'}
+                  `} 
+                  htmlFor="span"
+                >
+                  {renderListItem(el.type)}
+                </label>
+              }
               {renderList(el.items)}
               {el.divider && <div className={`divider-container-${index} ${dropdownAutoCompleteClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
             </Menu.Item>

@@ -1,12 +1,20 @@
+
+.noscrollbar::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* width */
 .scrollbar::-webkit-scrollbar {
   width: 3px;
 }
 
+/* Track */
 .scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 
+/* Handle */
 .scrollbar::-webkit-scrollbar-thumb {
-  background: #f2f2f2;
+  background: #F2F2F2;
   border-radius: 4px;
 }

@@ -5,7 +5,7 @@ module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}', './stories/**/*.{stories,js,jsx,ts,tsx}'],
     safelist: [
       /^(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
-      /^(hover|focus|active)\:(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
+      /^(hover|focus|active):(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
     ],
   },
   presets: [],
@@ -1049,12 +1049,12 @@ module.exports = {
   plugins: [
     function({ addUtilities, theme }) {
 
-      let newUtilities = {};
-      const boxShadowPrefix = '0 0 0 1px';
-      const colors = theme('colors');
+      let newUtilities = {}
+      const boxShadowPrefix = '0 0 0 1px'
+      const colors = theme('colors')
       Object.keys(colors).forEach(color => {
 
-        const colorData = colors[color];
+        const colorData = colors[color]
         if (typeof colorData === 'string') {
           newUtilities[`.shadow-${color}`] = {
             boxShadow: `${boxShadowPrefix} ${colorData}`,
@@ -1065,12 +1065,12 @@ module.exports = {
             newUtilities[`.shadow-${color}-${colorVariation}`] = {
               boxShadow: `${boxShadowPrefix} ${colorData[colorVariation]}`,
             }
-          });
+          })
         }
-      });
+      })
       addUtilities(newUtilities, {
-        variants: ['focus', 'hover', 'active']
-      });
-    }
+        variants: ['focus', 'hover', 'active'],
+      })
+    },
   ],
 }

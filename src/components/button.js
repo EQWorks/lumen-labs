@@ -86,7 +86,8 @@ const Button = ({ children, classes, variant, size, type, disabled, ...rest }) =
 
   const _classes = {
     button: clsx(
-      `focus:outline-none rounded-sm font-normal ${sizes.text[size]} ${variants[variant]} ${classes.button}`,
+      `focus:outline-none ${classes.button.borderRadius || 'rounded-sm'}
+      font-normal ${sizes.text[size]} ${variants[variant]} ${classes.button}`,
       {
         [sizes[size]]: typeof children === 'string',
         [sizes.squared[size]]: typeof children !== 'string',

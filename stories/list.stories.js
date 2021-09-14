@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { List } from '../src'
+import { List, VirtualizedList } from '../src'
 
 
 export default {
@@ -31,8 +31,8 @@ export const Normal = () => {
       spacing={2}
       renderHeader={() => <h2>HEADER</h2>}
       renderFooter={() => <h2>FOOTER</h2>}
-      data={['item1', 'item2', 'item3', 'item4', 'item1', 'item2', 'item3', 'item4']}
-      renderItem={(item, index) => <List.ListItem key={index}>{item}</List.ListItem>}
+      data={['item1', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7', 'item8']}
+      renderItem={({ item, index }) => <List.ListItem key={index}>{item}</List.ListItem>}
     />
   )
 }
@@ -43,7 +43,7 @@ export const Grid = () => {
       gridCols={4}
       classes={{ root: 'w-96', list: 'h-40', header: 'border', footer: 'border' }}
       spacing={2}
-      renderHeader={(ListCol) => {
+      renderHeader={({ ListCol }) => {
         return (
           <>
             <ListCol colSpan={2}>HEADER 2</ListCol>
@@ -52,7 +52,7 @@ export const Grid = () => {
           </>
         )
       }}
-      renderFooter={(ListCol) => {
+      renderFooter={({ ListCol }) => {
         return (
           <>
             <ListCol colSpan={2}>Footer 2</ListCol>
@@ -61,13 +61,53 @@ export const Grid = () => {
           </>
         )
       }}
-      data={['item1', 'item2', 'item3', 'item4', 'item1', 'item2', 'item3', 'item4']}
-      renderItem={(item, index, ListCol) => {
+      data={['item1', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7', 'item8']}
+      renderItem={( { item, index, ListCol }) => {
         return <List.ListItem key={index}>
           <ListCol colSpan={2}>hello</ListCol>
           <ListCol colSpan={1}>{item}</ListCol>
           <ListCol colSpan={1}>there</ListCol>
         </List.ListItem>}
+      }
+    />
+  )
+}
+
+/** -- props (VirtualizedList):
+ * { ...same props as List, except [spacing] prop is ineffective, instead see [rowHeight] }
+ * [rowHeight] - number, required prop for react-window, determining height of each row
+ */
+export const Virtualized = () => {
+  return (
+    <VirtualizedList
+      gridCols={4}
+      rowHeight={40}
+      classes={{ root: 'w-96', list: 'h-40', header: 'border', footer: 'border' }}
+      renderHeader={({ ListCol }) => {
+        return (
+          <>
+            <ListCol colSpan={2}>HEADER 2</ListCol>
+            <ListCol colSpan={1}>HEADER 1</ListCol>
+            <ListCol colSpan={1}>HEADER 1</ListCol>
+          </>
+        )
+      }}
+      renderFooter={({ ListCol }) => {
+        return (
+          <>
+            <ListCol colSpan={2}>Footer 2</ListCol>
+            <ListCol colSpan={1}>Footer 1</ListCol>
+            <ListCol colSpan={1}>Footer 1</ListCol>
+          </>
+        )
+      }}
+      data={['item1', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7', 'item8']}
+      renderItem={( { item, index, ListCol }) => {
+        return <VirtualizedList.ListItem key={index}>
+          <ListCol colSpan={2}>hello</ListCol>
+          <ListCol colSpan={1}>{item}</ListCol>
+          <ListCol colSpan={1}>there</ListCol>
+        </VirtualizedList.ListItem>}
       }
     />
   )

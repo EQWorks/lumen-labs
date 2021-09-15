@@ -10,6 +10,7 @@ const ToastBase = forwardRef(({
   button,
   startIcon,
   endIcon,
+  width,
   ...rest
 }, ref) => {
   const toastBaseClasses = Object.freeze({
@@ -21,9 +22,9 @@ const ToastBase = forwardRef(({
     startIcon: `${classes.startIcon && classes.startIcon}`,
     endIcon: `${classes.endIcon && classes.endIcon}`,
   })
-  
+
   return (
-    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`} {...rest}>
+    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`} {...rest} style={{ width: `${width}rem`}}>
       { variant === 'horizontal' && <>
         <div className={toastBaseClasses.header}>
           {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
@@ -59,6 +60,7 @@ ToastBase.propTypes = {
   button: PropTypes.node,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
+  width: PropTypes.number,
 }
 
 ToastBase.defaultProps = {
@@ -77,6 +79,7 @@ ToastBase.defaultProps = {
   button: null,
   startIcon: null,
   endIcon: null,
+  width: '',
 }
 
 ToastBase.displayName = 'ToastBase'

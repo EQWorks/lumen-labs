@@ -152,6 +152,7 @@ module.exports = {
         'blue-40': '0px 3px 16px rgba(54, 111, 228, 0.1)',
         'blue-50': '0px 4px 20px rgba(54, 111, 228, 0.1)',
         'blue-60': '0px 4px 24px rgba(54, 111, 228, 0.1)',
+        'dark-10': '-1px 0 4px 0 rgba(81, 113, 151, 0.1), 1px 0 4px 0 rgba(81, 113, 151, 0.1), 0 -1px 4px 0 rgba(81, 113, 151, 0.1), 0 1px 4px 0 rgba(81, 113, 151, 0.1)',
       },
       fontSize: { 
         xxs: ['0.625rem', { lineHeight: '1rem' }], 

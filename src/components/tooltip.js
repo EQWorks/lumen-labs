@@ -44,8 +44,8 @@ const Tooltip = ({
   })
 
   const tooltipClasses = Object.freeze({
-    root: `tooltip absolute p-2.5 hidden rounded-sm shadow-dark-10 z-20 ${classes.root && classes.root} ${colorType[type].root} ${tooltipPosition[position]}`,
-    arrow: `tooltip w-2.5 h-2.5 absolute hidden transform rotate-45 z-20 ${classes.arrow} ${arrowStyles[position]} ${colorType[type].root}`,
+    root: `tooltip absolute p-2.5 invisible opacity-0 rounded-sm shadow-dark-10 z-20 transition-all duration-500 ${classes.root && classes.root} ${colorType[type].root} ${tooltipPosition[position]}`,
+    arrow: `tooltip w-2.5 h-2.5 absolute invisible opacity-0 transform rotate-45 z-20 transition-all duration-500 ${classes.arrow} ${arrowStyles[position]} ${colorType[type].root}`,
     header: `header text-xs font-bold tracking-md leading-1.33 capitalize ${title && 'mb-5px'} ${classes.header && classes.header} ${colorType[type].header}`,
     title: `title ${classes.title && classes.title}`,
     content: `content ${classes.content && classes.content}`,
@@ -60,7 +60,8 @@ const Tooltip = ({
     const tooltipEl = tooltipRef.current.getElementsByClassName('tooltip')
     timeOut = setTimeout(() => {
       tooltipEl.forEach(el => {
-        el.style.display = 'initial'
+        el.style.visibility = 'visible'
+        el.style.opacity = 1
       })
     }, delay)
   }
@@ -68,7 +69,8 @@ const Tooltip = ({
   const handleMouseLeave = () => {
     const tooltipEl = tooltipRef.current.getElementsByClassName('tooltip')
     tooltipEl.forEach(el => {
-      el.style.display = 'none'
+      el.style.visibility = 'hidden'
+      el.style.opacity = 0
     })
     if (timeOut) clearTimeout(timeOut)
   }

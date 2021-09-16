@@ -24,7 +24,7 @@ const ToastBase = forwardRef(({
   })
 
   return (
-    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`} {...rest} style={{ width: `${width}rem`}}>
+    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`} {...rest} style={{ width: `${width}` }}>
       { variant === 'horizontal' && <>
         <div className={toastBaseClasses.header}>
           {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}
@@ -60,7 +60,7 @@ ToastBase.propTypes = {
   button: PropTypes.node,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
-  width: PropTypes.number,
+  width: PropTypes.string,
 }
 
 ToastBase.defaultProps = {

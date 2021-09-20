@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
+import { makeStyles } from '../utils/make-styles'
 
 
 const ToastBase = forwardRef(({
@@ -13,6 +14,12 @@ const ToastBase = forwardRef(({
   width,
   ...rest
 }, ref) => {
+  const styles = makeStyles({
+    root: {
+      width: `${width}`,
+    },
+  })
+
   const toastBaseClasses = Object.freeze({
     root: `flex flex-col ${classes.root ? classes.root : 'w-80 border'}`,
     header: `flex flex-row items-center ${classes.header && classes.header}`,
@@ -24,7 +31,7 @@ const ToastBase = forwardRef(({
   })
 
   return (
-    <div ref={ref} className={`${toastBaseClasses.root} ${classes.root}`} {...rest} style={{ width: `${width}` }}>
+    <div ref={ref} className={`${styles.root} ${toastBaseClasses.root} ${classes.root}`} {...rest}>
       { variant === 'horizontal' && <>
         <div className={toastBaseClasses.header}>
           {startIcon && <div className={toastBaseClasses.startIcon}>{startIcon}</div>}

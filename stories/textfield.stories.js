@@ -45,6 +45,8 @@ export const Base = () => {
       <InputBase startIcon={<ChevronUp />} placeholder='Is currenlty busy placeholding...' />
       <p className={labelClass}>End Icon:</p>
       <InputBase endIcon={<ChevronDown />} placeholder='Is currenlty busy placeholding...' />
+      <p className={labelClass}>delete button:</p>
+      <InputBase defaultValue='Hi there, I am the default value of this input.' placeholder='Is currenlty busy placeholding...' />
       <p className={labelClass}>Prefix: </p>
       <InputBase prefix='Prefix' placeholder='Is currenlty busy placeholding...' />
       <p className={labelClass}>Suffix: </p>

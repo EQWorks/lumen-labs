@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 import { DropdownBase } from '../src/base-components'
-import { DropdownSelect, DropdownSelectSteps, Button } from '../src'
+import { DropdownSelect, DropdownSelectSteps, DropdownAutoComplete, Button } from '../src'
 
-import { ArrowDown } from '../src/icons'
+import { ArrowDown, Search } from '../src/icons'
 import { 
   sampleDataBasic, 
   sampleDataGroups, 
@@ -39,6 +39,7 @@ export default {
  * [startIcon] - node, icon on left side of select container
  * [endIcon] - node, icon on right side of select container
  * [multiSelect] - bool, control component multiple selection feature, default = false
+ * [customTrigger] - node, render your custom trigger to handle dropdown menu/select display
  * [overflow] - string, control selected options x & y overflow - supported values ['horizontal', 'vertical'], default = 'horizontal'
  * [disabled] - bool, disable component status, default = false 
  * [...rest] - any div element properties
@@ -210,6 +211,78 @@ export const MultiSelect = () => {
         <div>
           <p>Large - vertical</p>
           <DropdownSelect data={sampleDataMultiselect} size='lg' endIcon={<ArrowDown size='lg'/>} overflow='vertical' placeholder='Select a subject' multiSelect/>
+        </div>
+      </div>
+    </>
+  )
+}
+
+/** -- props (DropdownAutoComplete):
+ * [classes] - object, custom styling supported keys:
+ *    root: main container of dropdown component
+ *    content: content container element
+ *    inputContainer: container of input element
+ *    input: input element
+ *    menu: dropdown menu/select container div
+ *    listContainer: each container div from the dropdown menu/select list
+ *    itemContainer: item container inside a listContainer div
+ *    contentContainer: content container inside a itemContainer div
+ *    contentHeader: header container inside a contentContainer div
+ *    description: description container inside a contentContainer div
+ *    type: type container inside a listContainer div 
+ *    dividerContainer: divider container inside a listContainer div
+ * [data] - array, data json structure to render the item inside the dropdown
+ *    type: { object, defines the type/category of each item under it.
+ *      title: string, name of the type/category
+ *      startIcon: node, icon on left side of type title
+ *      endIcon: node, icon on right side of type title
+ *    }
+ *    items: [ array, items to be render inside the dropdown menu/select list
+ *      title: string, name of the item
+ *      description: string, description text under the item title/name
+ *      startIcon: node, icon on left side of item title
+ *      endIcon: node, icon on right side of item title
+ *    ]
+ *    divider: {
+ *      title: string, name of the dividir
+ *      startIcon: node, icon on left side of divider title
+ *      endIcon: node, icon on right side of divider title
+ *    }
+ * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
+ * [inputProps] - object, accepts all InputBase props
+ * [onSelect] - function, returns selected value
+ * [showType] - bool, control displaying items type label if exists, default - false
+ * [disabled] - bool, disable component status, default = false 
+ * [...rest] - any div element properties
+ */
+
+export const AutoComplete = () => {
+  const classes = {
+    inputContainer: 'w-80',
+    menu: 'w-80',
+  }
+
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default</p>
+          <DropdownAutoComplete 
+            classes={classes} 
+            data={sampleDataGroups} 
+            inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }} 
+            showType
+          />
+        </div>
+        <div>
+          <p>Large</p>
+          <DropdownAutoComplete 
+            classes={classes} 
+            data={sampleDataGroups} 
+            size='lg' 
+            inputProps={{ placeholder: 'Search', endIcon: <Search size='lg'/> }} 
+            showType
+          />
         </div>
       </div>
     </>

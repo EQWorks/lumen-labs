@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { Menu } from '@headlessui/react'
 
 import { DropdownBase } from '../base-components'
-import { Chip } from '../'
-import { Close, ValidationCheck, Delete } from '../icons'
+import { TextField } from '..'
 import { useComponentIsActive } from '../hooks'
 
 
@@ -39,33 +38,30 @@ const _contentSize = (size) => {
   return contentSize
 }
 
-const DropdownSelect = ({ 
+const DropdownAutoComplete = ({ 
   classes, 
   data, 
-  button, 
   size, 
   onSelect, 
-  startIcon, 
-  endIcon, 
-  placeholder, 
-  multiSelect, 
+  inputProps, 
   showType, 
-  overflow, 
   disabled, 
   ...rest 
 }) => {
-  const [options, setOptions] = useState([])
+  const [options, setOptions] = useState(data)
   const [selectedOptions, setSelectedOptions] = useState([])
   const [open, setOpen] = useState(false)
+  const [userInput, setUserInput] = useState('')
+  const [filteredOptions, setFilteredOptions] = useState([])
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   
   const contentSize = _contentSize(size)
-  const dropdownSelectClasses = Object.freeze({
+  const dropdownAutoCompleteClasses = Object.freeze({
     listContainer: `capitalize ${classes.listContainer}`,
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
     contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200
       ${contentSize.contentContainer} ${classes.contentContainer}`,
-    contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
+    contentHeader: `w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
     type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
     description: `pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
     dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
@@ -78,8 +74,12 @@ const DropdownSelect = ({
   const dropdownClasses = Object.freeze({
     root: classes.root,
     menu: `${!data.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
-    button: classes.button,
     content: classes.content,
+  })
+
+  const textFieldClasses =  Object.freeze({
+    container: classes.inputContainer,
+    input: `capitalize ${classes.input}`,
   })
 
   useEffect(() => {
@@ -87,11 +87,13 @@ const DropdownSelect = ({
 
     data && data.forEach((el) => {
       el.items.forEach((item) => {
-        initialOptions.push(item)
+        initialOptions.push({ ...item, type: el.type && el.type.title })
       })
     })
+
     setSelectedOptions([])
     setOptions(initialOptions)
+    setFilteredOptions(initialOptions)
   }, [data])
 
   if (!componentIsActive && open) {
@@ -103,47 +105,26 @@ const DropdownSelect = ({
     setOpen(!open)
   }
 
-  const renderSelectedOptions = () => {
-    let render = selectedOptions.title ? (<span className='mr-2.5 text-secondary-800'>{selectedOptions.title}</span>) : <></>
-
-    if (multiSelect && selectedOptions.length) {
-      render = (
-        <>
-          {selectedOptions.map((item, index) => {
-            return (
-              <div key={`chip-${index}`} className={`chip-container-${index} mr-2.5 z-10 ${contentSize.optionSize}`}>
-                <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)}/>}>{item.title}</Chip>
-              </div>
-            )
-          })}
-        </>
-      )
-    }  
-
-    return render
-  }
-
   const renderList = (data) => (
     <>
       {data.map((item, index) => {
         return (
           <div 
             key={`item-container-${index}`} 
-            className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`} 
+            className={`item-container-${index} 
+              ${dropdownAutoCompleteClasses.itemContainer}
+              ${!filteredOptions.some(op => op.title === item.title) && 'hidden'} 
+            `} 
             onClick={() => handleOnClick(index, item)}
           >
             <div 
               className={`content-container-${index}
-                ${dropdownSelectClasses.contentContainer}
-                ${multiSelect ? 
-            selectedOptions.includes(item) && dropdownSelectClasses.selected
-            :
-            selectedOptions === item && dropdownSelectClasses.selected
-          } 
+                ${dropdownAutoCompleteClasses.contentContainer}
+                ${selectedOptions === item && dropdownAutoCompleteClasses.selected} 
               `}
             >
               {renderListItem(item)}
-              {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
+              {item.description && <div className={`description-container-${index} ${dropdownAutoCompleteClasses.description}`}>{item.description}</div>}
             </div>
           </div>
         )
@@ -153,19 +134,12 @@ const DropdownSelect = ({
 
   const renderListItem = (item) => {
     let selected = null
-
-    if (multiSelect && size === 'lg' && selectedOptions.includes(item)) {
-      selected = (
-        <ValidationCheck size='lg'/>
-      )
-    }
-
     return (
-      <div className={dropdownSelectClasses.contentHeader}>
+      <div className={dropdownAutoCompleteClasses.contentHeader}>
         <div className='flex flex-row items-center'>
-          {item.startIcon && <div className={dropdownSelectClasses.startIcon}>{item.startIcon}</div>}
+          {item.startIcon && <div className={dropdownAutoCompleteClasses.startIcon}>{item.startIcon}</div>}
           <span>{item.title || item.type}</span>
-          {item.endIcon && <div className={dropdownSelectClasses.endIcon}>{item.endIcon}</div>}
+          {item.endIcon && <div className={dropdownAutoCompleteClasses.endIcon}>{item.endIcon}</div>}
         </div>
         {selected}
       </div>
@@ -173,64 +147,56 @@ const DropdownSelect = ({
   }
 
   const handleOnClick = (i, value) => {
-    if (multiSelect) {
-      const currOptions = options
-      const filterOptions = []
-
-      if (selectedOptions.includes(value)) {
-        let index = selectedOptions.indexOf(value)
-        if (index !== -1) {
-          selectedOptions.splice(index, 1)
-          currOptions.push(value)
-        }
-      } else {
-        let index = options.indexOf(value)
-        if (index !== -1) {
-          currOptions.splice(index, 1)
-          selectedOptions.push(value)
-        }
-      }
-
-      currOptions.forEach((item) => {
-        filterOptions.push(item)
-      })
-
-      setOptions(filterOptions)
+    if (selectedOptions === value) {
+      setSelectedOptions([])
     } else {
-      if (selectedOptions === value) {
-        setSelectedOptions([])
-      } else {
-        setSelectedOptions(value)
-        onClickSelect()
-      }
+      setSelectedOptions(value)
+      onClickSelect()
     }
+    
     onSelect({ ...value, i })
+    setUserInput(value.title)
+    setFilteredOptions(options)
+  }
+
+  const onChange = (val) => {
+    const filteredSuggestions = options.filter(
+      suggestion =>
+        suggestion.title.toLowerCase().indexOf(val.toLowerCase()) > -1 || 
+        suggestion.type && suggestion.type.toLowerCase().indexOf(val.toLowerCase()) > -1,
+    )
+
+    if (!val || val != selectedOptions.title) {
+      setSelectedOptions([])
+    }
+
+    if (filteredSuggestions.length) {
+      setOpen(true)
+    } else {
+      setOpen(false)
+    }
+    setFilteredOptions(filteredSuggestions)
+    setUserInput(val)
   }
   
-  const onClickClose = (e, value) => {
-    e.stopPropagation()
-    handleOnClick('', value)
-  }
-
-  const onClickDelete = (e) => {
-    e.stopPropagation()
-    setSelectedOptions([])
-  }
+  const autoComplete = (
+    <TextField 
+      classes={textFieldClasses}
+      size={size} 
+      value={userInput}
+      onClick={onClickSelect} 
+      onChange={onChange}
+      inputProps={inputProps} 
+    />
+  )
 
   return (
     <DropdownBase 
       ref={ref}
       classes={dropdownClasses} 
-      renderSelectedOptions={renderSelectedOptions}
-      button={button}
-      onClick={onClickSelect}
       open={open}
       size={size}
-      startIcon={startIcon} 
-      endIcon={!multiSelect && selectedOptions.title ? <Delete size={size} onClick={(e) => onClickDelete(e)}/>: endIcon}
-      placeholder={placeholder}
-      multiSelect={multiSelect} 
-      overflow={overflow}
+      customTrigger={autoComplete}
       disabled={disabled} 
       {...rest}
     >
@@ -240,11 +206,21 @@ const DropdownSelect = ({
             <Menu.Item 
               as="li" 
               key={`list-container-${index}`} 
-              className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
+              className={`list-container-${index} ${dropdownAutoCompleteClasses.listContainer}`}
             >
-              {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
+              {showType && el.type && 
+                <label 
+                  className={`
+                    type-container-${index} ${dropdownAutoCompleteClasses.type}
+                    ${!filteredOptions.some(op => op.type === el.type.title) && 'hidden'}
+                  `} 
+                  htmlFor="span"
+                >
+                  {renderListItem(el.type)}
+                </label>
+              }
               {renderList(el.items)}
-              {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
+              {el.divider && <div className={`divider-container-${index} ${dropdownAutoCompleteClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
             </Menu.Item>
           )
         })}
@@ -253,7 +229,7 @@ const DropdownSelect = ({
   )
 }
 
-DropdownSelect.propTypes = {
+DropdownAutoComplete.propTypes = {
   classes: PropTypes.object,
   data: PropTypes.arrayOf(
     PropTypes.shape({
@@ -277,23 +253,19 @@ DropdownSelect.propTypes = {
       }),
     }),
   ),
-  button: PropTypes.node,
   size: PropTypes.string,
   onSelect: PropTypes.func,
-  startIcon: PropTypes.node,
-  endIcon: PropTypes.node,
-  placeholder: PropTypes.string,
-  multiSelect: PropTypes.bool,
+  inputProps: PropTypes.object,
   showType: PropTypes.bool,
-  overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
 }
 
-DropdownSelect.defaultProps = {
+DropdownAutoComplete.defaultProps = {
   classes: {
     root: '',
     menu: '',
-    button: '',
+    input: '',
+    inputContainer: '',
     content: '',
     listContainer: '',
     itemContainer: '',
@@ -304,18 +276,13 @@ DropdownSelect.defaultProps = {
     dividerContainer: '',
   },
   data: [],
-  button: null,
   size: 'md',
   onSelect: () => {},
-  startIcon: null,
-  endIcon: null,
-  placeholder: 'Select',
-  multiSelect: false,
+  inputProps: {},
   showType: false,
-  overflow: 'horizontal',
   disabled: false,
 }
 
-DropdownSelect.displayName = 'DropdownSelect'
+DropdownAutoComplete.displayName = 'DropdownAutoComplete'
 
-export default DropdownSelect
+export default DropdownAutoComplete

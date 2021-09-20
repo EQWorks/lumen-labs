@@ -45,6 +45,7 @@ const DropdownBase = forwardRef(({
   children, 
   placeholder, 
   multiSelect, 
+  customTrigger,
   overflow,
   disabled,
   ...rest
@@ -102,11 +103,13 @@ const DropdownBase = forwardRef(({
   return (
     <div ref={ref} className={containerClasses.root} {...rest}>
       <Menu>
-        <Menu.Button as="div">
-          <div className={`${button ? 'button-container' : dropdownClasses.button}`} onClick={onClick}>
-            {button ? button : _button}
-          </div>
-        </Menu.Button>
+        {customTrigger ||
+          <Menu.Button as="div">
+            <div className={`${button ? 'button-container' : dropdownClasses.button}`} onClick={onClick}>
+              {button ? button : _button}
+            </div>
+          </Menu.Button>
+        }
         {open && (
           <Menu.Items static className={containerClasses.menu}>
             {children}
@@ -134,6 +137,7 @@ DropdownBase.propTypes = {
   endIcon: PropTypes.node,
   placeholder: PropTypes.string,
   multiSelect: PropTypes.bool,
+  customTrigger: PropTypes.node,
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
 }
@@ -153,6 +157,7 @@ DropdownBase.defaultProps = {
   endIcon: null,
   placeholder: 'Select',
   multiSelect: false,
+  customTrigger: null,
   overflow: 'horizontal',
   disabled: false,
 }

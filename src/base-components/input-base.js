@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react'
+import React, { useState, forwardRef, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Delete } from '../icons'
@@ -27,6 +27,8 @@ const InputBase = forwardRef(({
   const baseClasses = _baseClasses()
   const [_value, _setValue] = useState(defaultValue)
   const [_placeholder, _setPlaceholder] = useState(placeholder)
+  
+  const inputRef = useRef(null)
 
   const inputOnChange = (e) => {
     if (value === undefined || value === null) {
@@ -51,16 +53,19 @@ const InputBase = forwardRef(({
     }
   }
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.stopPropagation()
     _setValue('')
+    inputRef.current.focus()
     onChange(`${prefix && prefix}` + '' + `${suffix && suffix}`)
   }
-  
+
   return (
     <div ref={ref} className={`${baseClasses.root} ${classes.root}`} onFocus={handleFocus} onBlur={handleBlur}>
       {startIcon && <div className={classes.startIcon}>{startIcon}</div>}
       {prefix && <span className={classes.prefix}>{prefix}</span>}
       <input
+        ref={inputRef}
         className={`${baseClasses.input} ${classes.input}`}
         value={value || _value}
         onClick={onClick}
@@ -69,8 +74,8 @@ const InputBase = forwardRef(({
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
-      {endIcon && !_value && !deleteButton && <div className={classes.endIcon}>{endIcon}</div>}
-      {_value && deleteButton && 
+      {endIcon && !(value || _value) && <div className={classes.endIcon}>{endIcon}</div>}
+      {deleteButton && (value || _value) &&
         <div className={classes.endIcon} onClick={handleDelete}>
           <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
         </div>

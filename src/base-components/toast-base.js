@@ -16,7 +16,7 @@ const ToastBase = forwardRef(({
 }, ref) => {
   const styles = makeStyles({
     root: {
-      width: `${width}`,
+      width: String(width),
     },
   })
 

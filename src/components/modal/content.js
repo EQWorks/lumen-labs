@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
+
 const Content = forwardRef(({ classes, children, ...rest }, ref) => {  
   const modalClasses = Object.freeze({
     content: `h-full px-5 my-15px text-sm tracking-sm leading-1.43 overflow-y-auto ${classes.content}`,

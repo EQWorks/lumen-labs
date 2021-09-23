@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { Close } from '../../icons'
 
+
 const Header = forwardRef(({ classes, children, close, ...rest }, ref) => {  
   const modalClasses = Object.freeze({
     header: `p-5 flex justify-between border-b ${classes.header}`,

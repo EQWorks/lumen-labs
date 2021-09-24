@@ -47,7 +47,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1)
 
     setPager(_pager)
-    onChangePage(pageOfItems, _pager.currentPage)
+    onChangePage(pageOfItems, _pager)
   }
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {
@@ -121,7 +121,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
       <ArrowUpDown size='sm'/>
     </div>
   )
-  console.log(pager)
+
   return (
     <>
       {pager.pages &&     

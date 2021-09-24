@@ -105,21 +105,24 @@ export const Normal = () => {
   return (
     <>
       <Modal 
-        classes={modalClasses} 
         size={size} 
         open={isOpen} 
         closeModal={onClose} 
-        footerContent={footerContent} 
-        title={`Modal size - ${size.toUpperCase()}`}
       >
-        <div className='flex flex-col'>
+        <Modal.Header>
+          Modal size - {size.toUpperCase()}
+        </Modal.Header>
+        <Modal.Content>
           <TextField
             size='md'
             inputProps={{ ...inputProps, prefix: 'https://', suffix: '.com' }}
             label='Email'
           />
           <span className='mt-2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
-        </div>
+        </Modal.Content>
+        <Modal.Footer classes={modalClasses}>
+          {footerContent}
+        </Modal.Footer>
       </Modal>
       <div className='flex flex-row'>
         <div className='mx-5'>

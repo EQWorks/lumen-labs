@@ -42,7 +42,8 @@ const DropdownAutoComplete = ({
   classes, 
   data, 
   size, 
-  onSelect, 
+  onSelect,
+  onDelete, 
   inputProps, 
   showType, 
   disabled, 
@@ -175,8 +176,18 @@ const DropdownAutoComplete = ({
     } else {
       setOpen(false)
     }
+
+    if (val) {
+      setOpen(true)
+      setComponentIsActive(true)
+    }
+
     setFilteredOptions(filteredSuggestions)
     setUserInput(val)
+  }
+
+  const onClickDelete = (e) => {
+    onDelete(e)
   }
   
   const autoComplete = (
@@ -186,6 +197,7 @@ const DropdownAutoComplete = ({
       value={userInput}
       onClick={onClickSelect} 
       onChange={onChange}
+      onDelete={onClickDelete}
       inputProps={inputProps} 
     />
   )
@@ -255,6 +267,7 @@ DropdownAutoComplete.propTypes = {
   ),
   size: PropTypes.string,
   onSelect: PropTypes.func,
+  onDelete: PropTypes.func,
   inputProps: PropTypes.object,
   showType: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -278,6 +291,7 @@ DropdownAutoComplete.defaultProps = {
   data: [],
   size: 'md',
   onSelect: () => {},
+  onDelete: () => {},
   inputProps: {},
   showType: false,
   disabled: false,

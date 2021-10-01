@@ -64,7 +64,7 @@ const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, inpu
   suffix: 'ml-2.5 text-secondary-600',
 })
 
-const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, deleteButton, onChange, onClick, onSubmit, ...rest }) => {
+const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, deleteButton, onChange, onClick, onDelete, onSubmit, ...rest }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
@@ -106,6 +106,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
           onBlur={handleBlur}
           onChange={handleChange}
           onClick={onClick}
+          onDelete={onDelete}
           size={size}
           deleteButton={deleteButton}
           {...rest}
@@ -133,6 +134,7 @@ TextField.propTypes = {
   deleteButton: PropTypes.bool,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
+  onDelete: PropTypes.func,
   onSubmit: PropTypes.func,
 }
 TextField.defaultProps = {
@@ -149,6 +151,7 @@ TextField.defaultProps = {
   deleteButton: true,
   onChange: () => {},
   onClick: () => {},
+  onDelete: () => {},
   onSubmit: () => {},
 }
 

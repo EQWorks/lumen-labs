@@ -45,6 +45,7 @@ const DropdownSelect = ({
   button, 
   size, 
   onSelect, 
+  onDelete,
   startIcon, 
   endIcon, 
   placeholder, 
@@ -215,6 +216,7 @@ const DropdownSelect = ({
   const onClickDelete = (e) => {
     e.stopPropagation()
     setSelectedOptions([])
+    onDelete(e)
   }
 
   return (
@@ -280,6 +282,7 @@ DropdownSelect.propTypes = {
   button: PropTypes.node,
   size: PropTypes.string,
   onSelect: PropTypes.func,
+  onDelete: PropTypes.func,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
   placeholder: PropTypes.string,
@@ -307,6 +310,7 @@ DropdownSelect.defaultProps = {
   button: null,
   size: 'md',
   onSelect: () => {},
+  onDelete: () => {},
   startIcon: null,
   endIcon: null,
   placeholder: 'Select',

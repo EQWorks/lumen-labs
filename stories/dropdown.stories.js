@@ -271,6 +271,7 @@ export const AutoComplete = () => {
             classes={classes} 
             data={sampleDataGroups} 
             inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }} 
+            onSelect={(val) => console.log(val)}
             showType
           />
         </div>

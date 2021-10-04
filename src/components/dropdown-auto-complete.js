@@ -42,6 +42,7 @@ const DropdownAutoComplete = ({
   classes, 
   data, 
   size, 
+  setSelectedOption,
   onSelect,
   onDelete, 
   inputProps, 
@@ -50,9 +51,9 @@ const DropdownAutoComplete = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState(data)
-  const [selectedOptions, setSelectedOptions] = useState([])
+  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || [])
   const [open, setOpen] = useState(false)
-  const [userInput, setUserInput] = useState('')
+  const [userInput, setUserInput] = useState(setSelectedOption ? setSelectedOption.title : '')
   const [filteredOptions, setFilteredOptions] = useState([])
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   
@@ -92,7 +93,6 @@ const DropdownAutoComplete = ({
       })
     })
 
-    setSelectedOptions([])
     setOptions(initialOptions)
     setFilteredOptions(initialOptions)
   }, [data])
@@ -105,7 +105,7 @@ const DropdownAutoComplete = ({
     setComponentIsActive((state) => !state)
     setOpen(!open)
   }
-
+  
   const renderList = (data) => (
     <>
       {data.map((item, index) => {
@@ -121,7 +121,7 @@ const DropdownAutoComplete = ({
             <div 
               className={`content-container-${index}
                 ${dropdownAutoCompleteClasses.contentContainer}
-                ${selectedOptions === item && dropdownAutoCompleteClasses.selected} 
+                ${selectedOptions.title === item.title && dropdownAutoCompleteClasses.selected} 
               `}
             >
               {renderListItem(item)}
@@ -266,6 +266,9 @@ DropdownAutoComplete.propTypes = {
     }),
   ),
   size: PropTypes.string,
+  setSelectedOption: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+  }),
   onSelect: PropTypes.func,
   onDelete: PropTypes.func,
   inputProps: PropTypes.object,

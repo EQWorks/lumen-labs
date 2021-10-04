@@ -44,6 +44,7 @@ const DropdownSelect = ({
   data, 
   button, 
   size, 
+  setSelectedOption,
   onSelect, 
   onDelete,
   startIcon, 
@@ -56,7 +57,7 @@ const DropdownSelect = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
-  const [selectedOptions, setSelectedOptions] = useState([])
+  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || [])
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   
@@ -281,6 +282,10 @@ DropdownSelect.propTypes = {
   ),
   button: PropTypes.node,
   size: PropTypes.string,
+  setSelectedOption: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   onSelect: PropTypes.func,
   onDelete: PropTypes.func,
   startIcon: PropTypes.node,

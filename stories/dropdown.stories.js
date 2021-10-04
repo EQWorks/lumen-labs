@@ -104,8 +104,10 @@ export const Base = () => {
  *    }
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
+ * [setSelectedOption] - array (multiSelect) / object (single), set initial selected option
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value
+ * [onDelete] - function, callback function on delete selected value
  * [startIcon] - node, icon on left side of select container
  * [endIcon] - node, icon on right side of select container
  * [multiSelect] - bool, control component multiple selection feature, default = false
@@ -249,8 +251,10 @@ export const MultiSelect = () => {
  *      endIcon: node, icon on right side of divider title
  *    }
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
+ * [setSelectedOption] - object, set initial selected option
  * [inputProps] - object, accepts all InputBase props
  * [onSelect] - function, returns selected value
+ * [onDelete] - function, callback function on delete selected value
  * [showType] - bool, control displaying items type label if exists, default - false
  * [disabled] - bool, disable component status, default = false 
  * [...rest] - any div element properties

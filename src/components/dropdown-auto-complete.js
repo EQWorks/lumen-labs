@@ -42,16 +42,18 @@ const DropdownAutoComplete = ({
   classes, 
   data, 
   size, 
-  onSelect, 
+  setSelectedOption,
+  onSelect,
+  onDelete, 
   inputProps, 
   showType, 
   disabled, 
   ...rest 
 }) => {
   const [options, setOptions] = useState(data)
-  const [selectedOptions, setSelectedOptions] = useState([])
+  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || [])
   const [open, setOpen] = useState(false)
-  const [userInput, setUserInput] = useState('')
+  const [userInput, setUserInput] = useState(setSelectedOption ? setSelectedOption.title : '')
   const [filteredOptions, setFilteredOptions] = useState([])
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   
@@ -91,7 +93,6 @@ const DropdownAutoComplete = ({
       })
     })
 
-    setSelectedOptions([])
     setOptions(initialOptions)
     setFilteredOptions(initialOptions)
   }, [data])
@@ -120,7 +121,7 @@ const DropdownAutoComplete = ({
             <div 
               className={`content-container-${index}
                 ${dropdownAutoCompleteClasses.contentContainer}
-                ${selectedOptions === item && dropdownAutoCompleteClasses.selected} 
+                ${selectedOptions.title === item.title && dropdownAutoCompleteClasses.selected} 
               `}
             >
               {renderListItem(item)}
@@ -175,8 +176,18 @@ const DropdownAutoComplete = ({
     } else {
       setOpen(false)
     }
+
+    if (val) {
+      setOpen(true)
+      setComponentIsActive(true)
+    }
+
     setFilteredOptions(filteredSuggestions)
     setUserInput(val)
+  }
+
+  const onClickDelete = (e) => {
+    onDelete(e)
   }
   
   const autoComplete = (
@@ -186,6 +197,7 @@ const DropdownAutoComplete = ({
       value={userInput}
       onClick={onClickSelect} 
       onChange={onChange}
+      onDelete={onClickDelete}
       inputProps={inputProps} 
     />
   )
@@ -254,7 +266,11 @@ DropdownAutoComplete.propTypes = {
     }),
   ),
   size: PropTypes.string,
+  setSelectedOption: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+  }),
   onSelect: PropTypes.func,
+  onDelete: PropTypes.func,
   inputProps: PropTypes.object,
   showType: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -278,6 +294,7 @@ DropdownAutoComplete.defaultProps = {
   data: [],
   size: 'md',
   onSelect: () => {},
+  onDelete: () => {},
   inputProps: {},
   showType: false,
   disabled: false,

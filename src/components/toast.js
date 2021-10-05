@@ -21,8 +21,8 @@ const Toast = forwardRef(({
 }, ref) => {
   const size = {
     horizontal : {
-      root: 'w-250px',
-      button: 'ml-2.5 mr-5',
+      root: 'w-auto',
+      button: 'mr-6',
       content: 'flex flex-row items-center',
     },
     vertical: {
@@ -67,7 +67,7 @@ const Toast = forwardRef(({
     root: `p-2.5 text-sm font-bold tracking-sm leading-1.43 rounded-10px 
       ${classes.root && classes.root} ${size[variant].root} ${colorType[type].root}`,
     header: `justify-between ${classes.header && classes.header} ${colorType[type].header}`,
-    title: `${classes.title && classes.title}`,
+    title: `mr-2.5 ${classes.title && classes.title}`,
     button: `cursor-pointer ${classes.button && classes.button} ${size[variant].button} ${colorType[type].icon}`,
     content: `${classes.content && classes.content} ${size[variant].content}`,
     description: `text-xs font-normal tracking-md leading-1.33 

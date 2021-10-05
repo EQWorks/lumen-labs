@@ -16,6 +16,7 @@ const InputBase = forwardRef(({
   placeholder,
   onClick,
   onChange,
+  onDelete,
   startIcon,
   endIcon,
   prefix,
@@ -57,6 +58,7 @@ const InputBase = forwardRef(({
     e.stopPropagation()
     _setValue('')
     inputRef.current.focus()
+    onDelete(e)
     onChange(`${prefix && prefix}` + '' + `${suffix && suffix}`)
   }
 
@@ -91,6 +93,7 @@ InputBase.propTypes = {
   placeholder: PropTypes.string,
   onClick: PropTypes.func,
   onChange: PropTypes.func,
+  onDelete: PropTypes.func,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
   prefix: PropTypes.string,
@@ -105,6 +108,7 @@ InputBase.defaultProps = {
   placeholder: '',
   onClick: () => {},
   onChange: () => {},
+  onDelete: () => {},
   startIcon: null,
   endIcon: null,
   prefix: '',

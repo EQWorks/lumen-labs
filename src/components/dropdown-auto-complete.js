@@ -105,7 +105,7 @@ const DropdownAutoComplete = ({
     setComponentIsActive((state) => !state)
     setOpen(!open)
   }
-  
+
   const renderList = (data) => (
     <>
       {data.map((item, index) => {

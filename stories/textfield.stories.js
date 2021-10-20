@@ -234,6 +234,7 @@ export const Usage = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState()
   const [requiredError, setRequiredError] = useState(false)
+  const [date, setDate] = useState('2021-10-20')
 
   const phoneClasses = {
     container: 'w-40',
@@ -262,10 +263,6 @@ export const Usage = () => {
       <p className={labelClass}>Basic Input:</p>
       <TextField 
         label='First name'
-        value='2021-08-30'
-        type='date'
-        deleteButton={false}
-        required
       /> 
       <TextField 
         label='Last name'
@@ -274,6 +271,14 @@ export const Usage = () => {
         inputProps={{ placeholder: 'your_website', prefix: 'https://', suffix: '.com' }} 
         label='Website URL'
       />
+      <TextField 
+        label='Date'
+        type='date'
+        value={date}
+        onChange={(val) => setDate(val)}
+        deleteButton={false}
+        required
+      /> 
       <p className={labelClass}>Required Input</p>
       <div className='flex flex-row'>
         <TextField

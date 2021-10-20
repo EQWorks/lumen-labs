@@ -179,7 +179,7 @@ const DropdownSelect = ({
       </div>
     )
   }
-  
+
   const handleOnClick = (i, value) => {
     if (multiSelect) {
       const currOptions = options

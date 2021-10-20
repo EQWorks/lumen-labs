@@ -262,6 +262,10 @@ export const Usage = () => {
       <p className={labelClass}>Basic Input:</p>
       <TextField 
         label='First name'
+        value='2021-08-30'
+        type='date'
+        deleteButton={false}
+        required
       /> 
       <TextField 
         label='Last name'

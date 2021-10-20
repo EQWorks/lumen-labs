@@ -51,6 +51,7 @@ const DropdownSelect = ({
   endIcon, 
   placeholder, 
   multiSelect, 
+  limit,
   showType, 
   overflow, 
   disabled, 
@@ -58,6 +59,7 @@ const DropdownSelect = ({
 }) => {
   const [options, setOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || [])
+  const [selectLimit, setSelectLimit] = useState(limit || 0)
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   
@@ -86,13 +88,17 @@ const DropdownSelect = ({
 
   useEffect(() => {
     const initialOptions = []
+    let length = 0
 
     data && data.forEach((el) => {
       el.items.forEach((item) => {
         initialOptions.push(item)
+        length++
       })
     })
+    
     setSelectedOptions([])
+    !limit && setSelectLimit(length)
     setOptions(initialOptions)
   }, [data])
 
@@ -173,7 +179,7 @@ const DropdownSelect = ({
       </div>
     )
   }
-
+  
   const handleOnClick = (i, value) => {
     if (multiSelect) {
       const currOptions = options
@@ -185,7 +191,7 @@ const DropdownSelect = ({
           selectedOptions.splice(index, 1)
           currOptions.push(value)
         }
-      } else {
+      } else if (selectedOptions.length < selectLimit) {
         let index = options.indexOf(value)
         if (index !== -1) {
           currOptions.splice(index, 1)
@@ -198,7 +204,7 @@ const DropdownSelect = ({
       })
 
       setOptions(filterOptions)
-    } else {
+    } else if (!multiSelect) {
       if (selectedOptions === value) {
         setSelectedOptions([])
       } else {
@@ -292,6 +298,7 @@ DropdownSelect.propTypes = {
   endIcon: PropTypes.node,
   placeholder: PropTypes.string,
   multiSelect: PropTypes.bool,
+  limit: PropTypes.number,
   showType: PropTypes.bool,
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,

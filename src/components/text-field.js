@@ -109,6 +109,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
           onDelete={onDelete}
           size={size}
           deleteButton={deleteButton}
+          required={required}
           {...rest}
         />
       </form>

@@ -23,6 +23,7 @@ const InputBase = forwardRef(({
   suffix,
   deleteButton,
   size,
+  required,
   ...rest
 }, ref) => {
   const baseClasses = _baseClasses()
@@ -73,6 +74,7 @@ const InputBase = forwardRef(({
         onClick={onClick}
         onChange={inputOnChange}
         placeholder={_placeholder}
+        required={required}
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
@@ -100,6 +102,7 @@ InputBase.propTypes = {
   suffix: PropTypes.string,
   deleteButton: PropTypes.bool,
   size: PropTypes.string,
+  required: PropTypes.bool,
 }
 InputBase.defaultProps = {
   classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
@@ -115,6 +118,7 @@ InputBase.defaultProps = {
   suffix: '',
   deleteButton: true,
   size: 'md',
+  required: false,
 }
 
 InputBase.displayName = 'InputBase'

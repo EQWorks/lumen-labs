@@ -11,9 +11,8 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
       return (
         <span className={`${classes.iconRoot}`}>
           <Icon className={clsx(`${classes.icon} transition-transform duration-300 ease-in-out origin-center transform`, {
-            '-rotate-180': open.includes(id) && alignIcon === 'start',
-            'rotate-180': open.includes(id) && alignIcon === 'end',
-            'rotate-0': !open.includes(id),
+            'rotate-0': open.includes(id),
+            '-rotate-90': !open.includes(id),
           })} />
         </span>
       )

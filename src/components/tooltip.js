@@ -59,7 +59,7 @@ const Tooltip = ({
   const handleMouseEnter = () => {
     const tooltipEl = tooltipRef.current.getElementsByClassName('tooltip')
     timeOut = setTimeout(() => {
-      tooltipEl.forEach(el => {
+      Array.from(tooltipEl).forEach(el => {
         el.style.visibility = 'visible'
         el.style.opacity = 1
       })
@@ -68,7 +68,7 @@ const Tooltip = ({
 
   const handleMouseLeave = () => {
     const tooltipEl = tooltipRef.current.getElementsByClassName('tooltip')
-    tooltipEl.forEach(el => {
+    Array.from(tooltipEl).forEach(el => {
       el.style.visibility = 'hidden'
       el.style.opacity = 0
     })

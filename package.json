@@ -16,6 +16,7 @@
     "lint": "eslint src stories",
     "lint:watch:fix": "esw --fix --watch src stories",
     "build": "babel src --out-dir dist --copy-files",
+    "watch": "babel src -w --out-dir dist --copy-files",
     "build-storybook": "build-storybook",
     "build-tailwindcss": "npx postcss src/styles/tailwind.css -o src/styles/index.css",
     "build-tailwindcss-prod": "NODE_ENV=production npx postcss src/styles/tailwind.css -o src/styles/index.css",

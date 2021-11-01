@@ -12,7 +12,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      transitionProperty: { height: 'height, background-color, padding, margin' },
+      transitionProperty: {
+        height: 'height, background-color, padding, margin',
+        'max-height': 'max-height',
+      },
       colors: {
         'primary-50': '#eff8fe',
         'primary-100': '#d6e8fd',
@@ -24,7 +27,7 @@ module.exports = {
         'primary-700': '#1b3ea4',
         'primary-800': '#112b84',
         'primary-900': '#0a1d6d',
-  
+
         'secondary-50': '#fefefe',
         'secondary-100': '#f7f7f7',
         'secondary-200': '#f2f2f2',
@@ -44,7 +47,7 @@ module.exports = {
         'neutral-500': '#4a5c8c',
         'neutral-600': '#2c3d74',
         'neutral-700': '#202e63',
-    
+
         'interactive-50': 'rgba(238, 250, 254, 0.87)',
         'interactive-100': '#d5ecfc',
         'interactive-200': '#add6fa',
@@ -89,8 +92,8 @@ module.exports = {
         'info-500': '#666cc6',
         'info-600': '#4a4faa',
         'info-700': '#33378e',
-        
-        
+
+
         success: '#00D308',
         'success-hover': '#00b306',
         'success-light': '#EEF8EE',
@@ -117,19 +120,19 @@ module.exports = {
         '15px': '0.938rem',
         '18px': '1.125rem',
         '42px': '2.625rem',
-        '250px': '15.625rem', 
+        '250px': '15.625rem',
         '300px': '18.75rem',
-        '450px': '28.125rem', 
+        '450px': '28.125rem',
         '500px': '31.25rem',
         '600px': '37.5rem',
         '760px': '47.5rem',
         '1000px': '62.5rem',
       },
-      borderRadius: { 
-        sm: '4px', 
-        md: '0.375rem', 
-        xl: '0.75rem', 
-        '10px': '0.625rem', 
+      borderRadius: {
+        sm: '4px',
+        md: '0.375rem',
+        xl: '0.75rem',
+        '10px': '0.625rem',
       },
       boxShadow: {
         'focused-primary': '0 0 2px 2px rgba(0, 117, 255, 0.25)',
@@ -154,8 +157,8 @@ module.exports = {
         'blue-60': '0px 4px 24px rgba(54, 111, 228, 0.1)',
         'dark-10': '-1px 0 4px 0 rgba(81, 113, 151, 0.1), 1px 0 4px 0 rgba(81, 113, 151, 0.1), 0 -1px 4px 0 rgba(81, 113, 151, 0.1), 0 1px 4px 0 rgba(81, 113, 151, 0.1)',
       },
-      fontSize: { 
-        xxs: ['0.625rem', { lineHeight: '1rem' }], 
+      fontSize: {
+        xxs: ['0.625rem', { lineHeight: '1rem' }],
         '11px': ['0.688rem', { lineHeight: 1.45 }],
       },
       letterSpacing: {
@@ -231,7 +234,7 @@ module.exports = {
       64: '16rem',
       72: '18rem',
       80: '20rem',
-      96: '24rem',      
+      96: '24rem',
     },
     animation: {
       none: 'none',
@@ -1048,7 +1051,7 @@ module.exports = {
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
   plugins: [
-    function({ addUtilities, theme }) {
+    function ({ addUtilities, theme }) {
 
       let newUtilities = {}
       const boxShadowPrefix = '0 0 0 1px'

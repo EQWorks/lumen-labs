@@ -436,13 +436,26 @@ export const CustomButton = () => {
   )
 }
 
+/** -- props (DropdownBase):
+ * [classes] - object, custom styling supported keys:
+ *    root: main container of dropdown component
+ *    button: select button container div
+ *    content: content container element
+ *    menu: dropdown menu/select container div
+ * [data] - array, data json structure to render the item inside the dropdown
+ *    title: string, name of the item
+ * [onSelect] - function, returns selected value
+ * [setSelectedOption] - any, set initial selected option
+ * [...rest] - any div element properties
+ */
+
 export const DropdownCenterSelectedItem = () => {
   const onSelect = (val) => {
     console.log('val: ', val)
   }
   return (
     <>
-      <DropdownAutoCenter data={sampleDataMultiselect[0].items} onSelect={onSelect} setSelectedOption={{title: 'orange'}}/>
+      <DropdownAutoCenter data={sampleDataMultiselect[0].items} onSelect={onSelect} setSelectedOption={{ title: 'orange' }}/>
     </>
   )
 }

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { DialogBase } from '../base-components'
-import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
+import { ArrowLeft, ArrowRight } from '../icons'
 import { DropdownAutoCenter } from '..'
 
 
@@ -15,32 +14,17 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     arrow: `min-h-5 flex justify-center items-center cursor-pointer ${classes.arrow && classes.arrow}`,
     pageItem: `${classes.pageItem && classes.pageItem}` ,
     currentPageColor: `bg-secondary-200 text-secondary-900 ${classes.currentPageColor && classes.currentPageColor}`,
-    dropdownButton: `min-w-10 px-1.5 py-0.5 flex items-center text-interactive-500 cursor-pointer rounded-sm shadow-light-10
-      ${classes.dropdownButton && classes.dropdownButton}`,
-    dropdownMenu: `min-w-10 relative rounded-sm shadow-light-10 bg-secondary-50 ${classes.dropdownMenu && classes.dropdownMenu}`,
-    dropdownItem: `rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm text-secondary-600
-      hover:bg-secondary-50 hover:text-secondary-800 hover:shadow-light-10 hover:shadow-none
-      ${classes.dropdownItem && classes.dropdownItem}`,
-  })
-
-  const dialogClasses = Object.freeze({
-    root: 'min-w-5 min-h-5',
   })
 
   const [pager, setPager] = useState({})
   const [rowsPerPageSize, setRowsPerPageSize] = useState(pageSize)
-  const [open, setOpen] = useState(false)
-  const [active, setActive] = useState(pageSize)
-  const [dropdownOffsetTop, setDropdownOffsetTop] = useState(0)
-  const dropdownRef = useRef(null)
-
   const [dropdownData, setDropdownData] = useState([])
 
   useEffect(() => {
     if (rowsPerPage) {
       const _dropdownData = []
       rowsPerPage.forEach((data) => {
-        _dropdownData.push({title: data})
+        _dropdownData.push({ title: data })
       })
   
       setDropdownData(_dropdownData)
@@ -63,7 +47,6 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
   }
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {
-
     currentPage = currentPage || 1
     pageSize = pageSize || 10
     
@@ -104,35 +87,9 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     }
   }
 
-  const handleSelectRowsOnClick = () => {
-    setOpen(!open)
-  }
-
-  const onSelectRowOptions = (item) => {
-    setOpen(!open)
-    setRowsPerPageSize(item)
-  }
-  
   useEffect(() => {
     setPage((items && items.length) && initialPage)
   }, [items, rowsPerPageSize])
-
-  useEffect(() => {
-    dropdownRef.current && dropdownRef.current.childNodes.forEach((node) => {
-      if (Number(node.innerText) === rowsPerPageSize) {
-        setDropdownOffsetTop(node.offsetTop + node.clientHeight)
-      }
-    })
-  }, [open])
-
-  const dropdown = (
-    <div className={paginationClasses.dropdownButton}>
-      <span className='mr-1'>
-        {rowsPerPageSize}
-      </span>
-      <ArrowUpDown size='sm'/>
-    </div>
-  )
 
   return (
     <>
@@ -197,7 +154,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
         { rowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>
-            <DropdownAutoCenter data={dropdownData} onSelect={(val) => {onSelectRowOptions(Number(val.title))}} setSelectedOption={{title: pageSize}}/>
+            <DropdownAutoCenter data={dropdownData} onSelect={(val) => {setRowsPerPageSize(Number(val.title))}} setSelectedOption={{ title: pageSize }}/>
           </li>
         }
       </ul>}
@@ -212,9 +169,6 @@ Pagination.propTypes = {
     arrow: PropTypes.string,
     pageItem: PropTypes.string,
     currentPageColor: PropTypes.string,
-    dropdownButton: PropTypes.string,
-    dropdownMenu: PropTypes.string,
-    dropdownItem: PropTypes.string,
   }),
   items: PropTypes.array.isRequired,
   onChangePage: PropTypes.func.isRequired,
@@ -233,9 +187,6 @@ Pagination.defaultProps = {
     arrow: '',
     pageItem: '',
     currentPageColor: '',
-    dropdownButton: '',
-    dropdownMenu: '',
-    dropdownItem: '',
   },
   initialPage: 1,
   pageSize: 10,

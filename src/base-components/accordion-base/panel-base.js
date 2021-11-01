@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import { useResizeDetector } from 'react-resize-detector'
 
 
-const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon, CompressIcon, alignIcon, open, setOpen, onChange }, ref) => {
-  const detailsNoHeight = classes.details.split(/\bh-\w+|\bp-\w+|\bpy-\w+/).map((r) => r.trim()).filter((r) => r).join(' ')
+const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon, CompressIcon, alignIcon, open, setOpen, onChange, autoHeight }, ref) => {
+  const detailsNoHeight = classes.details?.split(/\bh-\w+|\bp-\w+|\bpy-\w+/).map((r) => r.trim()).filter((r) => r).join(' ')
   const Icon = open.includes(id) ? ExpandIcon : CompressIcon ? CompressIcon : ExpandIcon
   const renderIcon = () => {
     if (Icon) {
@@ -30,9 +31,15 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
     return [...prev, id]
   })
 
+  const [headerHeight, setHeaderHeight] = useState()
+  const headerRef = useCallback((node) => setHeaderHeight(node?.getBoundingClientRect().height), [])
+  const { height: detailsHeight, ref: detailsRef } = useResizeDetector()
+  const height = useMemo(() => headerHeight + detailsHeight, [headerHeight, detailsHeight])
+
   return (
-    <div ref={ref}>
+    <div ref={ref} style={autoHeight ? { height } : {}} >
       <div
+        ref={headerRef}
         className={clsx(`${classes.header} cursor-pointer flex flex-row`, {
           'justify-between': alignIcon === 'end',
         })}
@@ -42,12 +49,23 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
         <span className='inline-block align-baseline'>{header}</span>
         {alignIcon === 'end' && renderIcon()}
       </div>
-      <div className={clsx('transition-height ease-in-out duration-300 overflow-y-hidden', {
-        [classes.details]: open.includes(id),
-        [`${detailsNoHeight} h-0`]: !open.includes(id),
-      })}>
-        {children}
-      </div>
+      {
+        autoHeight
+          ? <div
+            ref={detailsRef}
+            className={clsx('bg-red-200 transition-max-height ease-in-out duration-300 overflow-y-hidden', {
+              [`${classes.details} max-h-full`]: open.includes(id),
+              [`${classes.details} max-h-0`]: !open.includes(id),
+            })}>
+            {children}
+          </div>
+          : <div className={clsx('transition-height ease-in-out duration-300 overflow-y-hidden', {
+            [classes.details]: open.includes(id),
+            [`${detailsNoHeight} h-0`]: !open.includes(id),
+          })}>
+            {children}
+          </div>
+      }
     </div>
   )
 })
@@ -66,6 +84,7 @@ PanelBase.propTypes = {
   setOpen: PropTypes.func,
   classes: PropTypes.object,
   onChange: PropTypes.func,
+  autoHeight: PropTypes.bool,
 }
 PanelBase.defaultProps = {
   open: [],
@@ -75,6 +94,7 @@ PanelBase.defaultProps = {
   ExpandIcon: null,
   CompressIcon: null,
   alignIcon: 'start',
+  autoHeight: false,
 }
 
 PanelBase.displayName = 'PanelBase'

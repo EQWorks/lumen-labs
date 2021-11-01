@@ -60,6 +60,7 @@
     "clsx": "^1.1.1",
     "goober": "^2.0.39",
     "prop-types": "^15.7.2",
+    "react-resize-detector": "^6.7.6",
     "react-virtualized-auto-sizer": "^1.0.5",
     "react-window": "^1.8.6"
   }

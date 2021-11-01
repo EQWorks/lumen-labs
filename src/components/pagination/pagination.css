@@ -1,7 +1,0 @@
-.pagination .rows-selection:hover {
-  transform: scale(1.05);
-}
-
-.pagination .rows-selection:active {
-  transform: scale(1);
-}

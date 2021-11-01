@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { DropdownBase } from '../src/base-components'
-import { DropdownSelect, DropdownSelectSteps, DropdownAutoComplete, Button } from '../src'
+import { DropdownSelect, DropdownSelectSteps, DropdownAutoComplete, DropdownAutoCenter, Button } from '../src'
 
 import { ArrowDown, Search } from '../src/icons'
 import { 
@@ -432,6 +432,17 @@ export const CustomButton = () => {
   return (
     <>
       <DropdownSelect data={sampleDataGroups} button={button} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType/>
+    </>
+  )
+}
+
+export const DropdownCenterSelectedItem = () => {
+  const onSelect = (val) => {
+    console.log('val: ', val)
+  }
+  return (
+    <>
+      <DropdownAutoCenter data={sampleDataMultiselect[0].items} onSelect={onSelect} setSelectedOption={{title: 'orange'}}/>
     </>
   )
 }

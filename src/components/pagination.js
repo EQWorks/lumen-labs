@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-import { DialogBase } from '../../base-components'
-import { ArrowLeft, ArrowRight, ArrowUpDown } from '../../icons'
-
-import './pagination.css'
+import { DialogBase } from '../base-components'
+import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
+import { DropdownAutoCenter } from '..'
 
 
 const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
@@ -34,6 +33,19 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
   const [active, setActive] = useState(pageSize)
   const [dropdownOffsetTop, setDropdownOffsetTop] = useState(0)
   const dropdownRef = useRef(null)
+
+  const [dropdownData, setDropdownData] = useState([])
+
+  useEffect(() => {
+    if (rowsPerPage) {
+      const _dropdownData = []
+      rowsPerPage.forEach((data) => {
+        _dropdownData.push({title: data})
+      })
+  
+      setDropdownData(_dropdownData)
+    }
+  }, [rowsPerPage])
 
   const setPage = (page) => {
     let _pager = pager
@@ -185,26 +197,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
         { rowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>
-            <DialogBase classes={dialogClasses} open={open} button={dropdown} onClick={handleSelectRowsOnClick}>
-              <ul 
-                ref={el => dropdownRef.current = el} 
-                className={paginationClasses.dropdownMenu}
-                style={{ top: `-${dropdownOffsetTop}px` }}
-              >
-                {rowsPerPage.map((item, index) => {
-                  return (
-                    <li 
-                      key={index} 
-                      className={`${paginationClasses.dropdownItem} ${item === active && 'text-interactive-500'}`} 
-                      onClick={() => onSelectRowOptions(item)}
-                      onPointerDown={() => setActive(item)}
-                    >
-                      {item}
-                    </li>
-                  )
-                })}
-              </ul>
-            </DialogBase>
+            <DropdownAutoCenter data={dropdownData} onSelect={(val) => {onSelectRowOptions(Number(val.title))}} setSelectedOption={{title: pageSize}}/>
           </li>
         }
       </ul>}

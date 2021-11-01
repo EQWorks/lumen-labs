@@ -1,7 +1,6 @@
 import React, { forwardRef, useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { DialogBase } from '../../base-components'
-import { ArrowUpDown } from '../../icons'
 
 import './dropdown-auto-center.css'
 
@@ -11,6 +10,10 @@ const DropdownAutoCenter = forwardRef(({
   data,
   onSelect,
   setSelectedOption,
+  startIcon,
+  endIcon,
+  scrollable,
+  disabled,
   ...rest
 }, ref) => {
   const dialogClasses = Object.freeze({
@@ -20,7 +23,8 @@ const DropdownAutoCenter = forwardRef(({
   const dropdownClasses = Object.freeze({
     button: `min-w-10 px-1.5 py-0.5 flex items-center text-interactive-500 cursor-pointer rounded-sm shadow-light-10
       ${classes.button && classes.button}`,
-    menu: `min-w-10 relative rounded-sm shadow-light-10 bg-secondary-50 ${classes.menu && classes.menu}`,
+    menu: `min-w-10 overflow-y-auto overflow-x-hidden relative rounded-sm shadow-light-10 bg-secondary-50 
+    ${scrollable && 'h-10'} ${classes.menu && classes.menu}`,
     item: `rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm text-secondary-600
       hover:bg-secondary-50 hover:text-secondary-800 hover:shadow-light-10 hover:shadow-none
       ${classes.item && classes.item}`,
@@ -34,7 +38,21 @@ const DropdownAutoCenter = forwardRef(({
   useEffect(() => {
     dropdownRef.current && dropdownRef.current.childNodes.forEach((node) => {
       if (node.innerText.toString() === active.title.toString().toUpperCase()) {
-        setDropdownOffsetTop(node.offsetTop + node.clientHeight)
+        if (scrollable) {
+          if (active.title === data[0].title) {
+            dropdownRef.current.style.height = `${dropdownRef.current.clientHeight - (dropdownRef.current.clientHeight / 4)}px`
+            setDropdownOffsetTop(node.clientHeight)
+          } else if (active.title === data[data.length - 1].title) {
+            setDropdownOffsetTop(node.clientHeight + (node.clientHeight / 2))
+            dropdownRef.current.style.height = `${dropdownRef.current.clientHeight - (dropdownRef.current.clientHeight / 4)}px`
+            dropdownRef.current.scrollTop = (node.offsetTop)
+          } else {
+            setDropdownOffsetTop(node.clientHeight + node.clientHeight / 2)
+            dropdownRef.current.scrollTop = (node.offsetTop - node.clientHeight / 2)
+          }
+        } else {
+          setDropdownOffsetTop(node.offsetTop + node.clientHeight)
+        }
       }
     })
   }, [open])
@@ -50,14 +68,15 @@ const DropdownAutoCenter = forwardRef(({
 
   const dropdownButton = (
     <div className={dropdownClasses.button}>
-      <span className='mr-1'>{active.title}</span>
-      <ArrowUpDown size='sm'/>
+      {startIcon && startIcon}
+      <span className={`${startIcon && 'ml-1'} ${endIcon && 'mr-1'}`}>{active.title}</span>
+      {endIcon && endIcon}
     </div>
   )
 
   return (
     <>
-      <DialogBase ref={ref} classes={dialogClasses} open={open} button={dropdownButton} onClick={handleSelectRowsOnClick} {...rest}>
+      <DialogBase ref={ref} classes={dialogClasses} open={open} button={dropdownButton} onClick={handleSelectRowsOnClick}  disabled={disabled} {...rest}>
         <ul 
           ref={el => dropdownRef.current = el} 
           className={dropdownClasses.menu}
@@ -95,6 +114,10 @@ DropdownAutoCenter.propTypes = {
   ),
   onSelect: PropTypes.func,
   setSelectedOption: PropTypes.any,
+  startIcon: PropTypes.node,
+  endIcon: PropTypes.node,
+  scrollable: PropTypes.bool,
+  disabled: PropTypes.bool,
 }
 
 DropdownAutoCenter.defaultProps = {
@@ -106,6 +129,10 @@ DropdownAutoCenter.defaultProps = {
   },
   data: [],
   onSelect: () => {},
+  startIcon: null,
+  endIcon: null,
+  scrollable: false,
+  disabled: false,
 }
 
 DropdownAutoCenter.displayName = 'DropdownAutoCenter'

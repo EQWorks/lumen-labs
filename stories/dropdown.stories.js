@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { DropdownBase } from '../src/base-components'
 import { DropdownSelect, DropdownSelectSteps, DropdownAutoComplete, DropdownAutoCenter, Button } from '../src'
 
-import { ArrowDown, Search } from '../src/icons'
+import { ArrowDown, Search, ArrowUpDown } from '../src/icons'
 import { 
   sampleDataBasic, 
   sampleDataGroups, 
@@ -436,7 +436,7 @@ export const CustomButton = () => {
   )
 }
 
-/** -- props (DropdownBase):
+/** -- props (DropdownAutoCenter):
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component
  *    button: select button container div
@@ -446,16 +446,42 @@ export const CustomButton = () => {
  *    title: string, name of the item
  * [onSelect] - function, returns selected value
  * [setSelectedOption] - any, set initial selected option
+ * [startIcon] - node, icon on left side of select container
+ * [endIcon] - node, icon on right side of select container
+ * [scrollable] - bool, controls component y-axis scroll
+ * [disabled] - bool, controls component status, default = false
  * [...rest] - any div element properties
  */
 
 export const DropdownCenterSelectedItem = () => {
-  const onSelect = (val) => {
-    console.log('val: ', val)
-  }
   return (
     <>
-      <DropdownAutoCenter data={sampleDataMultiselect[0].items} onSelect={onSelect} setSelectedOption={{ title: 'orange' }}/>
+      <div className='flex flex-row'>
+        <div>No padding</div>
+        <DropdownAutoCenter 
+          data={sampleDataMultiselect[0].items} 
+          setSelectedOption={{ title: 'orange' }}
+          endIcon={<ArrowUpDown size='sm'/>}
+          scrollable
+        />
+      </div>
+      <div className='flex flex-row p-20'>
+        <div>With padding</div>
+        <DropdownAutoCenter 
+          data={sampleDataMultiselect[0].items} 
+          setSelectedOption={{ title: 'orange' }}
+          endIcon={<ArrowUpDown size='sm'/>}
+          scrollable
+        />
+      </div>
+      <div className='flex flex-row p-20'>
+        <div>With padding no scroll</div>
+        <DropdownAutoCenter 
+          data={sampleDataMultiselect[0].items} 
+          setSelectedOption={{ title: 'orange' }}
+          endIcon={<ArrowUpDown size='sm'/>}
+        />
+      </div>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { ArrowLeft, ArrowRight } from '../icons'
+import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
 import { DropdownAutoCenter } from '..'
 
 
@@ -154,7 +154,12 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
         { rowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>
-            <DropdownAutoCenter data={dropdownData} onSelect={(val) => {setRowsPerPageSize(Number(val.title))}} setSelectedOption={{ title: pageSize }}/>
+            <DropdownAutoCenter 
+              data={dropdownData} 
+              onSelect={(val) => {setRowsPerPageSize(Number(val.title))}} 
+              setSelectedOption={{ title: pageSize }}
+              endIcon={<ArrowUpDown size='sm'/>}
+            />
           </li>
         }
       </ul>}

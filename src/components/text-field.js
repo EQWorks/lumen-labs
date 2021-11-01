@@ -98,7 +98,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
         <p className={textFieldClasses.label}>{label}</p>
         {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
       </div>}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={(e) => onSubmit({ ...e, target: e.target.children[0].children[0] })}>
         <InputBase
           {...inputProps}
           classes={inputBaseClasses}

@@ -6,14 +6,14 @@ import { useResizeDetector } from 'react-resize-detector'
 
 const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon, CompressIcon, alignIcon, open, setOpen, onChange, autoHeight }, ref) => {
   const detailsNoHeight = classes.details?.split(/\bh-\w+|\bp-\w+|\bpy-\w+/).map((r) => r.trim()).filter((r) => r).join(' ')
-  const Icon = open.includes(id) ? ExpandIcon : CompressIcon ? CompressIcon : ExpandIcon
+  const Icon = open.includes(id) ? ExpandIcon : CompressIcon ?? ExpandIcon
   const renderIcon = () => {
     if (Icon) {
       return (
         <span className={`${classes.iconRoot}`}>
           <Icon className={clsx(`${classes.icon} transition-transform duration-300 ease-in-out origin-center transform`, {
             'rotate-0': open.includes(id),
-            '-rotate-90': !open.includes(id),
+            '-rotate-90': !open.includes(id) && !CompressIcon,
           })} />
         </span>
       )

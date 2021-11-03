@@ -2,10 +2,7 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { concatTargetColor } from '../../utils/concat-color'
-
 import SwitchBase from '../../base-components/switch-base'
-
-import './switch-round.css'
 
 
 const SwitchRound = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, color, ...rest }, ref) => {
@@ -14,8 +11,9 @@ const SwitchRound = forwardRef(({ classes, id, checked, onChange, label, disable
   const switchRoundClasses = Object.freeze({
     root: classes.root,
     container: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
-        ${checked ? containerColor : 'bg-secondary-300'} ${classes.container}`,
-    button: `switch-round-button top-px left-px bg-white duration-200 ${classes.button}`,
+      ${disabled ? 'shadow-secondary-400 bg-secondary-100' : `${checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'}`} ${classes.container}`,
+    button: `w-18px h-18px top-0.5 left-0.5 bg-white rounded-full duration-200 
+      ${disabled ? 'bg-secondary-400' : `${checked ? 'bg-secondary-50' : 'bg-secondary-400'}`} ${classes.button}`,
     label: classes.label,
   })
 

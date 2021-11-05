@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import './switch-base.css'
@@ -8,10 +8,10 @@ const SwitchBase = forwardRef(({ classes, id, checked, onChange, label, disabled
   const switchClasses = Object.freeze({
     root: `flex items-center ${classes.root}`,
     container: `relative flex items-center justify-between ${classes.container ? classes.container : 'w-9 h-4 bg-secondary-300'}`,
-    button: `absolute top-0.5 left-0.5 ${classes.button ? classes.button : 'w-4 h-3.5 top-px left-px bg-secondary-800'}`,
+    button: `absolute ${classes.button ? classes.button : 'w-4 h-3.5 top-px left-px bg-secondary-800'}`,
     label: `${classes.label}`,
     checkbox: 'w-0 h-0 hidden',
-    disabled: 'cursor-not-allowed'
+    disabled: 'cursor-not-allowed',
   })
 
   return (
@@ -23,7 +23,7 @@ const SwitchBase = forwardRef(({ classes, id, checked, onChange, label, disabled
         name={id}
         type="checkbox"        
         checked={checked}
-        onChange={onChange}
+        onChange={(e) => {onChange(e)}}
         disabled={disabled}
         {...rest}
       />

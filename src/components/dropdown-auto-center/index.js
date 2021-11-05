@@ -21,13 +21,14 @@ const DropdownAutoCenter = forwardRef(({
   })
 
   const dropdownClasses = Object.freeze({
-    button: `min-w-10 px-1.5 py-0.5 flex items-center text-interactive-500 cursor-pointer rounded-sm shadow-light-10
-      ${classes.button && classes.button}`,
-    menu: `min-w-10 overflow-y-auto overflow-x-hidden relative rounded-sm shadow-light-10 bg-secondary-50 
-    ${scrollable && 'h-10'} ${classes.menu && classes.menu}`,
+    button: `min-w-10 px-1.5 py-0.5 flex items-center justify-between cursor-pointer rounded-sm shadow-light-10 shadow-secondary-200
+      hover:shadow-primary-50 ${classes.button && classes.button} ${disabled ? 'text-secondary-400' : 'text-interactive-500'}`,
+    menu: `min-w-10 overflow-y-auto overflow-x-hidden relative rounded-sm shadow-light-10 bg-secondary-50 shadow-secondary-200
+      hover:shadow-primary-50 ${scrollable && 'h-10'} ${classes.menu && classes.menu}`,
     item: `rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm text-secondary-600
-      hover:bg-secondary-50 hover:text-secondary-800 hover:shadow-light-10 hover:shadow-none
+      hover:bg-secondary-50 hover:text-secondary-800 hover:shadow-light-10
       ${classes.item && classes.item}`,
+    disabled: 'bg-secondary-100 border-secondary-400 cursor-not-allowed pointer-events-none',
   })
 
   const [open, setOpen] = useState(false)
@@ -61,13 +62,13 @@ const DropdownAutoCenter = forwardRef(({
     setOpen(!open)
   }
 
-  const onSelectRowOptions = (item) => {
+  const onSelectRowOptions = (event, item, index) => {
     setOpen(!open)
-    onSelect(item)
+    onSelect(event, { item, index })
   }
 
   const dropdownButton = (
-    <div className={dropdownClasses.button}>
+    <div className={`${dropdownClasses.button} ${disabled && dropdownClasses.disabled}`}>
       {startIcon && startIcon}
       <span className={`${startIcon && 'ml-1'} ${endIcon && 'mr-1'}`}>{active.title}</span>
       {endIcon && endIcon}
@@ -86,8 +87,8 @@ const DropdownAutoCenter = forwardRef(({
             return (
               <li 
                 key={index} 
-                className={`${dropdownClasses.item} ${item.title.toString() === active.title.toString() && 'text-interactive-500'}`} 
-                onClick={() => onSelectRowOptions(item)}
+                className={`${dropdownClasses.item} ${item.title.toString() === active.title.toString() && 'text-interactive-500 shadow-light-10 scale-105'}`} 
+                onClick={(e) => onSelectRowOptions(e, item, index)}
                 onPointerDown={() => setActive(item)}
               >
                 {item.title}

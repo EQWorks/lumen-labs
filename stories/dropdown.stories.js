@@ -493,9 +493,18 @@ export const Disabled = () => {
         <p>Default</p>
         <DropdownSelect endIcon={<ArrowDown size='lg'/>} disabled/>
       </div>
-      <div>
+      <div className='mr-5'>
         <p>Large</p>
         <DropdownSelect size='lg' endIcon={<ArrowDown size='lg'/>} disabled/>
+      </div>
+      <div >
+        <p>Auto Center</p>
+        <DropdownAutoCenter 
+          data={sampleDataMultiselect[0].items} 
+          setSelectedOption={{ title: 'orange' }}
+          endIcon={<ArrowUpDown size='sm'/>}
+          disabled
+        />
       </div>
     </div>
   )

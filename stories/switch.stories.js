@@ -70,7 +70,9 @@ export const Rounded = () => {
     <SwitchRound
       id='round'                        
       checked={checked}
-      onChange={() => setChecked(!checked)}
+      onChange={() => {
+        setChecked(!checked)
+      }}
     />
   )
 }

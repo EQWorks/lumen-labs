@@ -2,10 +2,7 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { concatTargetColor } from '../../utils/concat-color'
-
 import SwitchBase from '../../base-components/switch-base'
-
-import './switch-rect.css'
 
 
 const SwitchRect = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, color , ...rest }, ref) => {
@@ -13,9 +10,10 @@ const SwitchRect = forwardRef(({ classes, id, checked, onChange, label, disabled
 
   const switchRectClasses = Object.freeze({
     root: classes.root,
-    container: `w-10 h-6 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? containerColor : 'bg-secondary-300'} ${classes.container}`,
-    button: `switch-rect-button inset-0.5 left-1 bg-white duration-200 ${classes.button}`,
+    container: `w-6 h-4 cursor-pointer rounded-3px transition ease-in duration-200
+      ${disabled ? 'shadow-secondary-400 bg-secondary-100' : `${checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'}`} ${classes.container}`,
+    button: `h-3 w-5px inset-0.5 bg-white rounded-2px duration-200 
+      ${disabled ? 'bg-secondary-400' : `${checked ? 'bg-secondary-50' : 'bg-secondary-400'}`} ${classes.button}`,
     label: classes.label,
   })
 

@@ -51,13 +51,13 @@ const DropdownAutoComplete = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState(data)
-  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || [])
+  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || {})
   const [open, setOpen] = useState(false)
   const [userInput, setUserInput] = useState(setSelectedOption ? setSelectedOption.title : '')
   const [filteredOptions, setFilteredOptions] = useState([])
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
-  
   const contentSize = _contentSize(size)
+
   const dropdownAutoCompleteClasses = Object.freeze({
     listContainer: `capitalize ${classes.listContainer}`,
     itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
@@ -148,15 +148,16 @@ const DropdownAutoComplete = ({
   }
 
   const handleOnClick = (i, value) => {
-    if (selectedOptions === value) {
+    if (selectedOptions && selectedOptions.title === value.title) {
       setSelectedOptions([])
+      setUserInput('')
     } else {
       setSelectedOptions(value)
+      setUserInput(value.title)
       onClickSelect()
     }
     
     onSelect({ ...value, i })
-    setUserInput(value.title)
     setFilteredOptions(options)
   }
 

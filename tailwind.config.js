@@ -128,11 +128,14 @@ module.exports = {
         '760px': '47.5rem',
         '1000px': '62.5rem',
       },
-      borderRadius: {
-        sm: '4px',
-        md: '0.375rem',
-        xl: '0.75rem',
-        '10px': '0.625rem',
+      borderRadius: { 
+        sm: '4px', 
+        md: '0.375rem', 
+        xl: '0.75rem', 
+        '2px': '2px',
+        '3px': '3px',
+        '10px': '0.625rem', 
+        full: '9999px',
       },
       boxShadow: {
         'focused-primary': '0 0 2px 2px rgba(0, 117, 255, 0.25)',

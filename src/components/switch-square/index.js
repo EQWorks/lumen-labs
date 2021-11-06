@@ -2,10 +2,7 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { concatTargetColor } from '../../utils/concat-color'
-
 import SwitchBase from '../../base-components/switch-base'
-
-import './switch-square.css'
 
 
 const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, color, ...rest }, ref) => {
@@ -14,8 +11,9 @@ const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabl
   const switchSquareClasses = Object.freeze({
     root: classes.root,
     container: `w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
-        ${checked ? containerColor : 'bg-secondary-300'} ${classes.container}`,
-    button: `switch-square-button flex flex-col-reverse items-center w-4 h-4 left-0.5 ${classes.button}`,
+      ${disabled ? 'shadow-secondary-400 bg-secondary-100' : `${checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'}`} ${classes.container}`,
+    button: `absolute switch-square-button flex flex-col items-center w-4 h-4 left-0.5 
+      ${!disabled && `${checked ? 'flex-col bottom-px' : 'flex-col-reverse'}`} ${classes.button}`,
     label: classes.label,
   })
 
@@ -35,12 +33,15 @@ const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabl
         className={`switch-button ${switchSquareClasses.button}`}
       >
         <span 
-          className={`line w-4 bg-white rounded-xl ${disabled && 'switch-disabled-button'}`}
+          className={`line w-4 h-3px bg-white rounded-xl ${disabled && 'bg-secondary-400'}
+            ${checked ? 'mb-2 bg-secondary-50' : 'bg-secondary-400'}
+          `}
           tabIndex={tabIndex}
         />
         <span 
-          className='dot'
-          style={{ borderColor: disabled && '#eaeaea' }}
+          className={`dot w-1 h-1 rounded-2px ${disabled && 'border-secondary-400 bg-secondary-400'}
+            ${checked ? 'w-2 h-px bg-secondary-50' : 'mb-1 border border-secondary-400'} 
+          `}
           tabIndex={tabIndex}
         />
       </div>

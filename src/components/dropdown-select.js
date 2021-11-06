@@ -97,7 +97,6 @@ const DropdownSelect = ({
       })
     })
     
-    setSelectedOptions([])
     !limit && setSelectLimit(length)
     setOptions(initialOptions)
   }, [data])
@@ -144,9 +143,9 @@ const DropdownSelect = ({
               className={`content-container-${index}
                 ${dropdownSelectClasses.contentContainer}
                 ${multiSelect ? 
-            selectedOptions.includes(item) && dropdownSelectClasses.selected
+            setSelectedOption && selectedOptions.includes(item) && dropdownSelectClasses.selected
             :
-            selectedOptions === item && dropdownSelectClasses.selected
+            setSelectedOption && selectedOptions.title === item.title && dropdownSelectClasses.selected
           } 
               `}
             >
@@ -205,7 +204,7 @@ const DropdownSelect = ({
 
       setOptions(filterOptions)
     } else if (!multiSelect) {
-      if (selectedOptions === value) {
+      if (selectedOptions.title === value.title) {
         setSelectedOptions([])
       } else {
         setSelectedOptions(value)

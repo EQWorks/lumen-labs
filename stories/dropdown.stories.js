@@ -29,6 +29,7 @@ export default {
  *    button: select button container div
  *    content: content container element
  *    menu: dropdown menu/select container div
+ *    selectedOptionTitle: text inside selected content element
  * [renderSelectedOptions] - function, to render selected options views/value
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [onClick] - function, onClick trigger for select/dropdown menu
@@ -85,6 +86,7 @@ export const Base = () => {
  *    description: description container inside a contentContainer div
  *    type: type container inside a listContainer div 
  *    dividerContainer: divider container inside a listContainer div
+ *    selectedOptionTitle: text inside selected content element
  * [data] - array, data json structure to render the item inside the dropdown
  *    type: { object, defines the type/category of each item under it.
  *      title: string, name of the type/category
@@ -233,6 +235,7 @@ export const MultiSelect = () => {
  *    description: description container inside a contentContainer div
  *    type: type container inside a listContainer div 
  *    dividerContainer: divider container inside a listContainer div
+ *    selectedOptionTitle: text inside selected content element
  * [data] - array, data json structure to render the item inside the dropdown
  *    type: { object, defines the type/category of each item under it.
  *      title: string, name of the type/category
@@ -305,6 +308,7 @@ export const AutoComplete = () => {
  *    contentHeader: header container inside a contentContainer div
  *    type: type container inside a listContainer div 
  *    dividerContainer: divider container inside a listContainer div
+ *    selectedOptionTitle: text inside selected content element
  * [data] - array, data json structure to render the item inside the dropdown
  *    type: string, defines the type/category of each item under it.
  *    title: string, name of the type/category
@@ -442,6 +446,7 @@ export const CustomButton = () => {
  *    button: select button container div
  *    content: content container element
  *    menu: dropdown menu/select container div
+ *    selectedOptionTitle: text inside selected content element
  * [data] - array, data json structure to render the item inside the dropdown
  *    title: string, name of the item
  * [onSelect] - function, returns selected value

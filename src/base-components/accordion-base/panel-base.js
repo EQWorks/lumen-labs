@@ -49,23 +49,16 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
         <span className='inline-block align-baseline'>{header}</span>
         {alignIcon === 'end' && renderIcon()}
       </div>
-      {
-        autoHeight
-          ? <div
-            ref={detailsRef}
-            className={clsx('bg-red-200 transition-max-height ease-in-out duration-300 overflow-y-hidden', {
-              [`${classes.details} max-h-full`]: open.includes(id),
-              [`${classes.details} max-h-0`]: !open.includes(id),
-            })}>
-            {children}
-          </div>
-          : <div className={clsx('transition-height ease-in-out duration-300 overflow-y-hidden', {
-            [classes.details]: open.includes(id),
-            [`${detailsNoHeight} h-0`]: !open.includes(id),
-          })}>
-            {children}
-          </div>
-      }
+      <div
+        ref={autoHeight ? detailsRef : null}
+        className={clsx('transition-max-height ease-in-out duration-300 overflow-y-hidden', {
+          [`${classes.details} max-h-full`]: autoHeight && open.includes(id),
+          [`${classes.details} max-h-0`]: autoHeight && !open.includes(id),
+          [classes.details]: !autoHeight && open.includes(id),
+          [`${detailsNoHeight} h-0`]: !autoHeight && !open.includes(id),
+        })}>
+        {children}
+      </div>
     </div>
   )
 })

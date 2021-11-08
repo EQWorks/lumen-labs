@@ -63,7 +63,11 @@ const DropdownSelect = ({
   const [selectLimit, setSelectLimit] = useState(limit || 0)
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
-  
+
+  useEffect(() => {
+    setSelectedOptions(setSelectedOption || [])
+  }, [setSelectedOption])
+
   const contentSize = _contentSize(size)
   const dropdownSelectClasses = Object.freeze({
     listContainer: `capitalize ${classes.listContainer}`,

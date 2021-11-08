@@ -143,9 +143,9 @@ const DropdownSelect = ({
               className={`content-container-${index}
                 ${dropdownSelectClasses.contentContainer}
                 ${multiSelect ? 
-            setSelectedOption && selectedOptions.includes(item) && dropdownSelectClasses.selected
+            selectedOptions && selectedOptions.includes(item) && dropdownSelectClasses.selected
             :
-            setSelectedOption && selectedOptions.title === item.title && dropdownSelectClasses.selected
+            selectedOptions && selectedOptions.title === item.title && dropdownSelectClasses.selected
           } 
               `}
             >

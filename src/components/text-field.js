@@ -47,9 +47,10 @@ const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, inpu
     { 'border-interactive-500 bg-secondary-50': filled },
     { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
   ),
-  input: clsx(`outline-none text-secondary-800 ${input && input}`, 
+  input: clsx(`outline-none ${input && input}`, 
     { 'bg-secondary-50': filled },
-    { 'bg-secondary-100 placeholder-secondary-400': disabled },
+    { 'text-secondary-800': !disabled },
+    { 'bg-secondary-100 text-secondary-400 placeholder-secondary-400': disabled },
   ),
   startIcon: clsx('mt-0.5 mr-4 fill-current stroke-current', { 'text-secondary-600': !disabled }),
   endIcon: clsx('mt-0.5 ml-4 fill-current stroke-current',
@@ -108,7 +109,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
           onClick={onClick}
           onDelete={onDelete}
           size={size}
-          deleteButton={deleteButton}
+          deleteButton={!disabled && deleteButton}
           required={required}
           {...rest}
         />

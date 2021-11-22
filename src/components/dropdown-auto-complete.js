@@ -200,6 +200,7 @@ const DropdownAutoComplete = ({
       onChange={onChange}
       onDelete={onClickDelete}
       inputProps={inputProps} 
+      disabled={disabled}
     />
   )
 

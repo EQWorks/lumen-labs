@@ -497,7 +497,16 @@ export const Disabled = () => {
         <p>Large</p>
         <DropdownSelect size='lg' endIcon={<ArrowDown size='lg'/>} disabled/>
       </div>
-      <div >
+      <div className='mr-5'>
+        <p>Auto Complete</p>
+        <DropdownAutoComplete 
+          data={sampleDataGroups} 
+          inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }} 
+          showType
+          disabled
+        />
+      </div>
+      <div>
         <p>Auto Center</p>
         <DropdownAutoCenter 
           data={sampleDataMultiselect[0].items} 

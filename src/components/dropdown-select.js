@@ -158,7 +158,7 @@ const DropdownSelect = ({
   const renderListItem = (item) => {
     let selected = null
 
-    if (multiSelect && size === 'lg' && selectedOptions.includes(item)) {
+    if (multiSelect && size === 'lg' && selectedOptions.some(({ title }) => title === item.title)) {
       selected = (
         <ValidationCheck size='lg'/>
       )
@@ -181,14 +181,14 @@ const DropdownSelect = ({
       const currOptions = options
       const filterOptions = []
 
-      if (selectedOptions.includes(value)) {
-        let index = selectedOptions.indexOf(value)
+      if (selectedOptions.some(({ title }) => title === value.title)) {
+        let index = selectedOptions.map(({ title }) => title).indexOf(value.title)
         if (index !== -1) {
           selectedOptions.splice(index, 1)
           currOptions.push(value)
         }
       } else if (selectedOptions.length < selectLimit) {
-        let index = options.indexOf(value)
+        let index = options.map(({ title }) => title).indexOf(value.title)
         if (index !== -1) {
           currOptions.splice(index, 1)
           selectedOptions.push(value)

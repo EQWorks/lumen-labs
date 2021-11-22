@@ -6,6 +6,7 @@ import { DropdownBase } from '../base-components'
 import { Chip } from '../'
 import { Close, ValidationCheck, Delete } from '../icons'
 import { useComponentIsActive } from '../hooks'
+import clsx from 'clsx'
 
 
 const _contentSize = (size) => {
@@ -147,14 +148,10 @@ const DropdownSelect = ({
         onClick={() => handleOnClick(index, item)}
       >
         <div
-          className={`content-container-${index}
-                ${dropdownSelectClasses.contentContainer}
-                ${multiSelect ? 
-      selectedOptions && selectedOptions.includes(item) && dropdownSelectClasses.selected
-      :
-      selectedOptions && selectedOptions.title === item.title && dropdownSelectClasses.selected
-    } 
-              `}
+          className={clsx(`content-container-${index} ${dropdownSelectClasses.contentContainer}`, {
+            [dropdownSelectClasses.selected]: (multiSelect && selectedOptions.some(({ title }) => title === item.title)) || selectedOptions.title === item.title,
+          },
+          )}
         >
           {renderListItem(item)}
           {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}

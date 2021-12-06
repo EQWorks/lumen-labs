@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { ToastBase } from '../base-components'
@@ -17,6 +17,8 @@ const Toast = forwardRef(({
   description,
   button,
   icon,
+  timeOut,
+  onTimeOut,
   ...rest
 }, ref) => {
   const size = {
@@ -76,22 +78,42 @@ const Toast = forwardRef(({
     endIcon: `cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
   })
 
+  const [popUp, setPopUp] = useState(true)
+
+  useEffect(() => {
+    if (timeOut > 0) {
+      popUp && setTimeout(() => {
+        onTimeOut()
+        setPopUp(false)
+      }, timeOut)
+    }
+  })
+
+  const handleOnClose = () => {
+    onClose()
+    setPopUp(false)
+  }
+
   const _button = <div className={toastClasses.button}>{button}</div>
 
   return (
-    <div className='inline-flex shadow-light-40'>
-      <ToastBase
-        ref={ref}
-        classes={toastClasses}
-        variant={variant}
-        title={title} 
-        description={description}
-        button={button && _button}
-        startIcon={icon} 
-        endIcon={<Close size='sm' onClick={onClose}/>} 
-        {...rest}
-      />
-    </div>
+    <>
+      { popUp &&
+        <div className='inline-flex shadow-light-40'>
+          <ToastBase
+            ref={ref}
+            classes={toastClasses}
+            variant={variant}
+            title={title} 
+            description={description}
+            button={button && _button}
+            startIcon={icon} 
+            endIcon={<Close size='sm' onClick={handleOnClose}/>} 
+            {...rest}
+          />
+        </div>
+      }
+    </>
   )
 })
 
@@ -105,6 +127,8 @@ Toast.propTypes = {
   description: PropTypes.string,
   button: PropTypes.node,
   icon: PropTypes.node,
+  timeOut: PropTypes.number,
+  onTimeOut: PropTypes.func,
 }
 
 Toast.defaultProps = {
@@ -124,6 +148,8 @@ Toast.defaultProps = {
   description: '',
   button: null,
   icon: null,
+  timeOut: 0,
+  onTimeOut: () => {},
 }
 
 Toast.displayName = 'Toast'

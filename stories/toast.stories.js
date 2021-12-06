@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { ToastBase } from '../src/base-components'
 import { Toast, Button } from '../src'
@@ -80,6 +80,8 @@ export const Base = () => {
  * [description] - string, description text under the title/name
  * [button] - node, custom onClick element
  * [icon] - node, icon on left side of title
+ * [timeOut] - number, toast pop up timer 
+ * [onTimeOut] - func, on call when toast timer is finished
  * [...rest] - any div element properties
  */
 
@@ -260,12 +262,6 @@ export const Usage = () => {
   const buttonP = <Button variant='elevated' size='sm' type='success'>action</Button>
   const buttonV = <button className='mr-2.5 underline focus:outline-none'>Query Lab Documentation</button>
 
-  useEffect(() => {
-    popUp && setTimeout(() => {
-      setPopUp(false)
-    }, 10000)
-  },[popUp])
-
   return (
     <>
       <p className={labelClass}>Small/Horizontal toast - undo action</p>
@@ -297,6 +293,8 @@ export const Usage = () => {
           button={buttonP}
           icon={<CheckBadge size='lg'/>} 
           onClose={() => setPopUp(false)}
+          timeOut={5000}
+          onTimeOut={() => setPopUp(false)}
         />
       }
     </>

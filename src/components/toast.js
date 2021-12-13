@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react'
+import React, { forwardRef, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { ToastBase } from '../base-components'
@@ -10,6 +10,8 @@ import { concatTargetColor } from '../utils/concat-color'
 const Toast = forwardRef(({
   classes,
   variant,
+  display,
+  setDisplay,
   onClose,
   type,
   color,
@@ -78,41 +80,61 @@ const Toast = forwardRef(({
     endIcon: `cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
   })
 
-  const [popUp, setPopUp] = useState(true)
-
+  const toastRef = useRef(null)
+  let timer = ''
+  
   useEffect(() => {
     if (timeOut > 0) {
-      popUp && setTimeout(() => {
-        onTimeOut()
-        setPopUp(false)
-      }, timeOut)
+      const toastEl = toastRef.current
+      let fade = ''
+      
+      display && (timer = setTimeout(() => {
+        if (onTimeOut) onTimeOut()
+        setDisplay(false)
+      }, timeOut))
+
+      if (toastEl && display) {
+        fade = setTimeout(() => {
+          toastEl.style.visibility = 'visible'
+          toastEl.style.opacity = 1
+        }, 500)
+      } else if (toastEl && !display) {
+        setTimeout(() => {
+          toastEl.style.visibility = 'hidden'
+          toastEl.style.opacity = 0
+        }, 500)
+
+        if (fade) clearTimeout(fade)
+      }
     }
-  })
+  }, [display])
 
   const handleOnClose = () => {
     onClose()
-    setPopUp(false)
+    setDisplay(false)
+    if (timer) clearTimeout(timer)
   }
 
   const _button = <div className={toastClasses.button}>{button}</div>
 
   return (
     <>
-      { popUp &&
-        <div className='inline-flex shadow-light-40'>
-          <ToastBase
-            ref={ref}
-            classes={toastClasses}
-            variant={variant}
-            title={title} 
-            description={description}
-            button={button && _button}
-            startIcon={icon} 
-            endIcon={<Close size='sm' onClick={handleOnClose}/>} 
-            {...rest}
-          />
-        </div>
-      }
+      <div 
+        ref={toastRef}
+        className={`inline-flex shadow-light-40 ${timeOut > 0 && 'invisible opacity-0 transition-all duration-500'}`}
+      >
+        <ToastBase
+          ref={ref}
+          classes={toastClasses}
+          variant={variant}
+          title={title} 
+          description={description}
+          button={button && _button}
+          startIcon={icon} 
+          endIcon={<Close size='sm' onClick={handleOnClose}/>} 
+          {...rest}
+        />
+      </div>
     </>
   )
 })
@@ -120,6 +142,8 @@ const Toast = forwardRef(({
 Toast.propTypes = {
   classes: PropTypes.object,
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
+  display: PropTypes.bool,
+  setDisplay: PropTypes.func,
   onClose: PropTypes.func,
   type: PropTypes.oneOf(['light', 'dark', 'semantic-light', 'semantic-dark']),
   color: PropTypes.string,
@@ -141,6 +165,8 @@ Toast.defaultProps = {
     icon: '', 
   },
   variant: 'horizontal',
+  display: true,
+  setDisplay: () => {},
   onClose: () => {},
   type: 'light',
   color: 'info',

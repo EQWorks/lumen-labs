@@ -73,6 +73,8 @@ export const Base = () => {
  *    description: description container div
  *    icon: icon container div
  * [variant] - string, control component display format - supported values ['horizontal', 'vertical'], default = 'horizontal'
+ * [display] - bool, if true component  will be displayed - default = true
+ * [setDisplay] - function, controls component display
  * [onClose] - function, on call when close button is clicked
  * [type] - string, control component styling type - supported values ['light', 'dark', 'semantic-light', 'semantic-dark'], default = 'light'
  * [color] - string, control component color styling
@@ -285,18 +287,16 @@ export const Usage = () => {
       <div className='mb-2'>
         <Button variant='outlined' size='lg' onClick={() => setPopUp(true)}>Click me</Button>
       </div>
-      { popUp &&
-        <Toast
-          type='semantic-light'
-          color='success'
-          title='Pop-up Success' 
-          button={buttonP}
-          icon={<CheckBadge size='lg'/>} 
-          onClose={() => setPopUp(false)}
-          timeOut={5000}
-          onTimeOut={() => setPopUp(false)}
-        />
-      }
+      <Toast
+        type='semantic-light'
+        color='success'
+        title='Pop-up Success' 
+        button={buttonP}
+        icon={<CheckBadge size='lg'/>} 
+        display={popUp}
+        setDisplay={setPopUp}
+        timeOut={10000}
+      />
     </>
   )
 }

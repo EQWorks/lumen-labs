@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { ToastBase } from '../src/base-components'
 import { Toast, Button } from '../src'
@@ -73,6 +73,7 @@ export const Base = () => {
  *    description: description container div
  *    icon: icon container div
  * [variant] - string, control component display format - supported values ['horizontal', 'vertical'], default = 'horizontal'
+ * [open] - bool, if true component  will be displayed - default = true
  * [onClose] - function, on call when close button is clicked
  * [type] - string, control component styling type - supported values ['light', 'dark', 'semantic-light', 'semantic-dark'], default = 'light'
  * [color] - string, control component color styling
@@ -80,6 +81,8 @@ export const Base = () => {
  * [description] - string, description text under the title/name
  * [button] - node, custom onClick element
  * [icon] - node, icon on left side of title
+ * [timeOut] - number, toast pop up timer 
+ * [onTimeOut] - func, on call when toast timer is finished
  * [...rest] - any div element properties
  */
 
@@ -260,12 +263,6 @@ export const Usage = () => {
   const buttonP = <Button variant='elevated' size='sm' type='success'>action</Button>
   const buttonV = <button className='mr-2.5 underline focus:outline-none'>Query Lab Documentation</button>
 
-  useEffect(() => {
-    popUp && setTimeout(() => {
-      setPopUp(false)
-    }, 10000)
-  },[popUp])
-
   return (
     <>
       <p className={labelClass}>Small/Horizontal toast - undo action</p>
@@ -289,16 +286,16 @@ export const Usage = () => {
       <div className='mb-2'>
         <Button variant='outlined' size='lg' onClick={() => setPopUp(true)}>Click me</Button>
       </div>
-      { popUp &&
-        <Toast
-          type='semantic-light'
-          color='success'
-          title='Pop-up Success' 
-          button={buttonP}
-          icon={<CheckBadge size='lg'/>} 
-          onClose={() => setPopUp(false)}
-        />
-      }
+      <Toast
+        type='semantic-light'
+        color='success'
+        title='Pop-up Success' 
+        button={buttonP}
+        icon={<CheckBadge size='lg'/>} 
+        open={popUp}
+        onClose={() => setPopUp(false)}
+        timeOut={10000}
+      />
     </>
   )
 }

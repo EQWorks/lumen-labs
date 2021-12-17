@@ -73,8 +73,7 @@ export const Base = () => {
  *    description: description container div
  *    icon: icon container div
  * [variant] - string, control component display format - supported values ['horizontal', 'vertical'], default = 'horizontal'
- * [display] - bool, if true component  will be displayed - default = true
- * [setDisplay] - function, controls component display
+ * [open] - bool, if true component  will be displayed - default = true
  * [onClose] - function, on call when close button is clicked
  * [type] - string, control component styling type - supported values ['light', 'dark', 'semantic-light', 'semantic-dark'], default = 'light'
  * [color] - string, control component color styling
@@ -293,8 +292,8 @@ export const Usage = () => {
         title='Pop-up Success' 
         button={buttonP}
         icon={<CheckBadge size='lg'/>} 
-        display={popUp}
-        setDisplay={setPopUp}
+        open={popUp}
+        onClose={() => setPopUp(false)}
         timeOut={10000}
       />
     </>

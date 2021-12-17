@@ -10,8 +10,7 @@ import { concatTargetColor } from '../utils/concat-color'
 const Toast = forwardRef(({
   classes,
   variant,
-  display,
-  setDisplay,
+  open,
   onClose,
   type,
   color,
@@ -82,23 +81,23 @@ const Toast = forwardRef(({
 
   const toastRef = useRef(null)
   let timer = ''
-  
+
   useEffect(() => {
     if (timeOut > 0) {
       const toastEl = toastRef.current
       let fade = ''
       
-      display && (timer = setTimeout(() => {
+      open && (timer = setTimeout(() => {
         if (onTimeOut) onTimeOut()
-        setDisplay(false)
+        onClose()
       }, timeOut))
 
-      if (toastEl && display) {
+      if (toastEl && open) {
         fade = setTimeout(() => {
           toastEl.style.visibility = 'visible'
           toastEl.style.opacity = 1
         }, 500)
-      } else if (toastEl && !display) {
+      } else if (toastEl && !open) {
         setTimeout(() => {
           toastEl.style.visibility = 'hidden'
           toastEl.style.opacity = 0
@@ -107,11 +106,10 @@ const Toast = forwardRef(({
         if (fade) clearTimeout(fade)
       }
     }
-  }, [display])
+  }, [open])
 
   const handleOnClose = () => {
     onClose()
-    setDisplay(false)
     if (timer) clearTimeout(timer)
   }
 
@@ -142,8 +140,7 @@ const Toast = forwardRef(({
 Toast.propTypes = {
   classes: PropTypes.object,
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
-  display: PropTypes.bool,
-  setDisplay: PropTypes.func,
+  open: PropTypes.bool,
   onClose: PropTypes.func,
   type: PropTypes.oneOf(['light', 'dark', 'semantic-light', 'semantic-dark']),
   color: PropTypes.string,
@@ -165,8 +162,7 @@ Toast.defaultProps = {
     icon: '', 
   },
   variant: 'horizontal',
-  display: true,
-  setDisplay: () => {},
+  open: true,
   onClose: () => {},
   type: 'light',
   color: 'info',

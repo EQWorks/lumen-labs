@@ -114,6 +114,7 @@ export const Base = () => {
  * [showType] - bool, control displaying items type label if exists, default - false
  * [overflow] - string, control selected options x & y overflow - supported values ['horizontal', 'vertical'], default = 'horizontal'
  * [disabled] - bool, disable component status, default = false 
+ * [allowClear] - bool, enable clearing button when an option is selected, default = true
  * [...rest] - any div element properties
  */
 
@@ -163,9 +164,13 @@ export const Icons = () => {
           <p>Default</p>
           <DropdownSelect data={sampleDataIcons} endIcon={<ArrowDown size='md'/>} placeholder='Select an option'/>
         </div>
-        <div>
+        <div className='mr-5'>
           <p>Large</p>
           <DropdownSelect data={sampleDataIconsLarge} size='lg' endIcon={<ArrowDown size='lg'/>} placeholder='Select an option'/>
+        </div>
+        <div>
+          <p>Clearing disabled</p>
+          <DropdownSelect data={sampleDataIconsLarge} size='lg' endIcon={<ArrowDown size='lg' />} allowClear={false} placeholder='Select an option' />
         </div>
       </div>
     </>

@@ -55,6 +55,7 @@ const DropdownSelect = ({
   showType, 
   overflow, 
   disabled, 
+  allowClear,
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
@@ -235,7 +236,15 @@ const DropdownSelect = ({
       open={open}
       size={size}
       startIcon={startIcon} 
-      endIcon={!multiSelect && selectedOptions.title ? <Delete size={size} onClick={(e) => onClickDelete(e)}/>: endIcon}
+      endIcon={
+        !multiSelect && selectedOptions.title
+          ? (
+            allowClear
+              ? <Delete size={size} onClick={(e) => onClickDelete(e)} />
+              : null
+          )
+          : endIcon
+      }
       placeholder={placeholder}
       multiSelect={multiSelect} 
       overflow={overflow}
@@ -301,6 +310,7 @@ DropdownSelect.propTypes = {
   showType: PropTypes.bool,
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
+  allowClear: PropTypes.bool,
 }
 
 DropdownSelect.defaultProps = {
@@ -329,6 +339,7 @@ DropdownSelect.defaultProps = {
   showType: false,
   overflow: 'horizontal',
   disabled: false,
+  allowClear: true,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

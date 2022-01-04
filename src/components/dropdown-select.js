@@ -56,6 +56,7 @@ const DropdownSelect = ({
   overflow, 
   disabled, 
   allowClear,
+  simple, 
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
@@ -88,16 +89,23 @@ const DropdownSelect = ({
   })
 
   useEffect(() => {
-    const initialOptions = []
+    let initialOptions = []
     let length = 0
 
-    data && data.forEach((el) => {
-      el.items.forEach((item) => {
-        initialOptions.push(item)
-        length++
-      })
-    })
-    
+    if (data) {
+      if (simple) {
+        initialOptions = data
+        length = data.length
+      } else {
+        data.forEach((el) => {
+          el.items.forEach((item) => {
+            initialOptions.push(item)
+            length++
+          })
+        })
+      }
+    }
+
     !limit && setSelectLimit(length)
     setOptions(initialOptions)
   }, [data])
@@ -132,31 +140,27 @@ const DropdownSelect = ({
   }
 
   const renderList = (data) => (
-    <>
-      {data.map((item, index) => {
-        return (
-          <div 
-            key={`item-container-${index}`} 
-            className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`} 
-            onClick={() => handleOnClick(index, item)}
-          >
-            <div 
-              className={`content-container-${index}
+    data.map((item, index) =>
+      <div
+        key={`item-container-${index}`}
+        className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`}
+        onClick={() => handleOnClick(index, item)}
+      >
+        <div
+          className={`content-container-${index}
                 ${dropdownSelectClasses.contentContainer}
                 ${multiSelect ? 
-            selectedOptions && selectedOptions.includes(item) && dropdownSelectClasses.selected
-            :
-            selectedOptions && selectedOptions.title === item.title && dropdownSelectClasses.selected
-          } 
+      selectedOptions && selectedOptions.includes(item) && dropdownSelectClasses.selected
+      :
+      selectedOptions && selectedOptions.title === item.title && dropdownSelectClasses.selected
+    } 
               `}
-            >
-              {renderListItem(item)}
-              {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
-            </div>
-          </div>
-        )
-      })}
-    </>
+        >
+          {renderListItem(item)}
+          {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
+        </div>
+      </div>,
+    )
   )
 
   const renderListItem = (item) => {
@@ -260,7 +264,11 @@ const DropdownSelect = ({
               className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
             >
               {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
-              {renderList(el.items)}
+              {
+                simple
+                  ? renderListItem(el)
+                  : renderList(el.items)
+              }
               {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
             </Menu.Item>
           )
@@ -272,33 +280,37 @@ const DropdownSelect = ({
 
 DropdownSelect.propTypes = {
   classes: PropTypes.object,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.shape({
-        title: PropTypes.string,
-        startIcon: PropTypes.node,
-        endIcon: PropTypes.node,
-      }),
-      items: PropTypes.arrayOf(
-        PropTypes.shape({
+  data: PropTypes.oneOf([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        type: PropTypes.shape({
           title: PropTypes.string,
-          description: PropTypes.string,
           startIcon: PropTypes.node,
           endIcon: PropTypes.node,
         }),
-      ),
-      divider: PropTypes.shape({
-        title: PropTypes.string,
-        startIcon: PropTypes.node,
-        endIcon: PropTypes.node,
+        items: PropTypes.arrayOf(
+          PropTypes.shape({
+            title: PropTypes.string,
+            description: PropTypes.string,
+            startIcon: PropTypes.node,
+            endIcon: PropTypes.node,
+          }),
+        ),
+        divider: PropTypes.shape({
+          title: PropTypes.string,
+          startIcon: PropTypes.node,
+          endIcon: PropTypes.node,
+        }),
       }),
-    }),
-  ),
+    ),
+  ]),
   button: PropTypes.node,
   size: PropTypes.string,
   setSelectedOption: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
+    PropTypes.string,
   ]),
   onSelect: PropTypes.func,
   onDelete: PropTypes.func,
@@ -311,6 +323,7 @@ DropdownSelect.propTypes = {
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
   allowClear: PropTypes.bool,
+  simple: PropTypes.bool,
 }
 
 DropdownSelect.defaultProps = {
@@ -340,6 +353,7 @@ DropdownSelect.defaultProps = {
   overflow: 'horizontal',
   disabled: false,
   allowClear: true,
+  simple: false,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

@@ -12,6 +12,8 @@ const AddCircle = ({ className, size, ...props }) => (
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
     xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    stroke="currentColor"
     {...props}
   >
     <g transform="matrix(9.4,0,0,9.4,0,0)">

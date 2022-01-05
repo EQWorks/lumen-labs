@@ -44,6 +44,8 @@ const DropdownSelect = ({
   data, 
   button, 
   size, 
+  uncontrolled,
+  defaultValue,
   value,
   onSelect, 
   onDelete,
@@ -59,13 +61,15 @@ const DropdownSelect = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
-  const [selectedOptions, setSelectedOptions] = useState(value || (multiSelect ? [] : {}))
+  const [selectedOptions, setSelectedOptions] = useState(defaultValue || value || (multiSelect ? [] : {}))
   const [selectLimit, setSelectLimit] = useState(limit || 0)
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
 
   useEffect(() => {
-    setSelectedOptions(value || (multiSelect ? [] : {}))
+    if (!uncontrolled) {
+      setSelectedOptions(value || (multiSelect ? [] : {}))
+    }
   }, [value])
 
   const contentSize = _contentSize(size)
@@ -300,6 +304,11 @@ DropdownSelect.propTypes = {
   ),
   button: PropTypes.node,
   size: PropTypes.string,
+  uncontrolled: PropTypes.bool,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
@@ -334,6 +343,7 @@ DropdownSelect.defaultProps = {
   data: [],
   button: null,
   size: 'md',
+  uncontrolled: true,
   onSelect: () => {},
   onDelete: () => {},
   startIcon: null,

@@ -104,7 +104,9 @@ export const Base = () => {
  *    }
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
- * [value] - array (multiSelect) / object (single), set initial selected option
+ * [value] - array (multiSelect) / object (single), selected option(s) (serves as default value if uncontrolled)
+ * [uncontrolled] - bool, don't react to changes in value, default = false 
+ * [defaultValue] - array (multiSelect) / object (single), initial selected option 
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value
  * [onDelete] - function, callback function on delete selected value

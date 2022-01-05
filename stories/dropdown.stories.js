@@ -115,6 +115,7 @@ export const Base = () => {
  * [overflow] - string, control selected options x & y overflow - supported values ['horizontal', 'vertical'], default = 'horizontal'
  * [disabled] - bool, disable component status, default = false 
  * [allowClear] - bool, enable clearing button when an option is selected, default = true
+ * [simple] - bool, accept arrays of strings instead of the more complex data shape outlined above, default = false 
  * [...rest] - any div element properties
  */
 

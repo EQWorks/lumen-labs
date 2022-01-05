@@ -6,6 +6,7 @@ import { DropdownBase } from '../base-components'
 import { Chip } from '../'
 import { Close, ValidationCheck, Delete } from '../icons'
 import { useComponentIsActive } from '../hooks'
+import clsx from 'clsx'
 
 
 const _contentSize = (size) => {
@@ -147,17 +148,13 @@ const DropdownSelect = ({
         onClick={() => handleOnClick(index, item)}
       >
         <div
-          className={`content-container-${index}
-                ${dropdownSelectClasses.contentContainer}
-                ${multiSelect ? 
-      selectedOptions && selectedOptions.includes(item) && dropdownSelectClasses.selected
-      :
-      selectedOptions && selectedOptions.title === item.title && dropdownSelectClasses.selected
-    } 
-              `}
+          className={clsx(`content-container-${index} ${dropdownSelectClasses.contentContainer}`, {
+            [dropdownSelectClasses.selected]: (multiSelect && selectedOptions.some(({ title }) => title === item.title)) || selectedOptions.title === item.title,
+          },
+          )}
         >
           {renderListItem(item)}
-          {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
+          {!simple && item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
         </div>
       </div>,
     )
@@ -166,7 +163,7 @@ const DropdownSelect = ({
   const renderListItem = (item) => {
     let selected = null
 
-    if (multiSelect && size === 'lg' && selectedOptions.includes(item)) {
+    if (multiSelect && size === 'lg' && selectedOptions.some(({ title }) => title === item.title)) {
       selected = (
         <ValidationCheck size='lg'/>
       )
@@ -185,21 +182,21 @@ const DropdownSelect = ({
   }
 
   const handleOnClick = (i, value) => {
+    let newSelectedOptions = []
     if (multiSelect) {
+      newSelectedOptions = selectedOptions
       const currOptions = options
       const filterOptions = []
 
-      if (selectedOptions.includes(value)) {
-        let index = selectedOptions.indexOf(value)
-        if (index !== -1) {
-          selectedOptions.splice(index, 1)
-          currOptions.push(value)
-        }
+      const index = selectedOptions.findIndex(({ title }) => title === value.title)
+      if (index != -1) {
+        newSelectedOptions.splice(index, 1)
+        currOptions.push(value)
       } else if (selectedOptions.length < selectLimit) {
-        let index = options.indexOf(value)
+        let index = options.map(({ title }) => title).indexOf(value.title)
         if (index !== -1) {
           currOptions.splice(index, 1)
-          selectedOptions.push(value)
+          newSelectedOptions.push(value)
         }
       }
 
@@ -210,13 +207,14 @@ const DropdownSelect = ({
       setOptions(filterOptions)
     } else if (!multiSelect) {
       if (selectedOptions.title === value.title) {
-        setSelectedOptions([])
+        newSelectedOptions = []
       } else {
-        setSelectedOptions(value)
+        newSelectedOptions = value
         onClickSelect()
       }
     }
-    onSelect({ ...value, i })
+    setSelectedOptions(newSelectedOptions)
+    onSelect(newSelectedOptions)
   }
   
   const onClickClose = (e, value) => {

@@ -104,7 +104,7 @@ export const Base = () => {
  *    }
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
- * [setSelectedOption] - array (multiSelect) / object (single), set initial selected option
+ * [value] - array (multiSelect) / object (single), set initial selected option
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value
  * [onDelete] - function, callback function on delete selected value
@@ -256,7 +256,7 @@ export const MultiSelect = () => {
  *      endIcon: node, icon on right side of divider title
  *    }
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
- * [setSelectedOption] - object, set initial selected option
+ * [value] - object, set initial selected option
  * [inputProps] - object, accepts all InputBase props
  * [onSelect] - function, returns selected value
  * [onDelete] - function, callback function on delete selected value
@@ -450,7 +450,7 @@ export const CustomButton = () => {
  * [data] - array, data json structure to render the item inside the dropdown
  *    title: string, name of the item
  * [onSelect] - function, returns selected value
- * [setSelectedOption] - any, set initial selected option
+ * [value] - any, set initial selected option
  * [startIcon] - node, icon on left side of select container
  * [endIcon] - node, icon on right side of select container
  * [scrollable] - bool, controls component y-axis scroll
@@ -465,7 +465,7 @@ export const DropdownCenterSelectedItem = () => {
         <div>No padding</div>
         <DropdownAutoCenter 
           data={sampleDataMultiselect[0].items} 
-          setSelectedOption={{ title: 'orange' }}
+          value={{ title: 'orange' }}
           endIcon={<ArrowUpDown size='sm'/>}
           scrollable
         />
@@ -474,7 +474,7 @@ export const DropdownCenterSelectedItem = () => {
         <div>With padding</div>
         <DropdownAutoCenter 
           data={sampleDataMultiselect[0].items} 
-          setSelectedOption={{ title: 'orange' }}
+          value={{ title: 'orange' }}
           endIcon={<ArrowUpDown size='sm'/>}
           scrollable
         />
@@ -483,7 +483,7 @@ export const DropdownCenterSelectedItem = () => {
         <div>With padding no scroll</div>
         <DropdownAutoCenter 
           data={sampleDataMultiselect[0].items} 
-          setSelectedOption={{ title: 'orange' }}
+          value={{ title: 'orange' }}
           endIcon={<ArrowUpDown size='sm'/>}
         />
       </div>
@@ -515,7 +515,7 @@ export const Disabled = () => {
         <p>Auto Center</p>
         <DropdownAutoCenter 
           data={sampleDataMultiselect[0].items} 
-          setSelectedOption={{ title: 'orange' }}
+          value={{ title: 'orange' }}
           endIcon={<ArrowUpDown size='sm'/>}
           disabled
         />

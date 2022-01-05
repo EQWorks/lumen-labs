@@ -157,7 +157,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             <DropdownAutoCenter 
               data={dropdownData} 
               onSelect={(val) => {setRowsPerPageSize(Number(val.title))}} 
-              setSelectedOption={{ title: pageSize }}
+              value={{ title: pageSize }}
               endIcon={<ArrowUpDown size='sm'/>}
             />
           </li>

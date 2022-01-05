@@ -9,7 +9,7 @@ const DropdownAutoCenter = forwardRef(({
   classes, 
   data,
   onSelect,
-  setSelectedOption,
+  value,
   startIcon,
   endIcon,
   scrollable,
@@ -33,7 +33,7 @@ const DropdownAutoCenter = forwardRef(({
 
   const [open, setOpen] = useState(false)
   const [dropdownOffsetTop, setDropdownOffsetTop] = useState(0)
-  const [active, setActive] = useState(setSelectedOption || '')
+  const [active, setActive] = useState(value || '')
   const dropdownRef = useRef(null)
 
   useEffect(() => {
@@ -114,7 +114,7 @@ DropdownAutoCenter.propTypes = {
     }),
   ),
   onSelect: PropTypes.func,
-  setSelectedOption: PropTypes.any,
+  value: PropTypes.any,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
   scrollable: PropTypes.bool,

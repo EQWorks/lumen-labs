@@ -44,7 +44,7 @@ const DropdownSelect = ({
   data, 
   button, 
   size, 
-  setSelectedOption,
+  value,
   onSelect, 
   onDelete,
   startIcon, 
@@ -59,14 +59,14 @@ const DropdownSelect = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
-  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || [])
+  const [selectedOptions, setSelectedOptions] = useState(value || (multiSelect ? [] : {}))
   const [selectLimit, setSelectLimit] = useState(limit || 0)
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
 
   useEffect(() => {
-    setSelectedOptions(setSelectedOption || [])
-  }, [setSelectedOption])
+    setSelectedOptions(value || (multiSelect ? [] : {}))
+  }, [value])
 
   const contentSize = _contentSize(size)
   const dropdownSelectClasses = Object.freeze({
@@ -300,7 +300,7 @@ DropdownSelect.propTypes = {
   ),
   button: PropTypes.node,
   size: PropTypes.string,
-  setSelectedOption: PropTypes.oneOfType([
+  value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
   ]),

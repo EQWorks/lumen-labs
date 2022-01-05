@@ -42,7 +42,7 @@ const DropdownAutoComplete = ({
   classes, 
   data, 
   size, 
-  setSelectedOption,
+  value,
   onSelect,
   onDelete, 
   inputProps, 
@@ -51,9 +51,9 @@ const DropdownAutoComplete = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState(data)
-  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || {})
+  const [selectedOptions, setSelectedOptions] = useState(value || {})
   const [open, setOpen] = useState(false)
-  const [userInput, setUserInput] = useState(setSelectedOption ? setSelectedOption.title : '')
+  const [userInput, setUserInput] = useState(value ? value.title : '')
   const [filteredOptions, setFilteredOptions] = useState([])
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   const contentSize = _contentSize(size)
@@ -268,7 +268,7 @@ DropdownAutoComplete.propTypes = {
     }),
   ),
   size: PropTypes.string,
-  setSelectedOption: PropTypes.shape({
+  value: PropTypes.shape({
     title: PropTypes.string.isRequired,
   }),
   onSelect: PropTypes.func,

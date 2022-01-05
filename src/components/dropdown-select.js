@@ -182,18 +182,16 @@ const DropdownSelect = ({
   }
 
   const handleOnClick = (i, value) => {
-    let newSelectedOptions
+    let newSelectedOptions = []
     if (multiSelect) {
       newSelectedOptions = selectedOptions
       const currOptions = options
       const filterOptions = []
 
-      if (selectedOptions.some(({ title }) => title === value.title)) {
-        let index = selectedOptions.map(({ title }) => title).indexOf(value.title)
-        if (index !== -1) {
-          newSelectedOptions.splice(index, 1)
-          currOptions.push(value)
-        }
+      const index = selectedOptions.findIndex(({ title }) => title === value.title)
+      if (index != -1) {
+        newSelectedOptions.splice(index, 1)
+        currOptions.push(value)
       } else if (selectedOptions.length < selectLimit) {
         let index = options.map(({ title }) => title).indexOf(value.title)
         if (index !== -1) {

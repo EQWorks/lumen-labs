@@ -294,7 +294,7 @@ export const Usage = () => {
         icon={<CheckBadge size='lg'/>} 
         open={popUp}
         onClose={() => setPopUp(false)}
-        timeOut={10000}
+        timeOut={5000}
       />
     </>
   )

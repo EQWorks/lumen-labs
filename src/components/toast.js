@@ -1,11 +1,15 @@
-import React, { forwardRef, useRef, useEffect } from 'react'
+import React, { forwardRef, useRef, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { ToastBase } from '../base-components'
+import ProgressBar from './progress-bar'
 import { Close } from '../icons'
 
 import { concatTargetColor } from '../utils/concat-color'
 
+
+let interval = undefined
+let timer = undefined
 
 const Toast = forwardRef(({
   classes,
@@ -31,7 +35,7 @@ const Toast = forwardRef(({
     vertical: {
       root: 'w-450px',
       button: 'mt-5px',
-      content: 'mx-6',
+      content: 'mx-6 mb-2.5',
     },
   }
 
@@ -67,9 +71,9 @@ const Toast = forwardRef(({
   }
 
   const toastClasses = Object.freeze({
-    root: `p-2.5 text-sm font-bold tracking-sm leading-1.43 rounded-10px 
+    root: `text-sm font-bold tracking-sm leading-1.43 rounded-sm
       ${classes.root && classes.root} ${size[variant].root} ${colorType[type].root}`,
-    header: `justify-between ${classes.header && classes.header} ${colorType[type].header}`,
+    header: `m-2.5 justify-between ${classes.header && classes.header} ${colorType[type].header}`,
     title: `mr-2.5 ${classes.title && classes.title}`,
     button: `cursor-pointer ${classes.button && classes.button} ${size[variant].button} ${colorType[type].icon}`,
     content: `${classes.content && classes.content} ${size[variant].content}`,
@@ -80,17 +84,25 @@ const Toast = forwardRef(({
   })
 
   const toastRef = useRef(null)
-  let timer = ''
+  const [progress, setProgress] = useState(0)  
 
   useEffect(() => {
     if (timeOut > 0) {
       const toastEl = toastRef.current
       let fade = ''
-      
-      open && (timer = setTimeout(() => {
-        if (onTimeOut) onTimeOut()
-        onClose()
-      }, timeOut))
+
+      if (open) {
+        interval = setInterval(() => {
+          setProgress((prev) => prev + 1)
+        }, (timeOut) / 100)
+
+        timer = setTimeout(() => {
+          if (onTimeOut) onTimeOut()
+          onClose()
+          clearInterval(interval)
+          setProgress(0)
+        }, timeOut + 500)
+      }
 
       if (toastEl && open) {
         fade = setTimeout(() => {
@@ -111,6 +123,8 @@ const Toast = forwardRef(({
   const handleOnClose = () => {
     onClose()
     if (timer) clearTimeout(timer)
+    if (interval) clearInterval(interval)
+    if (progress > 0) setProgress(0)
   }
 
   const _button = <div className={toastClasses.button}>{button}</div>
@@ -131,7 +145,9 @@ const Toast = forwardRef(({
           startIcon={icon} 
           endIcon={<Close size='sm' onClick={handleOnClose}/>} 
           {...rest}
-        />
+        >
+          {(timeOut > 0 && (progress > 0 && progress < 100)) && <ProgressBar percentage={progress}/>}
+        </ToastBase>
       </div>
     </>
   )

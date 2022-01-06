@@ -5,6 +5,7 @@ import { makeStyles } from '../utils/make-styles'
 
 const ToastBase = forwardRef(({
   classes,
+  children,
   variant,
   title,
   description,
@@ -55,6 +56,7 @@ const ToastBase = forwardRef(({
           {button && button}
         </div>
       </>}
+      {children && children}
     </div>
   )
 })

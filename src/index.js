@@ -24,5 +24,6 @@ export { default as SwitchRect } from './components/switch-rect'
 export { default as SwitchSquare } from './components/switch-square'
 export { default as Modal } from './components/modal'
 export { default as Tooltip } from './components/tooltip'
+export { default as ProgressBar } from './components/progress-bar'
 
 export { makeStyles } from './utils/make-styles'

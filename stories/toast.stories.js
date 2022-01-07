@@ -259,43 +259,93 @@ export const Vertical = () => {
 
 export const Usage = () => {
   const [popUp, setPopUp] = useState(false)
+  const [checked, setChecked] = useState(true)
   const buttonH = <Button variant='elevated' size='sm' type='info'>undo</Button>
   const buttonP = <Button variant='elevated' size='sm' type='success'>action</Button>
   const buttonV = <button className='mr-2.5 underline focus:outline-none'>Query Lab Documentation</button>
 
   return (
-    <>
-      <p className={labelClass}>Small/Horizontal toast - undo action</p>
-      <Toast
-        type='dark'
-        color='info'
-        title='6 items deleted.' 
-        button={buttonH}
-        icon={<AlertInformation size='lg'/>} 
-      />
-      <p className={labelClass}>Large/Vertical toast - error message</p>
-      <Toast
-        variant='vertical' 
-        color='error'
-        title='Invalid Query - [ERROR_CODE]' 
-        description='There was a problem with your build. Try selecting a different dataset or refer to the QL documentation on how to build a correct query.' 
-        button={buttonV}
-        icon={<MoodWarning size='lg'/>} 
-      />
-      <p className={labelClass}>10 seconds toast pop-up</p>
-      <div className='mb-2'>
-        <Button variant='outlined' size='lg' onClick={() => setPopUp(true)}>Click me</Button>
+    <div className='flex'>
+      <div className='mr-5'>
+        <p className={labelClass}>10 seconds toast pop-up</p>
+        <div className="flex">
+          <div className="mr-2">
+            <input 
+              type="radio" 
+              id="horizontal" 
+              name="horizontal" 
+              onChange={() => {
+                setChecked(!checked)
+              }} 
+              value="horizontal" 
+              checked={checked}
+            />
+            <label htmlFor="horizontal">Horizontal</label>
+          </div>
+          <div>
+            <input 
+              type="radio" 
+              id="vertical" 
+              name="vertical" 
+              onChange={() => {
+                setChecked(!checked)
+              }} 
+              value="vertical" 
+              checked={!checked}
+            />
+            <label htmlFor="vertical">Vertical</label>
+          </div>
+        </div>
+        <div>
+          <div className='mb-2'>
+            <Button variant='outlined' size='lg' onClick={() => setPopUp(true)}>Click me</Button>
+          </div>
+          {checked ?
+            <Toast
+              type='semantic-light'
+              color='success'
+              title='Pop-up Success' 
+              button={buttonP}
+              icon={<CheckBadge size='lg'/>} 
+              open={popUp}
+              onClose={() => setPopUp(false)}
+              timeOut={10000}
+            />
+            :
+            <Toast
+              type='semantic-light'
+              variant='vertical' 
+              color='error'
+              title='Invalid Query - [ERROR_CODE]' 
+              description='There was a problem with your build. Try selecting a different dataset or refer to the QL documentation on how to build a correct query.' 
+              button={buttonV}
+              icon={<MoodWarning size='lg'/>} 
+              open={popUp}
+              onClose={() => setPopUp(false)}
+              timeOut={10000}
+            />
+          }
+        </div>
       </div>
-      <Toast
-        type='semantic-light'
-        color='success'
-        title='Pop-up Success' 
-        button={buttonP}
-        icon={<CheckBadge size='lg'/>} 
-        open={popUp}
-        onClose={() => setPopUp(false)}
-        timeOut={5000}
-      />
-    </>
+      <div>
+        <p className={labelClass}>Small/Horizontal toast - undo action</p>
+        <Toast
+          type='dark'
+          color='info'
+          title='6 items deleted.' 
+          button={buttonH}
+          icon={<AlertInformation size='lg'/>} 
+        />
+        <p className={labelClass}>Large/Vertical toast - error message</p>
+        <Toast
+          variant='vertical' 
+          color='error'
+          title='Invalid Query - [ERROR_CODE]' 
+          description='There was a problem with your build. Try selecting a different dataset or refer to the QL documentation on how to build a correct query.' 
+          button={buttonV}
+          icon={<MoodWarning size='lg'/>} 
+        />
+      </div>
+    </div>
   )
 }

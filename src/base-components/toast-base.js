@@ -63,6 +63,7 @@ const ToastBase = forwardRef(({
 
 ToastBase.propTypes = {
   classes: PropTypes.object,
+  children: PropTypes.node,
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
   title: PropTypes.string,
   description: PropTypes.string,
@@ -82,6 +83,7 @@ ToastBase.defaultProps = {
     startIcon: '', 
     endIcon: '', 
   },
+  children: null,
   variant: 'horizontal',
   title: '',
   description: '',

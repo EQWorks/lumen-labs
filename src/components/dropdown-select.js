@@ -80,6 +80,7 @@ const DropdownSelect = ({
     startIcon: 'mr-2.5 fill-current stroke-current',
     endIcon: 'ml-2.5 fill-current stroke-current',
     selected: 'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
+    selectedOptionTitle: `${classes.selectedOptionTitle ? classes.selectedOptionTitle : 'mr-2.5 text-secondary-800'}`,
   })
 
   const dropdownClasses = Object.freeze({
@@ -121,7 +122,7 @@ const DropdownSelect = ({
   }
 
   const renderSelectedOptions = () => {
-    let render = selectedOptions.title ? (<span className='mr-2.5 text-secondary-800'>{selectedOptions.title}</span>) : <></>
+    let render = selectedOptions.title ? (<span className={dropdownSelectClasses.selectedOptionTitle}> {selectedOptions.title}</span >) : <></>
 
     if (multiSelect && selectedOptions.length) {
       render = (
@@ -330,6 +331,7 @@ DropdownSelect.defaultProps = {
     menu: '',
     button: '',
     content: '',
+    selectedOptionTitle: '',
     listContainer: '',
     itemContainer: '',
     contentContainer: '',

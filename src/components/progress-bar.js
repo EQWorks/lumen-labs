@@ -4,31 +4,35 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '../utils/make-styles'
 
 
-const classes = makeStyles({
-  mainContainer: {
-    height: '0.313rem',
-    width: '100%',
-    borderRadius: '0 0 0.5rem 0.5rem',
+const ProgressBar = forwardRef(({ classes, percentage, ...rest }, ref) => {
+  const progressBarClasses = Object.freeze({ 
+    root: `h-5px w-full bg-primary-100 ${classes.root}`,
+    content: `h-full bg-primary-500 ${classes.content}`,
+  })
 
-    '& .progress-bar-filler': {
-      height: '100%',
-      borderRadius: 'inherit',
+  const style = makeStyles({
+    progressBarContent: {
+      width: `${percentage}%`,
     },
-  },
-})
-
-const ProgressBar = forwardRef(({ percentage, ...rest }, ref) => {
-  // const classes = useStyles(percentage)()
+  })
 
   return (
-    <div ref={ref} className={`progress-bar-container bg-primary-100 ${classes.mainContainer}`} {...rest}>
-      <div className={`progress-bar-filler bg-primary-500 ${classes.mainContainer}`} style={{width: `${percentage}%`}}/>
+    <div ref={ref} className={progressBarClasses.root} {...rest}>
+      <div className={`${progressBarClasses.content} ${style.progressBarContent}`} />
     </div>
   )
 })
 
 ProgressBar.propTypes = {
+  classes: PropTypes.object,
   percentage: PropTypes.number.isRequired,
+}
+
+ProgressBar.defaultProps = {
+  classes: { 
+    root: '', 
+    content: '', 
+  },
 }
 
 ProgressBar.displayName = 'ProgressBar'

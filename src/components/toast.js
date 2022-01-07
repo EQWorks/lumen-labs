@@ -6,6 +6,7 @@ import ProgressBar from './progress-bar'
 import { Close } from '../icons'
 
 import { concatTargetColor } from '../utils/concat-color'
+import { makeStyles } from '../utils/make-styles'
 
 
 let interval = undefined
@@ -46,6 +47,10 @@ const Toast = forwardRef(({
       description: 'text-secondary-800',
       icon: concatTargetColor(color, ['text'], [500]),
       closeIcon: 'text-secondary-600',
+      progressBar: {
+        root: 'bg-secondary-50',
+        content: concatTargetColor(color, ['bg'], [400]),
+      },
     },
     dark: {
       root: 'bg-secondary-900',
@@ -53,6 +58,10 @@ const Toast = forwardRef(({
       description: 'text-secondary-50',
       icon: concatTargetColor(color, ['text'], [200]),
       closeIcon: 'text-secondary-200',
+      progressBar: {
+        root: 'bg-secondary-900',
+        content: concatTargetColor(color, ['bg'], [200]),
+      },
     },
     'semantic-light': {
       root: concatTargetColor(color, ['shadow', 'bg'], [500, 100]),
@@ -60,6 +69,10 @@ const Toast = forwardRef(({
       description: 'text-secondary-800',
       icon: concatTargetColor(color, ['text'], [500]),
       closeIcon: concatTargetColor(color, ['text'], [500]),
+      progressBar: {
+        root: concatTargetColor(color, ['bg'], [100]),
+        content: concatTargetColor(color, ['bg'], [400]),
+      },
     },
     'semantic-dark': {
       root: concatTargetColor(color, ['bg'], [500]),
@@ -67,8 +80,21 @@ const Toast = forwardRef(({
       description: 'text-secondary-100',
       icon: 'text-secondary-50',
       closeIcon: 'text-secondary-50',
+      progressBar: {
+        root: concatTargetColor(color, ['bg'], [500]),
+        content: concatTargetColor(color, ['bg'], [700]),
+      },
     },
   }
+
+  const style = makeStyles({
+    progressBarRoot: {
+      borderRadius: '0 0 6px 6px',
+    },
+    progressBarContent: {
+      borderRadius: '0 4px 4px 6px',
+    },
+  })
 
   const toastClasses = Object.freeze({
     root: `text-sm font-bold tracking-sm leading-1.43 rounded-sm
@@ -83,8 +109,13 @@ const Toast = forwardRef(({
     endIcon: `cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
   })
 
+  const progressBarClasses = Object.freeze({
+    root: `${style.progressBarRoot} ${colorType[type].progressBar.root}`,
+    content: `${style.progressBarContent} ${colorType[type].progressBar.content}`,
+  })
+
   const toastRef = useRef(null)
-  const [progress, setProgress] = useState(0)  
+  const [progress, setProgress] = useState(100)  
 
   useEffect(() => {
     if (timeOut > 0) {
@@ -93,14 +124,14 @@ const Toast = forwardRef(({
 
       if (open) {
         interval = setInterval(() => {
-          setProgress((prev) => prev + 1)
+          setProgress((prev) => prev - 1)
         }, (timeOut) / 100)
 
         timer = setTimeout(() => {
           if (onTimeOut) onTimeOut()
           onClose()
           clearInterval(interval)
-          setProgress(0)
+          setProgress(100)
         }, timeOut + 500)
       }
 
@@ -124,7 +155,7 @@ const Toast = forwardRef(({
     onClose()
     if (timer) clearTimeout(timer)
     if (interval) clearInterval(interval)
-    if (progress > 0) setProgress(0)
+    if (progress < 100) setProgress(100)
   }
 
   const _button = <div className={toastClasses.button}>{button}</div>
@@ -146,7 +177,7 @@ const Toast = forwardRef(({
           endIcon={<Close size='sm' onClick={handleOnClose}/>} 
           {...rest}
         >
-          {(timeOut > 0 && (progress > 0 && progress < 100)) && <ProgressBar percentage={progress}/>}
+          {(timeOut > 0 && (progress >= 0 && progress < 100)) && <ProgressBar classes={progressBarClasses} percentage={progress}/>}
         </ToastBase>
       </div>
     </>

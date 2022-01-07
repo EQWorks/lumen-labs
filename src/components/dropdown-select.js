@@ -215,7 +215,7 @@ const DropdownSelect = ({
       }
     }
     setSelectedOptions(newSelectedOptions)
-    onSelect(newSelectedOptions)
+    onSelect(simple ? newSelectedOptions : { ...newSelectedOptions, i })
   }
   
   const onClickClose = (e, value) => {

@@ -8,7 +8,8 @@
     "dist",
     "README.md",
     "LICENSE",
-    "tailwind.config.js"
+    "tailwind.config.js",
+    "colors.js"
   ],
   "author": "EQ Inc.",
   "license": "MIT",

@@ -45,7 +45,9 @@ const DropdownSelect = ({
   data, 
   button, 
   size, 
-  setSelectedOption,
+  uncontrolled,
+  defaultValue,
+  value,
   onSelect, 
   onDelete,
   startIcon, 
@@ -61,11 +63,17 @@ const DropdownSelect = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
-  const [selectedOptions, setSelectedOptions] = useState(setSelectedOption || [])
+  const [selectedOptions, setSelectedOptions] = useState(defaultValue || value || (multiSelect ? [] : {}))
   const [selectLimit, setSelectLimit] = useState(limit || 0)
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
-  
+
+  useEffect(() => {
+    if (!uncontrolled) {
+      setSelectedOptions(value || (multiSelect ? [] : {}))
+    }
+  }, [value])
+
   const contentSize = _contentSize(size)
   const dropdownSelectClasses = Object.freeze({
     listContainer: `capitalize ${classes.listContainer}`,
@@ -306,7 +314,12 @@ DropdownSelect.propTypes = {
   ]),
   button: PropTypes.node,
   size: PropTypes.string,
-  setSelectedOption: PropTypes.oneOfType([
+  uncontrolled: PropTypes.bool,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+  value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
     PropTypes.string,
@@ -343,6 +356,7 @@ DropdownSelect.defaultProps = {
   data: [],
   button: null,
   size: 'md',
+  uncontrolled: true,
   onSelect: () => {},
   onDelete: () => {},
   startIcon: null,

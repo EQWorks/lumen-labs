@@ -1,0 +1,21 @@
+@import "../../styles/constants.css";
+
+.left-tooltip,
+.right-tooltip {
+  position: absolute;
+  display: none;
+  transform: translateX(-50%);
+  bottom: 1.5rem;
+}
+
+.left-tooltip::after,
+.right-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--tooltip-tail-color);
+}

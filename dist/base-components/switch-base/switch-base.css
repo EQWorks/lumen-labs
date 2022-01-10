@@ -1,0 +1,16 @@
+@media screen and (max-width: 991px) {
+  .switch-container {
+    transform: scale(0.9);
+  }
+}
+@media screen and (max-width: 767px) {
+  .switch-container {
+    transform: scale(0.825);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .switch-container {
+    transform: scale(0.75);
+  }
+}

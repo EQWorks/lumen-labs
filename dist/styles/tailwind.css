@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .rows-selection:hover {
+    transform: scale(1.05);
+  }
+
+  .switch-checkbox:checked + .switch-container .switch-button {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');

@@ -1,0 +1,67 @@
+@import "../../styles/constants.css";
+
+/* Removing the default appearance */
+.thumb {
+  height: 0;
+  margin-top: 1px;
+  position: absolute;
+  pointer-events: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.thumb::-webkit-slider-thumb {
+  height: 18px;
+  width: 18px;
+  background-color: var(--slider-thumb-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: all;
+  -webkit-appearance: none;
+}
+
+.thumb::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  margin-top: 1px;
+  background-color: var(--slider-thumb-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.thumb::-mz-thumb {
+  height: 18px;
+  width: 18px;
+  background-color: var(--slider-thumb-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.thumb-left {
+  z-index: 3;
+}
+
+.thumb-right {
+  z-index: 4;
+}
+
+.slider-track {
+  width: 100%;
+  z-index: 1;
+}
+
+.slider-range {
+  z-index: 2;
+}
+
+.slider-disabled,
+.slider-disabled::-webkit-slider-thumb,
+.slider-disabled::-moz-range-thumb {
+  background-color: #eaeaea;
+  cursor: not-allowed;
+}

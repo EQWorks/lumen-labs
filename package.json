@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/lumen-labs",
-  "version": "0.1.0-alpha.15",
+  "version": "0.1.0-alpha.18",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.js",
@@ -8,7 +8,8 @@
     "dist",
     "README.md",
     "LICENSE",
-    "tailwind.config.js"
+    "tailwind.config.js",
+    "colors.js"
   ],
   "author": "EQ Inc.",
   "license": "MIT",
@@ -25,12 +26,8 @@
     "chromatic": "npx chromatic --skip 'dependabot/**'"
   },
   "peerDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.1.2",
-    "autoprefixer": "^9.8.6",
-    "postcss": "^7",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "tailwindcss": "yarn:@tailwindcss/postcss7-compat@^2.1.2"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.15",

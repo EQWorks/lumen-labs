@@ -1,13 +1,14 @@
-import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../../tailwind.config'
 
 // Access theme color values for dynamically applying inline styles in React
 export const getTailwindConfigColor = (color) => {
-  const fullConfig = resolveConfig(tailwindConfig)
+  const allColors = {
+    ...tailwindConfig.theme.colors,
+    ...tailwindConfig.theme.extend.colors,
+  }
   const parseColor = color.split('-')
   
-  const value = parseColor.length > 1 &&
-    fullConfig.theme.colors[color]
+  const value = parseColor.length > 1 && allColors[color]
     
   return value
 }

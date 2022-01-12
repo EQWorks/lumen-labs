@@ -16,7 +16,7 @@ const Loader = ({ children, classes, backdrop, open, message, Icon }) => {
   if (backdrop) {
     return (
       <DialogBase modal open={open}>
-        <div className='inline-flex'>
+        <div className={classes.root || 'inline-flex'}>
           <LoaderIcon className={iconClass} />
           {message && <p className={`ml-2 text-white ${classes.message}`}>{message}</p>}
         </div>
@@ -25,7 +25,7 @@ const Loader = ({ children, classes, backdrop, open, message, Icon }) => {
   }
 
   return (
-    <div className='relative inline-flex'>
+    <div className={classes.root || 'relative inline-flex'} >
       {children}
       {open && <LoaderIcon className={`absolute top-1/2 left-1/2 -mt-2.5 -ml-2.5 ${iconClass}`} />}
     </div>
@@ -42,7 +42,7 @@ Loader.propTypes = {
 }
 Loader.defaultProps = {
   children: null,
-  classes: { icon: '', message: '' },
+  classes: { icon: '', message: '', root: '' },
   backdrop: false,
   open: false,
   message: '',

@@ -12,6 +12,7 @@ export default {
  * [classes] - object, custom styling supported keys:
  *    icon: classes applied to icon svg
  *    message: classes applied to message beside icon
+ *    root: classes applied to root container
  * [backdrop] - boolean, renders loader as backdrop
  * [open] - boolean, control loader open/close
  * [message] - string, descriptive text beside icon if [backdrop] is true

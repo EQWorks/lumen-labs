@@ -26,3 +26,4 @@ export { default as Modal } from './components/modal'
 export { default as Tooltip } from './components/tooltip'
 
 export { makeStyles } from './utils/make-styles'
+export { getTailwindConfigColor } from './utils/tailwind-config-color'

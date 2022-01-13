@@ -356,7 +356,7 @@ DropdownSelect.defaultProps = {
   data: [],
   button: null,
   size: 'md',
-  uncontrolled: true,
+  uncontrolled: false,
   onSelect: () => {},
   onDelete: () => {},
   startIcon: null,

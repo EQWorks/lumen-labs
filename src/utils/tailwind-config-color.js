@@ -6,9 +6,7 @@ export const getTailwindConfigColor = (color) => {
     ...tailwindConfig.theme.colors,
     ...tailwindConfig.theme.extend.colors,
   }
-  const parseColor = color.split('-')
-  
-  const value = parseColor.length > 1 && allColors[color]
-    
-  return value
+  return color.split('-').length > 1
+    ? allColors[color]
+    : ''
 }

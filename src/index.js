@@ -28,3 +28,4 @@ export { default as Tooltip } from './components/tooltip'
 
 export { makeStyles } from './utils/make-styles'
 export { getTailwindConfigColor } from './utils/tailwind-config-color'
+export { customScroll } from './utils/custom-scroll'

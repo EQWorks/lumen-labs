@@ -1,20 +1,61 @@
 name: Chromatic
 
-on: push
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
+    outputs:
+      storybook-url: ${{ steps.chromatic-publish.outputs.storybookUrl}}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        # Version 2 of the actions/checkout action will only checkout a single commit without history by default.
+        # Chromatic needs the full git history in order to track changes over time.
+        # see https://github.com/chromaui/action#:~:text=the%20Chromatic%20CLI-,Checkout,-depth
         with:
           fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          registry-url: https://npm.pkg.github.com/
+          scope: "@eqworks"
+
       - run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
 
       - name: Publish to Chromatic
+        id: chromatic-publish
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true
           autoAcceptChanges: true
+
+  storybook-pr-comment:
+    needs: chromatic-deployment
+    if: github.event_name == 'pull_request' && needs.chromatic-deployment.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - env:
+          STORYBOOK_URL_WITH_IFRAME: ${{ needs.chromatic-deployment.outputs.storybook-url }}
+        run: |
+          echo "STORYBOOK_URL=${STORYBOOK_URL_WITH_IFRAME/\/iframe\.html/}" >> $GITHUB_ENV
+          echo "SHA=$(git rev-parse $(cat $GITHUB_EVENT_PATH | jq -r .pull_request.head.sha))" >> $GITHUB_ENV
+
+      - uses: eqworks/sticky-pull-request-comment@v2
+        with:
+          message: |
+            ### 📚 **[Storybook preview](${{ env.STORYBOOK_URL }})** _(updated to ${{ env.SHA }})_

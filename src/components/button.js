@@ -36,7 +36,6 @@ const buttonColoursTransform = (type = 'primary', target = [], shade = [], custo
 const colourTransform = (type) => ({
   outlined: {
     [type]: [
-      (type !== 'primary' ? 'border-none' : ''),
       buttonColoursTransform(type, ['border', 'text'], ['default', 'hover', 'active']),
       buttonColoursTransform(type, ['bg'], ['hover', 'active'], [50, 50, 100]),
     ].join(' '),

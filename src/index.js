@@ -26,4 +26,4 @@ export { default as Modal } from './components/modal'
 export { default as Tooltip } from './components/tooltip'
 export { default as ProgressBar } from './components/progress-bar'
 
-export { makeStyles } from './utils/make-styles'
+export { makeStyles, LinearAnimation } from './utils/make-styles'

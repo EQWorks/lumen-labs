@@ -6,7 +6,7 @@ const ButtonBase = forwardRef(({ children, classes, startIcon, endIcon, ...rest 
   return (
     <button ref={ref} className={`flex flex-row justify-between items-center ${classes.button}`} {...rest}>
       {startIcon && <div className={classes.startIcon}>{startIcon}</div>}
-      <span className={classes.content}>{children}</span>
+      <div className={`m-auto ${classes.content}`}>{children}</div>
       {endIcon && <div className={classes.endIcon}>{endIcon}</div>}
     </button>
   )

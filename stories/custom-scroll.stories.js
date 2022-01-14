@@ -11,7 +11,7 @@ export default {
 
 export const Normal = () => {
   const contentClass = 'bg-primary-400 text-white text-center h-40 w-full'
-  const customScrollStyle = customScroll('0.125rem', 'red', 'green')
+  const customScrollStyle = customScroll(undefined, 'red', 'green')
 
   return (
     <Layout>

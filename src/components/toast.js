@@ -118,22 +118,35 @@ const Toast = forwardRef(({
   const [progress, setProgress] = useState(100)  
 
   useEffect(() => {
+    if (open && timeOut) {
+      const t = setTimeout(() => {
+        if (onTimeOut) {
+          onTimeOut()
+        }
+        onClose()
+      }, timeOut)
+  
+      return () => clearTimeout(t)
+    }
+  }, [open, timeOut])
+
+  useEffect(() => {
     if (timeOut > 0) {
       const toastEl = toastRef.current
       let fade = ''
 
-      if (open) {
-        interval = setInterval(() => {
-          setProgress((prev) => prev - 1)
-        }, (timeOut) / 100)
+      // if (open) {
+      // interval = setInterval(() => {
+      //   setProgress((prev) => prev - 1)
+      // }, (timeOut) / 100)
 
-        timer = setTimeout(() => {
-          if (onTimeOut) onTimeOut()
-          onClose()
-          clearInterval(interval)
-          setProgress(100)
-        }, timeOut + 500)
-      }
+      // timer = setTimeout(() => {
+      //   if (onTimeOut) onTimeOut()
+      //   onClose()
+      //   clearInterval(interval)
+      //   setProgress(100)
+      // }, timeOut + 500)
+      // }
 
       if (toastEl && open) {
         fade = setTimeout(() => {
@@ -177,7 +190,14 @@ const Toast = forwardRef(({
           endIcon={<Close size='sm' onClick={handleOnClose}/>} 
           {...rest}
         >
-          {(timeOut > 0 && (progress >= 0 && progress < 100)) && <ProgressBar classes={progressBarClasses} percentage={progress}/>}
+          {/* {(timeOut > 0 && (progress >= 0 && progress < 100)) && <ProgressBar classes={progressBarClasses} progress={progress}/>} */}
+          <ProgressBar
+            animate
+            direction='ltr'
+            progress={open && timeOut ? 100 : 0}
+            duration={timeOut/1000}
+            classes={progressBarClasses}
+          />
         </ToastBase>
       </div>
     </>

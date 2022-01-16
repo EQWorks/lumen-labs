@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-import { Layout } from '../src'
-import { Pagination } from '../src'
+import { Layout , Pagination } from '../src'
 
 
 export default {

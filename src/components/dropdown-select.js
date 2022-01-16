@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Menu } from '@headlessui/react'
 
@@ -63,16 +63,31 @@ const DropdownSelect = ({
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
-  const [selectedOptions, setSelectedOptions] = useState(defaultValue || value || (multiSelect ? [] : {}))
+  const fallbackEmptyValue = useMemo(() => (
+    multiSelect
+      ? []
+      : simple ? '' : {}
+  ), [multiSelect, simple])
+  const [selectedOptions, setSelectedOptions] = useState(defaultValue || value || fallbackEmptyValue)
   const [selectLimit, setSelectLimit] = useState(limit || 0)
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
 
   useEffect(() => {
     if (!uncontrolled) {
-      setSelectedOptions(value || (multiSelect ? [] : {}))
+      setSelectedOptions(value || fallbackEmptyValue)
     }
-  }, [value])
+  }, [fallbackEmptyValue, uncontrolled, value])
+
+  const simpleData = useMemo(() => ([{ items: data.map(d => ({ title: d })) }]), [data])
+  const simpleSelectedOptions = useMemo(() => (
+    multiSelect
+      ? selectedOptions.map(o => ({ title: o }))
+      : { title: selectedOptions }
+  ), [multiSelect, selectedOptions])
+
+  const finalSelectedOptions = useMemo(() => simple ? simpleSelectedOptions : selectedOptions, [selectedOptions, simple, simpleSelectedOptions])
+  const finalData = useMemo(() => simple ? simpleData : data, [data, simple, simpleData])
 
   const contentSize = _contentSize(size)
   const dropdownSelectClasses = Object.freeze({
@@ -93,7 +108,7 @@ const DropdownSelect = ({
 
   const dropdownClasses = Object.freeze({
     root: classes.root,
-    menu: `${!data.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
+    menu: `${!finalData.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
     button: classes.button,
     content: classes.content,
   })
@@ -102,23 +117,16 @@ const DropdownSelect = ({
     let initialOptions = []
     let length = 0
 
-    if (data) {
-      if (simple) {
-        initialOptions = data
-        length = data.length
-      } else {
-        data.forEach((el) => {
-          el.items.forEach((item) => {
-            initialOptions.push(item)
-            length++
-          })
-        })
-      }
-    }
+    finalData?.forEach((el) => {
+      el.items.forEach((item) => {
+        initialOptions.push(item)
+        length++
+      })
+    })
 
     !limit && setSelectLimit(length)
     setOptions(initialOptions)
-  }, [data])
+  }, [finalData])
 
   if (!componentIsActive && open) {
     setOpen(!open)
@@ -130,27 +138,29 @@ const DropdownSelect = ({
   }
 
   const renderSelectedOptions = () => {
-    let render = selectedOptions.title ? (<span className={dropdownSelectClasses.selectedOptionTitle}> {selectedOptions.title}</span >) : <></>
-
-    if (multiSelect && selectedOptions.length) {
-      render = (
+    if (multiSelect && finalSelectedOptions.length) {
+      return (
         <>
-          {selectedOptions.map((item, index) => {
-            return (
-              <div key={`chip-${index}`} className={`chip-container-${index} mr-2.5 z-10 ${contentSize.optionSize}`}>
-                <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)}/>}>{item.title}</Chip>
-              </div>
-            )
-          })}
+          {
+            finalSelectedOptions.map((item, index) => {
+              return (
+                <div key={`chip-${index}`} className={`chip-container-${index} mr-2.5 z-10 ${contentSize.optionSize}`}>
+                  <Chip endIcon={<Close size='xs' onClick={(e) => onClickClose(e, item)} />}>{item.title}</Chip>
+                </div>
+              )
+            })
+          }
         </>
       )
     }  
 
-    return render
+    return finalSelectedOptions.title
+      ? (<span className={dropdownSelectClasses.selectedOptionTitle}> {finalSelectedOptions.title}</span >)
+      : <></>
   }
 
-  const renderList = (data) => (
-    data.map((item, index) =>
+  const renderList = (finalData) => (
+    finalData.map((item, index) =>
       <div
         key={`item-container-${index}`}
         className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`}
@@ -158,12 +168,12 @@ const DropdownSelect = ({
       >
         <div
           className={clsx(`content-container-${index} ${dropdownSelectClasses.contentContainer}`, {
-            [dropdownSelectClasses.selected]: (multiSelect && selectedOptions.some(({ title }) => title === item.title)) || selectedOptions.title === item.title,
+            [dropdownSelectClasses.selected]: (multiSelect && finalSelectedOptions.some(({ title }) => title === item.title)) || finalSelectedOptions.title === item.title,
           },
           )}
         >
           {renderListItem(item)}
-          {!simple && item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
+          {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
         </div>
       </div>,
     )
@@ -172,7 +182,7 @@ const DropdownSelect = ({
   const renderListItem = (item) => {
     let selected = null
 
-    if (multiSelect && size === 'lg' && selectedOptions.some(({ title }) => title === item.title)) {
+    if (multiSelect && size === 'lg' && finalSelectedOptions.some(({ title }) => title === item.title)) {
       selected = (
         <ValidationCheck size='lg'/>
       )
@@ -193,15 +203,15 @@ const DropdownSelect = ({
   const handleOnClick = (i, value) => {
     let newSelectedOptions = []
     if (multiSelect) {
-      newSelectedOptions = selectedOptions
+      newSelectedOptions = finalSelectedOptions
       const currOptions = options
       const filterOptions = []
 
-      const index = selectedOptions.findIndex(({ title }) => title === value.title)
+      const index = finalSelectedOptions.findIndex(({ title }) => title === value.title)
       if (index != -1) {
         newSelectedOptions.splice(index, 1)
         currOptions.push(value)
-      } else if (selectedOptions.length < selectLimit) {
+      } else if (finalSelectedOptions.length < selectLimit) {
         let index = options.map(({ title }) => title).indexOf(value.title)
         if (index !== -1) {
           currOptions.splice(index, 1)
@@ -215,15 +225,23 @@ const DropdownSelect = ({
 
       setOptions(filterOptions)
     } else if (!multiSelect) {
-      if (selectedOptions.title === value.title) {
+      if (finalSelectedOptions.title === value.title) {
         newSelectedOptions = []
       } else {
         newSelectedOptions = value
         onClickSelect()
       }
     }
-    setSelectedOptions(newSelectedOptions)
-    onSelect(simple ? newSelectedOptions : { ...newSelectedOptions, i })
+    if (simple) {
+      const simplified = multiSelect
+        ? newSelectedOptions.map(({ title }) => title)
+        : newSelectedOptions.title
+      setSelectedOptions(simplified)
+      onSelect(simplified)
+    } else {
+      setSelectedOptions(newSelectedOptions)
+      onSelect({ ...newSelectedOptions, i })
+    }
   }
   
   const onClickClose = (e, value) => {
@@ -248,7 +266,7 @@ const DropdownSelect = ({
       size={size}
       startIcon={startIcon} 
       endIcon={
-        !multiSelect && selectedOptions.title
+        !multiSelect && finalSelectedOptions.title
           ? (
             allowClear
               ? <Delete size={size} onClick={(e) => onClickDelete(e)} />
@@ -263,7 +281,7 @@ const DropdownSelect = ({
       {...rest}
     >
       <ul>
-        {data && data.map((el, index) => {
+        {finalData && finalData.map((el, index) => {
           return (
             <Menu.Item 
               as="li" 
@@ -271,11 +289,7 @@ const DropdownSelect = ({
               className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
             >
               {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
-              {
-                simple
-                  ? renderListItem(el)
-                  : renderList(el.items)
-              }
+              {renderList(el.items)}
               {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
             </Menu.Item>
           )

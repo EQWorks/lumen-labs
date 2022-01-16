@@ -11,7 +11,14 @@ module.exports = {
       version: 'detect',
     },
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  'extends': [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:import/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -23,7 +30,11 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  'plugins': [
+    'react',
+    'react-hooks',
+    'import',
+  ],
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
     'eol-last': ['error', 'always'],

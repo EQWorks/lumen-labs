@@ -73,6 +73,31 @@ export const Base = () => {
   )
 }
 
+export const Simple = () => {
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default</p>
+          <DropdownSelect simple
+            data={sampleDataBasic}
+            endIcon={<ArrowDown size='md' />}
+            placeholder='Select a word'
+          />
+        </div>
+        <div>
+          <p>multi</p>
+          <DropdownSelect simple multiSelect
+            data={sampleDataBasic}
+            endIcon={<ArrowDown size='lg' />}
+            placeholder='Select some words'
+          />
+        </div>
+      </div>
+    </>
+  )
+}
+
 /** -- props (DropdownSelect):
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component

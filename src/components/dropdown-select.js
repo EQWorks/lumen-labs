@@ -159,12 +159,12 @@ const DropdownSelect = ({
       : <></>
   }
 
-  const renderList = (finalData) => (
-    finalData.map((item, index) =>
+  const renderList = ({ items, type }) => (
+    items.map((item, index) =>
       <div
         key={`item-container-${index}`}
         className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`}
-        onClick={() => handleOnClick(index, item)}
+        onClick={() => handleOnClick(index, item, type)}
       >
         <div
           className={clsx(`content-container-${index} ${dropdownSelectClasses.contentContainer}`, {
@@ -200,7 +200,7 @@ const DropdownSelect = ({
     )
   }
 
-  const handleOnClick = (i, value) => {
+  const handleOnClick = (i, value, type) => {
     let newSelectedOptions = []
     if (multiSelect) {
       newSelectedOptions = finalSelectedOptions
@@ -215,7 +215,7 @@ const DropdownSelect = ({
         let index = options.map(({ title }) => title).indexOf(value.title)
         if (index !== -1) {
           currOptions.splice(index, 1)
-          newSelectedOptions.push(value)
+          newSelectedOptions.push({ ...value, type: type || null, i })
         }
       }
 
@@ -228,7 +228,7 @@ const DropdownSelect = ({
       if (finalSelectedOptions.title === value.title) {
         newSelectedOptions = []
       } else {
-        newSelectedOptions = value
+        newSelectedOptions = { ...value, type: type || null, i }
         onClickSelect()
       }
     }
@@ -289,7 +289,7 @@ const DropdownSelect = ({
               className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
             >
               {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
-              {renderList(el.items)}
+              {renderList(el)}
               {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
             </Menu.Item>
           )

@@ -6,6 +6,7 @@ module.exports = {
     safelist: [
       /^(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
       /^(hover|focus|active):(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
+      /^z-(.*)/,
     ],
   },
   presets: [],

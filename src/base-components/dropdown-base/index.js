@@ -60,7 +60,7 @@ const DropdownBase = forwardRef(({
       { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
-    placeholder: `normal-case ${disabled ? 'text-secondary-300' : 'text-secondary-400'}`,
+    placeholder: 'normal-case text-secondary-400',
     startIcon: clsx(`mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`, 
       { 'text-secondary-600': !disabled },
     ),

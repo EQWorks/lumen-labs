@@ -50,7 +50,7 @@ const colourTransform = (type) => ({
   },
   elevated: {
     [type]: [
-      'active:border-white', 'hover:shadow-light-60', 'active:shadow-blue-10',      
+      'active:border-secondary-50', 'hover:shadow-light-60', 'active:shadow-blue-10',
       buttonColoursTransform(type, ['text'], ['default', 'hover', 'active']),
       buttonColoursTransform(type, ['border'], ['hover']),
     ].join(' '),
@@ -65,7 +65,7 @@ const colourTransform = (type) => ({
 const Button = ({ children, classes, variant, size, type, disabled, ...rest }) => {
   const colors = useMemo(() => colourTransform(type), [type])
   const variants = {
-    outlined: clsx('border border-1', {
+    outlined: clsx('border border-1 bg-secondary-50', {
       [colors[variant].disabled]: disabled,
       [colors[variant][type]]: !disabled,
     }),
@@ -73,11 +73,11 @@ const Button = ({ children, classes, variant, size, type, disabled, ...rest }) =
       [colors[variant].disabled]: disabled,
       [colors[variant][type]]: !disabled,
     }),
-    elevated: clsx('border border-white bg-white shadow-light-10', {
+    elevated: clsx('border border-secondary-50 bg-secondary-50 shadow-light-10', {
       [`${colors[variant].disabled}`]: disabled,
       [`${colors[variant][type]}`]: !disabled,
     }),
-    filled: clsx('text-white', {
+    filled: clsx('text-secondary-50', {
       [colors[variant].disabled]: disabled,
       [colors[variant][type]]: !disabled,
     }),

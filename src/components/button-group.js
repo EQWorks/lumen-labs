@@ -34,7 +34,7 @@ const ButtonGroup = ({ children, variant, align }) => {
             : `rounded-none ${border[variant][align] || ''}`
 
         if (isValidElement(child)) {
-          return cloneElement(child, { classes: { button: { borderRadius } } })
+          return cloneElement(child, { classes: { button: { borderRadius } }, variant })
         }
         return child
       })}

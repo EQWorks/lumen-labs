@@ -75,33 +75,33 @@ const ButtonStory = ({ variant }) => {
         <div className='mr-20'>
           <p className='text-primary-700 mt-20 mb-3'>GROUPED (horizontal):</p>
           <ButtonGroup variant={variant}>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
           </ButtonGroup>
           <div className='mt-5'>
             <ButtonGroup variant={variant}>
-              <Button variant={variant} size='lg'>Button</Button>
-              <Button variant={variant} size='lg'>Button</Button>
-              <Button variant={variant} size='lg'>Button</Button>
-              <Button variant={variant} size='lg'><Add size='lg' /></Button>
+              <Button size='lg'>Button</Button>
+              <Button size='lg'>Button</Button>
+              <Button size='lg'>Button</Button>
+              <Button size='lg'><Add size='lg' /></Button>
             </ButtonGroup>
           </div>
           <div className='mt-5'>
             <ButtonGroup variant={variant}>
-              <Button variant={variant} size='md'>Button</Button>
-              <Button variant={variant} size='md'>Button</Button>
-              <Button variant={variant} size='md'>Button</Button>
-              <Button variant={variant} size='md'><Add size='md' /></Button>
+              <Button size='md'>Button</Button>
+              <Button size='md'>Button</Button>
+              <Button size='md'>Button</Button>
+              <Button size='md'><Add size='md' /></Button>
             </ButtonGroup>
           </div>
           <div className='mt-5'>
             <ButtonGroup variant={variant}>
-              <Button variant={variant} size='sm'>Button</Button>
-              <Button variant={variant} size='sm'>Button</Button>
-              <Button variant={variant} size='sm'>Button</Button>
-              <Button variant={variant} size='sm'><Add size='sm' /></Button>
+              <Button size='sm'>Button</Button>
+              <Button size='sm'>Button</Button>
+              <Button size='sm'>Button</Button>
+              <Button size='sm'><Add size='sm' /></Button>
             </ButtonGroup>
           </div>
         </div>
@@ -109,33 +109,33 @@ const ButtonStory = ({ variant }) => {
         <div>
           <p className='text-primary-700 mt-20 mb-3'>GROUPED (vertical):</p>
           <ButtonGroup variant={variant} align='vertical'>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
-            <Button variant={variant} size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
+            <Button size='lg'><Add size='lg' /></Button>
           </ButtonGroup>
           <span className='ml-5'>
             <ButtonGroup variant={variant} align='vertical'>
-              <Button variant={variant} size='lg'>Button</Button>
-              <Button variant={variant} size='lg'>Button</Button>
-              <Button variant={variant} size='lg'>Button</Button>
-              <Button variant={variant} size='lg'><Add size='lg' /></Button>
+              <Button size='lg'>Button</Button>
+              <Button size='lg'>Button</Button>
+              <Button size='lg'>Button</Button>
+              <Button size='lg'><Add size='lg' /></Button>
             </ButtonGroup>
           </span>
           <span className='ml-5'>
             <ButtonGroup variant={variant} align='vertical'>
-              <Button variant={variant} size='md'>Button</Button>
-              <Button variant={variant} size='md'>Button</Button>
-              <Button variant={variant} size='md'>Button</Button>
-              <Button variant={variant} size='md'><Add size='md' /></Button>
+              <Button size='md'>Button</Button>
+              <Button size='md'>Button</Button>
+              <Button size='md'>Button</Button>
+              <Button size='md'><Add size='md' /></Button>
             </ButtonGroup>
           </span>
           <span className='ml-5'>
             <ButtonGroup variant={variant} align='vertical'>
-              <Button variant={variant} size='sm'>Button</Button>
-              <Button variant={variant} size='sm'>Button</Button>
-              <Button variant={variant} size='sm'>Button</Button>
-              <Button variant={variant} size='sm'><Add size='sm' /></Button>
+              <Button size='sm'>Button</Button>
+              <Button size='sm'>Button</Button>
+              <Button size='sm'>Button</Button>
+              <Button size='sm'><Add size='sm' /></Button>
             </ButtonGroup>
           </span>
         </div>

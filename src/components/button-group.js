@@ -18,7 +18,7 @@ const border = Object.freeze({
   }),
 })
 
-const ButtonGroup = ({ children, variant, align }) => {
+const ButtonGroup = ({ children, variant, size, align }) => {
   const count = React.Children.count(children)
   const flexDir = align === 'vertical' ? 'flex-col' : 'flex-row'
   const firstElBorder = align === 'vertical' ? 'rounded-t-sm' : 'rounded-l-sm'
@@ -34,7 +34,7 @@ const ButtonGroup = ({ children, variant, align }) => {
             : `rounded-none ${border[variant][align] || ''}`
 
         if (isValidElement(child)) {
-          return cloneElement(child, { classes: { button: { borderRadius } }, variant })
+          return cloneElement(child, { classes: { button: { borderRadius } }, variant, size })
         }
         return child
       })}
@@ -45,10 +45,12 @@ const ButtonGroup = ({ children, variant, align }) => {
 ButtonGroup.propTypes = {
   children: PropTypes.node.isRequired,
   variant: PropTypes.string,
+  size: PropTypes.string,
   align: PropTypes.string,
 }
 ButtonGroup.defaultProps = {
   variant: 'outlined',
+  size: '',
   align: 'horizontal',
 }
 

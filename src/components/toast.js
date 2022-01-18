@@ -191,13 +191,15 @@ const Toast = forwardRef(({
           {...rest}
         >
           {/* {(timeOut > 0 && (progress >= 0 && progress < 100)) && <ProgressBar classes={progressBarClasses} progress={progress}/>} */}
-          <ProgressBar
-            animate
-            direction='ltr'
-            progress={open && timeOut ? 100 : 0}
-            duration={timeOut/1000}
-            classes={progressBarClasses}
-          />
+          {(timeOut > 0 &&
+            <ProgressBar
+              animate
+              direction='ltr'
+              progress={open && timeOut ? 100 : 0}
+              duration={timeOut/1000}
+              classes={progressBarClasses}
+            />
+          )}
         </ToastBase>
       </div>
     </>

@@ -37,7 +37,7 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
   const height = useMemo(() => headerHeight + detailsHeight, [headerHeight, detailsHeight])
 
   return (
-    <div ref={ref} style={autoHeight ? { height } : {}} >
+    <div ref={ref} style={autoHeight && height ? { height } : {}} >
       <div
         ref={headerRef}
         className={clsx(`${classes.header} cursor-pointer flex flex-row`, {

@@ -1,10 +1,12 @@
-import React, { forwardRef, useRef, useEffect } from 'react'
+import React, { forwardRef, useRef, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { ToastBase } from '../base-components'
+import ProgressBar from './progress-bar'
 import { Close } from '../icons'
 
 import { concatTargetColor } from '../utils/concat-color'
+import { makeStyles } from '../utils/make-styles'
 
 
 const Toast = forwardRef(({
@@ -31,7 +33,7 @@ const Toast = forwardRef(({
     vertical: {
       root: 'w-450px',
       button: 'mt-5px',
-      content: 'mx-6',
+      content: 'mx-6 mb-2.5',
     },
   }
 
@@ -42,6 +44,10 @@ const Toast = forwardRef(({
       description: 'text-secondary-800',
       icon: concatTargetColor(color, ['text'], [500]),
       closeIcon: 'text-secondary-600',
+      progressBar: {
+        root: 'bg-secondary-50',
+        content: concatTargetColor(color, ['bg'], [400]),
+      },
     },
     dark: {
       root: 'bg-secondary-900',
@@ -49,6 +55,10 @@ const Toast = forwardRef(({
       description: 'text-secondary-50',
       icon: concatTargetColor(color, ['text'], [200]),
       closeIcon: 'text-secondary-200',
+      progressBar: {
+        root: 'bg-secondary-900',
+        content: concatTargetColor(color, ['bg'], [200]),
+      },
     },
     'semantic-light': {
       root: concatTargetColor(color, ['shadow', 'bg'], [500, 100]),
@@ -56,6 +66,10 @@ const Toast = forwardRef(({
       description: 'text-secondary-800',
       icon: concatTargetColor(color, ['text'], [500]),
       closeIcon: concatTargetColor(color, ['text'], [500]),
+      progressBar: {
+        root: concatTargetColor(color, ['bg'], [100]),
+        content: concatTargetColor(color, ['bg'], [400]),
+      },
     },
     'semantic-dark': {
       root: concatTargetColor(color, ['bg'], [500]),
@@ -63,13 +77,26 @@ const Toast = forwardRef(({
       description: 'text-secondary-100',
       icon: 'text-secondary-50',
       closeIcon: 'text-secondary-50',
+      progressBar: {
+        root: concatTargetColor(color, ['bg'], [500]),
+        content: concatTargetColor(color, ['bg'], [700]),
+      },
     },
   }
 
+  const style = makeStyles({
+    progressBarRoot: {
+      borderRadius: '0 0 6px 6px',
+    },
+    progressBarContent: {
+      borderRadius: '0 4px 4px 6px',
+    },
+  })
+
   const toastClasses = Object.freeze({
-    root: `p-2.5 text-sm font-bold tracking-sm leading-1.43 rounded-10px 
+    root: `text-sm font-bold tracking-sm leading-1.43 rounded-sm
       ${classes.root && classes.root} ${size[variant].root} ${colorType[type].root}`,
-    header: `justify-between ${classes.header && classes.header} ${colorType[type].header}`,
+    header: `m-2.5 justify-between ${classes.header && classes.header} ${colorType[type].header}`,
     title: `mr-2.5 ${classes.title && classes.title}`,
     button: `cursor-pointer ${classes.button && classes.button} ${size[variant].button} ${colorType[type].icon}`,
     content: `${classes.content && classes.content} ${size[variant].content}`,
@@ -79,42 +106,60 @@ const Toast = forwardRef(({
     endIcon: `cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
   })
 
+  const progressBarClasses = Object.freeze({
+    root: `${style.progressBarRoot} ${colorType[type].progressBar.root}`,
+    content: `${style.progressBarContent} ${colorType[type].progressBar.content}`,
+  })
+
   const toastRef = useRef(null)
-  let timer = ''
+  const [progress, setProgress] = useState(true)  
+
+  useEffect(() => {
+    if (open && timeOut) {
+      setProgress(true)
+      const t = setTimeout(() => {
+        if (onTimeOut) {
+          onTimeOut()
+        }
+        setProgress(false)
+        onClose()
+      }, timeOut)
+  
+      return () => clearTimeout(t)
+    }
+  }, [open, timeOut])
 
   useEffect(() => {
     if (timeOut > 0) {
       const toastEl = toastRef.current
       let fade = ''
-      
-      open && (timer = setTimeout(() => {
-        if (onTimeOut) onTimeOut()
-        onClose()
-      }, timeOut))
 
       if (toastEl && open) {
         fade = setTimeout(() => {
           toastEl.style.visibility = 'visible'
           toastEl.style.opacity = 1
         }, 500)
+        return () => clearTimeout(fade)
+        
       } else if (toastEl && !open) {
-        setTimeout(() => {
+        fade = setTimeout(() => {
           toastEl.style.visibility = 'hidden'
           toastEl.style.opacity = 0
         }, 500)
-
-        if (fade) clearTimeout(fade)
+        return () => clearTimeout(fade)
       }
+
+      console.log('fade: ', fade)
     }
   }, [open])
 
   const handleOnClose = () => {
+    setProgress(false)
     onClose()
-    if (timer) clearTimeout(timer)
   }
 
   const _button = <div className={toastClasses.button}>{button}</div>
-
+  
   return (
     <>
       <div 
@@ -131,7 +176,17 @@ const Toast = forwardRef(({
           startIcon={icon} 
           endIcon={<Close size='sm' onClick={handleOnClose}/>} 
           {...rest}
-        />
+        >
+          {(timeOut > 0 && progress &&
+            <ProgressBar
+              animate
+              direction='ltr'
+              progress={open && timeOut ? 100 : 0}
+              duration={timeOut/1000}
+              classes={progressBarClasses}
+            />
+          )}
+        </ToastBase>
       </div>
     </>
   )

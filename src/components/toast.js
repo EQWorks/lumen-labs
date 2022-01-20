@@ -9,9 +9,6 @@ import { concatTargetColor } from '../utils/concat-color'
 import { makeStyles } from '../utils/make-styles'
 
 
-let interval = undefined
-let timer = undefined
-
 const Toast = forwardRef(({
   classes,
   variant,
@@ -115,14 +112,16 @@ const Toast = forwardRef(({
   })
 
   const toastRef = useRef(null)
-  const [progress, setProgress] = useState(100)  
+  const [progress, setProgress] = useState(true)  
 
   useEffect(() => {
     if (open && timeOut) {
+      setProgress(true)
       const t = setTimeout(() => {
         if (onTimeOut) {
           onTimeOut()
         }
+        setProgress(false)
         onClose()
       }, timeOut)
   
@@ -135,44 +134,32 @@ const Toast = forwardRef(({
       const toastEl = toastRef.current
       let fade = ''
 
-      // if (open) {
-      // interval = setInterval(() => {
-      //   setProgress((prev) => prev - 1)
-      // }, (timeOut) / 100)
-
-      // timer = setTimeout(() => {
-      //   if (onTimeOut) onTimeOut()
-      //   onClose()
-      //   clearInterval(interval)
-      //   setProgress(100)
-      // }, timeOut + 500)
-      // }
-
       if (toastEl && open) {
         fade = setTimeout(() => {
           toastEl.style.visibility = 'visible'
           toastEl.style.opacity = 1
         }, 500)
+        return () => clearTimeout(fade)
+        
       } else if (toastEl && !open) {
-        setTimeout(() => {
+        fade = setTimeout(() => {
           toastEl.style.visibility = 'hidden'
           toastEl.style.opacity = 0
         }, 500)
-
-        if (fade) clearTimeout(fade)
+        return () => clearTimeout(fade)
       }
+
+      console.log('fade: ', fade)
     }
   }, [open])
 
   const handleOnClose = () => {
+    setProgress(false)
     onClose()
-    if (timer) clearTimeout(timer)
-    if (interval) clearInterval(interval)
-    if (progress < 100) setProgress(100)
   }
 
   const _button = <div className={toastClasses.button}>{button}</div>
-
+  
   return (
     <>
       <div 
@@ -190,8 +177,7 @@ const Toast = forwardRef(({
           endIcon={<Close size='sm' onClick={handleOnClose}/>} 
           {...rest}
         >
-          {/* {(timeOut > 0 && (progress >= 0 && progress < 100)) && <ProgressBar classes={progressBarClasses} progress={progress}/>} */}
-          {(timeOut > 0 &&
+          {(timeOut > 0 && progress &&
             <ProgressBar
               animate
               direction='ltr'

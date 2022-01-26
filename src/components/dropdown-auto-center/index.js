@@ -110,7 +110,10 @@ DropdownAutoCenter.propTypes = {
   }),
   data:  PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string,
+      title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]),
     }),
   ),
   onSelect: PropTypes.func,

@@ -127,7 +127,7 @@ const DropdownSelect = ({
 
     !limit && setSelectLimit(length)
     setOptions(initialOptions)
-  }, [finalData])
+  }, [finalData, limit])
 
   if (!componentIsActive && open) {
     setOpen(!open)

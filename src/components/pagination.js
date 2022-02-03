@@ -89,7 +89,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
 
   useEffect(() => {
     setPage((items && items.length) && initialPage)
-  }, [items, rowsPerPageSize])
+  }, [setPage, items, rowsPerPageSize, initialPage])
 
   return (
     <>

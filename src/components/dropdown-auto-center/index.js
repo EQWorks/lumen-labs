@@ -56,7 +56,7 @@ const DropdownAutoCenter = forwardRef(({
         }
       }
     })
-  }, [open])
+  }, [open, active, data, scrollable])
 
   const handleSelectRowsOnClick = () => {
     setOpen(!open)

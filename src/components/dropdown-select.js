@@ -111,6 +111,7 @@ const DropdownSelect = ({
     menu: `${!finalData.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
     button: classes.button,
     content: classes.content,
+    innerButton: classes.innerButton,
   })
 
   useEffect(() => {
@@ -366,6 +367,7 @@ DropdownSelect.defaultProps = {
     description: '',
     type: '',
     dividerContainer: '',
+    innerButton: '',
   },
   data: [],
   button: null,

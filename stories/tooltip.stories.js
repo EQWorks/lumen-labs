@@ -12,6 +12,7 @@ const labelClass = 'my-2 mr-3 font-bold capitalize'
 
 /** -- props (Tooltip):
  * [classes] - object, custom styling supported keys:
+ *    container: outer container div
  *    root: tooltip container div
  *    arrow: tooltip container's arrow
  *    header: header container div

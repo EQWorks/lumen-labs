@@ -82,7 +82,7 @@ const DropdownBase = forwardRef(({
     <div className={`${selectedOptions && multiSelect && 'pb-0'} ${dropdownClasses.content}`}>
       {startIcon && <div className={dropdownClasses.startIcon}>{startIcon}</div>}
       <div className={
-        `dropdown-content flex flex-row capitalize whitespace-nowrap 
+        `${classes.innerButton} dropdown-content flex flex-row capitalize whitespace-nowrap 
         ${overflow === 'vertical' && selectedOptions && 'flex-wrap'}
         ${overflow === 'horizontal' && selectedOptions && 'scroll-overlay overflow-x-auto overflow-y-hidden'}`
       }>
@@ -126,6 +126,7 @@ DropdownBase.propTypes = {
     button: PropTypes.string,
     content: PropTypes.string,
     menu: PropTypes.string,
+    innerButton: PropTypes.string,
   }),
   children: PropTypes.node,
   renderSelectedOptions: PropTypes.func,
@@ -148,6 +149,7 @@ DropdownBase.defaultProps = {
     button: '',
     content: '',
     menu: '',
+    innerButton: '',
   },
   children: null,
   renderSelectedOptions: () => {},

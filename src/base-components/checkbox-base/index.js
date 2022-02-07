@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import CheckboxGroupBase from './checkbox-group-base'
 
-const CheckboxBase = React.forwardRef(({ classes, label, checked, onChange, inputProps }, ref) => {
+
+const CheckboxBase = React.forwardRef((
+  { classes, label, checked, onChange, inputProps, inputRef },
+  ref,
+) => {
   const [name, setName] = useState('')
   const _checked = checked === null ? name === label : checked
 
@@ -12,13 +17,14 @@ const CheckboxBase = React.forwardRef(({ classes, label, checked, onChange, inpu
     } else {
       setName(e.target.name)
     }
-    onChange({ name: e.target.name, checked: e.target.checked })
+    onChange({ label: e.target.name, checked: e.target.checked })
   }
 
   return (
     <div ref={ref} className={classes.root}>
       <input
-        className={classes.input}
+        ref={inputRef}
+        className={`cursor-pointer ${classes.input}`}
         type='checkbox'
         name={label}
         checked={_checked}
@@ -39,6 +45,10 @@ CheckboxBase.propTypes = {
   checked: PropTypes.bool,
   onChange: PropTypes.func,
   inputProps: PropTypes.object,
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func, 
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
+  ]),
 }
 CheckboxBase.defaultProps = {
   classes: {
@@ -49,7 +59,10 @@ CheckboxBase.defaultProps = {
   checked: null,
   onChange: () => {},
   inputProps: {},
+  inputRef: () => {},
 }
 
 CheckboxBase.displayName = 'CheckboxBase'
+CheckboxBase.Group = CheckboxGroupBase
+
 export default CheckboxBase

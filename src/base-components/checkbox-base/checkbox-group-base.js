@@ -1,102 +1,60 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from '../../utils/make-styles'
 import CheckboxBase from './index'
+import NestedCheckboxes from './nested-checkboxes'
 
 
 const styles = makeStyles({
-  childIndent: {
-    marginLeft: '0.571rem',
-  },
+  indent: { marginRight: '1.429rem' },
 })
 
-const renderNestingCheckboxes = ({
-  option,
-  index,
-  parentRef,
-  onGroupChange,
-  nestingChecks,
-  setNestingChecks,
-}) => {
-  const [parentCheckbox, ...childCheckboxes] = option
-  const { onChange: parentOnChange, ...parentRest } = parentCheckbox
+const CheckboxGroupBase = React.forwardRef(({ classes, options, align, disabled, defaultValues, onChange }, ref) => {
+  const [groups, setGroups] = useState(options)
 
-  const handleParentChange = (p) => {
-    const values = childCheckboxes.map((c) => ({ label: c.label, checked: p.checked }))
-    setNestingChecks(values)
-    if (parentOnChange) {
-      parentOnChange(values)
+  const alignStyleRoot = align === 'horizontal' ? 'flex flex-rows' : ''
+  const alignStyleCheckbox = (index) => {
+    if (align === 'horizontal') {
+      return index === options.length - 1 ? '' : styles.indent
     }
+    return ''
   }
-
-  const handleChildChange = (value, onChange) => {
-    const changedIndex = childCheckboxes.findIndex(({ label }) => label === value.label)
-    if (changedIndex > -1) {
-      const _children = nestingChecks.length ? [...nestingChecks] : [...childCheckboxes]
-      _children.splice(changedIndex, 1, value)
-      setNestingChecks(_children)
-      onGroupChange([{ label: parentRef.current.name, checked: parentRef.current.checked }, ..._children])
-    }
-    if (onChange) {
-      onChange(value)
-    }
-  }
-
-  return (
-    <span key={`${option.label}-${index}`}>
-      <span><CheckboxBase inputRef={parentRef} onChange={handleParentChange} {...parentRest} /></span>
-      <div className={styles.childIndent}>
-        {(nestingChecks.length ? nestingChecks : childCheckboxes).map(({ onChange, ...rest }, i) => {
-          return (
-            <span key={`${rest.label}-${i}`}>
-              <CheckboxBase onChange={(v) => handleChildChange(v, onChange)} {...rest} />
-            </span>
-          )
-        })}
-      </div>
-    </span>
-  )
-}
-
-const CheckboxGroupBase = React.forwardRef(({ options, onChange: onGroupChange }, ref) => {
-  const parentRef = useRef()
-  const [nestingChecks, setNestingChecks] = useState([])
-
-  useEffect(() => {
-    const hasUnchecked = nestingChecks.filter(({ checked }) => !checked)
-    const isNotAllUnchecked = hasUnchecked.length !== nestingChecks.length
-
-    if (hasUnchecked.length && isNotAllUnchecked) {
-      parentRef.current.checked = false
-      parentRef.current.indeterminate = true
-    } else if (!hasUnchecked.length && isNotAllUnchecked) {
-      parentRef.current.checked = true
-      parentRef.current.indeterminate = false
-    } else {
-      parentRef.current.checked = false
-      parentRef.current.indeterminate = false
-    }
-  }, [nestingChecks])
 
   return (  
-    <div ref={ref}>
+    <div ref={ref} className={`${alignStyleRoot} ${classes.root}`}>
       {options.map((option, index) => {
         if (Array.isArray(option)) {
-          return renderNestingCheckboxes({
-            option,
-            index,
-            parentRef,
-            onGroupChange,
-            nestingChecks,
-            setNestingChecks,
-          })
+          return (
+            <span key={`${option.label}-${index}`} className={alignStyleCheckbox(index)}>
+              <NestedCheckboxes
+                classes={classes.checkboxClasses}
+                option={option}
+                index={index}
+                disabled={disabled}
+                defaultValues={defaultValues}
+                onChange={onChange}
+                updateParentGroups={setGroups}
+              />
+            </span>)
         }
         return (
-          <span key={`${option.label}-${index}`}>
-            <CheckboxBase {...option} />
-          </span>
-        )
+          <span key={`${option.label}-${index}`} className={alignStyleCheckbox(index)}>
+            <CheckboxBase
+              classes={classes.checkboxClasses}
+              {...{
+                ...option,
+                defaultChecked: defaultValues.includes(option.label),
+                inputProps: { ...option.inputProps, disabled },
+                onChange: (value) => onChange(groups.map((group, i) => {
+                  if (`${group.label}-${i}` === `${option.label}-${index}`) {
+                    return value
+                  }
+                  return group
+                })),
+              }}
+            />
+          </span>)
       })}
     </div>
   )
@@ -104,9 +62,17 @@ const CheckboxGroupBase = React.forwardRef(({ options, onChange: onGroupChange }
 
 CheckboxGroupBase.propTypes = {
   options: PropTypes.array.isRequired,
+  classes: PropTypes.object,
+  align: PropTypes.string,
+  disabled: PropTypes.bool,
+  defaultValues: PropTypes.array,
   onChange: PropTypes.func,
 }
 CheckboxGroupBase.defaultProps = {
+  classes: { root: '', checkboxClasses: {} },
+  align: 'vertical',
+  disabled: false,
+  defaultValues: [],
   onChange: () => {},
 }
 

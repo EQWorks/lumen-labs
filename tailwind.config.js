@@ -1055,6 +1055,8 @@ module.exports = {
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
   plugins: [
+    require('@tailwindcss/forms'),
+  
     function ({ addUtilities, theme }) {
 
       let newUtilities = {}

@@ -42,7 +42,7 @@ const CheckboxBase = React.forwardRef(({
 
   return (
     <div ref={ref} className={classes.root}>
-      <input
+      <span className='self-center'><input
         ref={inputRef}
         className={`cursor-pointer ${classes.input}`}
         type='checkbox'
@@ -54,11 +54,11 @@ const CheckboxBase = React.forwardRef(({
             : checked}
         onChange={handleChange}
         {...inputProps}
-      />
-      <label
+      /></span>
+      <span className='self-center align-middle'><label
         className={classes.label}
         htmlFor={label}
-      >{label}</label>
+      >{label}</label></span>
     </div>
   )
 })

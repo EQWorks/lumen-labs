@@ -13,7 +13,7 @@ const styles = makeStyles({
 const CheckboxGroupBase = React.forwardRef(({ classes, options, align, disabled, defaultValues, onChange }, ref) => {
   const [groups, setGroups] = useState(options)
 
-  const alignStyleRoot = align === 'horizontal' ? 'flex flex-rows' : ''
+  const alignStyleRoot = align === 'horizontal' ? 'inline-flex flex-rows' : ''
   const alignStyleCheckbox = (index) => {
     if (align === 'horizontal') {
       return index === options.length - 1 ? '' : styles.indent

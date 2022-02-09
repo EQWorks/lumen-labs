@@ -107,8 +107,14 @@ export const Base = () => {
 
 export const Normal = () => {
   return (
-    <Checkbox
-      label='Label'
-    />
+    <>
+      <p className='my-1 p-2 bg-primary-100 rounded-sm'>NORMAL:</p>
+      <div className='inline-flex flex-col items-start'>
+        <Checkbox label='Label' />
+        <Checkbox label='Indeterminate' indeterminate />
+        <Checkbox label='Disabled' inputProps={{ disabled: true }} />
+        <Checkbox label='Disabled - checked' defaultChecked inputProps={{ disabled: true }} />
+      </div>
+    </>
   )
 }

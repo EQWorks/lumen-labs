@@ -18,51 +18,55 @@ const styles = makeStyles({
   },
 })
 
-const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onChange, inputProps }) => {
-  const [check, setCheck] = useState(checked)
+const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onChange, inputProps, ...rest }) => {
+  const [check, setCheck] = useState({ label, checked })
 
   useEffect(() => {
     if (check?.indeterminate === undefined && indeterminate !== null) {
       setCheck((prev) => ({ ...prev, indeterminate }))
     }
-    if (check?.checked === undefined && defaultChecked !== null) {
+    if ([undefined, null].includes(check?.checked) && defaultChecked !== null) {
       setCheck((prev) => ({ ...prev, checked: defaultChecked }))
     }
-  }, [check, indeterminate, defaultChecked])
+  }, [check, indeterminate, defaultChecked, label])
 
   return (<CheckboxBase
     classes={{
-      root: `inline-flex justify-center items-center ${classes.root}`,
-      input: clsx(
-        `focus:ring-0 focus:ring-offset-0 border rounded-sm
-          bg-secondary-50 border-secondary-400
-          ${styles.input} ${classes.input}
-        `,
-        {
-          [`text-interactive-500
-            hover:text-interactive-600
-            active:text-interactive-700`
-          ]: (check?.checked || check?.indeterminate) && !inputProps.disabled,
-          [`hover:bg-interactive-50 hover:border-interactive-300
-            active:bg-interactive-50 active:border-interactive-400`
-          ]: !inputProps?.disabled,
-          'cursor-not-allowed bg-secondary-300 text-secondary-500': inputProps?.disabled,
-        }),
+      root: `inline-flex items-center ${classes.root}`,
+      input: clsx(`focus:ring-0 focus:ring-offset-0 border
+        rounded-sm bg-secondary-50 border-secondary-400
+        ${styles.input} ${classes.input}`,
+      {
+        [`text-interactive-500
+          hover:text-interactive-600
+          active:text-interactive-700`
+        ]: (check?.checked || check?.indeterminate) && !inputProps.disabled,
+        [`hover:bg-interactive-50 hover:border-interactive-300
+          active:bg-interactive-50 active:border-interactive-400`
+        ]: !inputProps?.disabled,
+        'cursor-not-allowed bg-secondary-300 text-secondary-500': inputProps?.disabled,
+      }),
       label: clsx(`font-normal align-middle ${styles.label}`, {
         'text-secondary-500': inputProps.disabled,
         'text-secondary-600': !inputProps.disabled,
-        'text-secondary-800': (check?.checked || check?.indeterminate) && !inputProps.disabled,
+        'text-secondary-800': !inputProps.disabled && (
+          checked
+            || check?.checked && !rest.isNestingGroup
+            || check?.indeterminate && !rest.isNestingGroup
+            || indeterminate && rest.isNestingGroup
+        ),
       }),
     }}
     label={label}
-    checked={check?.checked}
+    checked={rest.isNestingGroup ? checked : check?.checked}
     defaultChecked={defaultChecked}
     indeterminate={indeterminate}
-    onChange={(v) => {
-      setCheck((prev) => ({ ...prev, ...v, indeterminate: false }))
-      onChange(v)
+    onChange={(value) => {
+      setCheck((prev) => ({ ...prev, ...value, indeterminate: false }))
+      onChange(value)
     }}
     inputProps={inputProps}
+    {...rest}
   />)
 }
 
@@ -88,5 +92,9 @@ Checkbox.defaultProps = {
   onChange: () => {},
 }
 
+const CheckboxGroup = (props) => (<CheckboxGroupBase {...props} StyledCheckbox={Checkbox} />)
+
 Checkbox.displayName = 'Checkbox'
+Checkbox.Group = CheckboxGroup
+
 export default Checkbox

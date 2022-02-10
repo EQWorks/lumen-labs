@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { CheckboxBase } from '../src/base-components'
 import { Checkbox } from '../src'
@@ -24,7 +24,7 @@ export default {
  * [inputProps] - object, props for checkbox input element (e.g. disabled)
 */
 
-/** -- props (CheckboxGroupBase):
+/** -- props (CheckboxBase.Group):
  * [classes] - object, custom styling supported keys:
  *    root: component wrapper
  *    checkboxClasses: checkbox componoment classes
@@ -87,7 +87,7 @@ export const Base = () => {
         align='horizontal'
         defaultValues={['No children', 'child-2']}
         options={[
-          { label: 'VERTICAL with nested groups - default values' },
+          { label: 'Nested groups - default values' },
           { label: 'No children' },
           [
             { label: 'Parent' },
@@ -105,16 +105,89 @@ export const Base = () => {
   )
 }
 
+/** -- props (Checkbox):
+ * [...all [CheckboxBase] props]
+*/
+/** -- props (Checkbox.Group):
+ * [...all [CheckboxBase.Group] props]
+*/
 export const Normal = () => {
+  const [checked, setChecked] = useState(false)
+
   return (
     <>
       <p className='my-1 p-2 bg-primary-100 rounded-sm'>NORMAL:</p>
       <div className='inline-flex flex-col items-start'>
         <Checkbox label='Label' />
+        <Checkbox label='Default checked' defaultChecked />
         <Checkbox label='Indeterminate' indeterminate />
         <Checkbox label='Disabled' inputProps={{ disabled: true }} />
         <Checkbox label='Disabled - checked' defaultChecked inputProps={{ disabled: true }} />
       </div>
+      <Checkbox
+        classes={{ root: 'ml-40' }}
+        label='Controlled - default checked'
+        defaultChecked
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+      />
+
+      <p className='mt-10 my-1 p-2 bg-primary-100 rounded-sm'>GROUPED (vertical):</p>
+      <Checkbox.Group
+        defaultValues={['No children', 'child-2']}
+        options={[
+          { label: 'Nested groups - default values' },
+          { label: 'No children' },
+          [
+            { label: 'Parent' },
+            { label: 'child-1' },
+            { label: 'child-2' },
+          ],
+          [
+            { label: 'Parent' },
+            { label: 'child-1' },
+            { label: 'child-2' },
+          ],
+        ]}
+      />
+      <Checkbox.Group
+        disabled
+        options={[
+          { label: 'Nested groups - disabled (disable entire group)' },
+          { label: 'No children' },
+          [
+            { label: 'Parent' },
+            { label: 'child-1' },
+            { label: 'child-2' },
+          ],
+          [
+            { label: 'Parent' },
+            { label: 'child-1' },
+            { label: 'child-2' },
+          ],
+        ]}
+        classes={{ root: 'ml-20' }}
+      />
+
+      <p className='mt-10 my-1 p-2 bg-primary-100 rounded-sm'>GROUPED (horizontal):</p>
+      <Checkbox.Group
+        align='horizontal'
+        defaultValues={['No children', 'child-2']}
+        options={[
+          { label: 'Nested groups - default values' },
+          { label: 'No children' },
+          [
+            { label: 'Parent' },
+            { label: 'child-1' },
+            { label: 'child-2' },
+          ],
+          [
+            { label: 'Parent' },
+            { label: 'child-1' },
+            { label: 'child-2' },
+          ],
+        ]}
+      />
     </>
   )
 }

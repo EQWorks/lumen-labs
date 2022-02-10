@@ -8,17 +8,27 @@ import NestedCheckboxes from './nested-checkboxes'
 
 const styles = makeStyles({
   indent: { marginRight: '1.429rem' },
+  gap: { marginBottom: '0.714rem' },
 })
 
-const CheckboxGroupBase = React.forwardRef(({ classes, options, align, disabled, defaultValues, onChange }, ref) => {
+const CheckboxGroupBase = React.forwardRef(({
+  classes,
+  options,
+  align,
+  disabled,
+  defaultValues,
+  onChange,
+  StyledCheckbox,
+}, ref) => {
+  const CheckboxComponent = StyledCheckbox || CheckboxBase
   const [groups, setGroups] = useState(options)
 
-  const alignStyleRoot = align === 'horizontal' ? 'inline-flex flex-rows' : ''
+  const alignStyleRoot = align === 'horizontal' ? 'inline-flex flex-row' : 'inline-flex flex-col'
   const alignStyleCheckbox = (index) => {
     if (align === 'horizontal') {
       return index === options.length - 1 ? '' : styles.indent
     }
-    return ''
+    return index === options.length - 1 ? '' : styles.gap
   }
 
   return (  
@@ -35,12 +45,13 @@ const CheckboxGroupBase = React.forwardRef(({ classes, options, align, disabled,
                 defaultValues={defaultValues}
                 onChange={onChange}
                 updateParentGroups={setGroups}
+                CheckboxComponent={CheckboxComponent}
               />
             </span>)
         }
         return (
           <span key={`${option.label}-${index}`} className={alignStyleCheckbox(index)}>
-            <CheckboxBase
+            <CheckboxComponent
               classes={classes.checkboxClasses}
               {...{
                 ...option,
@@ -67,6 +78,7 @@ CheckboxGroupBase.propTypes = {
   disabled: PropTypes.bool,
   defaultValues: PropTypes.array,
   onChange: PropTypes.func,
+  StyledCheckbox: PropTypes.elementType,
 }
 CheckboxGroupBase.defaultProps = {
   classes: { root: '', checkboxClasses: {} },
@@ -74,6 +86,7 @@ CheckboxGroupBase.defaultProps = {
   disabled: false,
   defaultValues: [],
   onChange: () => {},
+  StyledCheckbox: null,
 }
 
 CheckboxGroupBase.displayName = 'CheckboxGroupBase'

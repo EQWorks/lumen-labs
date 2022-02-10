@@ -2,16 +2,24 @@ import React, { useEffect, useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from '../../utils/make-styles'
-import CheckboxBase from './index'
 
 
 const styles = makeStyles({
   indent: { marginLeft: '0.571rem' },
+  gap: { marginBottom: '0.429rem' },
 })
 
-const NestedCheckboxes = ({ classes, option, index, disabled, defaultValues, onChange: onGroupChange, updateParentGroups }) => {
-  const [indeterminate, setIndeterminate] = useState(false)
-  const [parentGroup, setParentGroup] = useState({})
+const NestedCheckboxes = ({
+  classes,
+  option,
+  index,
+  disabled,
+  defaultValues,
+  onChange: onGroupChange,
+  updateParentGroups,
+  CheckboxComponent,
+}) => {
+  const [parentGroup, setParentGroup] = useState({ label: option[0].label, isNestingGroup: true, inputProps: { disabled } })
   const [nestingGroup, setNestingGroup] = useState([])
 
   const options = useMemo(() => option.reduce((acc, o) => {
@@ -41,14 +49,11 @@ const NestedCheckboxes = ({ classes, option, index, disabled, defaultValues, onC
     const isNotAllUnchecked = hasUnchecked.length !== nestingGroup.length
 
     if (hasUnchecked.length && isNotAllUnchecked) {
-      setIndeterminate(true)
-      setParentGroup((prev) => ({ ...prev, defaultChecked: false, checked: false }))
+      setParentGroup((prev) => ({ ...prev, indeterminate: true, defaultChecked: false, checked: false }))
     } else if (!hasUnchecked.length && isNotAllUnchecked) {
-      setIndeterminate(false)
-      setParentGroup((prev) => ({ ...prev, defaultChecked: false, checked: true }))
+      setParentGroup((prev) => ({ ...prev, indeterminate: false, defaultChecked: false, checked: true }))
     } else {
-      setIndeterminate(false)
-      setParentGroup((prev) => ({ ...prev, defaultChecked: false, checked: false }))
+      setParentGroup((prev) => ({ ...prev, indeterminate: false, defaultChecked: false, checked: false }))
     }
   }, [nestingGroup])
 
@@ -101,28 +106,25 @@ const NestedCheckboxes = ({ classes, option, index, disabled, defaultValues, onC
   }
 
   return (
-    <span key={`${option.label}-${index}`}>
-      <CheckboxBase
-        classes={classes}
-        indeterminate={indeterminate}
-        onChange={(v) => handleParentChange(v, index)}
-        {...parentRest}
+    <div key={`${option.label}-${index}`} className='inline-flex flex-col'>
+      <CheckboxComponent
+        classes={{ ...classes, root: `${styles.gap} ${classes.root}` }}
+        onChange={(v) => handleParentChange(v, index)} {...parentRest}
       />
-      {nestingGroup.map(({ onChange, ...rest }, i) => {
-        return (
-          <CheckboxBase
-            key={`${rest.label}-${index}-${i}`}
-            classes={{ ...classes, root: `${styles.indent} ${classes.root}` }}
-            onChange={(v) => handleChildChange(v, onChange, index)}
-            {...rest}
-          />
-        )
-      })}
-    </span>
+      {nestingGroup.map(({ onChange, ...rest }, i) => (
+        <CheckboxComponent
+          key={`${rest.label}-${index}-${i}`}
+          classes={{ ...classes, root: `${i === nestingGroup.length - 1 ? '' : styles.gap} ${styles.indent} ${classes.root}` }}
+          onChange={(v) => handleChildChange(v, onChange, index)}
+          {...rest}
+        />
+      ))}
+    </div>
   )
 }
 
 NestedCheckboxes.propTypes = {
+  CheckboxComponent: PropTypes.elementType.isRequired,
   option: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
   updateParentGroups: PropTypes.func.isRequired,

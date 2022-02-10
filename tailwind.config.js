@@ -117,6 +117,7 @@ module.exports = {
         '3px': '0.188rem',
         '5px': '0.313rem',
         '7px': '0.438rem',
+        '8px': '0.571rem',
         '9px': '0.563rem',
         '15px': '0.938rem',
         '18px': '1.125rem',

@@ -1,14 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 
-import { makeStyles } from '../../utils/make-styles'
-
-
-const styles = makeStyles({
-  indent: { marginLeft: '0.571rem' },
-  gap: { marginBottom: '0.429rem' },
-})
-
 const NestedCheckboxes = ({
   classes,
   option,
@@ -106,19 +98,18 @@ const NestedCheckboxes = ({
   }
 
   return (
-    <div key={`${option.label}-${index}`} className='inline-flex flex-col'>
+    <div key={`${option.label}-${index}`} className='grid grid-rows gap-1'>
       <CheckboxComponent
-        classes={{ ...classes, root: `${styles.gap} ${classes.root}` }}
+        classes={classes}
         onChange={(v) => handleParentChange(v, index)} {...parentRest}
       />
       {nestingGroup.map(({ onChange, ...rest }, i) => (
         <CheckboxComponent
           key={`${rest.label}-${index}-${i}`}
-          classes={{ ...classes, root: `${i === nestingGroup.length - 1 ? '' : styles.gap} ${styles.indent} ${classes.root}` }}
+          classes={{ ...classes, root: `ml-8px ${classes.root}` }}
           onChange={(v) => handleChildChange(v, onChange, index)}
           {...rest}
-        />
-      ))}
+        />))}
     </div>
   )
 }

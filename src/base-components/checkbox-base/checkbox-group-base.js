@@ -6,9 +6,11 @@ import CheckboxBase from './index'
 import NestedCheckboxes from './nested-checkboxes'
 
 
-const styles = makeStyles({
-  indent: { marginRight: '1.429rem' },
-  gap: { marginBottom: '0.714rem' },
+const generateStyles = (props) => makeStyles({
+  gridCols: {
+    display: 'inline-grid',
+    gridTemplateColumns: props.gridCols,
+  },
 })
 
 const CheckboxGroupBase = React.forwardRef(({
@@ -20,23 +22,18 @@ const CheckboxGroupBase = React.forwardRef(({
   onChange,
   StyledCheckbox,
 }, ref) => {
+  const styles = generateStyles({ gridCols: Array(options.length).fill('auto').join(' ') })
+  const alignStyleRoot = align === 'horizontal' ? `${styles.gridCols}` : 'grid-rows'
+
   const CheckboxComponent = StyledCheckbox || CheckboxBase
   const [groups, setGroups] = useState(options)
 
-  const alignStyleRoot = align === 'horizontal' ? 'inline-flex flex-row' : 'inline-flex flex-col'
-  const alignStyleCheckbox = (index) => {
-    if (align === 'horizontal') {
-      return index === options.length - 1 ? '' : styles.indent
-    }
-    return index === options.length - 1 ? '' : styles.gap
-  }
-
   return (  
-    <div ref={ref} className={`${alignStyleRoot} ${classes.root}`}>
+    <div ref={ref} className={`grid ${alignStyleRoot} gap-${classes.gap} ${classes.root}`}>
       {options.map((option, index) => {
         if (Array.isArray(option)) {
           return (
-            <span key={`${option.label}-${index}`} className={alignStyleCheckbox(index)}>
+            <span key={`${option.label}-${index}`}>
               <NestedCheckboxes
                 classes={classes.checkboxClasses}
                 option={option}
@@ -50,7 +47,7 @@ const CheckboxGroupBase = React.forwardRef(({
             </span>)
         }
         return (
-          <span key={`${option.label}-${index}`} className={alignStyleCheckbox(index)}>
+          <span key={`${option.label}-${index}`}>
             <CheckboxComponent
               classes={classes.checkboxClasses}
               {...{
@@ -81,7 +78,7 @@ CheckboxGroupBase.propTypes = {
   StyledCheckbox: PropTypes.elementType,
 }
 CheckboxGroupBase.defaultProps = {
-  classes: { root: '', checkboxClasses: {} },
+  classes: { root: '', checkboxClasses: {}, gap: 2.5 },
   align: 'vertical',
   disabled: false,
   defaultValues: [],

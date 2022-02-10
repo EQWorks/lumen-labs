@@ -133,41 +133,43 @@ export const Normal = () => {
       />
 
       <p className='mt-10 my-1 p-2 bg-primary-100 rounded-sm'>GROUPED (vertical):</p>
-      <Checkbox.Group
-        defaultValues={['No children', 'child-2']}
-        options={[
-          { label: 'Nested groups - default values' },
-          { label: 'No children' },
-          [
-            { label: 'Parent' },
-            { label: 'child-1' },
-            { label: 'child-2' },
-          ],
-          [
-            { label: 'Parent' },
-            { label: 'child-1' },
-            { label: 'child-2' },
-          ],
-        ]}
-      />
-      <Checkbox.Group
-        disabled
-        options={[
-          { label: 'Nested groups - disabled (disable entire group)' },
-          { label: 'No children' },
-          [
-            { label: 'Parent' },
-            { label: 'child-1' },
-            { label: 'child-2' },
-          ],
-          [
-            { label: 'Parent' },
-            { label: 'child-1' },
-            { label: 'child-2' },
-          ],
-        ]}
-        classes={{ root: 'ml-20' }}
-      />
+      <div className='flex flex-rows'>
+        <Checkbox.Group
+          defaultValues={['No children', 'child-2']}
+          options={[
+            { label: 'Nested groups - default values' },
+            { label: 'No children' },
+            [
+              { label: 'Parent' },
+              { label: 'child-1' },
+              { label: 'child-2' },
+            ],
+            [
+              { label: 'Parent' },
+              { label: 'child-1' },
+              { label: 'child-2' },
+            ],
+          ]}
+        />
+        <Checkbox.Group
+          disabled
+          options={[
+            { label: 'Nested groups - disabled (disable entire group)' },
+            { label: 'No children' },
+            [
+              { label: 'Parent' },
+              { label: 'child-1' },
+              { label: 'child-2' },
+            ],
+            [
+              { label: 'Parent' },
+              { label: 'child-1' },
+              { label: 'child-2' },
+            ],
+          ]}
+          classes={{ root: 'ml-20' }}
+        />
+      </div>
 
       <p className='mt-10 my-1 p-2 bg-primary-100 rounded-sm'>GROUPED (horizontal):</p>
       <Checkbox.Group

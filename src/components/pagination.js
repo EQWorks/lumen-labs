@@ -39,7 +39,6 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     }
 
     _pager = getPagerObject(items.length, page, rowsPerPageSize)
-
     let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1)
 
     setPager(_pager)
@@ -89,7 +88,7 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
 
   useEffect(() => {
     setPage((items && items.length) && initialPage)
-  }, [setPage, items, rowsPerPageSize, initialPage])
+  }, [rowsPerPageSize, initialPage, items])
 
   return (
     <>
@@ -150,7 +149,6 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             <ArrowRight size='md' onClick={() => setPage(pager.currentPage + 1)}/>
           </li>
         </>}
-
         { rowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>

@@ -38,12 +38,12 @@ const DropdownAutoCenter = forwardRef(({
 
   useEffect(() => {
     dropdownRef.current && dropdownRef.current.childNodes.forEach((node) => {
-      if (node.innerText.toString() === active.title.toString().toUpperCase()) {
+      if (node.innerText.toString() === value.title.toString().toUpperCase()) {
         if (scrollable) {
-          if (active.title === data[0].title) {
+          if (value.title === data[0].title) {
             dropdownRef.current.style.height = `${dropdownRef.current.clientHeight - (dropdownRef.current.clientHeight / 4)}px`
             setDropdownOffsetTop(node.clientHeight)
-          } else if (active.title === data[data.length - 1].title) {
+          } else if (value.title === data[data.length - 1].title) {
             setDropdownOffsetTop(node.clientHeight + (node.clientHeight / 2))
             dropdownRef.current.style.height = `${dropdownRef.current.clientHeight - (dropdownRef.current.clientHeight / 4)}px`
             dropdownRef.current.scrollTop = (node.offsetTop)
@@ -56,7 +56,7 @@ const DropdownAutoCenter = forwardRef(({
         }
       }
     })
-  }, [open, active, data, scrollable])
+  }, [open, value, data, scrollable])
 
   const handleSelectRowsOnClick = () => {
     setOpen(!open)

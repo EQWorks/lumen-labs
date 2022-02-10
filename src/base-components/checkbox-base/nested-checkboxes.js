@@ -15,10 +15,11 @@ const NestedCheckboxes = ({
   const [nestingGroup, setNestingGroup] = useState([])
 
   const options = useMemo(() => option.reduce((acc, o) => {
+    const isParentChecked = defaultValues.includes(option[0].label)
     acc.push({
       ...o,
-      defaultChecked: defaultValues.includes(o.label),
-      checked: defaultValues.includes(o.label),
+      defaultChecked: isParentChecked ? true : defaultValues.includes(o.label),
+      checked: isParentChecked ? true : defaultValues.includes(o.label),
       inputProps: { ...o.inputProps, disabled },
     })
     return acc

@@ -135,19 +135,19 @@ export const Normal = () => {
       <p className='mt-10 my-1 p-2 bg-primary-100 rounded-sm'>GROUPED (vertical):</p>
       <div className='flex flex-rows'>
         <Checkbox.Group
-          defaultValues={['No children', 'child-2']}
+          defaultValues={['No children', 'child-1-2', 'Parent-2']}
           options={[
             { label: 'Nested groups - default values' },
             { label: 'No children' },
             [
-              { label: 'Parent' },
-              { label: 'child-1' },
-              { label: 'child-2' },
+              { label: 'Parent-1' },
+              { label: 'child-1-1' },
+              { label: 'child-1-2' },
             ],
             [
-              { label: 'Parent' },
-              { label: 'child-1' },
-              { label: 'child-2' },
+              { label: 'Parent-2' },
+              { label: 'child-2-1' },
+              { label: 'child-2-2' },
             ],
           ]}
         />
@@ -174,19 +174,19 @@ export const Normal = () => {
       <p className='mt-10 my-1 p-2 bg-primary-100 rounded-sm'>GROUPED (horizontal):</p>
       <Checkbox.Group
         align='horizontal'
-        defaultValues={['No children', 'child-2']}
+        defaultValues={['No children', 'child-1-2', 'Parent-2']}
         options={[
           { label: 'Nested groups - default values' },
           { label: 'No children' },
           [
-            { label: 'Parent' },
-            { label: 'child-1' },
-            { label: 'child-2' },
+            { label: 'Parent-1' },
+            { label: 'child-1-1' },
+            { label: 'child-1-2' },
           ],
           [
-            { label: 'Parent' },
-            { label: 'child-1' },
-            { label: 'child-2' },
+            { label: 'Parent-2' },
+            { label: 'child-2-1' },
+            { label: 'child-2-2' },
           ],
         ]}
       />

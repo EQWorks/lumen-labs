@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/lumen-labs",
-  "version": "0.1.0-alpha.25",
+  "version": "0.1.0-alpha.28",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.js",
@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.0",
+    "@tailwindcss/forms": "^0.4.0",
     "clsx": "^1.1.1",
     "goober": "^2.0.39",
     "prop-types": "^15.7.2",

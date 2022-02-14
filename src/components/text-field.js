@@ -44,7 +44,7 @@ const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, inpu
     { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
     { 'border-error-500 shadow-focused-error': error },
     { 'border-success-500 shadow-focused-success': success },
-    { 'border-interactive-500 bg-secondary-50': filled },
+    { 'border-interactive-500 bg-secondary-50': focus && filled },
     { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
   ),
   input: clsx(`outline-none ${input && input}`, 
@@ -99,7 +99,10 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
         <p className={textFieldClasses.label}>{label}</p>
         {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
       </div>}
-      <form onSubmit={(e) => onSubmit({ ...e, target: e.target.children[0].children[0] })}>
+      <form onSubmit={(e) => {
+        e.preventDefault()
+        onSubmit({ ...e, target: e.target.children[0].children[0] })}
+      }>
         <InputBase
           {...inputProps}
           classes={inputBaseClasses}

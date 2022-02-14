@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
 import { DropdownAutoCenter } from '..'
 
 
-const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
+const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
   const paginationClasses = Object.freeze({
     container: `flex items-center text-xs tracking-md leading-1.33 bg-secondary-50
       ${classes.container && classes.container}`,
@@ -31,19 +31,23 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     }
   }, [rowsPerPage])
 
-  const setPage = (page) => {
+  useEffect(() => {
+    setPage(initialPage)
+  }, [setPage, initialPage, rowsPerPageSize])
+
+  const setPage = useCallback((page) => {
     let _pager = pager
 
     if (page < 1 || page > _pager.totalPages) {
       return
     }
 
-    _pager = getPagerObject(items.length, page, rowsPerPageSize)
+    _pager = getPagerObject(items.length ? items.length : 0, page, rowsPerPageSize)
     let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1)
 
     setPager(_pager)
     onChangePage(pageOfItems, _pager)
-  }
+  }, [items, onChangePage, pager, rowsPerPageSize])
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {
     currentPage = currentPage || 1
@@ -86,9 +90,10 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
     }
   }
 
-  useEffect(() => {
-    setPage((items && items.length) && initialPage)
-  }, [rowsPerPageSize, initialPage, items])
+  const handleOnChangeRowsPerPage = (e, val) => {
+    onChangeRowsPerPage(e, { value: val, pager })
+    setRowsPerPageSize(Number(val.item.title))
+  }
 
   return (
     <>
@@ -154,8 +159,8 @@ const Pagination = ({ classes, items, onChangePage, initialPage, pageSize, showP
             <span className={'mr-2.5'}>Rows: </span>
             <DropdownAutoCenter 
               data={dropdownData} 
-              onSelect={(_, val) => {
-                setRowsPerPageSize(Number(val.item.title))
+              onSelect={(e, val) => {
+                handleOnChangeRowsPerPage(e, val)
               }} 
               value={{ title: pageSize }}
               endIcon={<ArrowUpDown size='sm'/>}
@@ -177,6 +182,7 @@ Pagination.propTypes = {
   }),
   items: PropTypes.array.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  onChangeRowsPerPage: PropTypes.func,
   initialPage: PropTypes.number,
   pageSize: PropTypes.number,
   showPage: PropTypes.bool,
@@ -198,6 +204,7 @@ Pagination.defaultProps = {
   showPage: true,
   firstLast: true,
   counter: true,
+  onChangeRowsPerPage: () => {},
 }
 
 export default Pagination

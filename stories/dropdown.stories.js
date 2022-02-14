@@ -27,6 +27,7 @@ export default {
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component
  *    button: select button container div
+ *    innerButton: text inside select button container
  *    content: content container element
  *    menu: dropdown menu/select container div
  *    selectedOptionTitle: text inside selected content element
@@ -102,6 +103,7 @@ export const Simple = () => {
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component
  *    button: select button container div
+ *    innerButton: text inside select button container
  *    content: content container element
  *    menu: dropdown menu/select container div
  *    listContainer: each container div from the dropdown menu/select list

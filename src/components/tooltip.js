@@ -78,7 +78,7 @@ const Tooltip = ({
   return (
     <div 
       ref={tooltipRef}
-      className='relative inline-flex flex-col items-center justify-center'
+      className={`${classes.container} relative inline-flex flex-col items-center justify-center`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -121,6 +121,7 @@ Tooltip.propTypes = {
 
 Tooltip.defaultProps = {
   classes: { 
+    container: '', 
     root: '', 
     arrow: '', 
     header: '', 

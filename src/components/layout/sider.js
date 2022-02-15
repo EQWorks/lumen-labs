@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const Sider = ({ children, setSider, className }) => {
   useEffect(() => {
     setSider((prev) => prev + 1)
-  }, [])
+  }, [setSider])
 
   return (<aside className={className}>{children}</aside>)
 }

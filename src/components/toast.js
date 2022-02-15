@@ -127,7 +127,7 @@ const Toast = forwardRef(({
   
       return () => clearTimeout(t)
     }
-  }, [open, timeOut])
+  }, [open, timeOut, onClose, onTimeOut])
 
   useEffect(() => {
     if (timeOut > 0) {
@@ -148,10 +148,8 @@ const Toast = forwardRef(({
         }, 500)
         return () => clearTimeout(fade)
       }
-
-      console.log('fade: ', fade)
     }
-  }, [open])
+  }, [open, timeOut])
 
   const handleOnClose = () => {
     setProgress(false)

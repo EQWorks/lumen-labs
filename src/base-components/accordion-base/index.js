@@ -8,7 +8,7 @@ const AccordionBase = React.forwardRef(({ children, className, onChange, default
   const [open, setOpen] = useState([])
   useEffect(() => {
     setOpen(defaultActivePanels)
-  }, [])
+  }, [defaultActivePanels])
   return (
     <div ref={ref} className={`inline-flex flex-col ${className}`}>
       {React.Children.map(children, (child) => {

@@ -38,7 +38,7 @@ const InputBase = forwardRef(({
     } else {
       _setValue('')
     }
-    onChange(`${prefix && prefix}` + `${e.target.value}` + `${suffix && suffix}`)
+    onChange(e.target.value)
   }
 
   const handleFocus = () => {

@@ -46,7 +46,7 @@ const CheckboxBase = React.forwardRef(({
     <div ref={ref} className={classes.root}>
       <span className='self-center'>
         <input
-          className={`cursor-pointer ${classes.input}`}
+          className={`form-checkbox cursor-pointer ${classes.input}`}
           ref={inputRef}
           type='checkbox'
           id={inputID}

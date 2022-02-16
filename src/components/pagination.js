@@ -91,7 +91,9 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
   }
 
   const handleOnChangeRowsPerPage = (e, val) => {
-    onChangeRowsPerPage(e, { value: val, pager })
+    const _pager = getPagerObject(items.length ? items.length : 0, initialPage, Number(val.item.title))
+
+    onChangeRowsPerPage(e, { value: val, pager: _pager })
     setRowsPerPageSize(Number(val.item.title))
   }
 

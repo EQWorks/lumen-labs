@@ -36,7 +36,7 @@ SwitchRect.propTypes = {
   classes: PropTypes.object,
   id: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   label: PropTypes.string,
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,
@@ -50,6 +50,7 @@ SwitchRect.defaultProps = {
   disabled: false,
   tabIndex: 1,
   color: 'interactive',
+  onChange: () => {},
 }
 
 SwitchRect.displayName = 'SwitchRect'

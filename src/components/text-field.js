@@ -40,7 +40,7 @@ const _textFieldClasses = ({ container, inputSize, success, error }) => ({
 
 const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, input, filled, disabled }) => ({
   root: clsx(`${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box} ${root && root}`}`,
-    { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus && !error & !success },
+    { 'border-secondary-400 hover:border-secondary-500 bg-secondary-50': !disabled && !focus && !error && !success },
     { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
     { 'border-error-500 shadow-focused-error': error },
     { 'border-success-500 shadow-focused-success': success },

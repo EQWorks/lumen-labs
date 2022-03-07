@@ -83,7 +83,7 @@ Checkbox.propTypes = {
   indeterminate: PropTypes.bool,
   inputProps: PropTypes.object,
   onChange: PropTypes.func,
-  showLabel: PropTypes.bool
+  showLabel: PropTypes.bool,
 }
 Checkbox.defaultProps = {
   classes: {

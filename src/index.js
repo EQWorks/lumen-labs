@@ -28,6 +28,7 @@ export { default as Modal } from './components/modal'
 export { default as Tooltip } from './components/tooltip'
 export { default as ProgressBar } from './components/progress-bar'
 export { default as Checkbox } from './components/checkbox'
+export { default as RangeSliderLabel } from './components/range-slider-label/'
 
 export { makeStyles, LinearAnimation } from './utils/make-styles'
 export { getTailwindConfigColor } from './utils/tailwind-config-color'

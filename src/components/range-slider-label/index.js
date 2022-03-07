@@ -9,7 +9,7 @@ import { RangeSliderBase } from '../../base-components'
 import './range-slider-label.css'
 
 
-const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, showLabel, showTooltip, disabled, ...rest }) => {
+const RangeSliderLabel = ({ classes, width, color, min, max, values, onChange, labelFormat, tooltipFormat, showLabel, showTooltip, disabled, ...rest }) => {
   const tooltipColor = concatTargetColor(color.tooltip, ['bg'], [500])
   //pseudo elements dynamic color
   const tooltipTailColor = getTailwindConfigColor(`${color.tooltip}-500`)
@@ -67,8 +67,8 @@ const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, s
     >
       {showLabel && 
       <div className={'label-container flex justify-between'}>
-        <label className={`left-value ml-1 ${sliderLabelClasses.label}`}>{min}</label>
-        <label className={`right-value -mr-1 ${sliderLabelClasses.label}`}>{max}</label>
+        <label className={`left-value ml-1 ${sliderLabelClasses.label}`}>{labelFormat[0] || min}</label>
+        <label className={`right-value -mr-1 ${sliderLabelClasses.label}`}>{labelFormat[1] || max}</label>
       </div>      
       }
       {showTooltip &&
@@ -78,14 +78,14 @@ const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, s
           name='tooltip' 
           style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
         >
-          {values[0]}
+          {tooltipFormat[0] || values[0]}
         </output>
         <output 
           className={`right-tooltip ${sliderLabelClasses.tooltip} ${color.tooltip ? tooltipColor : 'bg-interactive-500'}`} 
           name='tooltip'
           style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
         >
-          {values[1]}
+          {tooltipFormat[1] || values[1]}
         </output>
       </>
       }
@@ -109,6 +109,8 @@ RangeSliderLabel.propTypes = {
   max: PropTypes.number.isRequired,
   values: PropTypes.arrayOf(PropTypes.number).isRequired,
   onChange: PropTypes.func.isRequired,
+  labelFormat: PropTypes.arrayOf(PropTypes.number || PropTypes.string),
+  tooltipFormat: PropTypes.arrayOf(PropTypes.number || PropTypes.string),
   showLabel: PropTypes.bool,
   showTooltip: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -126,9 +128,12 @@ RangeSliderLabel.defaultProps = {
     tooltip: 'interactive',
   },
   width: 'w-48',
+  labelFormat: [],
+  tooltipFormat: [],
   showLabel: true,
   showTooltip: true,
   disabled: false,
+
 }
 
 export default RangeSliderLabel

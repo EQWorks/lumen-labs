@@ -8,13 +8,17 @@ assignees: ''
 ---
 
 # 🎯 Usage 
-- What are the use cases for this component?
+- High-level overview of the component. Explain how and when this component should be used.
 
-# 🎭  Behaviours
-- **behaviour**: Description of how the component will behave under different circumstances. Reference to associated guides (i.e. color, typography, spacing, etc...)
+# 🎭  Types
+- **type_title**: Describe this type of component variation. Consider how this component will behave under different circumstances and if applicable include visual example of the use cases.
 
-# 🧩 Style Variations 
-- `style` → style description
+# 🫀 Anatomy
+![COMPONENT_ANATOMY](img_url)
+
+**Spacing, Sizing & Alignment:**
+- Give an overview of component segments and their relevant padding/margins within the component. 
+- Show component sizing and size variations
 
 # 💟 Icons Used
 - [icon_name](url)

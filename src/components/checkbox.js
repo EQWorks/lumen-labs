@@ -58,7 +58,7 @@ const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onCh
       }),
     }}
     label={label}
-    checked={rest.isNestingGroup ? checked : check?.checked}
+    checked={(rest.isNestingGroup || !defaultChecked || !indeterminate) ? checked : check?.checked}
     defaultChecked={defaultChecked}
     indeterminate={indeterminate}
     onChange={(value) => {

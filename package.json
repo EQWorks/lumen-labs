@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/lumen-labs",
-  "version": "0.1.0-alpha.32",
+  "version": "0.1.0-alpha.33",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.js",
@@ -42,8 +42,8 @@
     "@storybook/addon-links": "^6.2.9",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.2.9",
-    "@tailwindcss/postcss7-compat": "^2.1.2",
     "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/postcss7-compat": "^2.1.2",
     "autoprefixer": "^9.8.6",
     "eslint": "^7.27.0",
     "eslint-plugin-import": "^2.25.4",
@@ -64,6 +64,7 @@
     "prop-types": "^15.7.2",
     "react-resize-detector": "^6.7.6",
     "react-virtualized-auto-sizer": "^1.0.5",
-    "react-window": "^1.8.6"
+    "react-window": "^1.8.6",
+    "use-debounce": "^7.0.1"
   }
 }

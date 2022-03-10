@@ -24,7 +24,7 @@ export const Base = () => {
 }
 
 export const Label = () => {
-  const [minValue, setMinValue] = useState(200)
+  const [minValue, setMinValue] = useState(0)
   const [maxValue, setMaxValue] = useState(1000)
   
   const handleOnChange = (e, values) => {
@@ -51,13 +51,13 @@ export const CustomColor = () => {
   const classes = [
     {
       thumbColor: 'success',
-      sliderTrack: 'success',
-      sliderRange: 'success',
+      trackColor: 'success',
+      rangeColor: 'success',
     },
     {
       thumbColor: 'warning',
-      sliderTrack: 'warning',
-      sliderRange: 'warning',
+      trackColor: 'warning',
+      rangeColor: 'warning',
     },
   ]
 
@@ -81,6 +81,20 @@ export const CustomColor = () => {
         )
       })}
     </>
+  )
+}
+
+export const SingleSlider = () => {
+  const [sliderValue, setSliderValue] = useState(0)
+
+  const handleOnChange = (e, values) => {
+    setSliderValue(values)
+  }
+
+  return (
+    <div className="container h-32 flex items-center">
+      <RangeSliderLabel min={0} max={1000} values={sliderValue} onChange={handleOnChange} singleSlider/>
+    </div>
   )
 }
 

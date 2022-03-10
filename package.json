@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/lumen-labs",
-  "version": "0.1.0-alpha.35",
+  "version": "0.1.0-alpha.38",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.js",
@@ -27,9 +27,7 @@
   },
   "peerDependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "@tailwindcss/forms": "^0.4.0",
-    "tailwindcss": "yarn:@tailwindcss/postcss7-compat@^2.1.2"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.15",

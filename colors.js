@@ -1,4 +1,4 @@
-module.exports = {
+const basicColors = {
   'black': '#000',
   'white': '#fff',
   'rose': {
@@ -277,4 +277,113 @@ module.exports = {
     '800': '#1e293b',
     '900': '#0f172a',
   },
+}
+
+const tailwindExtendColors = {
+  'primary-50': '#eff8fe',
+  'primary-100': '#d6e8fd',
+  'primary-200': '#afd0fc',
+  'primary-300': '#85b2f6',
+  'primary-400': '#6697ee',
+  'primary-500': '#366fe4',
+  'primary-600': '#2755c4',
+  'primary-700': '#1b3ea4',
+  'primary-800': '#112b84',
+  'primary-900': '#0a1d6d',
+
+  'secondary-50': '#fefefe',
+  'secondary-100': '#f7f7f7',
+  'secondary-200': '#f2f2f2',
+  'secondary-300': '#eaeaea',
+  'secondary-400': '#c8c8c8',
+  'secondary-500': '#aaaaaa',
+  'secondary-600': '#808080',
+  'secondary-700': '#6c6c6c',
+  'secondary-800': '#4c4c4c',
+  'secondary-900': '#2a2a2a',
+
+  'neutral-50': '#f2f6fc',
+  'neutral-100': '#eff2f7',
+  'neutral-200': '#e8ecf2',
+  'neutral-300': '#a9b7d0',
+  'neutral-400': '#7487ae',
+  'neutral-500': '#4a5c8c',
+  'neutral-600': '#2c3d74',
+  'neutral-700': '#202e63',
+
+  'interactive-50': 'rgba(238, 250, 254, 0.87)',
+  'interactive-100': '#d5ecfc',
+  'interactive-200': '#add6fa',
+  'interactive-300': '#82b9f2',
+  'interactive-400': '#619ce5',
+  'interactive-500': '#3174d5',
+  'interactive-600': '#2359b7',
+  'interactive-700': '#184299',
+
+  'success-50': '#f7feec',
+  'success-100': '#e2f9ce',
+  'success-200': '#bff3a0',
+  'success-300': '#8cdb6c',
+  'success-400': '#5cb743',
+  'success-500': '#258715',
+  'success-600': '#15740f',
+  'success-700': '#0a610b',
+
+  'warning-50': '#fefcec',
+  'warning-100': '#fef5d0',
+  'warning-200': '#fee9a1',
+  'warning-300': '#fdd972',
+  'warning-400': '#fbc94e',
+  'warning-500': '#faaf15',
+  'warning-600': '#d78e0f',
+  'warning-700': '#b3710a',
+
+  'error-50': '#fef2e7',
+  'error-100': '#fce5d6',
+  'error-200': '#fac6af',
+  'error-300': '#f29d84',
+  'error-400': '#e57663',
+  'error-500': '#d43e34',
+  'error-600': '#b62628',
+  'error-700': '#981a27',
+
+  'info-50': '#f4f5fe',
+  'info-100': '#e3e5fc',
+  'info-200': '#c8ccf9',
+  'info-300': '#a8aded',
+  'info-400': '#8c92dc',
+  'info-500': '#666cc6',
+  'info-600': '#4a4faa',
+  'info-700': '#33378e',
+
+
+  success: '#00D308',
+  'success-hover': '#00b306',
+  'success-light': '#EEF8EE',
+  warning: '#F4B000',
+  'warning-hover': '#cf9500',
+  'warning-light': '#FAF6EE',
+  error: '#EA0000',
+  'error-hover': '#c60000',
+  'error-light': '#F9EEEE',
+}
+
+const tailwindThemeColors = {
+  transparent: 'transparent',
+  current: 'currentColor',
+  black: basicColors.black,
+  white: basicColors.white,
+  gray: basicColors.coolGray,
+  red: basicColors.red,
+  yellow: basicColors.amber,
+  green: basicColors.emerald,
+  blue: basicColors.blue,
+  indigo: basicColors.indigo,
+  purple: basicColors.violet,
+  pink: basicColors.pink,
+}
+
+module.exports = {
+  tailwindExtendColors,
+  tailwindThemeColors,
 }

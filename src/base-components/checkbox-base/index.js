@@ -14,7 +14,6 @@ const CheckboxBase = React.forwardRef(({
   onChange,
   inputProps,
   isNestingGroup,
-  showLabel,
 }, ref) => {
   const inputID = counter('styled-checkbox')
   const inputRef = useRef()
@@ -61,11 +60,9 @@ const CheckboxBase = React.forwardRef(({
           {...inputProps}
         />
       </span>
-      {showLabel && 
-        <span className='self-center align-middle'>
-          <label className={classes.label} htmlFor={inputID}>{label}</label>
-        </span>
-      }
+      <span className='self-center align-middle'>
+        <label className={classes.label} htmlFor={inputID}>{label}</label>
+      </span>
     </div>
   )
 })

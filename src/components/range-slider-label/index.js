@@ -9,15 +9,20 @@ import { RangeSliderBase } from '../../base-components'
 import './range-slider-label.css'
 
 
-const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, showLabel, showTooltip, disabled, ...rest }) => {
+const RangeSliderLabel = ({ classes, width, color, min, max, values, onChange, labelFormat, tooltipFormat, showLabel, showTooltip, singleSlider, disabled, ...rest }) => {
   const tooltipColor = concatTargetColor(color.tooltip, ['bg'], [500])
   //pseudo elements dynamic color
   const tooltipTailColor = getTailwindConfigColor(`${color.tooltip}-500`)
 
   const sliderClasses = Object.freeze({
+    sliderContainer: classes.sliderContainer,
+    thumb: classes.thumb,
+    slider: classes.slider,
+    sliderTrack: classes.sliderTrack,
+    sliderRange: classes.sliderRange,
     thumbColor: color.thumb,
-    sliderTrack: color.sliderTrack ? color.sliderTrack : 'bg-interactive-200',
-    sliderRange: color.sliderRange ? color.sliderRange : 'bg-interactive-500',
+    trackColor: color.sliderTrack ? color.sliderTrack : 'bg-interactive-200',
+    rangeColor: color.sliderRange ? color.sliderRange : 'bg-interactive-500',
   })
 
   const sliderLabelClasses = Object.freeze({
@@ -59,16 +64,17 @@ const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, s
       classes={sliderClasses} 
       min={min} 
       max={max} 
-      values={[values[0], values[1]]} 
+      values={singleSlider ? values : [values[0], values[1]]} 
       onChange={onChange} 
       width={width}
+      singleSlider={singleSlider}
       disabled={disabled}
       {...rest}
     >
       {showLabel && 
       <div className={'label-container flex justify-between'}>
-        <label className={`left-value ml-1 ${sliderLabelClasses.label}`}>{min}</label>
-        <label className={`right-value -mr-1 ${sliderLabelClasses.label}`}>{max}</label>
+        <label className={`left-value ${sliderLabelClasses.label}`}>{labelFormat[0] || min}</label>
+        <label className={`right-value -mr-1 ${sliderLabelClasses.label}`}>{labelFormat[1] || max}</label>
       </div>      
       }
       {showTooltip &&
@@ -78,15 +84,17 @@ const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, s
           name='tooltip' 
           style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
         >
-          {values[0]}
+          {tooltipFormat[0] || (singleSlider ? values : values[0])}
         </output>
-        <output 
-          className={`right-tooltip ${sliderLabelClasses.tooltip} ${color.tooltip ? tooltipColor : 'bg-interactive-500'}`} 
-          name='tooltip'
-          style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
-        >
-          {values[1]}
-        </output>
+        {!singleSlider &&        
+          <output 
+            className={`right-tooltip ${sliderLabelClasses.tooltip} ${color.tooltip ? tooltipColor : 'bg-interactive-500'}`} 
+            name='tooltip'
+            style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
+          >
+            {tooltipFormat[1] || values[1]}
+          </output>
+        }
       </>
       }
     </RangeSliderBase>
@@ -95,6 +103,12 @@ const RangeSliderLabel = ({ classes, color, min, max, values, onChange, width, s
 
 RangeSliderLabel.propTypes = {
   classes: PropTypes.exact({
+    sliderContainer: PropTypes.string,
+    thumb: PropTypes.string,
+    thumbColor: PropTypes.string,
+    slider: PropTypes.string,
+    sliderTrack: PropTypes.string,
+    sliderRange: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
   }),
@@ -107,15 +121,29 @@ RangeSliderLabel.propTypes = {
   }),
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-  values: PropTypes.arrayOf(PropTypes.number).isRequired,
+  values: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number), 
+    PropTypes.number,
+  ]).isRequired,
   onChange: PropTypes.func.isRequired,
+  labelFormat: PropTypes.arrayOf(PropTypes.number || PropTypes.string),
+  tooltipFormat: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number || PropTypes.string), 
+    PropTypes.number,
+  ]),
   showLabel: PropTypes.bool,
   showTooltip: PropTypes.bool,
+  singleSlider: PropTypes.bool,
   disabled: PropTypes.bool,
 }
 
 RangeSliderLabel.defaultProps = {
   classes: {
+    sliderContainer: '',
+    thumb: '',
+    slider: '',
+    sliderTrack: '',
+    sliderRange: '',
     label: '',
     tooltip: '',
   },
@@ -126,8 +154,11 @@ RangeSliderLabel.defaultProps = {
     tooltip: 'interactive',
   },
   width: 'w-48',
+  labelFormat: [],
+  tooltipFormat: [],
   showLabel: true,
   showTooltip: true,
+  singleSlider: false,
   disabled: false,
 }
 

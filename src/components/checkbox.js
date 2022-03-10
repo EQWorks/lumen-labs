@@ -22,13 +22,17 @@ const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onCh
   const [check, setCheck] = useState({ label, checked })
 
   useEffect(() => {
+    setCheck({ label, checked })
+  }, [label, checked])
+
+  useEffect(() => {
     if (check?.indeterminate === undefined && indeterminate !== null) {
       setCheck((prev) => ({ ...prev, indeterminate }))
     }
     if ([undefined, null].includes(check?.checked) && defaultChecked !== null) {
       setCheck((prev) => ({ ...prev, checked: defaultChecked }))
     }
-  }, [check, indeterminate, defaultChecked, label])
+  }, [check, indeterminate, defaultChecked])
 
   return (<CheckboxBase
     classes={{
@@ -71,7 +75,7 @@ const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onCh
 }
 
 Checkbox.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   classes: PropTypes.object,
   checked: PropTypes.bool,
   defaultChecked: PropTypes.bool,

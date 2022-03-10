@@ -76,6 +76,7 @@ CheckboxBase.propTypes = {
   onChange: PropTypes.func,
   inputProps: PropTypes.object,
   isNestingGroup: PropTypes.bool,
+  showLabel: PropTypes.bool,
 }
 CheckboxBase.defaultProps = {
   classes: {
@@ -90,6 +91,7 @@ CheckboxBase.defaultProps = {
   onChange: null,
   inputProps: {},
   isNestingGroup: false,
+  showLabel: true,
 }
 
 CheckboxBase.displayName = 'CheckboxBase'

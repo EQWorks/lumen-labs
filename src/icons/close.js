@@ -13,6 +13,8 @@ const Close = ({ className, size, ...props }) => (
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
     xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    stroke="none"
     {...props}
   >
     <g transform="matrix(5.833333333333333,0,0,5.833333333333333,0,0)">

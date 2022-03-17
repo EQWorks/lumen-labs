@@ -1,3 +1,4 @@
+import moment from "moment";
 // (int) The current year
 export const THIS_YEAR = +(new Date().getFullYear());
 // (int) The current month starting from 1 - 12

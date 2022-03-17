@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
@@ -13,9 +13,8 @@ import calendar, {
   CALENDAR_MONTHS,
 } from "../utils/helpers/calendar";
 
-import "./calendar.css";
 import { makeStyles } from '../utils/make-styles';
-import { ArrowLeft, ArrowRight, ArrowDown } from "../icons";
+import { ArrowLeft, ArrowRight, ChevronDown } from "../icons";
 import { DropdownSelect } from "../";
 
 const classes = makeStyles({
@@ -36,8 +35,31 @@ const classes = makeStyles({
         justifyContent: 'center',
 
         '& .month-dropdown, .year-dropdown': {
-          margin: '0 .5rem',
+          margin: '0 .156rem',
           cursor: 'pointer',
+
+          '& .dropdown-button-container': {
+            width: '3.625rem',
+            fontStretch: 'normal',
+            fontStyle: 'normal',
+            letterSpacing: '1px',
+            border: 0,
+            
+            '& .button-container-content': {
+              padding: '.125rem .375rem',
+              fontSize: '0.813rem',
+              fontWeight: 'bold',
+              lineHeight: 1.23,
+
+              '& .dropdown-content': {
+                overflow: 'hidden',
+              }
+            }
+          },
+
+          '& .dropdown-menu-container': {
+            width: '3.625rem',
+          },
         }
       },
 
@@ -117,7 +139,9 @@ const classes = makeStyles({
 })
 
 const dropdownClasses = Object.freeze({
-  menu: 'z-50'
+  button: 'dropdown-button-container bg-interactive-50',
+  content: 'button-container-content',
+  menu: 'dropdown-menu-container z-50'
 })
 
 const DatePicker = () => {
@@ -154,84 +178,114 @@ const DatePicker = () => {
       .format("d") // Day of week 0...1..5...6
     return firstDay
   }
+  console.log('firstDayOfMonth: ', firstDayOfMonth())
 
+  const endDayOfMonth = () => {
+    let dateObject = calendarState.dateObject
+    let endDay = moment(dateObject)
+      .endOf("month")
+      .format("d") // Day of week 0...1..5...6
+    return endDay
+  }
+  console.log('endDayOfMonth: ', endDayOfMonth())
   const month = () => {
     return calendarState.dateObject.format("MMM")
   }
 
-  const showMonth = (e, month) => {
-    setCalendarState({
-      ...calendarState,
-      showMonthTable: !calendarState.showMonthTable,
-      showYearNav: false,
-      showCalendarTable: !calendarState.showCalendarTable
-    })
+  const getPrevDaysInMonth = () => {
+    const prevMonth = Number(moment().month(month()).format('MM')) - 1
+    return moment(`${year()}-${prevMonth < 1 ? 12 : prevMonth}`, 'YYYY-MM').daysInMonth()
   }
+  console.log('getPrevDaysInMonth: ', getPrevDaysInMonth())
 
-  const setMonth = month => {
-    let monthNo = calendarState.allmonths.indexOf(month)
+  const getNextDaysInMonth = () => {
+    const nextMonth = Number(moment().month(month()).format('MM')) + 1
+    return moment(`${year()}-${nextMonth > 12 ? 1 : nextMonth}`, 'YYYY-MM').daysInMonth()
+  }
+  console.log('getNextDaysInMonth: ', getNextDaysInMonth())
+
+  const setMonth = (e, val) => {
+    e.stopPropagation()
+    const monthFullName = moment().month(val.title).format('MMMM')
+    let monthNo = calendarState.allmonths.indexOf(monthFullName)
     let dateObject = Object.assign({}, calendarState.dateObject)
     dateObject = moment(dateObject).set("month", monthNo)
+
     setCalendarState({
       ...calendarState,
       dateObject: dateObject,
-      showMonthTable: !calendarState.showMonthTable,
-      showCalendarTable: true
     })
   }
-  // console.log('dateObject: ', calendarState.dateObject)
-  const MonthList = props => {
-    let months = []
-    props.data.map(data => {
-      months.push(
-        <td
-          key={data}
-          className="calendar-month"
-          onClick={e => {
-            setMonth(data)
-          }}
-        >
-          <span>{data}</span>
-        </td>
-      )
-    })
-    let rows = []
-    let cells = []
 
-    months.forEach((row, i) => {
-      if (i % 3 !== 0 || i == 0) {
-        cells.push(row)
-      } else {
-        rows.push(cells)
-        cells = []
-        cells.push(row)
-      }
-    })
-    rows.push(cells)
-    let monthlist = rows.map((d, i) => {
-      return <tr>{d}</tr>
-    })
+  const renderMonthDropdown = () => {
+    const months = [{ items: moment.monthsShort().map(data => ({title: data})) }]
 
     return (
-      <table className="calendar-month">
-        <thead>
-          <tr>
-            <th colSpan="4">Select a Month</th>
-          </tr>
-        </thead>
-        <tbody>{monthlist}</tbody>
-      </table>
+      <DropdownSelect 
+        classes={dropdownClasses}
+        data={months}  
+        value={{title: month()}}
+        onSelect={setMonth}
+        endIcon={<ChevronDown className='stroke-current text-secondary-800' size='sm' />}
+        placeholder={month()}
+        allowClear={false}
+      />
+    )
+  }
+
+  const setYear = (e, val) => {
+    e.stopPropagation()
+    let dateObject = Object.assign({}, calendarState.dateObject)
+    dateObject = moment(dateObject).set("year", val.title || year())
+
+    setCalendarState({
+      ...calendarState,
+      dateObject: dateObject,
+    })
+  }
+
+  const getDates = (startDate, stopDate) => {
+    var dateArray = []
+    var currentDate = moment(startDate)
+
+    var stopDate = moment(stopDate)
+    while (currentDate <= stopDate) {
+      dateArray.push(moment(currentDate).format("YYYY"))
+      currentDate = moment(currentDate).add(1, "year")
+    }
+    return dateArray
+  }
+
+  const renderYearDropdown = () => {
+    const nextTen = moment()
+      .set("year", year())
+      .add(12, 'year')
+      .format("Y")
+    const prevTen = moment()
+    .set("year", year())
+    .subtract(10, 'year')
+    .format("Y")
+
+    const nextTenYear = getDates(year(), nextTen).map(data => ({title: data}))
+
+    const prevTenYear = getDates(prevTen, year()).map(data => ({title: data}))
+    prevTenYear.pop()
+
+    const twentyYear = [{items: [...prevTenYear, ...nextTenYear]}]
+
+    return (
+      <DropdownSelect 
+        classes={dropdownClasses}
+        data={twentyYear}  
+        value={{title: year()}}
+        onSelect={setYear}
+        endIcon={<ChevronDown className='stroke-current text-secondary-800' size='sm' />}
+        placeholder={year()}
+        allowClear={false}
+      />
     )
   }
   
-  const showYearEditor = () => {
-    setCalendarState({
-      ...calendarState,
-      showMonthTable: false,
-      showYearNav: !calendarState.showYearNav,
-      showCalendarTable: !calendarState.showCalendarTable
-    })
-  }
 
   const onPrev = () => {
     let curr = ""
@@ -259,102 +313,6 @@ const DatePicker = () => {
     })
   }
 
-  const setYear = year => {
-    // alert(year)
-    let dateObject = Object.assign({}, calendarState.dateObject)
-    dateObject = moment(dateObject).set("year", year[Object.keys(year)[0]].title)
-    setCalendarState({
-      ...calendarState,
-      dateObject: dateObject,
-      showYearNav: !calendarState.showYearNav,
-      showCalendarTable: true
-    })
-  }
-
-  const getDates = (startDate, stopDate) => {
-    var dateArray = []
-    var currentDate = moment(startDate)
-
-    var stopDate = moment(stopDate)
-    while (currentDate <= stopDate) {
-      dateArray.push(moment(currentDate).format("YYYY"))
-      currentDate = moment(currentDate).add(1, "year")
-    }
-    return dateArray
-  }
-
-  const YearTable = props => {
-    let months = []
-    const nextTen = moment()
-      .set("year", props)
-      .add(12, 'year')
-      .format("Y")
-    const prevTen = moment()
-    .set("year", props)
-    .subtract(10, 'year')
-    .format("Y")
-
-    const nextTenYear = getDates(props, nextTen).map(data => ({title: data}))
-    console.log('nextTenYear: ', nextTenYear)
-    const prevTenYear = getDates(prevTen, props).map(data => ({title: data}))
-    prevTenYear.pop()
-    console.log('prevTenYear: ', prevTenYear)
-    const twentyYear = [{items: [...prevTenYear, ...nextTenYear]}]
-    console.log('twentyYear: ', twentyYear)
-
-    // nextTenYear.map(data => {
-    //   months.push(
-    //     <td
-    //       key={data}
-    //       className="calendar-month"
-    //       onClick={e => {
-    //         setYear(data)
-    //       }}
-    //     >
-    //       <span>{data}</span>
-    //     </td>
-    //   )
-    // })
-    // let rows = []
-    // let cells = []
-  
-    // months.forEach((row, i) => {
-    //   if (i % 3 !== 0 || i == 0) {
-    //     cells.push(row)
-    //   } else {
-    //     rows.push(cells)
-    //     cells = []
-    //     cells.push(row)
-    //   }
-    // })
-    // rows.push(cells)
-    // let yearlist = rows.map((d, i) => {
-    //   return <tr>{d}</tr>
-    // })
-  
-    // return (
-    //   <table className="calendar-month">
-    //     <thead>
-    //       <tr>
-    //         <th colSpan="4">Select a Year</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>{yearlist}</tbody>
-    //   </table>
-    // )
-    console.log('props: ', props.props)
-    return (
-      <DropdownSelect 
-        classes={dropdownClasses}
-        data={twentyYear}  
-        defaultValue={{title: props.props}}
-        onSelect={setYear}
-        endIcon={<ArrowDown size='sm' />}
-        placeholder={2022}
-        multiSelect
-      />
-    )
-  }
 
   const onDayClick = (e, d) => {
     setCalendarState({
@@ -368,17 +326,38 @@ const DatePicker = () => {
       return <th key={day}>{day}</th>
     })
   
-    let blanks = []
+    let firstBlanks = []
+    let firstDays = getPrevDaysInMonth() - (firstDayOfMonth() - 1)
     for (let i = 0; i < firstDayOfMonth(); i++) {
-      blanks.push(<td className="calendar-day empty">{""}</td>);
+      firstBlanks.push(
+        <td key={`${firstDays}-firstDays`} className={`calendar-day text-secondary-400`}>
+          <span>
+            {firstDays}
+          </span>
+        </td>
+      );
+      firstDays++
     }
-  
+
+    let endBlanks = []
+    let endDays = 1
+    for (let i = endDayOfMonth(); i < 6; i++) {
+      endBlanks.push(
+        <td key={`${endDays}-endDays`} className={`calendar-day text-secondary-400`}>
+          <span>
+            {endDays}
+          </span>
+        </td>
+      );
+      endDays++
+    }
+
     let _daysInMonth = []
     for (let d = 1; d <= daysInMonth(); d++) {
       let _currentDay = d == currentDay() ? "today border-secondary-400" : ""
       // let selectedClass = (d == calendarState.selectedDay ? " selected-day " : "")
       _daysInMonth.push(
-        <td key={d} className={`calendar-day hover:text-error-500 ${_currentDay}`}>
+        <td key={d} className={`calendar-day ${_currentDay}`}>
           <span
             onClick={e => {
               onDayClick(e, d)
@@ -390,7 +369,7 @@ const DatePicker = () => {
       )
     }
   
-    var totalSlots = [...blanks, ..._daysInMonth]
+    var totalSlots = [...firstBlanks, ..._daysInMonth, ...endBlanks]
     let rows = []
     let cells = []
 
@@ -413,23 +392,21 @@ const DatePicker = () => {
     let daysinmonth = rows.map((d, i) => {
       return <tr key={i}>{d}</tr>
     })
-    // console.log('month: ', moment().month()+1)
-    // console.log('year: ' , moment().year())
-    // console.log('calendar: ', calendar(moment().month()+1, moment().year()))
+
     // console.log('state: ', calendarState.current)
+
     return (
       <div className={`tail-datetime-calendar ${classes.calendarRoot} bg-secondary-50 shadow-light-20`}>
-        <div className="navbar-container bg-error-500">
+        <div className="navbar-container">
           <button className="navbar-button prev-button" onClick={onPrev}>
             <ArrowLeft size='md' />
           </button>
-          {console.log('calendarState: ', calendarState)}
           <div className="navbar-dropdown-container">
-            <div className="month-dropdown" onClick={showMonth}>
-              {month()}
+            <div className="month-dropdown">
+              {renderMonthDropdown()}
             </div>
-            <div className="year-dropdown" onClick={showYearEditor}>
-              <YearTable props={year()}/>
+            <div className="year-dropdown">
+              {renderYearDropdown()}
             </div>
           </div>
           <button className="navbar-button next-button" onClick={onNext}>
@@ -437,8 +414,6 @@ const DatePicker = () => {
           </button>
         </div>
         <div className="calendar-date calendar-container">
-          { calendarState.showYearNav && <YearTable props={year()}/> }
-          { calendarState.showMonthTable && <MonthList data={moment.months()}/> }
           { calendarState.showCalendarTable && (
             <table className="calendar-day calendar-table">
               <thead className="calendar-table-head text-secondary-600">

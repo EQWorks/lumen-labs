@@ -82,7 +82,7 @@ const Area = ({ classes, size, inputProps, label, maxLength, helperText, disable
       </form>
       <div className="grid grid-cols-2">
         {helperText && <p className={areaClasses.helperText}>{helperText}</p>}
-        {maxLength && <p className={areaClasses.wordCount}>{value.length || 0}/{maxLength}</p>}
+        {!isNaN(maxLength) && <p className={areaClasses.wordCount}>{value.length || 0}/{maxLength}</p>}
       </div>
     </div>
   )
@@ -93,7 +93,7 @@ Area.propTypes = {
   size: PropTypes.string,
   inputProps: PropTypes.object,
   label: PropTypes.string,
-  maxLength: PropTypes.number,
+  maxLength: PropTypes.oneOfType([PropTypes.oneOf([NaN]), PropTypes.number]),
   helperText: PropTypes.string,
   disabled: PropTypes.bool,
   onSubmit: PropTypes.func,
@@ -103,7 +103,7 @@ Area.defaultProps = {
   size: 'md',
   inputProps: {},
   label: '',
-  maxLength: 125,
+  maxLength: NaN,
   helperText: '',
   disabled: false,
   onSubmit: () => {},

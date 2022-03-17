@@ -218,6 +218,12 @@ export const Area = () => {
       <TextField.Area
         inputProps={inputProps} 
         label='Label Area'
+        maxLength={100} 
+      /> 
+      <p className={labelClass}>Input Area y-axis - NO LIMIT</p>
+      <TextField.Area
+        inputProps={inputProps} 
+        label='Label Area'
       /> 
       <p className={labelClass}>Input Area x-axis</p>
       <TextField

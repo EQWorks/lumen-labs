@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { DateRange, DatePicker } from '../src'
-import { getDateISO } from '../src/utils/helpers/calendar'
 
 
 export default {

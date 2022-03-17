@@ -15,14 +15,13 @@ import calendar, {
 
 import "./calendar.css";
 import { makeStyles } from '../utils/make-styles';
-import { ArrowLeft, ArrowRight } from "../icons";
-
+import { ArrowLeft, ArrowRight, ArrowDown } from "../icons";
+import { DropdownSelect } from "../";
 
 const classes = makeStyles({
   calendarRoot: {
     position: 'absolute',
     display: 'block',
-    overflow: 'hidden',
     borderCollapse: 'separate',
     borderRadius: '0.25',
 
@@ -115,6 +114,10 @@ const classes = makeStyles({
       }
     }
   }
+})
+
+const dropdownClasses = Object.freeze({
+  menu: 'z-50'
 })
 
 const DatePicker = () => {
@@ -259,7 +262,7 @@ const DatePicker = () => {
   const setYear = year => {
     // alert(year)
     let dateObject = Object.assign({}, calendarState.dateObject)
-    dateObject = moment(dateObject).set("year", year)
+    dateObject = moment(dateObject).set("year", year[Object.keys(year)[0]].title)
     setCalendarState({
       ...calendarState,
       dateObject: dateObject,
@@ -282,52 +285,74 @@ const DatePicker = () => {
 
   const YearTable = props => {
     let months = []
-    let nextten = moment()
+    const nextTen = moment()
       .set("year", props)
-      .add("year", 12)
+      .add(12, 'year')
       .format("Y")
+    const prevTen = moment()
+    .set("year", props)
+    .subtract(10, 'year')
+    .format("Y")
+
+    const nextTenYear = getDates(props, nextTen).map(data => ({title: data}))
+    console.log('nextTenYear: ', nextTenYear)
+    const prevTenYear = getDates(prevTen, props).map(data => ({title: data}))
+    prevTenYear.pop()
+    console.log('prevTenYear: ', prevTenYear)
+    const twentyYear = [{items: [...prevTenYear, ...nextTenYear]}]
+    console.log('twentyYear: ', twentyYear)
+
+    // nextTenYear.map(data => {
+    //   months.push(
+    //     <td
+    //       key={data}
+    //       className="calendar-month"
+    //       onClick={e => {
+    //         setYear(data)
+    //       }}
+    //     >
+    //       <span>{data}</span>
+    //     </td>
+    //   )
+    // })
+    // let rows = []
+    // let cells = []
   
-    let tenyear = getDates(props, nextten)
+    // months.forEach((row, i) => {
+    //   if (i % 3 !== 0 || i == 0) {
+    //     cells.push(row)
+    //   } else {
+    //     rows.push(cells)
+    //     cells = []
+    //     cells.push(row)
+    //   }
+    // })
+    // rows.push(cells)
+    // let yearlist = rows.map((d, i) => {
+    //   return <tr>{d}</tr>
+    // })
   
-    tenyear.map(data => {
-      months.push(
-        <td
-          key={data}
-          className="calendar-month"
-          onClick={e => {
-            setYear(data)
-          }}
-        >
-          <span>{data}</span>
-        </td>
-      )
-    })
-    let rows = []
-    let cells = []
-  
-    months.forEach((row, i) => {
-      if (i % 3 !== 0 || i == 0) {
-        cells.push(row)
-      } else {
-        rows.push(cells)
-        cells = []
-        cells.push(row)
-      }
-    })
-    rows.push(cells)
-    let yearlist = rows.map((d, i) => {
-      return <tr>{d}</tr>
-    })
-  
+    // return (
+    //   <table className="calendar-month">
+    //     <thead>
+    //       <tr>
+    //         <th colSpan="4">Select a Year</th>
+    //       </tr>
+    //     </thead>
+    //     <tbody>{yearlist}</tbody>
+    //   </table>
+    // )
+    console.log('props: ', props.props)
     return (
-      <table className="calendar-month">
-        <thead>
-          <tr>
-            <th colSpan="4">Select a Year</th>
-          </tr>
-        </thead>
-        <tbody>{yearlist}</tbody>
-      </table>
+      <DropdownSelect 
+        classes={dropdownClasses}
+        data={twentyYear}  
+        defaultValue={{title: props.props}}
+        onSelect={setYear}
+        endIcon={<ArrowDown size='sm' />}
+        placeholder={2022}
+        multiSelect
+      />
     )
   }
 
@@ -404,7 +429,7 @@ const DatePicker = () => {
               {month()}
             </div>
             <div className="year-dropdown" onClick={showYearEditor}>
-              {year()}
+              <YearTable props={year()}/>
             </div>
           </div>
           <button className="navbar-button next-button" onClick={onNext}>

@@ -4,8 +4,8 @@ module.exports = {
   purge: {
     content: ['./src/**/*.{js,jsx,ts,tsx}', './stories/**/*.{stories,js,jsx,ts,tsx}'],
     safelist: [
-      /^(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
-      /^(hover|focus|active):(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info)/,
+      /^(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|info|light|blue|dark)/,
+      /^(hover|focus|active):(bg|text|border|shadow)-(primary|secondary|neutral|interactive|success|warning|error|light|blue|dark)/,
       /^z-(.*)/,
     ],
   },

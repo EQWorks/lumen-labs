@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-import { DateRange } from '../src'
+import { DateRange, DatePicker } from '../src'
+import { getDateISO } from '../src/utils/helpers/calendar'
 
 
 export default {
@@ -14,5 +15,12 @@ export const Normal = () => {
 
   return (
     <DateRange defaultValue={[fromDateValue, toDateValue]} setFromValue={setFromDateValue} setToValue={setToDateValue}/>
+  )
+}
+
+export const datePicker = () => {
+
+  return (
+    <DatePicker />
   )
 }

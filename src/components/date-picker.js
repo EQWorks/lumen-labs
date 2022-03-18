@@ -1,138 +1,143 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-import calendar, {
-  isDate,
-  isSameDay,
-  isSameMonth,
-  getDateISO,
-  getNextMonth,
-  getPreviousMonth,
-  WEEK_DAYS,
-  CALENDAR_MONTHS,
-} from "../utils/helpers/calendar";
+import {} from "../utils/helpers/calendar";
 
 import { makeStyles } from '../utils/make-styles';
 import { ArrowLeft, ArrowRight, ChevronDown } from "../icons";
 import { DropdownSelect } from "../";
+import Button from "./button";
 
 const classes = makeStyles({
   calendarRoot: {
-    position: 'absolute',
-    display: 'block',
-    borderCollapse: 'separate',
-    borderRadius: '0.25',
-
-    '& .navbar-container': {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'space-between',
-      borderRadius: '0.25rem 0.25rem 0 0',
-
-      '& .navbar-dropdown-container': {
+    '& .calendar-container': {
+      '& .navbar-container': {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        borderRadius: '0.25rem 0.25rem 0 0',
 
-        '& .month-dropdown, .year-dropdown': {
-          margin: '0 .156rem',
+        '& .navbar-dropdown-container': {
+          display: 'flex',
+          justifyContent: 'center',
+
+          '& .month-dropdown, .year-dropdown': {
+            margin: '0 .156rem',
+            cursor: 'pointer',
+
+            '& .dropdown-button-container': {
+              fontStretch: 'normal',
+              fontStyle: 'normal',
+              letterSpacing: '1px',
+              border: 0,
+              
+              '& .button-container-content': {
+                padding: '.125rem .375rem',
+                fontSize: '0.813rem',
+                fontWeight: 'bold',
+                lineHeight: 1.23,
+
+                '& .dropdown-content': {
+                  overflow: 'hidden',
+
+                  '& span': {
+                    margin: 0
+                  }
+                }
+              }
+            },
+
+            '& .dropdown-menu-container': {
+              width: '3.625rem',
+            },
+          }
+        },
+
+        '& .navbar-button': {
           cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
 
-          '& .dropdown-button-container': {
-            width: '3.625rem',
-            fontStretch: 'normal',
-            fontStyle: 'normal',
-            letterSpacing: '1px',
-            border: 0,
-            
-            '& .button-container-content': {
-              padding: '.125rem .375rem',
-              fontSize: '0.813rem',
-              fontWeight: 'bold',
-              lineHeight: 1.23,
+          '&:first-child, &:last-child': {
+            width: '35px',
+            fontSize: '22px',
+          },
 
-              '& .dropdown-content': {
-                overflow: 'hidden',
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.15)'
+          },
+        },
+      },
+
+      '& .calendar-container': {
+        padding: '0.313rem 0.625rem',
+
+        '& .calendar-table': {
+          fontSize: '12px',
+          fontStretch: 'normal',
+          fontStyle: 'normal',
+          lineHeight: '1.33',
+          letterSpacing: '1px',
+
+          '& .calendar-table-head': {
+            '& tr': {
+              display: 'flex',
+              marginBottom: '0.313rem',
+
+              '& th': {
+                width: '1.563rem',
+                height: '1.563rem',
+                margin: '0 0.313rem',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontWeight: 'bold',
               }
             }
           },
 
-          '& .dropdown-menu-container': {
-            width: '3.625rem',
-          },
-        }
-      },
+          '& .calendar-table-body': {
+            cursor: 'pointer',
 
-      '& .navbar-button': {
-        cursor: 'pointer',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-
-        '&:first-child, &:last-child': {
-          width: '35px',
-          fontSize: '22px',
-        },
-
-        '&:hover': {
-          backgroundColor: 'rgba(0, 0, 0, 0.15)'
-        },
-      },
-    },
-
-    '& .calendar-container': {
-      padding: '0.313rem 0.625rem',
-
-      '& .calendar-table': {
-        fontSize: '12px',
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        lineHeight: '1.33',
-        letterSpacing: '1px',
-
-        '& .calendar-table-head': {
-          '& tr': {
-            display: 'flex',
-            marginBottom: '0.313rem',
-
-            '& th': {
-              width: '1.563rem',
-              height: '1.563rem',
-              margin: '0 0.313rem',
+            '& tr': {
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontWeight: 'bold',
+              marginBottom: '0.313rem',
+
+              '& .calendar-day, td': {
+                fontWeight: 'normal',
+
+                '& span': {
+                  width: '1.563rem',
+                  height: '1.563rem',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }
+              },
+
+              '& .today': {
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderRadius: '4px',
+              },
             }
           }
-        },
-
-        '& .calendar-table-body': {
-          cursor: 'pointer',
-
-          '& tr': {
-            display: 'flex',
-            marginBottom: '0.313rem',
-
-            '& td': {
-              width: '1.563rem',
-              height: '1.563rem',
-              margin: '0 0.313rem',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontWeight: 'normal',
-            },
-
-            '& .today': {
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderRadius: '4px',
-            },
-          }
         }
+      }
+    },
+
+    '& .button-container': {
+      '& .cancel-button': {
+        paddingLeft: '1.875rem',
+        paddingRight: '1.875rem'
+      },
+
+      '& .confirm-button': {
+        paddingLeft: '2.5rem',
+        paddingRight: '2.5rem'
       }
     }
   }
@@ -140,11 +145,19 @@ const classes = makeStyles({
 
 const dropdownClasses = Object.freeze({
   button: 'dropdown-button-container bg-interactive-50',
-  content: 'button-container-content',
-  menu: 'dropdown-menu-container z-50'
+  content: 'button-container-content font-pt',
+  menu: 'dropdown-menu-container z-50',
+  endIcon: 'm-0'
 })
 
-const DatePicker = () => {
+const DatePicker = ({dateFormat}) => {
+  const datePickerClasses = Object.freeze({
+    root: 'relative flex flex-col pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm',
+    calendarContainer: 'calendar-container border-b border-neutral-100',
+    buttonContainer: 'button-container px-15px py-2.5 flex justify-between',
+    disabledDays: 'calendar-day-disabled text-secondary-400 px-5px py-0 cursor-not-allowed',
+  })
+
   const [calendarState, setCalendarState] = useState(
     {
       showCalendarTable: true,
@@ -152,7 +165,8 @@ const DatePicker = () => {
       dateObject: moment(),
       allmonths: moment.months(),
       showYearNav: false,
-      selectedDay: null,
+      selectedFirstDay: null,
+      selectedEndDay: null,
       current: ''
     }
   )
@@ -175,19 +189,18 @@ const DatePicker = () => {
     let dateObject = calendarState.dateObject
     let firstDay = moment(dateObject)
       .startOf("month")
-      .format("d") // Day of week 0...1..5...6
+      .format("d")
     return firstDay
   }
-  console.log('firstDayOfMonth: ', firstDayOfMonth())
 
   const endDayOfMonth = () => {
     let dateObject = calendarState.dateObject
     let endDay = moment(dateObject)
       .endOf("month")
-      .format("d") // Day of week 0...1..5...6
+      .format("d")
     return endDay
   }
-  console.log('endDayOfMonth: ', endDayOfMonth())
+
   const month = () => {
     return calendarState.dateObject.format("MMM")
   }
@@ -196,13 +209,12 @@ const DatePicker = () => {
     const prevMonth = Number(moment().month(month()).format('MM')) - 1
     return moment(`${year()}-${prevMonth < 1 ? 12 : prevMonth}`, 'YYYY-MM').daysInMonth()
   }
-  console.log('getPrevDaysInMonth: ', getPrevDaysInMonth())
+
 
   const getNextDaysInMonth = () => {
     const nextMonth = Number(moment().month(month()).format('MM')) + 1
     return moment(`${year()}-${nextMonth > 12 ? 1 : nextMonth}`, 'YYYY-MM').daysInMonth()
   }
-  console.log('getNextDaysInMonth: ', getNextDaysInMonth())
 
   const setMonth = (e, val) => {
     e.stopPropagation()
@@ -315,10 +327,32 @@ const DatePicker = () => {
 
 
   const onDayClick = (e, d) => {
-    setCalendarState({
-      ...calendarState,
-      selectedDay: d
-    })
+    if (calendarState.selectedFirstDay > d) {
+      setCalendarState({
+        ...calendarState,
+        selectedFirstDay: d,
+        selectedEndDay: calendarState.selectedFirstDay
+      })
+    } 
+    else if (calendarState.selectedFirstDay === d || calendarState.selectedEndDay === d) {
+      setCalendarState({
+        ...calendarState,
+        selectedFirstDay: null,
+        selectedEndDay:  null
+      })
+    }
+    else if (calendarState.selectedFirstDay) {
+      setCalendarState({
+        ...calendarState,
+        selectedEndDay: d
+      })
+    } 
+    else {
+      setCalendarState({
+        ...calendarState,
+        selectedFirstDay: d
+      })
+    }
   }
 
   const renderCalendar = () => {
@@ -330,7 +364,7 @@ const DatePicker = () => {
     let firstDays = getPrevDaysInMonth() - (firstDayOfMonth() - 1)
     for (let i = 0; i < firstDayOfMonth(); i++) {
       firstBlanks.push(
-        <td key={`${firstDays}-firstDays`} className={`calendar-day text-secondary-400`}>
+        <td key={`${firstDays}-firstDays`} className={datePickerClasses.disabledDays}>
           <span>
             {firstDays}
           </span>
@@ -343,7 +377,7 @@ const DatePicker = () => {
     let endDays = 1
     for (let i = endDayOfMonth(); i < 6; i++) {
       endBlanks.push(
-        <td key={`${endDays}-endDays`} className={`calendar-day text-secondary-400`}>
+        <td key={`${endDays}-endDays`} className={datePickerClasses.disabledDays}>
           <span>
             {endDays}
           </span>
@@ -354,11 +388,28 @@ const DatePicker = () => {
 
     let _daysInMonth = []
     for (let d = 1; d <= daysInMonth(); d++) {
-      let _currentDay = d == currentDay() ? "today border-secondary-400" : ""
-      // let selectedClass = (d == calendarState.selectedDay ? " selected-day " : "")
+      let selectedClass = ''
+      if (d == calendarState.selectedFirstDay) {
+        selectedClass = "bg-interactive-500 text-interactive-50 rounded-sm"
+      } 
+      else if (d == calendarState.selectedEndDay) {
+        selectedClass = "bg-interactive-500 text-interactive-50 rounded-sm"
+      } 
+      else if (d == currentDay()) {
+        selectedClass = 'today border-secondary-400'
+      }
+
       _daysInMonth.push(
-        <td key={d} className={`calendar-day ${_currentDay}`}>
+        <td 
+          key={d} 
+          className={`
+            ${(d >= calendarState.selectedFirstDay && d <= calendarState.selectedEndDay) && 'bg-primary-50 text-interactive-500'}
+            ${(d >= calendarState.selectedFirstDay && d <= calendarState.selectedEndDay) && d == calendarState.selectedFirstDay && 'pl-0 ml-5px rounded-l-sm'}
+            ${(d >= calendarState.selectedFirstDay && d <= calendarState.selectedEndDay) && d == calendarState.selectedEndDay && 'pr-0 mr-5px rounded-r-sm'}
+            calendar-day px-5px py-0
+          `}>
           <span
+            className={`${selectedClass}`}
             onClick={e => {
               onDayClick(e, d)
             }}
@@ -384,7 +435,6 @@ const DatePicker = () => {
         cells.push(row)
       }
       if (i === totalSlots.length - 1) {
-        // let insertRow = cells.slice()
         rows.push(cells)
       }
     })
@@ -393,10 +443,8 @@ const DatePicker = () => {
       return <tr key={i}>{d}</tr>
     })
 
-    // console.log('state: ', calendarState.current)
-
     return (
-      <div className={`tail-datetime-calendar ${classes.calendarRoot} bg-secondary-50 shadow-light-20`}>
+      <div className={datePickerClasses.calendarContainer}>
         <div className="navbar-container">
           <button className="navbar-button prev-button" onClick={onPrev}>
             <ArrowLeft size='md' />
@@ -429,18 +477,45 @@ const DatePicker = () => {
     )
   }
 
+  const getFormatDay = (day) => {
+    return moment(day).format(`${dateFormat}`)
+  }
+
+  const handleOnConfirm = (e) => {
+    e.stopPropagation()
+    const firstDay = `${month()} ${calendarState.selectedFirstDay} ${year()} ${moment().format('LTS')}`
+    const endDay = `${month()} ${calendarState.selectedEndDay} ${year()} ${moment().format('LTS')}`
+
+    console.log('first: ', getFormatDay(firstDay))
+    console.log('end: ', getFormatDay(endDay))
+  }
+
+  const handleOnCancel = (e) => {
+    e.stopPropagation()
+    setCalendarState({
+      ...calendarState,
+      selectedFirstDay: null,
+      selectedEndDay:  null
+    })
+  }
+
   return (
-    <div>
+    <div className={`${classes.calendarRoot} ${datePickerClasses.root} font-pt`}>
       {renderCalendar()}
+      <div className={datePickerClasses.buttonContainer}>
+        <Button classes={{button: 'cancel-button'}} size='md' variant='outlined' onClick={handleOnCancel}>Cancel</Button>
+        <Button classes={{button: 'confirm-button'}} size='md' variant='filled' onClick={handleOnConfirm}>Confirm</Button>
+      </div>
     </div>
   )
 }
 
 DatePicker.propTypes = {
-
+  dateFormat: PropTypes.string
 }
 
 DatePicker.defaultProps = {
+  dateFormat: 'MM/DD/YYYY'
 }
 
 export default DatePicker

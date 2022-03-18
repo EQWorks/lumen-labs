@@ -20,6 +20,8 @@ export const Normal = () => {
 export const datePicker = () => {
 
   return (
-    <DatePicker />
+    <div className='flex'>
+      <DatePicker />
+    </div>
   )
 }

@@ -34,6 +34,7 @@ module.exports = {
         '9px': '0.563rem',
         '15px': '0.938rem',
         '18px': '1.125rem',
+        '30px': '1.875rem',
         '42px': '2.625rem',
         '250px': '15.625rem',
         '300px': '18.75rem',
@@ -247,6 +248,7 @@ module.exports = {
       DEFAULT: '1',
     },
     fontFamily: {
+      pt: ['PT Sans', 'sans-serif'],
       sans: [
         'Open Sans',
         'ui-sans-serif',

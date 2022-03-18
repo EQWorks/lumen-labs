@@ -61,10 +61,10 @@ const DropdownBase = forwardRef(({
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
     placeholder: 'normal-case text-secondary-400',
-    startIcon: clsx(`mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`, 
+    startIcon: clsx(`start-icon mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`, 
       { 'text-secondary-600': !disabled },
     ),
-    endIcon: clsx(`fill-current stroke-current 
+    endIcon: clsx(`end-icon fill-current stroke-current 
       ${selectedOptions && multiSelect && contentSize.icon}
       ${overflow === 'horizontal' && 'ml-2.5'}`,
     { 'text-secondary-600': !disabled },

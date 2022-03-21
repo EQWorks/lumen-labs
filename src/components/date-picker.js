@@ -16,13 +16,14 @@ import {
   getFirstDayOfMonth,
   getEndDayOfMonth,
   getPrevDaysInMonth,
-  getDates
+  getDates,
+  getISODateFormat,
 } from "../utils/helpers/calendar";
 
 
 const classes = makeStyles({
-  calendarRoot: {
-    '& .calendar-container': {
+  datePickerRoot: {
+    '& .date-picker-content-container': {
       '& .navbar-container': {
         display: 'flex',
         padding: '0 0.625rem',
@@ -36,7 +37,6 @@ const classes = makeStyles({
           '& .navbar-content': {
             display: 'flex',
             justifyContent: 'center',
-            fontWeight: 'bold',
             letterSpacing: '1px',
             fontSize: '0.875rem',
             lineHeight: 1.14,
@@ -46,6 +46,12 @@ const classes = makeStyles({
               alignItems: 'center',
             }
           },
+
+          '& .multi': {
+            width: '100%',
+            margin: '0 2.594rem',
+            justifyContent: 'space-between'
+          }
         },
 
         '& .month-dropdown, .year-dropdown': {
@@ -61,8 +67,9 @@ const classes = makeStyles({
             lineHeight: 1.23,
             border: 0,
             
-            '& .button-container-content': {
-              padding: '.125rem .375rem',
+            '& .button-content-container': {
+              padding: '0.125rem 0.375rem',
+              fontWeight: 'bold',
 
               '& .dropdown-content': {
                 overflow: 'hidden',
@@ -83,15 +90,21 @@ const classes = makeStyles({
           },
         },
 
+        '& .first-calendar-dropdown, .end-calendar-dropdown': {
+          display: 'flex',
+        },
+
         '& .navbar-button': {
-          cursor: 'pointer',
+          width: '20px',
+          height: '20px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          cursor: 'pointer',
 
-          '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.15)'
-          },
+          '&:focus': {
+            outline: 0
+          }
         },
       },
 
@@ -168,82 +181,96 @@ const classes = makeStyles({
 
 const dropdownClasses = Object.freeze({
   button: 'dropdown-button-container bg-interactive-50',
-  content: 'button-container-content font-pt',
+  content: 'button-content-container font-pt',
   menu: 'dropdown-menu-container z-50',
 })
 
 const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, dateFormat}) => {
   const datePickerClasses = Object.freeze({
-    root: 'relative flex flex-col pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm',
+    root: 'date-picker-root relative flex flex-col pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm',
+    datePickerContainer: `date-picker-content-container border-b border-neutral-100`,
+    calendarMainContainer: `calendar-main-container ${variant === 'multi' && 'flex'}`,
     navbarContainer: `navbar-container px-15px ${navbarType === 'both' && 'justify-between'}`,
-    calendarContainer: 'calendar-container border-b border-neutral-100',
     buttonContainer: 'button-container px-15px py-2.5 flex justify-between',
     disabledDays: 'calendar-day-disabled text-secondary-400 px-5px py-0 cursor-not-allowed',
   })
 
   const [calendarState, setCalendarState] = useState(
     {
-      showCalendarTable: true,
-      showMonthTable: false,
       dateObject: moment(),
-      showYearNav: false,
+      dateObjectMulti: moment().add(1, 'month'),
       selectedFirstDay: null,
       selectedEndDay: null,
       current: ''
     }
   )
 
-  const onSelectMonthDropdown = (e, val) => {
+  const onSelectMonthDropdown = (e, val, multi) => {
     e.stopPropagation()
-
     const monthNo = moment().month(val.title).format('M')
-    const _dateObject = moment(calendarState.dateObject).set("month", monthNo - 1)
 
-    setCalendarState({
-      ...calendarState,
-      dateObject: _dateObject,
-    })
+    if (multi) {
+      const _dateObjectMulti = moment(calendarState.dateObjectMulti).set("month", monthNo - 1)
+      setCalendarState({
+        ...calendarState,
+        dateObjectMulti: _dateObjectMulti
+      })
+    } else {
+      const _dateObject = moment(calendarState.dateObject).set("month", monthNo - 1)
+      setCalendarState({
+        ...calendarState,
+        dateObject: _dateObject
+      })
+    }
   }
 
-  const renderMonthDropdown = () => {
+  const renderMonthDropdown = (multi) => {
     const months = [{ items: moment.monthsShort().map(data => ({title: data})) }]
 
     return (
       <DropdownSelect 
         classes={dropdownClasses}
         data={months}  
-        value={{title: getMonth(calendarState.dateObject)}}
-        onSelect={onSelectMonthDropdown}
+        value={{title: getMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}}
+        onSelect={(e, val) => { onSelectMonthDropdown(e, val, multi) }}
         endIcon={<ChevronDown className='stroke-current text-secondary-800' size='sm' />}
-        placeholder={getMonth(calendarState.dateObject)}
+        placeholder={getMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}
         allowClear={false}
       />
     )
   }
 
-  const setYear = (e, val) => {
+  const setYear = (e, val, multi) => {
     e.stopPropagation()
-    const _dateObject = moment(calendarState.dateObject).set("year", val.title || getYear(calendarState.dateObject))
 
-    setCalendarState({
-      ...calendarState,
-      dateObject: _dateObject,
-    })
+    if (multi) {
+      const _dateObjectMulti = moment(calendarState.dateObjectMulti).set("year", val.title || getYear(calendarState.dateObjectMulti))
+      setCalendarState({
+        ...calendarState,
+        dateObjectMulti: _dateObjectMulti
+      })
+    } else {
+      const _dateObject = moment(calendarState.dateObject).set("year", val.title || getYear(calendarState.dateObject))
+      setCalendarState({
+        ...calendarState,
+        dateObject: _dateObject
+      })
+    }
   }
 
-  const renderYearDropdown = () => {
+  const renderYearDropdown = (multi) => {
     const nextTen = moment()
-      .set("year", getYear(calendarState.dateObject))
+      .set("year", getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject))
       .add(12, 'year')
       .format("Y")
     const prevTen = moment()
-    .set("year", getYear(calendarState.dateObject))
+    .set("year", getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject))
     .subtract(10, 'year')
     .format("Y")
 
-    const nextTenYear = getDates(getYear(calendarState.dateObject), nextTen).map(data => ({title: data}))
+    const nextTenYear = getDates(getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject), nextTen).map(data => ({title: data}))
 
-    const prevTenYear = getDates(prevTen, getYear(calendarState.dateObject)).map(data => ({title: data}))
+    const prevTenYear = getDates(prevTen, getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)).map(data => ({title: data}))
     prevTenYear.pop()
 
     const twentyYear = [{items: [...prevTenYear, ...nextTenYear]}]
@@ -252,10 +279,10 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
       <DropdownSelect 
         classes={dropdownClasses}
         data={twentyYear}  
-        value={{title: getYear(calendarState.dateObject)}}
-        onSelect={setYear}
+        value={{title: getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}}
+        onSelect={(e, val) => { setYear(e, val, multi) }}
         endIcon={<ChevronDown className='stroke-current text-secondary-800' size='sm' />}
-        placeholder={getYear(calendarState.dateObject)}
+        placeholder={getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}
         allowClear={false}
       />
     )
@@ -293,7 +320,10 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
   }
 
 
-  const onDayClick = (e, d) => {
+  const onDayClickRange = (e, d) => {
+    e.stopPropagation()
+    const parseDay = getISODateFormat(calendarState.dateObject, d)
+
     if (calendarState.selectedFirstDay > d) {
       setCalendarState({
         ...calendarState,
@@ -322,54 +352,106 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
     }
   }
 
+  const onDayClickSingle = (e, d, multi) => {
+    e.stopPropagation()  
+
+    if (multi) {
+      setCalendarState({
+        ...calendarState,
+        selectedEndDay: d
+      })
+  
+      if (calendarState.selectedEndDay === d) {
+        setCalendarState({
+          ...calendarState,
+          selectedEndDay: null
+        })
+      }
+    } else {
+      setCalendarState({
+        ...calendarState,
+        selectedFirstDay: d
+      })
+  
+      if (calendarState.selectedFirstDay === d) {
+        setCalendarState({
+          ...calendarState,
+          selectedFirstDay: null
+        })
+      }
+    }
+  }
+
   const renderNavbar = () => {
     let renderType = ''
-
-    switch(navbarType) {
-      case 'both': 
-        renderType = (
-          <>
+    if (variant !== 'multi') {
+      switch(navbarType) {
+        case 'both': 
+          renderType = (
+            <>
+              <div className="month-dropdown">
+                {renderMonthDropdown()}
+              </div>
+              <div className="year-dropdown">
+                {renderYearDropdown()}
+              </div>
+            </>
+          )
+          break
+        case 'year': 
+          renderType = (
+            <>
+              <span>
+                {getMonth(calendarState.dateObject)}
+              </span>
+            </>
+          )
+          break
+        case 'none': 
+          renderType = (
+            <>
+              <span>
+                {`${moment(calendarState.dateObject).format('MMMM')}, ${getYear(calendarState.dateObject)}`}
+              </span>
+            </>
+          )
+          break
+        default:
+          break 
+      }
+    } else {
+      renderType = (
+        <>
+          <div className="first-calendar-dropdown">
             <div className="month-dropdown">
               {renderMonthDropdown()}
             </div>
             <div className="year-dropdown">
               {renderYearDropdown()}
             </div>
-          </>
-        )
-        break
-      case 'year': 
-        renderType = (
-          <>
-            <span>
-              {getMonth(calendarState.dateObject)}
-            </span>
-          </>
-        )
-        break
-      case 'none': 
-        renderType = (
-          <>
-            <span>
-              {`${moment(calendarState.dateObject).format('MMMM')}, ${getYear(calendarState.dateObject)}`}
-            </span>
-          </>
-        )
-        break
-      default:
-        break 
+          </div>
+          <div className="end-calendar-dropdown">
+            <div className="month-dropdown">
+              {renderMonthDropdown(true)}
+            </div>
+            <div className="year-dropdown">
+              {renderYearDropdown(true)}
+            </div>
+          </div>
+        </>
+      )
     }
 
     return (
       <div className={datePickerClasses.navbarContainer}>
         <div className={`navbar-content-container ${navbarType === 'year' && 'pr-15px'}`}>
-          <button className="navbar-button prev-button" onClick={onPrev}>
+          <button className="navbar-button prev-button bg-secondary-100 rounded-sm shadow-light-10" onClick={onPrev}>
             <ArrowLeft size='md' />
           </button>
-          <div className="navbar-content">
+          <div className={`navbar-content ${variant === 'multi' && variant}`}>
             {renderType}
           </div>
-          <button className="navbar-button next-button" onClick={onNext}>
+          <button className="navbar-button next-button bg-secondary-100 rounded-sm shadow-light-10" onClick={onNext}>
             <ArrowRight size='md' />
           </button>
         </div>
@@ -382,14 +464,20 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
     )
   }
 
-  const renderCalendar = () => {
+  const renderCalendar = (multi) => {
     let weekdayshortname = getWeekdayShort().map(day => {
       return <th key={day}>{day}</th>
     })
+
+    if (multi) {
+      console.log('multi: ', getISODateFormat(calendarState.dateObjectMulti, d))
+    } else {
+      console.log('no multi: ', getISODateFormat(calendarState.dateObject, d))
+    }
   
     let firstBlanks = []
-    let firstDays = getPrevDaysInMonth(calendarState.dateObject) - (getFirstDayOfMonth(calendarState.dateObject) - 1)
-    for (let i = 0; i < getFirstDayOfMonth(calendarState.dateObject); i++) {
+    let firstDays = getPrevDaysInMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject) - (getFirstDayOfMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject) - 1)
+    for (let i = 0; i < getFirstDayOfMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject); i++) {
       firstBlanks.push(
         <td key={`${firstDays}-firstDays`} className={datePickerClasses.disabledDays}>
           <span>
@@ -402,7 +490,7 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
 
     let endBlanks = []
     let endDays = 1
-    for (let i = getEndDayOfMonth(calendarState.dateObject); i < 6; i++) {
+    for (let i = getEndDayOfMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject); i < 6; i++) {
       endBlanks.push(
         <td key={`${endDays}-endDays`} className={datePickerClasses.disabledDays}>
           <span>
@@ -414,16 +502,16 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
     }
 
     let _daysInMonth = []
-    for (let d = 1; d <= getDaysInMonth(calendarState.dateObject); d++) {
+    for (let d = 1; d <= getDaysInMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject); d++) {
       let selectedClass = ''
-      if (d == calendarState.selectedFirstDay) {
+      if (d == calendarState.selectedFirstDay && !multi) {
         selectedClass = "bg-interactive-500 text-interactive-50 rounded-sm"
       } 
-      else if (d == calendarState.selectedEndDay) {
+      else if (d == calendarState.selectedEndDay && multi) {
         selectedClass = "bg-interactive-500 text-interactive-50 rounded-sm"
       } 
-      else if (d == getCurrentDay(calendarState.dateObject)) {
-        if (moment().format('YYYY-MM') === moment(calendarState.dateObject).format('YYYY-MM')) {
+      else if (d == getCurrentDay(multi ? calendarState.dateObjectMulti : calendarState.dateObject)) {
+        if (moment().format('YYYY-MM') === moment(multi ? calendarState.dateObjectMulti : calendarState.dateObject).format('YYYY-MM')) {
           selectedClass = 'today border-secondary-400'
         }
       }
@@ -431,16 +519,16 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
       _daysInMonth.push(
         <td 
           key={d} 
-          className={`
-            ${(d >= calendarState.selectedFirstDay && d <= calendarState.selectedEndDay) && 'bg-primary-50 text-interactive-500'}
+          className={`calendar-day px-5px py-0
+            ${variant === 'range' && (d >= calendarState.selectedFirstDay && d <= calendarState.selectedEndDay) && 'bg-primary-50 text-interactive-500'}
             ${(d >= calendarState.selectedFirstDay && d <= calendarState.selectedEndDay) && d == calendarState.selectedFirstDay && 'pl-0 ml-5px rounded-l-sm'}
             ${(d >= calendarState.selectedFirstDay && d <= calendarState.selectedEndDay) && d == calendarState.selectedEndDay && 'pr-0 mr-5px rounded-r-sm'}
-            calendar-day px-5px py-0
           `}>
           <span
             className={`${selectedClass}`}
             onClick={e => {
-              onDayClick(e, d)
+              variant === 'range' && onDayClickRange(e, d)
+              variant === 'single' || 'multi' && onDayClickSingle(e, d, multi)
             }}
           >
             {d}
@@ -468,40 +556,46 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
       }
     })
 
-    let daysinmonth = rows.map((d, i) => {
+    let daysInMonth = rows.map((d, i) => {
       return <tr key={i}>{d}</tr>
     })
 
     return (
-      <div className={datePickerClasses.calendarContainer}>
-        {renderNavbar()}
-        <div className="calendar-date calendar-container">
-          { calendarState.showCalendarTable && (
-            <table className="calendar-day calendar-table">
-              <thead className="calendar-table-head text-secondary-600">
-                <tr>{weekdayshortname}</tr>
-              </thead>
-              <tbody className="calendar-table-body text-secondary-900">
-                {daysinmonth}
-              </tbody>
-            </table>
-          )}
-        </div>
+      <div className="calendar-container">
+        <table className="calendar-day calendar-table">
+          <thead className="calendar-table-head text-secondary-600">
+            <tr>{weekdayshortname}</tr>
+          </thead>
+          <tbody className="calendar-table-body text-secondary-900">
+            {daysInMonth}
+          </tbody>
+        </table>
       </div>
     )
   }
 
   const getFormatDay = (day) => {
-    return moment(day).format(`${dateFormat}`)
+    return day ? moment(day).format(`${dateFormat}`) : undefined
   }
 
   const handleOnConfirm = (e) => {
     e.stopPropagation()
-    const firstDay = `${getMonth(calendarState.dateObject)} ${calendarState.selectedFirstDay} ${getYear(calendarState.dateObject)} ${moment().format('LTS')}`
-    const endDay = `${getMonth(calendarState.dateObject)} ${calendarState.selectedEndDay} ${getYear(calendarState.dateObject)} ${moment().format('LTS')}`
+    let firstDay = ''
+    let endDay = ''
+
+    if (calendarState.selectedEndDay) {
+      endDay = getISODateFormat(calendarState.dateObject, calendarState.selectedEndDay)
+    } 
+
+    if (calendarState.selectedFirstDay) {
+      firstDay = getISODateFormat(calendarState.dateObject, calendarState.selectedFirstDay)
+    }
 
     console.log('first: ', getFormatDay(firstDay))
     console.log('end: ', getFormatDay(endDay))
+    onConfirm(variant === 'single' ? getFormatDay(firstDay) : 
+      {firstDay: getFormatDay(firstDay), endDay: getFormatDay(endDay)}
+    )
   }
 
   const handleOnCancel = (e) => {
@@ -514,8 +608,14 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
   }
 
   return (
-    <div className={`${classes.calendarRoot} ${datePickerClasses.root} font-pt`}>
-      {renderCalendar()}
+    <div className={`${classes.datePickerRoot} ${datePickerClasses.root} font-pt`}>
+      <div className={datePickerClasses.datePickerContainer}>
+        {renderNavbar()}
+        <div className={datePickerClasses.calendarMainContainer}>
+          {renderCalendar()}
+          {variant === 'multi' && (renderCalendar(true))}
+        </div>
+      </div>
       <div className={datePickerClasses.buttonContainer}>
         <Button classes={{button: 'cancel-button'}} size='md' variant='outlined' onClick={handleOnCancel}>Cancel</Button>
         <Button classes={{button: 'confirm-button'}} size='md' variant='filled' onClick={handleOnConfirm}>Confirm</Button>
@@ -526,14 +626,16 @@ const DatePicker = ({navbarType, variant, onSelectDay, onConfirm, onCancel, date
 
 DatePicker.propTypes = {
   dateFormat: PropTypes.string,
-  navbarType: PropTypes.oneOf['both', 'year', 'none'],
-  variant: PropTypes.oneOf['single', 'range', 'multi'],
+  navbarType: PropTypes.oneOf(['both', 'year', 'none']),
+  variant: PropTypes.oneOf(['single', 'range', 'multi']),
+  onConfirm: PropTypes.func,
 }
 
 DatePicker.defaultProps = {
   dateFormat: 'MM/DD/YYYY',
-  navbarType: 'none',
-  variant: 'single',
+  navbarType: 'both',
+  variant: 'range',
+  onConfirm: () => {}
 }
 
 export default DatePicker

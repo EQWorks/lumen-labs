@@ -58,4 +58,6 @@ export const getDates = (startDate, stopDate) => {
   return dateArray
 }
 
-// export const setMonth
+export const getISODateFormat = (dateObject, day) => {
+  return `${getYear(dateObject)}-${moment(dateObject).format('MM')}-${moment(day, 'DD').format('DD')}T${moment().format('HH:mm:ss')}`
+}

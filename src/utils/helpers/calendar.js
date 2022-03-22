@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment'
 
 export const getWeekdayShort = () => (moment.weekdaysMin())
 
@@ -9,28 +9,28 @@ export const getDaysInMonth = (dateObject) => {
 }
 
 export const getMonth = (dateObject) => {
-  return dateObject.format("MMM")
+  return dateObject.format('MMM')
 }
 
 export const getYear = (dateObject) => {
-  return dateObject.format("Y")
+  return dateObject.format('Y')
 }
 
 export const getCurrentDay = (dateObject) => {
-  return dateObject.format("D")
+  return dateObject.format('D')
 }
 
 export const getFirstDayOfMonth = (dateObject) => {
   const firstDay = moment(dateObject)
-    .startOf("month")
-    .format("d")
+    .startOf('month')
+    .format('d')
   return firstDay
 }
 
 export const getEndDayOfMonth = (dateObject) => {
   const endDay = moment(dateObject)
-    .endOf("month")
-    .format("d")
+    .endOf('month')
+    .format('d')
   return endDay
 }
 
@@ -51,8 +51,8 @@ export const getDates = (startDate, stopDate) => {
   let dateArray = []
 
   while (currentDate <= _stopDate) {
-    dateArray.push(moment(currentDate).format("YYYY"))
-    currentDate = moment(currentDate).add(1, "year")
+    dateArray.push(moment(currentDate).format('YYYY'))
+    currentDate = moment(currentDate).add(1, 'year')
   }
 
   return dateArray

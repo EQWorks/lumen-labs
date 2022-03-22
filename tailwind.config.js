@@ -36,6 +36,7 @@ module.exports = {
         '18px': '1.125rem',
         '30px': '1.875rem',
         '42px': '2.625rem',
+        '185px': '11.563rem',
         '250px': '15.625rem',
         '300px': '18.75rem',
         '450px': '28.125rem',
@@ -79,6 +80,7 @@ module.exports = {
       fontSize: {
         xxs: ['0.625rem', { lineHeight: '1rem' }],
         '11px': ['0.688rem', { lineHeight: 1.45 }],
+        '13px': ['0.813rem', { lineHeigh: 1.23}]
       },
       letterSpacing: {
         lg: '1px',
@@ -95,6 +97,7 @@ module.exports = {
         '1.6': 1.6,
         '1.43': 1.43,
         '1.33': 1.33,
+        '1.23': 1.23
       },
     },
     screens: {

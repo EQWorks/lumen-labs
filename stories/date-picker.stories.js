@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { DatePicker } from '../src'
+import { DatePicker, TextField } from '../src'
 
 
 export default {
@@ -91,6 +91,51 @@ export const Multi = () => {
       <DatePicker 
         variant='multi'
       />
+    </div>
+  )
+}
+
+export const Examples = () => {
+  const [dateValue, setDateValue] = useState('')
+  const [dateValue1, setDateValue1] = useState('')
+
+  return (
+    <div>
+      <div className='inline-flex flex-col mr-4'>
+        <TextField 
+          classes={{
+            container: 'w-full mb-2',
+          }} 
+          value={dateValue} 
+          onDelete={() => setDateValue('')}
+          placeholder='Select a day'
+          readOnly
+        />
+        <DatePicker 
+          variant='single' 
+          onConfirm={(_, val) => setDateValue(val)}
+          onCancel={() => setDateValue('')}
+        />
+      </div>
+      <div className='inline-flex flex-col mr-4'>
+        <TextField 
+          classes={{
+            container: 'w-full mb-2',
+          }} 
+          value={dateValue1} 
+          onDelete={() => setDateValue1('')}
+          placeholder='Select a day'
+          readOnly
+        />
+        <DatePicker 
+          variant='single' 
+          actionButtons={false}
+          onSelectDay={(_, val) => setDateValue1(val)}
+        />
+      </div>
+      <div className='inline-flex flex-col mr-4'>
+        <span>For Range sample Textfield will need some updates</span>
+      </div>
     </div>
   )
 }

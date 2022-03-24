@@ -36,7 +36,7 @@ export const Normal = () => {
         <h4 className='mb-2'>variant (range) - navbarType (both)</h4>
         <DatePicker onSelectDay={(_, v) => console.log(v)}/>
       </div>
-      <div className='mb-2 mr-4'>
+      {/* <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (year)</h4>
         <DatePicker 
           navbarType='year'
@@ -53,7 +53,7 @@ export const Normal = () => {
         <DatePicker 
           actionButtons={false}
         />
-      </div>
+      </div> */}
     </div>
   )
 }

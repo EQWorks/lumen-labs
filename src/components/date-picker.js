@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
+import { Menu } from '@headlessui/react'
 import DropdownSelect from './dropdown-select'
 import Button from './button'
 import { ArrowLeft, ArrowRight, ChevronDown } from '../icons'
 
 import { makeStyles } from '../utils/make-styles'
+import { ConditionalWrapper } from '../utils/conditional-wrapper'
+import { useComponentIsActive } from '../hooks'
 import { 
   getWeekdayShort, 
   getDaysInMonth, 
@@ -20,6 +23,7 @@ import {
   getISODateFormat,
   getDayFormat,
 } from '../utils/helpers/calendar'
+import { InputBase } from '../base-components'
 
 
 const customClasses = makeStyles({
@@ -161,6 +165,27 @@ const customClasses = makeStyles({
       },
     },
   },
+
+  inputRangeContainer: {
+    '& .input-range-root': {
+      borderWidth: 0
+    }
+  }
+})
+
+const inputClasses = Object.freeze({
+  root: 'input-container w-267px h-7 py-1.5 px-2.5 text-xs text-secondary-800 tracking-md leading-1.33 border-secondary-400 rounded-sm',
+  input: 'outline-none',
+  startIcon: 'mt-0.5 mr-4 fill-current stroke-current',
+  endIcon: 'mt-0.5 ml-4 fill-current stroke-current',
+})
+
+const inputRangeClasses = Object.freeze({
+  container: 'input-range-container w-267px px-2 py-px flex border border-secondary-400 rounded-sm',
+  root: 'input-range-root w-16 mx-1 text-xs text-secondary-800 tracking-md leading-1.33',
+  input: 'outline-none',
+  startIcon: 'mt-0.5 mr-4 fill-current stroke-current',
+  endIcon: 'mt-0.5 ml-4 fill-current stroke-current',
 })
 
 const dropdownClasses = Object.freeze({
@@ -169,10 +194,11 @@ const dropdownClasses = Object.freeze({
   menu: 'dropdown-menu-container w-full h-185px z-50',
 })
 
-const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCancel, defaultDate, dateFormat, actionButtons }) => {
+const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCancel, defaultDate, customTrigger, dateFormat, actionButtons, hideInput }) => {
   const datePickerClasses = Object.freeze({
-    root: `date-picker-root relative inline-flex flex-col pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm
-      ${classes.root ? classes.root : ''}`,
+    root: `date-picker-root relative inline-flex ${classes.root ? classes.root : ''}`,
+    rootContainer: `date-picker-root-container relative mt-5px pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm font-pt
+      ${classes.rootContainer ? classes.rootContainer : ''}`,
     datePickerContainer: `date-picker-content-container flex flex-col border-b border-neutral-100 ${classes.datePickerContainer ? classes.datePickerContainer : ''}`,
     navbarContainer: `navbar-container px-15px flex ${navbarType === 'both' ? 'justify-between' : ''} ${classes.navbarContainer ? classes.navbarContainer : ''}`,
     calendarMainContainer: `calendar-main-container ${variant === 'multi' ? 'flex' : ''} ${classes.datePickerContainer ? classes.datePickerContainer : ''}`,
@@ -188,22 +214,46 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
     {
       dateObject: moment(defaultDate),
       dateObjectMulti: variant === 'multi' ? moment(defaultDate).add(1, 'month') : null,
-      selectedFirstDay: null,
+      selectedStartDay: null,
       selectedEndDay: null,
     },
   )
-
   const [dayCounter, setDayCounter] = useState(0)
+  const [inputVal, setInputVal] = useState('')
+  const [rangeVal, setRangeVal] = useState({start: '', end: ''})
+  const [open, setOpen] = useState(false)
+  const [focus, setFocus] = useState(false)
+  const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
 
-  const formatFirstDay = calendarState.selectedFirstDay && moment(calendarState.selectedFirstDay).format('DD')
+  const formatStartDay = calendarState.selectedStartDay && moment(calendarState.selectedStartDay).format('DD')
   const formatEndDay = calendarState.selectedEndDay && moment(calendarState.selectedEndDay).format('DD')
 
   useEffect(() => {
-    if (calendarState.selectedFirstDay && calendarState.selectedEndDay) {
-      setDayCounter(Math.abs(moment(calendarState.selectedFirstDay, 'YYYY-MM-DD')
+    if (calendarState.selectedStartDay && calendarState.selectedEndDay) {
+      setDayCounter(Math.abs(moment(calendarState.selectedStartDay, 'YYYY-MM-DD')
         .diff(moment(calendarState.selectedEndDay, 'YYYY-MM-DD'), 'days')-1))
+    } else {
+      setDayCounter(0)
     }
-  }, [calendarState.selectedFirstDay, calendarState.selectedEndDay])
+  }, [calendarState.selectedStartDay, calendarState.selectedEndDay])
+
+  const enforceValue = () => {
+    if (formatStartDay) {
+      if (variant === 'single') {
+        setInputVal(moment(calendarState.selectedStartDay).format('MM/DD/YYYY'))
+      } else {
+        setRangeVal({ 
+          start: moment(calendarState.selectedStartDay).format('MM/DD/YYYY'),
+          end: formatEndDay ? moment(calendarState.selectedEndDay).format('MM/DD/YYYY') : null
+        })
+      }
+    }
+  }
+
+  if (!componentIsActive && open) { 
+    enforceValue()
+    setOpen(!open)
+  }
 
   const onSelectMonthDropdown = (e, val, multi) => {
     e.stopPropagation()
@@ -221,7 +271,7 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
       setCalendarState({
         ...calendarState,
         dateObject: _dateObject,
-        selectedFirstDay: null,
+        selectedStartDay: null,
         selectedEndDay: variant === 'range' ? null : calendarState.selectedEndDay,
       })
     }
@@ -277,7 +327,7 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
       setCalendarState({
         ...calendarState,
         dateObject: variant === 'multi' && (dateObject.format('MM') > dateObjectMulti.format('MM')) ? _dateObjectMulti.subtract(1, 'month') : _dateObject,
-        selectedFirstDay: null,
+        selectedStartDay: null,
         selectedEndDay: variant === 'range' ? null : calendarState.selectedEndDay,
       })
     }
@@ -338,13 +388,13 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
       setCalendarState({
         ...calendarState,
         dateObject: calendarState.dateObject.subtract(1, 'month'),
-        selectedFirstDay: null,
+        selectedStartDay: null,
       })
     } else {
       setCalendarState({
         ...calendarState,
         dateObject: calendarState.dateObject.subtract(1, 'month'),
-        selectedFirstDay: null,
+        selectedStartDay: null,
         selectedEndDay:  null,
       })
     }
@@ -361,42 +411,73 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
       setCalendarState({
         ...calendarState,
         dateObject: calendarState.dateObject.add(1, 'month'),
-        selectedFirstDay: null,
+        selectedStartDay: null,
         selectedEndDay:  null,
       })
     }
   }
 
-
   const onDayClickRange = (e, d) => {
     e.stopPropagation()
-    const { selectedFirstDay } = calendarState
+    const { selectedStartDay } = calendarState
     const parseDay = getISODateFormat(calendarState.dateObject, d)
 
-    if (formatFirstDay > d) {
+    if (formatStartDay > d) {
       setCalendarState({
         ...calendarState,
-        selectedFirstDay: parseDay,
-        selectedEndDay: selectedFirstDay,
+        selectedStartDay: parseDay,
+        selectedEndDay: selectedStartDay,
       })
+
+      if (variant === 'single') {
+        setInputVal(moment(parseDay).format('MM/DD/YYYY'))
+      } else {
+        setRangeVal({ 
+          start: moment(parseDay).format('MM/DD/YYYY'),
+          end: moment(selectedStartDay).format('MM/DD/YYYY')
+        })
+      }
     } 
-    else if (formatFirstDay == d || formatEndDay == d) {
+    else if (formatStartDay == d || formatEndDay == d) {
       setCalendarState({
         ...calendarState,
-        selectedFirstDay: null,
+        selectedStartDay: null,
         selectedEndDay:  null,
       })
+
+      if (variant === 'single') {
+        setInputVal('')
+      } else {
+        setRangeVal({ 
+          start: '',
+          end: ''
+        })
+      }
     }
-    else if (selectedFirstDay) {
+    else if (selectedStartDay) {
       setCalendarState({
         ...calendarState,
         selectedEndDay: parseDay,
       })
+
+      if (variant === 'single') {
+        setInputVal(moment(parseDay).format('MM/DD/YYYY'))
+      } else {
+        setRangeVal({ 
+          ...rangeVal,
+          end: moment(parseDay).format('MM/DD/YYYY'),
+        })
+      }
     } 
     else {
       setCalendarState({
         ...calendarState,
-        selectedFirstDay: parseDay,
+        selectedStartDay: parseDay,
+      })
+
+      setRangeVal({ 
+        ...rangeVal,
+        start: moment(parseDay).format('MM/DD/YYYY'),
       })
     }
 
@@ -422,14 +503,17 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
     } else {
       setCalendarState({
         ...calendarState,
-        selectedFirstDay: parseDay,
+        selectedStartDay: parseDay,
       })
-  
-      if (formatFirstDay == d) {
+      setInputVal(moment(parseDay).format('MM/DD/YYYY'))
+
+      if (formatStartDay == d) {
         setCalendarState({
           ...calendarState,
-          selectedFirstDay: null,
+          selectedStartDay: null,
         })
+
+        setInputVal('')
       }
     }
 
@@ -522,16 +606,16 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
     const { dateObject, dateObjectMulti } = calendarState
 
     let prevMonthDays = []
-    let firstDays = getPrevDaysInMonth(multi ? dateObjectMulti : dateObject) - (getFirstDayOfMonth(multi ? dateObjectMulti : dateObject) - 1)
+    let startDays = getPrevDaysInMonth(multi ? dateObjectMulti : dateObject) - (getFirstDayOfMonth(multi ? dateObjectMulti : dateObject) - 1)
     for (let i = 0; i < getFirstDayOfMonth(multi ? dateObjectMulti : dateObject); i++) {
       prevMonthDays.push(
-        <td key={`${firstDays}-firstDays`} className={datePickerClasses.disabledDay}>
+        <td key={`${startDays}-startDays`} className={datePickerClasses.disabledDay}>
           <span>
-            {firstDays}
+            {startDays}
           </span>
         </td>,
       )
-      firstDays++
+      startDays++
     }
 
     let nextMonthDays = []
@@ -553,7 +637,7 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
       let selectedClass = ''
       let selectedRangeClass = ''
 
-      if (formatFirstDay == d && !multi) {
+      if (formatStartDay == d && !multi) {
         selectedClass = 'bg-interactive-500 text-interactive-50 rounded-sm'
       } 
       else if (formatEndDay == d && (multi || variant === 'range')) {
@@ -566,13 +650,13 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
       }
 
 
-      if (formatFirstDay && formatEndDay) {
-        const parseFirstDay = moment(calendarState.selectedFirstDay).format('YYYY-MM-DD')
+      if (formatStartDay && formatEndDay) {
+        const parseStartDay = moment(calendarState.selectedStartDay).format('YYYY-MM-DD')
         const parseEndDay = moment(calendarState.selectedEndDay).format('YYYY-MM-DD')
 
-        if (moment(parseDay).diff(parseEndDay) <= 0 && moment(parseDay).diff(parseFirstDay) >= 0) {
+        if (moment(parseDay).diff(parseEndDay) <= 0 && moment(parseDay).diff(parseStartDay) >= 0) {
           selectedRangeClass = `bg-primary-50 text-interactive-500 
-            ${parseFirstDay === parseDay ? 'pl-0 ml-5px rounded-l-sm' : ''}
+            ${parseStartDay === parseDay ? 'pl-0 ml-5px rounded-l-sm' : ''}
             ${parseEndDay === parseDay ? 'pr-0 mr-5px rounded-r-sm': ''}
           `
         }
@@ -635,27 +719,109 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
     )
   }
 
-  const handleOnConfirm = (e) => {
-    e.stopPropagation()
-
-    onConfirm(e, variant === 'single' ? getDayFormat(calendarState.selectedFirstDay, dateFormat) : 
-      { firstDay: getDayFormat(calendarState.selectedFirstDay, dateFormat), endDay: getDayFormat(calendarState.selectedEndDay, dateFormat) },
-    )
+  const onClickSelect = () => {
+    setComponentIsActive(focus)
+    setOpen(focus)
   }
 
-  const handleOnCancel = (e) => {
+  const inputOnChange = (val, range = false) => {
+    const date = moment(val, 'MM/DD/YYYY', true)
+
+    if (variant === 'single') {
+      if (date.isValid()) {
+        setCalendarState({
+          ...calendarState,
+          dateObject: moment(date),
+          selectedStartDay: getISODateFormat(moment(date), moment(date).format('DD'))
+        })
+      }
+  
+      setInputVal(val)
+    } else {
+      if (!range) {
+        if (date.isValid()) {
+          setCalendarState({
+            ...calendarState,
+            dateObject: moment(date),
+            selectedStartDay: getISODateFormat(moment(date), moment(date).format('DD')),
+            selectedEndDay: moment(rangeVal.end, 'MM/DD/YYYY').format('YYYY-MM') === date.format('YYYY-MM') && 
+              moment(rangeVal.end, 'MM/DD/YYYY').format('DD') > date.format('DD') ? 
+              getISODateFormat(moment(date), moment(rangeVal.end, 'MM/DD/YYYY').format('DD')) : null
+          })
+        }
+
+        setRangeVal({...rangeVal, start: val})
+      } else {
+        if (date.isValid() && date.format('YYYY-MM') === calendarState.dateObject.format('YYYY-MM')) {
+          console.log('valid: ', date.format('YYYY-MM'))
+          if (formatStartDay && date.format('DD') > formatStartDay) {
+            setCalendarState({
+              ...calendarState,
+              dateObject: moment(date),
+              selectedEndDay: getISODateFormat(moment(date), moment(date).format('DD'))
+            })
+          }
+        }
+
+        setRangeVal({...rangeVal, end: val})
+      }
+    }
+  }
+
+  const inputOnDelete = (e) => {
     e.stopPropagation()
     setCalendarState({
       ...calendarState,
-      selectedFirstDay: null,
+      selectedStartDay: null,
       selectedEndDay:  null,
     })
-    
+    setInputVal('')
     onCancel(e)
   }
+  console.log('render: ')
 
-  return (
-    <div className={`${customClasses.datePickerRoot} ${datePickerClasses.root} font-pt`}>
+  const renderInput = () => (
+    variant === 'single' ?
+      <InputBase 
+        classes={inputClasses}
+        value={inputVal}
+        onChange={inputOnChange}
+        onClick={onClickSelect}
+        onDelete={inputOnDelete}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        placeholder='MM/DD/YYYY'
+        maxLength='10'
+      />
+    :
+      <div className={`${customClasses.inputRangeContainer} ${inputRangeClasses.container}`} onClick={onClickSelect}>
+        <InputBase 
+          classes={inputRangeClasses}
+          placeholder='Start date'
+          onChange={inputOnChange}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          value={rangeVal.start}
+          maxLength='10'
+          deleteButton={false}
+        />
+        <span className='text-secondary-400'>——</span>
+        <InputBase 
+          classes={inputRangeClasses}
+          placeholder='End date'
+          onChange={(val) => inputOnChange(val, true)}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          value={rangeVal.end}
+          maxLength='10'
+          deleteButton={false}
+          disabled={formatStartDay ? false : true}
+        />
+      </div>
+  )
+
+  const renderPicker = () => (
+    <div className={datePickerClasses.rootContainer}>
       <div className={datePickerClasses.datePickerContainer}>
         {renderNavbar()}
         <div className={datePickerClasses.calendarMainContainer}>
@@ -675,7 +841,59 @@ const DatePicker = ({ classes, navbarType, variant, onSelectDay, onConfirm, onCa
             <Button classes={{ button: 'confirm-button' }} size='md' variant='filled' onClick={handleOnConfirm}>Confirm</Button>
           </div>
         </div>
-      )}
+        )}
+    </div>
+  )
+
+  const handleOnConfirm = (e) => {
+    e.stopPropagation()
+    enforceValue()
+    onClickSelect()
+
+    onConfirm(e, variant === 'single' ? getDayFormat(calendarState.selectedStartDay, dateFormat) : 
+      { firstDay: getDayFormat(calendarState.selectedStartDay, dateFormat), endDay: getDayFormat(calendarState.selectedEndDay, dateFormat) },
+    )
+  }
+
+  const handleOnCancel = (e) => {
+    e.stopPropagation()
+    setCalendarState({
+      ...calendarState,
+      selectedStartDay: null,
+      selectedEndDay:  null,
+    })
+    setInputVal('')
+    setRangeVal({start: null, end: null})
+    onCancel(e)
+  }
+
+  return (
+    <div ref={ref} className={`${customClasses.datePickerRoot} ${datePickerClasses.root}`}>
+      <ConditionalWrapper
+        condition={!hideInput}
+        wrapper={wrappedChildren => (
+          <Menu as='div' className='date-picker-menu'>
+            {customTrigger ? 
+              <Menu.Button as='div' className='date-picker-button'>
+                <div className="button-content-container" onClick={onClickSelect}>
+                  {customTrigger}
+                </div>
+              </Menu.Button>
+              :
+              renderInput()
+            }
+            {open && (
+              <Menu.Items static className='absolute'>
+                <Menu.Item>
+                  {wrappedChildren}
+                </Menu.Item>
+              </Menu.Items>
+            )}
+          </Menu>
+        )}
+      >
+        {renderPicker()}
+      </ConditionalWrapper>
     </div>
   )
 }
@@ -691,8 +909,10 @@ DatePicker.propTypes = {
     PropTypes.instanceOf(Date),
     PropTypes.instanceOf(moment),
   ]),
+  customTrigger: PropTypes.node,
   dateFormat: PropTypes.string,
   actionButtons: PropTypes.bool,
+  displayInput: PropTypes.bool,
 }
 
 DatePicker.defaultProps = {
@@ -703,8 +923,10 @@ DatePicker.defaultProps = {
   onCancel: () => {},
   onSelectDay: () => {},
   defaultDate: new Date(),
+  customTrigger: null,
   dateFormat: 'MM/DD/YYYY',
   actionButtons: true,
+  hideInput: false,
 }
 
 export default DatePicker

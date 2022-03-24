@@ -4,11 +4,6 @@ import PropTypes from 'prop-types'
 import { Delete } from '../icons'
 
 
-const _baseClasses = () => ({
-  root: 'flex border',
-  input: 'w-full',
-})
-
 const InputBase = forwardRef(({
   classes,
   value,
@@ -24,9 +19,13 @@ const InputBase = forwardRef(({
   deleteButton,
   size,
   required,
+  disabled,
   ...rest
 }, ref) => {
-  const baseClasses = _baseClasses()
+  const baseClasses = Object.freeze({
+    root: 'flex border',
+    input: `w-full ${disabled ? 'cursor-not-allowed' : ''}`,
+  })
   const [_value, _setValue] = useState(defaultValue)
   const [_placeholder, _setPlaceholder] = useState(placeholder)
   
@@ -77,6 +76,7 @@ const InputBase = forwardRef(({
         required={required}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        disabled={disabled}
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
@@ -105,6 +105,7 @@ InputBase.propTypes = {
   deleteButton: PropTypes.bool,
   size: PropTypes.string,
   required: PropTypes.bool,
+  disabled: PropTypes.bool,
 }
 InputBase.defaultProps = {
   classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
@@ -121,6 +122,7 @@ InputBase.defaultProps = {
   deleteButton: true,
   size: 'md',
   required: false,
+  disabled: false,
 }
 
 InputBase.displayName = 'InputBase'

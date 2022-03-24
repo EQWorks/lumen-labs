@@ -96,7 +96,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
   return (
     <div className={textFieldClasses.container}>
       {label && <div className='flex flex-row'>
-        <p className={textFieldClasses.label}>{label}</p>
+        {label && <p className={textFieldClasses.label}>{label}</p>}
         {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
       </div>}
       <form onSubmit={(e) => {
@@ -129,7 +129,7 @@ TextField.propTypes = {
   classes: PropTypes.object,
   size: PropTypes.string,
   inputProps: PropTypes.object,
-  label: PropTypes.string,
+  label: PropTypes.any,
   maxLength: PropTypes.number,
   helperText: PropTypes.string,
   success: PropTypes.bool,

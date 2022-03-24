@@ -2,8 +2,18 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
+import { makeStyles } from '../utils/make-styles'
 import { InputBase } from '../base-components'
 import Area from './area'
+
+
+const styles = makeStyles({
+  borderlessInput: {
+    padding: '1px 6px 1px 6px !important',
+    fontWeight: 'bold !important',
+    alignItems: 'center',
+  },
+})
 
 const _inputSize = ({ size }) => {
   let inputSize = ''
@@ -29,7 +39,10 @@ const _inputSize = ({ size }) => {
 }
 
 const _textFieldClasses = ({ container, inputSize, success, error }) => ({
-  container: `flex flex-col font-sans ${container ? container : 'w-250px'} ${inputSize.font}`,
+  container: {
+    default: `flex flex-col font-sans ${container ? container : 'w-250px'} ${inputSize.font}`,
+    borderless: `${container ? container : 'w-250px'} bg-secondary-200`,
+  },
   label: 'text-secondary-600',
   helperText: clsx('mt-1.5 text-secondary-600', { 
     'text-error-500': error, 
@@ -65,14 +78,35 @@ const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, inpu
   suffix: 'ml-2.5 text-secondary-600',
 })
 
-const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, success, error, required, disabled, deleteButton, onChange, onClick, onDelete, onSubmit, ...rest }) => {
+const _borderlessClasses = ({ classes, isEdited, error, focus, disabled }) => ({
+  root: clsx(`flex flex-row items-center ${classes.root} m-0 pr-1 border-t-0 border-l-0 border-r-0 border-b border-secondary-200`, {
+    'hover:border-secondary-600': !focus,
+    'border-b border-interactive-500': focus && !error,
+    'border-b border-error-500': focus && error,
+    'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled,
+  }),
+  input: clsx(`${classes.input} outline-none mb-0.5 bg-transparent font-normal tracking-md text-xs ${styles.borderlessInput}`, {
+    'text-secondary-900': isEdited,
+    'text-secondary-600': !isEdited,
+  }),
+})
+
+const TextField  = ({
+  classes, variant, size, inputProps, label, maxLength, helperText, success, error,
+  required, disabled, deleteButton, onChange, onClick, onDelete, onSubmit,
+  ...rest
+}) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
+  const [isEdited, setIsEdited] = useState(false)
   const { root, input, container } = classes
   const inputSize = _inputSize({ size })
   const textFieldClasses = _textFieldClasses({ container, inputSize, success, error })
-  const inputBaseClasses = _inputBaseClasses({ label, inputSize, focus, success, error, root, input, filled, disabled })
+  const variants = {
+    default: _inputBaseClasses({ label, inputSize, focus, success, error, root, input, filled, disabled }),
+    borderless: _borderlessClasses({ classes, isEdited, error, focus, disabled }),
+  }
 
   const handleChange = (val) => {
     setValue(val)
@@ -86,6 +120,9 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
   const handleFocus = () => {
     setFocus(true)
     setFilled(false)
+    if (!isEdited) {
+      setIsEdited(true)
+    }
   }
 
   const handleBlur = () => {
@@ -94,7 +131,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
   }
 
   return (
-    <div className={textFieldClasses.container}>
+    <div className={textFieldClasses.container[variant]}>
       {label && <div className='flex flex-row'>
         {label && <p className={textFieldClasses.label}>{label}</p>}
         {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
@@ -105,7 +142,7 @@ const TextField  = ({ classes, size, inputProps, label, maxLength, helperText, s
       }>
         <InputBase
           {...inputProps}
-          classes={inputBaseClasses}
+          classes={variants[variant]}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
@@ -141,6 +178,7 @@ TextField.propTypes = {
   onClick: PropTypes.func,
   onDelete: PropTypes.func,
   onSubmit: PropTypes.func,
+  variant: PropTypes.string,
 }
 TextField.defaultProps = {
   classes: { root: '', input: '', container: '' },
@@ -158,6 +196,7 @@ TextField.defaultProps = {
   onClick: () => {},
   onDelete: () => {},
   onSubmit: () => {},
+  variant: 'default',
 }
 
 TextField.Area = Area

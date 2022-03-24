@@ -130,16 +130,6 @@ export const Default = () => {
   )
 }
 
-export const Borderless = () => {
-  return (
-    <TextField
-      variant='borderless'
-      inputProps={{ placeholder: 'Type something...' }}
-      classes={{ input: 'text-lg' }}
-    />
-  )
-}
-
 export const SizeLarge = () => {
   const inputProps = { placeholder: 'Placeholder text' }
   const classes = { 
@@ -354,6 +344,39 @@ export const Usage = () => {
         label='Note:' 
         helperText='I am helper text' 
       /> 
+    </>
+  )
+}
+
+export const Borderless = () => {
+  return (
+    <TextField
+      variant='borderless'
+      inputProps={{ placeholder: 'Type something...' }}
+      classes={{ input: 'text-lg' }}
+    />
+  )
+}
+
+export const Linked = () => {
+  return (
+    <>
+      <p className={labelClass}>Default:</p>
+      <TextField
+        label='Example label'
+        helperText='Example helper text'
+        variant='linked'
+        linkedFields={6}
+      />
+
+      <p className={labelClass}>Incomplete Error:</p>
+      <TextField
+        label='Example label'
+        helperText='Example helper text'
+        variant='linked'
+        linkedFields={6}
+        onSubmit={() => {}}
+      />
     </>
   )
 }

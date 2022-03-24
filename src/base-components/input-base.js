@@ -24,6 +24,7 @@ const InputBase = forwardRef(({
   deleteButton,
   size,
   required,
+  onSubmit,
   ...rest
 }, ref) => {
   const baseClasses = _baseClasses()
@@ -38,7 +39,7 @@ const InputBase = forwardRef(({
     } else {
       _setValue('')
     }
-    onChange(e.target.value)
+    onChange(e)
   }
 
   const handleFocus = () => {
@@ -64,7 +65,7 @@ const InputBase = forwardRef(({
   }
 
   return (
-    <div ref={ref} className={`${baseClasses.root} ${classes.root}`} onFocus={handleFocus} onBlur={handleBlur}>
+    <form ref={ref} className={`${baseClasses.root} ${classes.root}`} onFocus={handleFocus} onBlur={handleBlur} onSubmit={onSubmit}>
       {startIcon && <div className={classes.startIcon}>{startIcon}</div>}
       {prefix && <span className={classes.prefix}>{prefix}</span>}
       <input
@@ -84,7 +85,7 @@ const InputBase = forwardRef(({
           <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
         </div>
       }
-    </div>
+    </form>
   )
 })
 
@@ -103,6 +104,7 @@ InputBase.propTypes = {
   deleteButton: PropTypes.bool,
   size: PropTypes.string,
   required: PropTypes.bool,
+  onSubmit: PropTypes.func,
 }
 InputBase.defaultProps = {
   classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
@@ -119,6 +121,7 @@ InputBase.defaultProps = {
   deleteButton: true,
   size: 'md',
   required: false,
+  onSubmit: null,
 }
 
 InputBase.displayName = 'InputBase'

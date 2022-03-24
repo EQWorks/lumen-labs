@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
+import { counter } from '../utils/counter'
 import { makeStyles } from '../utils/make-styles'
 import { InputBase } from '../base-components'
 import Area from './area'
@@ -15,19 +16,19 @@ const styles = makeStyles({
   },
 })
 
-const _inputSize = ({ size }) => {
+const _inputSize = ({ size, variant }) => {
   let inputSize = ''
 
   switch(size) {
   case 'lg':
     inputSize = {
-      box: 'h-9 p-sm',
+      box: variant === 'linked' ? 'h-9 w-9 p-sm' : 'h-9 p-sm',
       font: 'text-sm tracking-sm leading-1.43',
     }
     break
   case 'md':
     inputSize = {
-      box: 'h-7 py-1.5 px-2.5',
+      box: variant === 'linked' ? 'h-7 w-7 py-1.5 px-2.5' : 'h-7 py-1.5 px-2.5',
       font: 'text-xs tracking-md leading-1.33',
     }
     break
@@ -38,10 +39,14 @@ const _inputSize = ({ size }) => {
   return inputSize
 }
 
-const _textFieldClasses = ({ container, inputSize, success, error }) => ({
+const _textFieldClasses = ({ container, inputSize, success, error, linkedFields }) => ({
   container: {
     default: `flex flex-col font-sans ${container ? container : 'w-250px'} ${inputSize.font}`,
     borderless: `${container ? container : 'w-250px'} bg-secondary-200`,
+    linked: {
+      outer: `inline-flex flex-col ${container} ${inputSize.font}`,
+      inner: `inline-grid gap-1.5 grid-cols-${linkedFields}`,
+    },
   },
   label: 'text-secondary-600',
   helperText: clsx('mt-1.5 text-secondary-600', { 
@@ -51,32 +56,38 @@ const _textFieldClasses = ({ container, inputSize, success, error }) => ({
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
-const _inputBaseClasses = ({ label, inputSize, focus, success, error, root, input, filled, disabled }) => ({
-  root: clsx(`${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box} ${root && root}`}`,
-    { 'border-secondary-400 hover:border-secondary-500 bg-secondary-50': !disabled && !focus && !error && !success },
-    { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
-    { 'border-error-500 shadow-focused-error': error },
-    { 'border-success-500 shadow-focused-success': success },
-    { 'border-interactive-500 bg-secondary-50': focus && filled },
-    { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
-  ),
-  input: clsx(`outline-none ${input && input}`, 
-    { 'bg-secondary-50': filled },
-    { 'text-secondary-800': !disabled },
-    { 'bg-secondary-100 text-secondary-400 placeholder-secondary-400': disabled },
-  ),
-  startIcon: clsx('mt-0.5 mr-4 fill-current stroke-current', { 'text-secondary-600': !disabled }),
-  endIcon: clsx('mt-0.5 ml-4 fill-current stroke-current',
-    {
-      'text-secondary-600': !disabled,
-      'text-interactive-500': focus && !error && !success, 
-      'text-error-500': error, 
-      'text-success-500': success, 
-    },
-  ),
-  prefix: 'mr-2.5 text-secondary-600',
-  suffix: 'ml-2.5 text-secondary-600',
-})
+const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, root, input, filled, disabled, linked }) => {
+  let focus = _focus
+  if (linked) {
+    focus = _focus === linked
+  }
+  return ({
+    root: clsx(`${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box} ${root && root}`}`,
+      { 'border-secondary-400 hover:border-secondary-500 bg-secondary-50': !disabled && !focus && !error && !success },
+      { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
+      { 'border-error-500 shadow-focused-error': error },
+      { 'border-success-500 shadow-focused-success': success },
+      { 'border-interactive-500 bg-secondary-50': focus && filled },
+      { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
+    ),
+    input: clsx(`outline-none ${input && input}`, 
+      { 'bg-secondary-50': filled },
+      { 'text-secondary-800': !disabled },
+      { 'bg-secondary-100 text-secondary-400 placeholder-secondary-400': disabled },
+    ),
+    startIcon: clsx('mt-0.5 mr-4 fill-current stroke-current', { 'text-secondary-600': !disabled }),
+    endIcon: clsx('mt-0.5 ml-4 fill-current stroke-current',
+      {
+        'text-secondary-600': !disabled,
+        'text-interactive-500': focus && !error && !success, 
+        'text-error-500': error, 
+        'text-success-500': success, 
+      },
+    ),
+    prefix: 'mr-2.5 text-secondary-600',
+    suffix: 'ml-2.5 text-secondary-600',
+  })
+}
 
 const _borderlessClasses = ({ classes, isEdited, error, focus, disabled }) => ({
   root: clsx(`flex flex-row items-center ${classes.root} m-0 pr-1 border-t-0 border-l-0 border-r-0 border-b border-secondary-200`, {
@@ -91,34 +102,70 @@ const _borderlessClasses = ({ classes, isEdited, error, focus, disabled }) => ({
   }),
 })
 
+const renderLabel = ({ label, required, textFieldClasses }) => (
+  <div className='flex flex-row'>
+    {label && <p className={textFieldClasses.label}>{label}</p>}
+    {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
+  </div>
+)
+const renderFooter = ({ helperText, maxLength, value, textFieldClasses }) => (
+  <div className={`flex flex-row ${helperText ? 'justify-between' : 'justify-end'}`}>
+    {helperText && <p className={textFieldClasses.helperText}>{helperText}</p>}
+    {maxLength && <p className={textFieldClasses.wordCount}>{value.length || 0}/{maxLength}</p>}
+  </div>
+)
+
 const TextField  = ({
   classes, variant, size, inputProps, label, maxLength, helperText, success, error,
-  required, disabled, deleteButton, onChange, onClick, onDelete, onSubmit,
+  required, disabled, deleteButton, onChange, onClick, onDelete, onSubmit, linkedFields,
   ...rest
 }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
   const [isEdited, setIsEdited] = useState(false)
-  const { root, input, container } = classes
-  const inputSize = _inputSize({ size })
-  const textFieldClasses = _textFieldClasses({ container, inputSize, success, error })
-  const variants = {
-    default: _inputBaseClasses({ label, inputSize, focus, success, error, root, input, filled, disabled }),
-    borderless: _borderlessClasses({ classes, isEdited, error, focus, disabled }),
-  }
+  const [linkedVals, setLinkedVals] = useState([])
+  const [linkedIncompleteError, setLinkedIncompleteError] = useState(false)
 
-  const handleChange = (val) => {
-    setValue(val)
-    if (inputProps.onChange) {
-      inputProps.onChange(val)
+  const inputID = counter()
+  const { root, input, container } = classes
+  const inputSize = _inputSize({ size, variant })
+  const textFieldClasses = _textFieldClasses({ container, inputSize, success, error: error || linkedIncompleteError, linkedFields })
+  const generateVariants = ({ linked }) => ({
+    default: _inputBaseClasses({ label, inputSize, focus, success, error: error || linkedIncompleteError, root, input, filled, disabled, linked }),
+    borderless: _borderlessClasses({ classes, isEdited, error, focus, disabled }),
+  })
+
+  const handleLinkedChange = (e, i, inputID) => {
+    if (e.target.value.length >= 1) {
+      const next = document.getElementById(`linked-${inputID}-${i+2}`)
+      if (next) {
+        next.focus()
+        setFocus(i+2)
+      }
     }
 
-    onChange(val)
+    if ((i + 1) === linkedFields && linkedVals[i]) {
+      return onChange(linkedVals.join(''))
+    }
+
+    const v = [...linkedVals]
+    v.splice(i, 1, e.target.value)
+    setLinkedVals(v)
+    return onChange(v.join(''))
   }
 
-  const handleFocus = () => {
-    setFocus(true)
+  const handleChange = (e) => {
+    setValue(e.target.value)
+    if (inputProps.onChange) {
+      inputProps.onChange(e.target.value)
+    }
+
+    onChange(e.target.value)
+  }
+
+  const handleFocus = (i) => {
+    setFocus(i ? i : true)
     setFilled(false)
     if (!isEdited) {
       setIsEdited(true)
@@ -130,34 +177,107 @@ const TextField  = ({
     if (value) setFilled(true)
   }
 
+  const handleKeyDown = (e, i, inputID) => {
+    const BACKSPACE = 8
+    const LEFT_ARROW = 37
+    const RIGHT_ARROW = 39
+
+    if ([BACKSPACE, LEFT_ARROW].includes(e.keyCode)) {
+      if (e.keyCode === BACKSPACE) {
+        if (e.target.value) {
+          const v = [...linkedVals]
+          v.splice(i, 1, '')
+          setLinkedVals(v)
+          return onChange(v.join(''))
+        }
+      }
+      const prev = document.getElementById(`linked-${inputID}-${i}`)
+      if (prev) {
+        prev.focus()
+        setFocus(i)
+      }
+    }
+
+    if (e.keyCode === RIGHT_ARROW) {
+      const next = document.getElementById(`linked-${inputID}-${i+2}`)
+      if (next) {
+        next.focus()
+        setFocus(i+2)
+      }
+    }
+  }
+
+  const handleLinkedSubmit = (e) => {
+    e.preventDefault()
+    if (onSubmit) {
+      if (linkedVals.filter((r) => r).length !== linkedFields) {
+        setLinkedIncompleteError(true)
+      } else {
+        const target = document.getElementById(`linked-${inputID}-${focus}`)
+        target.blur()
+        setFocus(null)
+        setLinkedIncompleteError(false)
+        return onSubmit(linkedVals.join(''))
+      }
+    }
+  }
+
+  if (variant === 'linked') {
+    return (
+      <div className={textFieldClasses.container.linked.outer}>
+        {label && renderLabel({ label, required, textFieldClasses })}
+        <div className={textFieldClasses.container.linked.inner}>
+          {(new Array(linkedFields)).fill().map((_, i) => {
+            return (
+              <InputBase
+                {...inputProps}
+                {...rest}
+                key={i}
+                id={`linked-${inputID}-${i+1}`}
+                size={size}
+                value={linkedVals[i]}
+                onFocus={() => handleFocus(i+1)}
+                onBlur={handleBlur}
+                onChange={(e) => handleLinkedChange(e, i, inputID)}
+                onClick={onClick}
+                onKeyDown={(e) => handleKeyDown(e, i, inputID)}
+                onSubmit={handleLinkedSubmit}
+                deleteButton={null}
+                classes={generateVariants({ linked: i+1 }).default}
+              />)
+          })}
+        </div>
+        {renderFooter({
+          helperText: linkedIncompleteError ? `Must input ${linkedFields} characters` : helperText,
+          maxLength, value, textFieldClasses,
+        })}
+      </div>
+    )
+  }
+
   return (
     <div className={textFieldClasses.container[variant]}>
-      {label && <div className='flex flex-row'>
-        {label && <p className={textFieldClasses.label}>{label}</p>}
-        {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
-      </div>}
-      <form onSubmit={(e) => {
-        e.preventDefault()
-        onSubmit({ ...e, target: e.target.children[0].children[0] })}
-      }>
-        <InputBase
-          {...inputProps}
-          classes={variants[variant]}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onClick={onClick}
-          onDelete={onDelete}
-          size={size}
-          deleteButton={!disabled && deleteButton}
-          required={required}
-          {...rest}
-        />
-      </form>
-      <div className="grid grid-cols-2">
-        {helperText && <p className={textFieldClasses.helperText}>{helperText}</p>}
-        {maxLength && <p className={textFieldClasses.wordCount}>{value.length || 0}/{maxLength}</p>}
-      </div>
+      {variant !== 'borderless' && label && renderLabel({ label, required, textFieldClasses })}
+      <InputBase
+        {...inputProps}
+        classes={generateVariants({})[variant]}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        onClick={onClick}
+        onDelete={onDelete}
+        size={size}
+        deleteButton={!disabled && deleteButton}
+        required={required}
+        onSubmit={(e) => {
+          e.preventDefault()
+          if (onSubmit) {
+            onSubmit({ ...e, target: e.target.children[0].children[0] })
+          }
+        }}
+        {...rest}
+      />
+      {variant !== 'borderless' && renderFooter({ helperText, maxLength, value, textFieldClasses })}
     </div>
   )
 }
@@ -179,6 +299,7 @@ TextField.propTypes = {
   onDelete: PropTypes.func,
   onSubmit: PropTypes.func,
   variant: PropTypes.string,
+  linkedFields: PropTypes.number,
 }
 TextField.defaultProps = {
   classes: { root: '', input: '', container: '' },
@@ -195,8 +316,9 @@ TextField.defaultProps = {
   onChange: () => {},
   onClick: () => {},
   onDelete: () => {},
-  onSubmit: () => {},
+  onSubmit: null,
   variant: 'default',
+  linkedFields: 0,
 }
 
 TextField.Area = Area

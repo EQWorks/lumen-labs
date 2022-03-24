@@ -130,6 +130,16 @@ export const Default = () => {
   )
 }
 
+export const Borderless = () => {
+  return (
+    <TextField
+      variant='borderless'
+      inputProps={{ placeholder: 'Type something...' }}
+      classes={{ input: 'text-lg' }}
+    />
+  )
+}
+
 export const SizeLarge = () => {
   const inputProps = { placeholder: 'Placeholder text' }
   const classes = { 

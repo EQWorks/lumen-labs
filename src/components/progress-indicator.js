@@ -1,39 +1,30 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const ProgressIndicator = () => {
+
+const ProgressIndicator = ({ indicators }) => {
   return (
     <div>
       <div className='grid grid-cols-5'>
-        <span className='inline-flex items-center'>
-          <p className='px-2 rounded-full border'>1</p>
-          <hr className='w-full' />
-        </span>
-        <span className='inline-flex items-center'>
-          <p className='px-2 rounded-full border'>2</p>
-          <hr className='w-full' />
-        </span>
-        <span className='inline-flex items-center'>
-          <p className='px-2 rounded-full border'>3</p>
-          <hr className='w-full' />
-        </span>
-        <span className='inline-flex items-center'>
-          <p className='px-2 rounded-full border'>4</p>
-          <hr className='w-full' />
-        </span>
-        <span className='inline-flex items-center'>
-          <p className='px-2 rounded-full border'>5</p>
-        </span>
+        {indicators.map((_, i) => (
+          <span key={i} className='inline-flex items-center'>
+            <p className='px-2 rounded-full border'>{i+1}</p>
+            {i+1 !== indicators.length && <hr className='w-full' />}
+          </span>
+        ))}
       </div>
 
       <div className='grid grid-cols-5'>
-        <p>description longer for 1</p>
-        <p>description for 2</p>
-        <p>description for 3</p>
-        <p>description for 4</p>
-        <p>description for 5</p>
+        {indicators.map((indicator, i) => (
+          <p key={`${indicator}-${i}`}>{indicator}</p>
+        ))}
       </div>
     </div>
   )
+}
+
+ProgressIndicator.propTypes = {
+  indicators: PropTypes.array.isRequired,
 }
 
 export default ProgressIndicator

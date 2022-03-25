@@ -9,5 +9,12 @@ export default {
 }
 
 export const Normal = () => {
-  return (<ProgressIndicator />)
+  const indicators = [
+    'description longer for 1',
+    'description for 2',
+    'description for 3',
+    'description for 4',
+    'description for 5',
+  ]
+  return (<ProgressIndicator indicators={indicators} />)
 }

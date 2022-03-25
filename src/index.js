@@ -1,5 +1,6 @@
 import './styles/index.css'
 
+export * as CommonComponents from './common-components'
 export * as BaseComponents from './base-components'
 export * as Icons from './icons'
 export * as Illustrations from './illustrations'

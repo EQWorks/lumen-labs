@@ -155,18 +155,3 @@ export const Usage = () => {
     </>
   )
 }
-
-export const Label = () => {
-  return (
-    <>
-      <p className={description.p}>Default: </p>
-      <Label>LABEL</Label>
-      <p className={description.p}>Start Icon: </p>
-      <Label startIcon={<Info size='sm'/>}>LABEL</Label>
-      <p className={description.p}>End Icon: </p>
-      <Label endIcon={<Close size='xs'/>}>LABEL</Label>
-      <p className={description.p}>no selectable: </p>
-      <Label selectable={false}>LABEL</Label>
-    </>
-  )
-}

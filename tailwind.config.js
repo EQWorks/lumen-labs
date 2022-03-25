@@ -89,6 +89,7 @@ module.exports = {
         sm: ['0.5px solid'],
       },
       lineHeight: {
+        '1': 1,
         '1.2': 1.2,
         '1.6': 1.6,
         '1.43': 1.43,

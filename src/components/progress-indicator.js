@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -37,9 +37,24 @@ const styles = makeStyles({
   },
 })
 
-const ProgressIndicator = ({ classes, indicators }) => {
+const checkComplete = (startIndex, indicators) => {
+  const rest = indicators.slice(startIndex)
+  return rest.find(({ complete }) => complete)
+}
+
+const ProgressIndicator = ({ classes, indicators: _indicators }) => {
+  const indicators = useMemo(() => _indicators.map((ind, i) => {
+    if (!ind.complete && checkComplete(i, _indicators)) {
+      return ({ ...ind, complete: true })
+    }
+    if (_indicators[i-1]?.complete && !ind.complete) {
+      return ({ ...ind, active: true })
+    }
+    return ind
+  }), [_indicators])
+
   return (
-    <div className={`border ${classes.root} inline-flex justify-between`}>
+    <div className={`${classes.root} inline-flex justify-between`}>
       {indicators.map(({ label, active, complete }, i) => (
         <div key={i} className={`${classes.indicatorContainer} ${styles.indicatorContainer} flex flex-col items-center`}>
           <span className='flex flex-row items-center w-full'>

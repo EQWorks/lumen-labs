@@ -124,7 +124,7 @@ const TextField  = ({
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
   const [isEdited, setIsEdited] = useState(false)
-  const [linkedVals, setLinkedVals] = useState([])
+  const [linkedValues, setLinkedValues] = useState(new Array(linkedFields).fill(''))
   const [linkedIncompleteError, setLinkedIncompleteError] = useState(false)
 
   const inputID = counter()
@@ -137,26 +137,35 @@ const TextField  = ({
   })
 
   const handleLinkedChange = (e, i, inputID) => {
-    if ((i + 1) === linkedFields && linkedVals[i]) {
-      return onChange(linkedVals.join(''))
+    if ((i + 1) === linkedFields && linkedValues[i]) {
+      return onChange(linkedValues.join(''))
     }
 
-    if (e.target.value.length >= 1) {
-      const vals = e.target.value.trim().split('').filter((r) => r).splice(0, linkedFields)
-      if (vals.length > 1) {
-        setLinkedVals(vals)
-        return onChange(vals.join(''))
+    if (e.target.value.length > 1) {
+      if (!linkedValues.filter((r) => r).length) {
+        const vals = e.target.value.trim().split('').filter((r) => r).splice(0, linkedFields)
+        if (vals.length > 1) {
+          const rest = new Array(linkedFields - vals.length).fill('')
+          setLinkedValues([...vals, ...rest])
+          return onChange(vals.join(''))
+        }
+      } else {
+        return onChange(linkedValues.join(''))
       }
+    }
+
+    const v = [...linkedValues]
+    v.splice(i, 1, e.target.value)
+  
+    if (v.filter((r) => r).length > linkedValues.filter((r) => r).length) {
       const next = document.getElementById(`linked-${inputID}-${i+2}`)
       if (next) {
         next.focus()
         setFocus(i+2)
       }
     }
-
-    const v = [...linkedVals]
-    v.splice(i, 1, e.target.value)
-    setLinkedVals(v)
+  
+    setLinkedValues(v)
     return onChange(v.join(''))
   }
 
@@ -182,17 +191,36 @@ const TextField  = ({
     if (value) setFilled(true)
   }
 
+  const handleLinkedSubmit = () => {
+    if (onSubmit) {
+      if (linkedValues.filter((r) => r).length !== linkedFields) {
+        setLinkedIncompleteError(true)
+      } else {
+        const target = document.getElementById(`linked-${inputID}-${focus}`)
+        target.blur()
+        setFocus(null)
+        setLinkedIncompleteError(false)
+        return onSubmit(linkedValues.join(''))
+      }
+    }
+  }
+
   const handleKeyDown = (e, i, inputID) => {
     const BACKSPACE = 8
+    const ENTER = 13
     const LEFT_ARROW = 37
     const RIGHT_ARROW = 39
+
+    if (e.keyCode === ENTER) {
+      handleLinkedSubmit()
+    }
 
     if ([BACKSPACE, LEFT_ARROW].includes(e.keyCode)) {
       if (e.keyCode === BACKSPACE) {
         if (e.target.value) {
-          const v = [...linkedVals]
+          const v = [...linkedValues]
           v.splice(i, 1, '')
-          setLinkedVals(v)
+          setLinkedValues(v)
           return onChange(v.join(''))
         }
       }
@@ -212,27 +240,13 @@ const TextField  = ({
     }
   }
 
-  const handleLinkedSubmit = (e) => {
-    e.preventDefault()
-    if (onSubmit) {
-      if (linkedVals.filter((r) => r).length !== linkedFields) {
-        setLinkedIncompleteError(true)
-      } else {
-        const target = document.getElementById(`linked-${inputID}-${focus}`)
-        target.blur()
-        setFocus(null)
-        setLinkedIncompleteError(false)
-        return onSubmit(linkedVals.join(''))
-      }
-    }
-  }
-
+  // TODO: specify input type
   if (variant === 'linked') {
     return (
       <div className={textFieldClasses.container.linked.outer}>
         {label && renderLabel({ label, required, textFieldClasses })}
         <div className={textFieldClasses.container.linked.inner}>
-          {(new Array(linkedFields)).fill().map((_, i) => {
+          {linkedValues.map((val, i) => {
             return (
               <InputBase
                 {...inputProps}
@@ -240,13 +254,12 @@ const TextField  = ({
                 key={i}
                 id={`linked-${inputID}-${i+1}`}
                 size={size}
-                value={linkedVals[i] || ''}
+                value={val}
                 onFocus={() => handleFocus(i+1)}
                 onBlur={handleBlur}
                 onChange={(e) => handleLinkedChange(e, i, inputID)}
                 onClick={onClick}
                 onKeyDown={(e) => handleKeyDown(e, i, inputID)}
-                onSubmit={handleLinkedSubmit}
                 deleteButton={null}
                 classes={generateVariants({ linked: i+1 }).default}
               />)
@@ -261,7 +274,15 @@ const TextField  = ({
   }
 
   return (
-    <div className={textFieldClasses.container[variant]}>
+    <form
+      className={textFieldClasses.container[variant]}
+      onSubmit={(e) => {
+        e.preventDefault()
+        if (onSubmit) {
+          onSubmit({ ...e, target: e.target.children[0].children[0] })
+        }
+      }}
+    >
       {variant !== 'borderless' && label && renderLabel({ label, required, textFieldClasses })}
       <InputBase
         {...inputProps}
@@ -274,16 +295,10 @@ const TextField  = ({
         size={size}
         deleteButton={!disabled && deleteButton}
         required={required}
-        onSubmit={(e) => {
-          e.preventDefault()
-          if (onSubmit) {
-            onSubmit({ ...e, target: e.target.children[0].children[0] })
-          }
-        }}
         {...rest}
       />
       {variant !== 'borderless' && renderFooter({ helperText, maxLength, value, textFieldClasses })}
-    </div>
+    </form>
   )
 }
 

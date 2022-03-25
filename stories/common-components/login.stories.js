@@ -11,6 +11,7 @@ export default {
 export const Normal = () => {
   return (
     <Login
+      product='Power Report Dashboard'
       logo={<img width='114px' height='64px' src={LOGO} alt='logo' />}
     />
   )

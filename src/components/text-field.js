@@ -137,16 +137,21 @@ const TextField  = ({
   })
 
   const handleLinkedChange = (e, i, inputID) => {
+    if ((i + 1) === linkedFields && linkedVals[i]) {
+      return onChange(linkedVals.join(''))
+    }
+
     if (e.target.value.length >= 1) {
+      const vals = e.target.value.trim().split('').filter((r) => r).splice(0, linkedFields)
+      if (vals.length > 1) {
+        setLinkedVals(vals)
+        return onChange(vals.join(''))
+      }
       const next = document.getElementById(`linked-${inputID}-${i+2}`)
       if (next) {
         next.focus()
         setFocus(i+2)
       }
-    }
-
-    if ((i + 1) === linkedFields && linkedVals[i]) {
-      return onChange(linkedVals.join(''))
     }
 
     const v = [...linkedVals]
@@ -235,7 +240,7 @@ const TextField  = ({
                 key={i}
                 id={`linked-${inputID}-${i+1}`}
                 size={size}
-                value={linkedVals[i]}
+                value={linkedVals[i] || ''}
                 onFocus={() => handleFocus(i+1)}
                 onBlur={handleBlur}
                 onChange={(e) => handleLinkedChange(e, i, inputID)}

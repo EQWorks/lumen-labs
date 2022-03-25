@@ -10,11 +10,11 @@ export default {
 
 export const Normal = () => {
   const indicators = [
-    { label: 'description longer for 1', checked: false },
-    { label: 'description for 2', checked: false },
-    { label: 'description for 3', checked: false },
-    { label: 'description for 4', checked: false },
-    { label: 'description for 5', checked: false },
+    { label: 'building dashboard', active: false, complete: true },
+    { label: 'loading reports', active: true, complete: false },
+    { label: 'adding data', active: false, complete: false },
+    { label: 'testing interface', active: false, complete: false },
+    { label: 'finalizing', active: false, complete: false },
   ]
   return (<ProgressIndicator indicators={indicators} />)
 }

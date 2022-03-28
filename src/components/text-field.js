@@ -28,7 +28,7 @@ const _inputSize = ({ size, variant }) => {
     break
   case 'md':
     inputSize = {
-      box: variant === 'linked' ? 'h-7 w-7 py-1.5 px-2.5' : 'h-7 py-1.5 px-2.5',
+      box: variant === 'linked' ? 'h-7 w-7 py-1.5 pr-2 pl-2.5' : 'h-7 py-1.5 px-2.5',
       font: 'text-xs tracking-md leading-1.33',
     }
     break
@@ -115,6 +115,23 @@ const renderFooter = ({ helperText, maxLength, value, textFieldClasses }) => (
   </div>
 )
 
+const linkedValsFormatHelper = (value, linkedValues, linkedFields) => {
+  let vIndex = 0
+  const v = value.trim().split('').filter((r) => r).splice(0, (linkedFields - linkedValues.filter((r) => r).length))
+  const vals = linkedValues.map((val) => {
+    let value = val
+    if (val && vIndex > 0) {
+      vIndex = -1
+    }
+    if (!val && vIndex > -1) {
+      value = v[vIndex]
+      vIndex++
+    }
+    return value
+  })
+  return vals
+}
+
 const TextField  = ({
   classes, variant, size, inputProps, label, maxLength, helperText, success, error,
   required, disabled, deleteButton, onChange, onClick, onDelete, onSubmit, linkedFields,
@@ -146,8 +163,11 @@ const TextField  = ({
     }
 
     if (e.target.value.length > 1) {
-      if (!linkedValues.filter((r) => r).length) {
-        const vals = e.target.value.trim().split('').filter((r) => r).splice(0, linkedFields)
+      if (linkedValues[i]) {
+        return
+      }
+      if (linkedValues.filter((r) => r).length !== linkedValues.length) {
+        const vals = linkedValsFormatHelper(e.target.value, linkedValues, linkedFields)
         if (vals.length > 1) {
           const rest = new Array(linkedFields - vals.length).fill('')
           setLinkedValues([...vals, ...rest])

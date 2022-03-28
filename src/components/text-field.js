@@ -137,6 +137,10 @@ const TextField  = ({
   })
 
   const handleLinkedChange = (e, i, inputID) => {
+    if (linkedIncompleteError) {
+      setLinkedIncompleteError(false)
+    }
+
     if ((i + 1) === linkedFields && linkedValues[i]) {
       return onChange(linkedValues.join(''))
     }
@@ -253,6 +257,7 @@ const TextField  = ({
                 {...rest}
                 key={i}
                 id={`linked-${inputID}-${i+1}`}
+                autoFocus={rest.autoFocus && !i}
                 size={size}
                 value={val}
                 onFocus={() => handleFocus(i+1)}

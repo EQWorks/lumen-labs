@@ -7,10 +7,6 @@ import { CheckBold } from '../icons'
 
 
 const styles = makeStyles({
-  activeBorderColor: { borderColor: '#2242CD' },
-  inactiveBorderColor: { borderColor: '#9E9E9E' },
-  activeColor: { color: '#2242CD' },
-  inactiveColor: { color: '#9E9E9E' },
   indicatorContainer: { width: '100px' },
   indicatorLabelDefault: {
     marginTop: '5px',
@@ -22,7 +18,6 @@ const styles = makeStyles({
     width: '20px',
     height: '20px',
     borderRadius: '10px',
-    backgroundColor: '#2242CD',
   },
   indNumContIncomplete: {
     width: '20px',
@@ -60,30 +55,30 @@ const ProgressIndicator = ({ classes, indicators: _indicators }) => {
           <span className='flex flex-row items-center w-full'>
             <hr className={clsx('w-full', {
               'invisible': !i,
-              [styles.activeBorderColor]: active || complete,
-              [styles.inactiveBorderColor]: !active && !complete,
+              'border-primary-500': active || complete,
+              'border-secondary-500': !active && !complete,
             })}/>
             <span className={clsx(`${classes.indicatorNumberContainer} flex justify-center items-center border`, {
-              [styles.activeBorderColor]: active || complete,
-              [styles.inactiveBorderColor]: !active && !complete,
-              [`px-1 ${styles.indNumContComplete}`]: complete,
+              'border-primary-500': active || complete,
+              'border-secondary-500': !active && !complete,
+              [`px-1 ${styles.indNumContComplete} bg-primary-500`]: complete,
               [styles.indNumContIncomplete]: !complete,
             })}>
               {!complete && <p className={clsx(`${classes.indicatorNumber} text-center font-bold ${styles.indicatorNumberDefault}`, {
-                [styles.activeColor]: active || complete,
-                [styles.inactiveColor]: !active && !complete,
+                'text-primary-500': active || complete,
+                'text-secondary-500': !active && !complete,
               })}>{i+1}</p>}
               {complete && <CheckBold size='md' className='filled-current text-secondary-50' />}
             </span>
             <hr className={clsx('w-full', {
               'invisible': i+1 === indicators.length,
-              [styles.activeBorderColor]: indicators[i+1]?.active || indicators[i+1]?.complete,
-              [styles.inactiveBorderColor]: !active && !complete || !indicators[i+1]?.active && !indicators[i+1]?.complete,
+              'border-primary-500': indicators[i+1]?.active || indicators[i+1]?.complete,
+              'border-secondary-500': !active && !complete || !indicators[i+1]?.active && !indicators[i+1]?.complete,
             })} />
           </span>
           <p className={clsx(`${classes.indicatorLabel} w-full px-1 uppercase text-center ${styles.indicatorLabelDefault}`, {
-            [`font-bold ${styles.activeColor}`]: active || complete,
-            [`font-normal ${styles.inactiveColor}`]: !active && !complete,
+            'font-bold text-primary-500': active || complete,
+            'font-normal text-secondary-500': !active && !complete,
           })}>{label}</p>
         </div>
       ))}

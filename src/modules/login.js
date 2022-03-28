@@ -45,6 +45,20 @@ const styles = makeStyles({
     lineHeight: '72px',
     letterSpacing: '-0.5px',
   },
+  verificationDescription: {
+    marginTop: '40px',
+    fontFamily: "'PT Sans', sans-serif",
+    fontSize: '14px',
+    lineHeight: '20px',
+    letterSpacing: '0.25px',
+  },
+  emailChangeDescription: {
+    marginTop: '20px',
+    fontFamily: "'PT Sans', sans-serif",
+    fontSize: '12px',
+    lineHeight: '20px',
+    letterSpacing: '0.25px',
+  },
   loginDescription: {
     marginTop: '40px',
     fontFamily: "'PT Sans', sans-serif",
@@ -75,14 +89,17 @@ const styles = makeStyles({
 const Login = ({
   classes,
   product,
+  showPasscode,
+  emailChangeToggle,
+  passcodeResendHandler,
   logo,
   welcomeTitle,
   welcomeDescription,
   copyrightMessage,
   loadingConfig,
-  // errorConfig,
+  errorConfig,
   onEmailSubmit,
-  // onPasscodeSubmit,
+  onPasscodeSubmit,
   onChange,
 }) => {
   const [email, setEmail] = useState('')
@@ -91,33 +108,60 @@ const Login = ({
   const [loading, setLoading] = useState({})
 
   useEffect(() => {
-    if (loading.emailLoading !== loadingConfig.emailLoading || loading.passcodeLoading !== loadingConfig.passcodeLoading) {
+    if (loadingConfig) {
       setLoading(loadingConfig)
     }
-  }, [loading, loadingConfig])
+    if (errorConfig) {
+      setErrors(errorConfig)
+    }
+  }, [loadingConfig, errorConfig])
 
   const handleEmailSubmit = () => {
     if (!email) {
-      return setErrors((prev) => ({ ...prev, emailError: 'Email required.' }))
+      return setErrors((prev) => ({ ...prev, emailError: 'Email required' }))
     }
     if (onEmailSubmit) {
       onEmailSubmit()
     }
   }
 
+  const handlePasscodeSubmit = () => {
+    if (!passcode) {
+      return setErrors((prev) => ({ ...prev, passcodeError: 'Passcode required' }))
+    }
+    if (onPasscodeSubmit) {
+      onPasscodeSubmit()
+    }
+  }
+
   const handleChange = (field, value) => {
+    let changes = { email, passcode, errorConfig: errors, loadingConfig: loading }
+  
     if (field === 'email') {
       setEmail(value)
-      if (value) {
-        if (errors.emailError) {
-          setErrors((prev) => ({ ...prev, emailError: '' }))
-        }
-      } else {
-        setErrors((prev) => ({ ...prev, emailError: 'Email required.' }))
-        return onChange({ email, passcode, errorConfig: { ...errors, emailError: 'Email required.' }, loadingConfig: loading })
+      if (value && errors.emailError) {
+        setErrors((prev) => ({ ...prev, emailError: '' }))
+      }
+      if (!value) {
+        setErrors((prev) => ({ ...prev, emailError: 'Email required' }))
+        changes = { ...changes, errorConfig: { ...errors, emailError: 'Email required' } }
       }
     }
-    onChange({ email: value, passcode, errorConfig: errors, loadingConfig: loading })
+  
+    if (field === 'passcode') {
+      setPasscode(value)
+      const match = (value).match(/[^A-F\d]/gi)
+
+      if (value && errors.passcodeError) {
+        setErrors((prev) => ({ ...prev, passcodeError: '' }))
+      }
+      if (!value || match) {
+        setErrors((prev) => ({ ...prev, passcodeError: match ? `'${[...match]}' is not a valid character for passcode` : 'Passcode required' }))
+        changes = { ...changes, errorConfig: { ...errors, passcodeError: match ? `'${[...match]}' is not a valid character for passcode` : 'Passcode required' } }
+      }
+    }
+
+    onChange(changes)
   }
 
   return (
@@ -140,11 +184,23 @@ const Login = ({
       </Layout.Sider>
       <Layout.Content className='w-7/12 h-full flex justify-center items-center'>
         <div className={`flex flex-col justify-center items-start ${styles.contentContainer}`}>
-          <p className={`${styles.login} font-normal text-secondary-900`}>Login In</p>
-          <p className={`${styles.loginDescription} font-normal text-secondary-900`}>
+          <p className={`${styles.login} font-normal text-secondary-900`}>
+            {showPasscode ? 'Verify Account' : 'Login In'}</p>
+          {!showPasscode && <p className={`${styles.loginDescription} font-normal text-secondary-900`}>
             To begin using {product}, please enter your associated email address to authenticate your account.
-          </p>
-          <TextField
+          </p>}
+          {showPasscode &&
+            <>
+              <p className={`${styles.verificationDescription} font-normal text-secondary-900`}>
+                We sent the authentication methods to <b className='text-primary-600'>{email}</b>
+              </p>
+              <a className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`} onClick={emailChangeToggle}>
+                Change my email address
+              </a>
+            </>
+          }
+          {!showPasscode && <TextField
+            autoFocus
             type='email'
             label='Email'
             placeholder='example@gmail.com'
@@ -154,8 +210,31 @@ const Login = ({
             onChange={(val) => handleChange('email', val)}
             onSubmit={handleEmailSubmit}
             classes={{ container: `w-full ${styles.spacingMargin}` }}
-          />
-          <Button size='lg' variant='filled' classes={{ button: `w-full ${styles.spacingMargin}` }} disabled={!email} onClick={handleEmailSubmit}>Submit</Button>
+          />}
+          {showPasscode && <>
+            <TextField
+              autoFocus
+              variant='linked'
+              label='Passcode'
+              linkedFields={6}
+              helperText={errors?.passcodeError}
+              error={Boolean(errors?.passcodeError)}
+              value={passcode}
+              onChange={(val) => handleChange('passcode', val)}
+              onSubmit={handlePasscodeSubmit}
+              classes={{ container: styles.spacingMargin }}
+            />
+            <a className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`} onClick={passcodeResendHandler}>
+              Did not receive a code?
+            </a>
+          </>}
+          <Button
+            size='lg'
+            variant='filled'
+            classes={{ button: `w-full ${styles.spacingMargin}` }}
+            disabled={showPasscode ? !passcode : !email}
+            onClick={showPasscode ? handlePasscodeSubmit : handleEmailSubmit}
+          >Submit</Button>
           <hr className={`w-full ${styles.spacingMargin} border-secondary-300`} />
 
           <div className='w-full flex flex-col justify-center items-center'>
@@ -171,12 +250,16 @@ const Login = ({
 Login.propTypes = {
   product: PropTypes.string.isRequired,
   logo: PropTypes.element.isRequired,
+  showPasscode: PropTypes.bool.isRequired,
+  emailChangeToggle: PropTypes.func.isRequired,
+  passcodeResendHandler: PropTypes.func.isRequired,
   classes: PropTypes.object,
   welcomeTitle: PropTypes.string,
   welcomeDescription: PropTypes.string, 
   copyrightMessage: PropTypes.string,
   onChange: PropTypes.func,
   onEmailSubmit: PropTypes.func,
+  onPasscodeSubmit: PropTypes.func,
   loadingConfig: PropTypes.object,
   errorConfig: PropTypes.object,
 }
@@ -188,11 +271,16 @@ Login.defaultProps = {
   copyrightMessage: 'lorem ipsum dolor sit amet',
   onChange: null,
   onEmailSubmit: null,
+  onPasscodeSubmit: null,
   loadingConfig: {
     emailLoading: false,
     emailLoadingMsg: '',
     passcodeLoading: false,
     passcodeLaodingMsg: '',
+  },
+  errorConfig: {
+    emailError: '',
+    passcodeError: '',
   },
 }
 

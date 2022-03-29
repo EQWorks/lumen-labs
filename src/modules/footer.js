@@ -40,18 +40,23 @@ const Footer = ({ logo, description, socialIcons, copyrightMessage }) => {
           <p className={`${styles.description} font-normal text-secondary-50`}>{description}</p>
           {socialIcons && Boolean(socialIcons.length) && <div className='w-full inline-flex mt-10'>
             {socialIcons.map(({ Icon, link }, i) => (
-              <div
+              <button
                 key={i}
                 onClick={() => window.open(link, '_blank')}
-                className={`inline-flex justify-center items-center ${styles.socialIconButtons}
-                  cursor-pointer bg-primary-800 border border-primary-800 hover:border-secondary-50`}
+                className={`focus:outline-none inline-flex justify-center items-center ${styles.socialIconButtons}
+                  cursor-pointer bg-primary-800 border border-primary-800 hover:border-primary-100 active:bg-primary-900`}
               >
                 <Icon key={i} className={`${styles.socialIcons} text-secondary-50`} />
-              </div>
+              </button>
             ))}
           </div>}
         </div>
+
+        <div className={styles.linksContainer}>
+
+        </div>
       </div>
+
       <div className={`${styles.copyrightMsg} font-normal text-secondary-50 bg-primary-800`}>
         {copyrightMessage}
       </div>

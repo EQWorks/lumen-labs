@@ -91,7 +91,6 @@ const Login = ({
   product,
   showPasscode,
   emailChangeToggle,
-  passcodeResendHandler,
   logo,
   welcomeTitle,
   welcomeDescription,
@@ -254,7 +253,7 @@ const Login = ({
             />
             <a
               className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`}
-              onClick={passcodeResendHandler}
+              onClick={handleEmailSubmit}
             >
               Did not receive a code?
             </a>
@@ -283,7 +282,6 @@ Login.propTypes = {
   logo: PropTypes.element.isRequired,
   showPasscode: PropTypes.bool.isRequired,
   emailChangeToggle: PropTypes.func.isRequired,
-  passcodeResendHandler: PropTypes.func.isRequired,
   classes: PropTypes.object,
   welcomeTitle: PropTypes.string,
   welcomeDescription: PropTypes.string, 

@@ -33,7 +33,6 @@ export const Normal = () => {
       logo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
       showPasscode={showPasscode}
       loadingConfig={loadingConfig}
-      passcodeResendHandler={handleEmailSubmit}
       emailChangeToggle={() => setShowPasscode(false)}
       onChange={(val) => {
         if (loadingConfig?.type !== val.loadingConfig?.type) {

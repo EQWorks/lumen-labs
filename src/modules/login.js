@@ -139,12 +139,20 @@ const Login = ({
   
     if (field === 'email') {
       setEmail(value)
-      if (value && errors.emailError) {
+      // basic validation source
+      // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#validation
+      const match = (value).match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
+
+      if (value && errors.emailError && match) {
         setErrors((prev) => ({ ...prev, emailError: '' }))
       }
       if (!value) {
         setErrors((prev) => ({ ...prev, emailError: 'Email required' }))
         changes = { ...changes, errorConfig: { ...errors, emailError: 'Email required' } }
+      }
+      if (value && !match) {
+        setErrors((prev) => ({ ...prev, emailError: 'Invalid email format' }))
+        changes = { ...changes, errorConfig: { ...errors, emailError: 'Invalid email format' } }
       }
     }
   

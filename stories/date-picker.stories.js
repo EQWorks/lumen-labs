@@ -58,9 +58,9 @@ export const Normal = () => {
         />
       </div>
       <div className='mb-2 mr-4'>
-        <h4 className='mb-2'>without actionButtons (false)</h4>
+        <h4 className='mb-2'>without actionButtons (true)</h4>
         <DatePicker 
-          actionButtons={false}
+          actionButtons
         />
       </div>
     </div>
@@ -115,7 +115,6 @@ export const Custom = () => {
           variant='single' 
           navbarType='none'
           hideInput
-          actionButtons={false}
           onSelectDay={(_, val) => {
             if (val === dateValue) {
               setDateValue('')
@@ -155,6 +154,7 @@ export const Custom = () => {
           }
           onConfirm={(_, val) => setDateValue1(val)}
           dateFormat={'YYYY-MM-DD'}
+          actionButtons
         />
       </div>
     </div>

@@ -1132,7 +1132,7 @@ DatePicker.defaultProps = {
   rangeOfYears: 10,
   customTrigger: null,
   dateFormat: 'MM/DD/YYYY',
-  actionButtons: true,
+  actionButtons: false,
   hideInput: false,
   defaultSelected: false,
   deleteInputButton: true,

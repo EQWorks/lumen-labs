@@ -185,14 +185,14 @@ const Login = ({
       <Layout.Content className='w-7/12 h-full flex justify-center items-center'>
         <div className={`flex flex-col justify-center items-start ${styles.contentContainer}`}>
           <p className={`${styles.login} font-normal text-secondary-900`}>
-            {showPasscode ? 'Verify Account' : 'Login In'}</p>
+            {showPasscode ? 'Verify Account' : 'Log In'}</p>
           {!showPasscode && <p className={`${styles.loginDescription} font-normal text-secondary-900`}>
             To begin using {product}, please enter your associated email address to authenticate your account.
           </p>}
           {showPasscode &&
             <>
               <p className={`${styles.verificationDescription} font-normal text-secondary-900`}>
-                We sent the authentication methods to <b className='text-primary-600'>{email}</b>
+                Account authentication methods have been sent to <b className='text-primary-600'>{email}</b>
               </p>
               <a className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`} onClick={emailChangeToggle}>
                 Change my email address
@@ -215,7 +215,7 @@ const Login = ({
             <TextField
               autoFocus
               variant='linked'
-              label='Passcode'
+              label='One-Time-Passcode'
               linkedFields={6}
               helperText={errors?.passcodeError}
               error={Boolean(errors?.passcodeError)}

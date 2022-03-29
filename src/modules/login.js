@@ -118,19 +118,19 @@ const Login = ({
 
   const handleEmailSubmit = () => {
     if (!email) {
-      return setErrors((prev) => ({ ...prev, emailError: 'Email required' }))
+      return setErrors((prev) => ({ ...prev, type: 'email', isError: true, message: 'Email required' }))
     }
     if (onEmailSubmit) {
-      onEmailSubmit()
+      onEmailSubmit(null, { email, passcode, errorConfig: errors, loadingConfig: loading })
     }
   }
 
   const handlePasscodeSubmit = () => {
     if (!passcode) {
-      return setErrors((prev) => ({ ...prev, passcodeError: 'Passcode required' }))
+      return setErrors((prev) => ({ ...prev, type: 'passcode', isError: true, message: 'Passcode required' }))
     }
     if (onPasscodeSubmit) {
-      onPasscodeSubmit()
+      onPasscodeSubmit(null, { email, passcode, errorConfig: errors, loadingConfig: loading })
     }
   }
 
@@ -141,43 +141,56 @@ const Login = ({
       setEmail(value)
       // basic validation source
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#validation
-      const match = (value).match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
+      const r = new RegExp([
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+/,
+        /@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?/,
+        /(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      ].map((r) => r.source).join(''))
+      const match = (value).match(r)
+      let error = errors
 
-      if (value && errors.emailError && match) {
-        setErrors((prev) => ({ ...prev, emailError: '' }))
-      }
-      if (!value) {
-        setErrors((prev) => ({ ...prev, emailError: 'Email required' }))
-        changes = { ...changes, errorConfig: { ...errors, emailError: 'Email required' } }
+      if (value && errors.isError && match) {
+        error = { ...errors, type: '', isError: false, message: '' }
       }
       if (value && !match) {
-        setErrors((prev) => ({ ...prev, emailError: 'Invalid email format' }))
-        changes = { ...changes, errorConfig: { ...errors, emailError: 'Invalid email format' } }
+        error = { ...errors, type: 'email', isError: true, message: 'Invalid email format' }
       }
+      if (!value) {
+        error = { ...errors, type: 'email', isError: true, message: 'Email required' }
+      }
+
+      setErrors(error)
+      changes = { ...changes, errorConfig: error }
     }
   
     if (field === 'passcode') {
       setPasscode(value)
       const match = (value).match(/[^A-F\d]/gi)
 
-      if (value && errors.passcodeError) {
-        setErrors((prev) => ({ ...prev, passcodeError: '' }))
+      if (value && errors.isError) {
+        setErrors((prev) => ({ ...prev, type: '', isError: false, message: '' }))
       }
       if (!value || match) {
-        setErrors((prev) => ({ ...prev, passcodeError: match ? `'${[...match]}' is not a valid character for passcode` : 'Passcode required' }))
-        changes = { ...changes, errorConfig: { ...errors, passcodeError: match ? `'${[...match]}' is not a valid character for passcode` : 'Passcode required' } }
+        const error = {
+          ...errors,
+          type: 'passcode',
+          isError: true,
+          message: match ? `'${[...match]}' is not a valid character for passcode` : 'Passcode required',
+        }
+        setErrors(error)
+        changes = { ...changes, errorConfig: error }
       }
     }
 
-    onChange(changes)
+    onChange(field, changes)
   }
 
   return (
     <Layout className='w-full h-screen'>
       <Loader
         backdrop
-        open={loading?.emailLoading || loading?.passcodeLoading}
-        message={loading?.emailLoadingMsg || loading?.passcodeLoadingMsg}
+        open={loading?.isLoading}
+        message={loading?.isLoading ? loading?.message : ''}
         classes={{ root: 'flex flex-col justify-between items-center', message: 'mt-2' }}
       />
       <Layout.Sider className={`border ${styles.siderContainer} relative w-5/12 h-full overflow-hidden`}>
@@ -185,8 +198,12 @@ const Login = ({
         <div className='relative w-full h-full'>
           <div className={`${classes.logo} ${styles.logo} text-secondary-50`}>{logo}</div>
           <div className={styles.welContainer}>
-            <p className={`${classes.welcomeTitle} ${styles.welTitle} font-normal text-left text-secondary-50`}>{welcomeTitle}</p>
-            <p className={`${classes.welcomeDescription} ${styles.welDescription} font-bold text-left text-secondary-50`}>{welcomeDescription}</p>
+            <p className={`${classes.welcomeTitle} ${styles.welTitle} font-normal text-left text-secondary-50`}>
+              {welcomeTitle}
+            </p>
+            <p className={`${classes.welcomeDescription} ${styles.welDescription} font-bold text-left text-secondary-50`}>
+              {welcomeDescription}
+            </p>
           </div>
         </div>
       </Layout.Sider>
@@ -202,7 +219,10 @@ const Login = ({
               <p className={`${styles.verificationDescription} font-normal text-secondary-900`}>
                 Account authentication methods have been sent to <b className='text-primary-600'>{email}</b>
               </p>
-              <a className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`} onClick={emailChangeToggle}>
+              <a
+                className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`}
+                onClick={emailChangeToggle}
+              >
                 Change my email address
               </a>
             </>
@@ -212,8 +232,8 @@ const Login = ({
             type='email'
             label='Email'
             placeholder='example@gmail.com'
-            error={Boolean(errors?.emailError)}
-            helperText={errors?.emailError}
+            error={Boolean(errors?.isError && errors?.type === 'email')}
+            helperText={errors?.isError && errors?.type === 'email' ? errors?.message : '' }
             value={email}
             onChange={(val) => handleChange('email', val)}
             onSubmit={handleEmailSubmit}
@@ -225,14 +245,17 @@ const Login = ({
               variant='linked'
               label='One-Time-Passcode'
               linkedFields={6}
-              helperText={errors?.passcodeError}
-              error={Boolean(errors?.passcodeError)}
+              helperText={errors?.isError && errors?.type === 'passcode' ? errors?.message : ''}
+              error={Boolean(errors?.isError && errors?.type === 'passcode')}
               value={passcode}
               onChange={(val) => handleChange('passcode', val)}
               onSubmit={handlePasscodeSubmit}
               classes={{ container: styles.spacingMargin }}
             />
-            <a className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`} onClick={passcodeResendHandler}>
+            <a
+              className={`${styles.emailChangeDescription} font-normal text-primary-500 cursor-pointer hover:underline`}
+              onClick={passcodeResendHandler}
+            >
               Did not receive a code?
             </a>
           </>}
@@ -281,14 +304,14 @@ Login.defaultProps = {
   onEmailSubmit: null,
   onPasscodeSubmit: null,
   loadingConfig: {
-    emailLoading: false,
-    emailLoadingMsg: '',
-    passcodeLoading: false,
-    passcodeLaodingMsg: '',
+    type: '',
+    isLoading: false,
+    message: '',
   },
   errorConfig: {
-    emailError: '',
-    passcodeError: '',
+    type: '',
+    isError: false,
+    message: '',
   },
 }
 

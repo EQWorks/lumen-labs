@@ -22,6 +22,21 @@ const styles = makeStyles({
     marginRight: '30px',
   },
   socialIcons: { width: '15px', height: '15px' },
+  linksContainer: { marginLeft: '320px' },
+  quickLinkHeading: {
+    marginBottom: '30px',
+    fontFamily: "'PT Sans', sans-serif",
+    fontSize: '16px',
+    lineHeight: '24px',
+    letterSpacing: '0.1em',
+  },
+  quickLinks: {
+    marginBottom: '10px',
+    fontFamily: "'PT Sans', sans-serif",
+    fontSize: '16px',
+    lineHeight: '24px',
+    letterSpacing: '0.06em',
+  },
   copyrightMsg: {
     padding: '15px 150px 15px 150px',
     fontFamily: "'PT Sans', sans-serif",
@@ -31,10 +46,10 @@ const styles = makeStyles({
   },
 })
 
-const Footer = ({ logo, description, socialIcons, copyrightMessage }) => {
+const Footer = ({ logo, description, socialIcons, copyrightMessage, quickLinks }) => {
   return (
     <div className={`w-full flex flex-col justify-between bg-primary-700 ${styles.container}`}>
-      <div className={`${styles.details}`}>
+      <div className={`${styles.details} flex`}>
         <div className={styles.infoContainer}>
           <div className={styles.logo}>{logo}</div>
           <p className={`${styles.description} font-normal text-secondary-50`}>{description}</p>
@@ -52,8 +67,21 @@ const Footer = ({ logo, description, socialIcons, copyrightMessage }) => {
           </div>}
         </div>
 
-        <div className={styles.linksContainer}>
-
+        <div className={`${styles.linksContainer} inline-flex justify-between`}>
+          {quickLinks && Boolean(quickLinks.length) && quickLinks.map(({ heading, links }, i) => (
+            <div key={i} className={(i === quickLinks.length - 1) ? '' : 'mr-28'}>
+              <p className={`${styles.quickLinkHeading} uppercase font-bold text-secondary-200`}>{heading}</p>
+              <li className='list-none w-40'>
+                {links.map(({ title, link }, i) => (
+                  <ul
+                    key={`${title}-${i}`}
+                    onClick={() => window.open(link, '_blank')}
+                    className={`${styles.quickLinks} font-normal text-secondary-50 hover:underline cursor-pointer`}
+                  >{title}</ul>
+                ))}
+              </li>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -69,6 +97,7 @@ Footer.propTypes = {
   description: PropTypes.string,
   socialIcons: PropTypes.array,
   copyrightMessage: PropTypes.string,
+  quickLinks: PropTypes.array,
 }
 Footer.defaultProps = {
   description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -76,5 +105,6 @@ Footer.defaultProps = {
   Pulvinar netus volutpat augue eget.`,
   copyrightMessage: '© 2022 Company. All rights reserved.',
   socialIcons: [],
+  quickLinks: [],
 }
 export default Footer

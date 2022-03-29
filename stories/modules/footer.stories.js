@@ -31,15 +31,41 @@ const YTIcon = () => (
     <path d="M15.6893 19.9857V15.4857C15.687 15.4097 15.7056 15.3346 15.7429 15.2684C15.7802 15.2021 15.8348 15.1473 15.9009 15.1099C15.9671 15.0724 16.0422 15.0537 16.1181 15.0557C16.1941 15.0577 16.2681 15.0804 16.3321 15.1214L20.1893 17.3714C20.2537 17.4092 20.3072 17.4632 20.3443 17.5281C20.3814 17.5929 20.401 17.6663 20.401 17.7411C20.401 17.8158 20.3814 17.8892 20.3443 17.954C20.3072 18.0189 20.2537 18.0729 20.1893 18.1107L16.3321 20.3607C16.2667 20.3985 16.1924 20.4183 16.1169 20.4181C16.0413 20.418 15.9671 20.3978 15.9019 20.3597C15.8366 20.3217 15.7826 20.267 15.7452 20.2013C15.7079 20.1356 15.6886 20.0612 15.6893 19.9857V19.9857Z" stroke="#D6E8FD" strokeWidth="1.07143" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
+const socialIcons = [
+  { Icon: FBIcon, link: 'https://en.wikipedia.org/wiki/Facebook' },
+  { Icon: TwitterIcon, link: 'https://en.wikipedia.org/wiki/Twitter' },
+  { Icon: YTIcon, link: 'https://en.wikipedia.org/wiki/YouTube' },
+]
 export const WithSocialIcons = () => {
-  const socialIcons = [
-    { Icon: FBIcon, link: 'https://en.wikipedia.org/wiki/Facebook' },
-    { Icon: TwitterIcon, link: 'https://en.wikipedia.org/wiki/Twitter' },
-    { Icon: YTIcon, link: 'https://en.wikipedia.org/wiki/YouTube' },
-  ]
-
   return (<Footer
     logo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
     socialIcons={socialIcons}
+  />)
+}
+
+const links = [
+  { heading: 'company', links: [
+    { title: 'Our Story', link: '' },
+    { title: 'Careers', link: '' },
+    { title :'Legal', link: '' },
+    { title: 'Contact Us', link: '' },
+  ] },
+  { heading: 'resources', links: [
+    { title: 'API', link: '' },
+    { title: 'Privacy', link: '' },
+    { title :'Accessibility', link: '' },
+    { title: 'Terms & Conditions', link: '' },
+  ] },
+  { heading: 'navigation', links: [
+    { title: 'Dashboard', link: '' },
+    { title: 'Reports', link: '' },
+    { title :'Insights', link: '' },
+  ] },
+]
+export const WithLinks = () => {
+  return (<Footer
+    logo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
+    socialIcons={socialIcons}
+    quickLinks={links}
   />)
 }

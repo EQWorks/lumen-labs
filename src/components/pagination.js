@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
 import { DropdownAutoCenter } from '..'
 
 
-const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
+const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage, hideRowsPerPage }) => {
   const paginationClasses = Object.freeze({
     container: `flex items-center text-xs tracking-md leading-1.33 bg-secondary-50
       ${classes.container && classes.container}`,
@@ -21,15 +21,20 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
   const [dropdownData, setDropdownData] = useState([])
 
   useEffect(() => {
+    const _dropdownData = []
     if (rowsPerPage) {
-      const _dropdownData = []
       rowsPerPage.forEach((data) => {
         _dropdownData.push({ title: data })
       })
-  
-      setDropdownData(_dropdownData)
+    } else {
+      for (let i = 5; i <= itemsLength; i+= 5) {
+        _dropdownData.push({ title: i })
+        if (i === 25) break
+      }
     }
-  }, [rowsPerPage])
+
+    setDropdownData(_dropdownData)
+  }, [rowsPerPage, pageSize, itemsLength])
 
   useEffect(() => {
     setPage(initialPage)
@@ -134,7 +139,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
                 ${paginationClasses.pageItem}
                 ${pager.currentPage === page ? paginationClasses.currentPageColor : ''}
               `}
-              onClick={() => setPage(page)}
+              onClick={(e) => setPage(e, page)}
             >
               {page}
             </li>,
@@ -157,7 +162,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
             <ArrowRight size='md' onClick={(e) => setPage(e, pager.currentPage + 1)}/>
           </li>
         </>}
-        { rowsPerPage && 
+        { !hideRowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>
             <DropdownAutoCenter 
@@ -165,7 +170,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
               onSelect={(e, val) => {
                 handleOnChangeRowsPerPage(e, val)
               }} 
-              value={{ title: pageSize }}
+              value={{ title: pager.pageSize }}
               endIcon={<ArrowUpDown size='sm'/>}
             />
           </li>
@@ -192,6 +197,7 @@ Pagination.propTypes = {
   firstLast: PropTypes.bool,
   counter: PropTypes.bool,
   rowsPerPage: PropTypes.arrayOf(PropTypes.number),
+  hideRowsPerPage: PropTypes.bool,
 }
 
 Pagination.defaultProps = {
@@ -208,6 +214,7 @@ Pagination.defaultProps = {
   firstLast: true,
   counter: true,
   onChangeRowsPerPage: () => {},
+  hideRowsPerPage: false,
 }
 
 export default Pagination

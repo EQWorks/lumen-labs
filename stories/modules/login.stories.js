@@ -30,7 +30,8 @@ export const Normal = () => {
   return (
     <Login
       product='Power Report Dashboard'
-      logo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
+      primaryLogo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
+      secondaryLogo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
       showPasscode={showPasscode}
       loadingConfig={loadingConfig}
       emailChangeToggle={() => setShowPasscode(false)}

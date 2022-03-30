@@ -91,7 +91,8 @@ const Login = ({
   product,
   showPasscode,
   emailChangeToggle,
-  logo,
+  primaryLogo,
+  secondaryLogo,
   welcomeTitle,
   welcomeDescription,
   copyrightMessage,
@@ -181,7 +182,9 @@ const Login = ({
       }
     }
 
-    onChange(field, changes)
+    if (onChange) {
+      onChange(field, changes)
+    }
   }
 
   return (
@@ -195,7 +198,7 @@ const Login = ({
       <Layout.Sider className={`border ${styles.siderContainer} relative w-5/12 h-full overflow-hidden`}>
         <div className={`w-full h-full bg-primary-500 ${styles.siderImage}`} />
         <div className='relative w-full h-full'>
-          <div className={`${classes.logo} ${styles.logo} text-secondary-50`}>{logo}</div>
+          <div className={`${classes.logo} ${styles.logo} text-secondary-50`}>{secondaryLogo}</div>
           <div className={styles.welContainer}>
             <p className={`${classes.welcomeTitle} ${styles.welTitle} font-normal text-left text-secondary-50`}>
               {welcomeTitle}
@@ -268,7 +271,7 @@ const Login = ({
           <hr className={`w-full ${styles.spacingMargin} border-secondary-300`} />
 
           <div className='w-full flex flex-col justify-center items-center'>
-            <div className={`${classes.footerLogo} ${styles.footerLogo} inline-flex justify-center items-center`}>{logo}</div>
+            <div className={`${classes.footerLogo} ${styles.footerLogo} inline-flex justify-center items-center`}>{primaryLogo}</div>
             {copyrightMessage && <p className={`${styles.copyrightMsg} font-normal text-secondary-500`}>{copyrightMessage}</p>}
           </div>
         </div>
@@ -279,9 +282,10 @@ const Login = ({
 
 Login.propTypes = {
   product: PropTypes.string.isRequired,
-  logo: PropTypes.element.isRequired,
+  primaryLogo: PropTypes.element.isRequired,
   showPasscode: PropTypes.bool.isRequired,
   emailChangeToggle: PropTypes.func.isRequired,
+  secondaryLogo: PropTypes.element,
   classes: PropTypes.object,
   welcomeTitle: PropTypes.string,
   welcomeDescription: PropTypes.string, 
@@ -294,6 +298,7 @@ Login.propTypes = {
 }
 Login.defaultProps = {
   classes: { logo: '', footerLogo: '', welcomeTitle: '', welcomeDescription: '' },
+  secondaryLogo: null,
   welcomeTitle: 'Example Welcome Message for Login',
   welcomeDescription: `Example description lorem ipsum dolor sit amet.
     Id veritatis omnis qui veritatis velit in tenetur consequatur ut dolorem tempore qui galisum adipisci.`,

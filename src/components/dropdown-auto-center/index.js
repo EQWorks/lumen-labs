@@ -18,6 +18,7 @@ const DropdownAutoCenter = forwardRef(({
 }, ref) => {
   const dialogClasses = Object.freeze({
     root: `min-w-5 min-h-5 text-xxs uppercase tracking-lg ${classes.root}`,
+    dialog: `w-full ${classes.dialog}`,
   })
 
   const dropdownClasses = Object.freeze({
@@ -104,6 +105,7 @@ const DropdownAutoCenter = forwardRef(({
 DropdownAutoCenter.propTypes = {
   classes: PropTypes.exact({
     root: PropTypes.string,
+    dialog: PropTypes.string,
     button: PropTypes.string,
     menu: PropTypes.string,
     item: PropTypes.string,

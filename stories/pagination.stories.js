@@ -63,7 +63,7 @@ export const NoAttachments = () => {
         })}
       </Layout.Content>
       <Layout.Footer className={headerClass}>
-        <Pagination itemsLength={data.exampleData.length} onChangePage={onChangePage} showPage={false} firstLast={false} counter={false}/>
+        <Pagination itemsLength={data.exampleData.length} onChangePage={onChangePage} showPage={false} firstLast={false} counter={false} hideRowsPerPage/>
       </Layout.Footer>
     </Layout>
   )

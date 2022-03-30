@@ -49,7 +49,9 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
 
     _pager = getPagerObject(itemsLength ? itemsLength : 0, page, rowsPerPageSize)
     const pageOfItems = []
-    for (let i = _pager.startIndex; i <= _pager.endIndex; i ++) pageOfItems.push({ i: i })
+    for (let i = _pager.startIndex; i <= _pager.endIndex; i ++) {
+      pageOfItems.push({ i: i })
+    }
 
     setPager(_pager)
     onChangePage(e, { pageOfItems, _pager })
@@ -124,7 +126,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
           </li>
           { firstLast && pager.startPage > 1 &&
             <li className='flex'>
-              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={() => setPage(1)}>
+              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, 1)}>
                 1
               </div>
               <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
@@ -148,7 +150,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
           { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
             <li className='flex'>
               <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
-              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={() => setPage(pager.totalPages)}>
+              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, pager.totalPages)}>
                 {pager.totalPages}
               </div>
             </li>

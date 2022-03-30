@@ -28,9 +28,9 @@ export const Normal = () => {
     <Layout>
       <Layout.Header className={headerClass}>Normal type with default styling</Layout.Header>
       <Layout.Content className={contentClass}>
-        {data.pageOfItems.map((item, index) => {
-          return (<div key={index}>{data.exampleData[item.i].name}</div>)
-        })}
+        {data.pageOfItems.map((item, index) => (
+          <div key={index}>{data.exampleData[item.i].name}</div>
+        ))}
       </Layout.Content>
       <Layout.Footer className={headerClass}>
         <Pagination itemsLength={data.exampleData.length} onChangePage={onChangePage} rowsPerPage={[10,20,30,40,50]}/>
@@ -58,9 +58,9 @@ export const NoAttachments = () => {
     <Layout>
       <Layout.Header className={headerClass}>with no pages, first & last, rows per page attachments</Layout.Header>
       <Layout.Content className={contentClass}>
-        {data.pageOfItems.map((item, index) => {
-          return (<div key={index}>{data.exampleData[item.i].name}</div>)
-        })}
+        {data.pageOfItems.map((item, index) => (
+          <div key={index}>{data.exampleData[item.i].name}</div>
+        ))}
       </Layout.Content>
       <Layout.Footer className={headerClass}>
         <Pagination itemsLength={data.exampleData.length} onChangePage={onChangePage} showPage={false} firstLast={false} counter={false} hideRowsPerPage/>

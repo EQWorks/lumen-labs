@@ -37,7 +37,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
   }, [rowsPerPage, pageSize, itemsLength])
 
   useEffect(() => {
-    setPage(initialPage)
+    setPage(undefined, initialPage)
   }, [setPage, initialPage, rowsPerPageSize])
 
   const setPage = useCallback((e, page) => {

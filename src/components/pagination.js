@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
 import { DropdownAutoCenter } from '..'
 
 
-const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
+const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
   const paginationClasses = Object.freeze({
     container: `flex items-center text-xs tracking-md leading-1.33 bg-secondary-50
       ${classes.container && classes.container}`,
@@ -35,19 +35,20 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
     setPage(initialPage)
   }, [setPage, initialPage, rowsPerPageSize])
 
-  const setPage = useCallback((page) => {
+  const setPage = useCallback((e, page) => {
     let _pager = pager
 
     if (page < 1 || page > _pager.totalPages) {
       return
     }
 
-    _pager = getPagerObject(items.length ? items.length : 0, page, rowsPerPageSize)
-    let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1)
+    _pager = getPagerObject(itemsLength ? itemsLength : 0, page, rowsPerPageSize)
+    const pageOfItems = []
+    for (let i = _pager.startIndex; i <= _pager.endIndex; i ++) pageOfItems.push({ i: i })
 
     setPager(_pager)
-    onChangePage(pageOfItems, _pager)
-  }, [items, onChangePage, pager, rowsPerPageSize])
+    onChangePage(e, { pageOfItems, _pager })
+  }, [itemsLength, onChangePage, pager, rowsPerPageSize])
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {
     currentPage = currentPage || 1
@@ -91,7 +92,7 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
   }
 
   const handleOnChangeRowsPerPage = (e, val) => {
-    const _pager = getPagerObject(items.length ? items.length : 0, initialPage, Number(val.item.title))
+    const _pager = getPagerObject(itemsLength ? itemsLength : 0, initialPage, Number(val.item.title))
 
     onChangeRowsPerPage(e, { value: val, pager: _pager })
     setRowsPerPageSize(Number(val.item.title))
@@ -114,7 +115,7 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
               ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
             `}
           >
-            <ArrowLeft size='md' onClick={() => setPage(pager.currentPage - 1)}/>
+            <ArrowLeft size='md' onClick={(e) => setPage(e, pager.currentPage - 1)}/>
           </li>
           { firstLast && pager.startPage > 1 &&
             <li className='flex'>
@@ -153,7 +154,7 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
               ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
             `}
           >
-            <ArrowRight size='md' onClick={() => setPage(pager.currentPage + 1)}/>
+            <ArrowRight size='md' onClick={(e) => setPage(e, pager.currentPage + 1)}/>
           </li>
         </>}
         { rowsPerPage && 
@@ -182,7 +183,7 @@ Pagination.propTypes = {
     pageItem: PropTypes.string,
     currentPageColor: PropTypes.string,
   }),
-  items: PropTypes.array.isRequired,
+  itemsLength: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,
   onChangeRowsPerPage: PropTypes.func,
   initialPage: PropTypes.number,

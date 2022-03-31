@@ -54,7 +54,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
     }
 
     setPager(_pager)
-    onChangePage(e, { pageOfItems, _pager })
+    onChangePage(e, { pageOfItems, pager: _pager })
   }, [itemsLength, onChangePage, pager, rowsPerPageSize])
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {

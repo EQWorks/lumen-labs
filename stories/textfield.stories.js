@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { InputBase } from '../src/base-components'
 import { TextField, Button } from '../src'
 
-import { ChevronUp, ChevronDown, Alert, Check, Dollar, Search, ArrowDown } from '../src/icons'
+import { ChevronUp, ChevronDown, Alert, Check, Dollar, Search, ArrowDown, Info } from '../src/icons'
 
 
 export default {
@@ -284,7 +284,18 @@ export const Usage = () => {
         onChange={(val) => setDate(val)}
         deleteButton={false}
         required
+      />
+
+      <p className={labelClass}>Input Label with Icon:</p>
+      <TextField 
+        label={
+          <span className='inline-flex items-center'>
+            <p className='mr-1'>Info Icon</p>
+            <Info size='md' />
+          </span>
+        }
       /> 
+
       <p className={labelClass}>Required Input</p>
       <div className='flex flex-row'>
         <TextField
@@ -333,6 +344,39 @@ export const Usage = () => {
         label='Note:' 
         helperText='I am helper text' 
       /> 
+    </>
+  )
+}
+
+export const Borderless = () => {
+  return (
+    <TextField
+      variant='borderless'
+      inputProps={{ placeholder: 'Type something...' }}
+      classes={{ input: 'text-lg' }}
+    />
+  )
+}
+
+export const Linked = () => {
+  return (
+    <>
+      <p className={labelClass}>Default:</p>
+      <TextField
+        label='Example label'
+        helperText='Example helper text'
+        variant='linked'
+        linkedFields={6}
+      />
+
+      <p className={labelClass}>Incomplete Error:</p>
+      <TextField
+        label='Example label'
+        helperText='Example helper text'
+        variant='linked'
+        linkedFields={6}
+        onSubmit={() => {}}
+      />
     </>
   )
 }

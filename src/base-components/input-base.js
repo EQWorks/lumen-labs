@@ -38,7 +38,7 @@ const InputBase = forwardRef(({
     } else {
       _setValue('')
     }
-    onChange(e.target.value)
+    onChange(e)
   }
 
   const handleFocus = () => {
@@ -64,7 +64,7 @@ const InputBase = forwardRef(({
   }
 
   return (
-    <div ref={ref} className={`${baseClasses.root} ${classes.root}`} onFocus={handleFocus} onBlur={handleBlur}>
+    <div ref={ref} className={`${baseClasses.root} ${classes.root}`}>
       {startIcon && <div className={classes.startIcon}>{startIcon}</div>}
       {prefix && <span className={classes.prefix}>{prefix}</span>}
       <input
@@ -75,6 +75,8 @@ const InputBase = forwardRef(({
         onChange={inputOnChange}
         placeholder={_placeholder}
         required={required}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}

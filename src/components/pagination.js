@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
 import { DropdownAutoCenter } from '..'
 
 
-const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage }) => {
+const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage, hideRowsPerPage }) => {
   const paginationClasses = Object.freeze({
     container: `flex items-center text-xs tracking-md leading-1.33 bg-secondary-50
       ${classes.container && classes.container}`,
@@ -21,33 +21,41 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
   const [dropdownData, setDropdownData] = useState([])
 
   useEffect(() => {
+    const _dropdownData = []
     if (rowsPerPage) {
-      const _dropdownData = []
       rowsPerPage.forEach((data) => {
         _dropdownData.push({ title: data })
       })
-  
-      setDropdownData(_dropdownData)
+    } else {
+      for (let i = 5; i <= itemsLength; i+= 5) {
+        _dropdownData.push({ title: i })
+        if (i === 25) break
+      }
     }
-  }, [rowsPerPage])
+
+    setDropdownData(_dropdownData)
+  }, [rowsPerPage, pageSize, itemsLength])
 
   useEffect(() => {
-    setPage(initialPage)
+    setPage(undefined, initialPage)
   }, [setPage, initialPage, rowsPerPageSize])
 
-  const setPage = useCallback((page) => {
+  const setPage = useCallback((e, page) => {
     let _pager = pager
 
     if (page < 1 || page > _pager.totalPages) {
       return
     }
 
-    _pager = getPagerObject(items.length ? items.length : 0, page, rowsPerPageSize)
-    let pageOfItems = items.slice(_pager.startIndex, _pager.endIndex + 1)
+    _pager = getPagerObject(itemsLength ? itemsLength : 0, page, rowsPerPageSize)
+    const pageOfItems = []
+    for (let i = _pager.startIndex; i <= _pager.endIndex; i ++) {
+      pageOfItems.push({ i: i })
+    }
 
     setPager(_pager)
-    onChangePage(pageOfItems, _pager)
-  }, [items, onChangePage, pager, rowsPerPageSize])
+    onChangePage(e, { pageOfItems, pager: _pager })
+  }, [itemsLength, onChangePage, pager, rowsPerPageSize])
 
   const getPagerObject = (totalItems, currentPage, pageSize) => {
     currentPage = currentPage || 1
@@ -91,7 +99,7 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
   }
 
   const handleOnChangeRowsPerPage = (e, val) => {
-    const _pager = getPagerObject(items.length ? items.length : 0, initialPage, Number(val.item.title))
+    const _pager = getPagerObject(itemsLength ? itemsLength : 0, initialPage, Number(val.item.title))
 
     onChangeRowsPerPage(e, { value: val, pager: _pager })
     setRowsPerPageSize(Number(val.item.title))
@@ -101,62 +109,60 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
     <>
       {pager.pages &&     
       <ul className={`pagination ${paginationClasses.container}`}>
-        { rowsPerPageSize !== pager.totalItems && <>
-          { counter && 
-            <li className='min-w-40 px-2'>
-              <span>{pager.startIndex + 1} - {pager.endIndex + 1} of {pager.totalItems} items</span>
-            </li>
-          }
-
-          <li 
-            className={`mr-5px
-              ${paginationClasses.arrow} 
-              ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
-            `}
-          >
-            <ArrowLeft size='md' onClick={() => setPage(pager.currentPage - 1)}/>
+        { counter && 
+          <li className='min-w-40 px-2'>
+            <span>{pager.startIndex + 1} - {pager.endIndex + 1} of {pager.totalItems} items</span>
           </li>
-          { firstLast && pager.startPage > 1 &&
-            <li className='flex'>
-              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={() => setPage(1)}>
-                1
-              </div>
-              <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
-            </li>
-          }
+        }
 
-          { showPage && pager.pages.map((page, index) =>
-            <li 
-              key={index} 
-              className={`
-                ${paginationClasses.item}
-                ${paginationClasses.pageItem}
-                ${pager.currentPage === page ? paginationClasses.currentPageColor : ''}
-              `}
-              onClick={() => setPage(page)}
-            >
-              {page}
-            </li>,
-          )}
-          
-          { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
-            <li className='flex'>
-              <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
-              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={() => setPage(pager.totalPages)}>
-                {pager.totalPages}
-              </div>
-            </li>
-          }
+        <li 
+          className={`mr-5px
+            ${paginationClasses.arrow} 
+            ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+          `}
+        >
+          <ArrowLeft size='md' onClick={(e) => setPage(e, pager.currentPage - 1)}/>
+        </li>
+        { firstLast && pager.startPage > 1 &&
+          <li className='flex'>
+            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, 1)}>
+              1
+            </div>
+            <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
+          </li>
+        }
+
+        { showPage && pager.pages.map((page, index) =>
           <li 
+            key={index} 
             className={`
-              ${paginationClasses.arrow} 
-              ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+              ${paginationClasses.item}
+              ${paginationClasses.pageItem}
+              ${pager.currentPage === page ? paginationClasses.currentPageColor : ''}
             `}
+            onClick={(e) => setPage(e, page)}
           >
-            <ArrowRight size='md' onClick={() => setPage(pager.currentPage + 1)}/>
+            {page}
+          </li>,
+        )}
+        
+        { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
+          <li className='flex'>
+            <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
+            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, pager.totalPages)}>
+              {pager.totalPages}
+            </div>
           </li>
-        </>}
-        { rowsPerPage && 
+        }
+        <li 
+          className={`
+            ${paginationClasses.arrow} 
+            ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+          `}
+        >
+          <ArrowRight size='md' onClick={(e) => setPage(e, pager.currentPage + 1)}/>
+        </li>
+        { !hideRowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>
             <DropdownAutoCenter 
@@ -164,7 +170,7 @@ const Pagination = ({ classes, items, onChangePage, onChangeRowsPerPage, initial
               onSelect={(e, val) => {
                 handleOnChangeRowsPerPage(e, val)
               }} 
-              value={{ title: pageSize }}
+              value={{ title: pager.pageSize }}
               endIcon={<ArrowUpDown size='sm'/>}
             />
           </li>
@@ -182,7 +188,7 @@ Pagination.propTypes = {
     pageItem: PropTypes.string,
     currentPageColor: PropTypes.string,
   }),
-  items: PropTypes.array.isRequired,
+  itemsLength: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,
   onChangeRowsPerPage: PropTypes.func,
   initialPage: PropTypes.number,
@@ -191,6 +197,7 @@ Pagination.propTypes = {
   firstLast: PropTypes.bool,
   counter: PropTypes.bool,
   rowsPerPage: PropTypes.arrayOf(PropTypes.number),
+  hideRowsPerPage: PropTypes.bool,
 }
 
 Pagination.defaultProps = {
@@ -207,6 +214,7 @@ Pagination.defaultProps = {
   firstLast: true,
   counter: true,
   onChangeRowsPerPage: () => {},
+  hideRowsPerPage: false,
 }
 
 export default Pagination

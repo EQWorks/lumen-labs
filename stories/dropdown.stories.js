@@ -478,6 +478,7 @@ export const CustomButton = () => {
 /** -- props (DropdownAutoCenter):
  * [classes] - object, custom styling supported keys:
  *    root: main container of dropdown component
+ *    root: menu/dialog container of dropdown component
  *    button: select button container div
  *    content: content container element
  *    menu: dropdown menu/select container div
@@ -494,6 +495,8 @@ export const CustomButton = () => {
  */
 
 export const DropdownCenterSelectedItem = () => {
+  const [value, setValue] = useState({ title: 'orange' })
+
   return (
     <>
       <div className='flex flex-row'>
@@ -509,8 +512,9 @@ export const DropdownCenterSelectedItem = () => {
         <div>With padding</div>
         <DropdownAutoCenter 
           data={sampleDataMultiselect[0].items} 
-          value={{ title: 'orange' }}
+          value={value}
           endIcon={<ArrowUpDown size='sm'/>}
+          onSelect={(_, val) => { setValue({ title: val.item.title, index: val.index })}}
           scrollable
         />
       </div>

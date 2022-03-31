@@ -109,61 +109,59 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
     <>
       {pager.pages &&     
       <ul className={`pagination ${paginationClasses.container}`}>
-        { rowsPerPageSize !== pager.totalItems && <>
-          { counter && 
-            <li className='min-w-40 px-2'>
-              <span>{pager.startIndex + 1} - {pager.endIndex + 1} of {pager.totalItems} items</span>
-            </li>
-          }
-
-          <li 
-            className={`mr-5px
-              ${paginationClasses.arrow} 
-              ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
-            `}
-          >
-            <ArrowLeft size='md' onClick={(e) => setPage(e, pager.currentPage - 1)}/>
+        { counter && 
+          <li className='min-w-40 px-2'>
+            <span>{pager.startIndex + 1} - {pager.endIndex + 1} of {pager.totalItems} items</span>
           </li>
-          { firstLast && pager.startPage > 1 &&
-            <li className='flex'>
-              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, 1)}>
-                1
-              </div>
-              <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
-            </li>
-          }
+        }
 
-          { showPage && pager.pages.map((page, index) =>
-            <li 
-              key={index} 
-              className={`
-                ${paginationClasses.item}
-                ${paginationClasses.pageItem}
-                ${pager.currentPage === page ? paginationClasses.currentPageColor : ''}
-              `}
-              onClick={(e) => setPage(e, page)}
-            >
-              {page}
-            </li>,
-          )}
-          
-          { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
-            <li className='flex'>
-              <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
-              <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, pager.totalPages)}>
-                {pager.totalPages}
-              </div>
-            </li>
-          }
+        <li 
+          className={`mr-5px
+            ${paginationClasses.arrow} 
+            ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+          `}
+        >
+          <ArrowLeft size='md' onClick={(e) => setPage(e, pager.currentPage - 1)}/>
+        </li>
+        { firstLast && pager.startPage > 1 &&
+          <li className='flex'>
+            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, 1)}>
+              1
+            </div>
+            <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
+          </li>
+        }
+
+        { showPage && pager.pages.map((page, index) =>
           <li 
+            key={index} 
             className={`
-              ${paginationClasses.arrow} 
-              ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+              ${paginationClasses.item}
+              ${paginationClasses.pageItem}
+              ${pager.currentPage === page ? paginationClasses.currentPageColor : ''}
             `}
+            onClick={(e) => setPage(e, page)}
           >
-            <ArrowRight size='md' onClick={(e) => setPage(e, pager.currentPage + 1)}/>
+            {page}
+          </li>,
+        )}
+        
+        { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
+          <li className='flex'>
+            <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
+            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, pager.totalPages)}>
+              {pager.totalPages}
+            </div>
           </li>
-        </>}
+        }
+        <li 
+          className={`
+            ${paginationClasses.arrow} 
+            ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+          `}
+        >
+          <ArrowRight size='md' onClick={(e) => setPage(e, pager.currentPage + 1)}/>
+        </li>
         { !hideRowsPerPage && 
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>

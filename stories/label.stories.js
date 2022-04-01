@@ -56,13 +56,13 @@ export const Normal = () => {
   return (
     <>
       <p className={description.p}>Default: </p>
-      <Label>Label: test</Label>
+      <Label title='title'>Label</Label>
       <p className={description.p}>Start Icon: </p>
-      <Label startIcon={<Info size='sm'/>}>Label: test</Label>
+      <Label startIcon={<Info size='sm'/>}>Label</Label>
       <p className={description.p}>End Icon: </p>
-      <Label endIcon={<Close size='sm'/>}>Label: test</Label>
+      <Label endIcon={<Close size='sm'/>}>Label</Label>
       <p className={description.p}>no selectable: </p>
-      <Label selectable={false}>Label: test</Label>
+      <Label selectable={false}>Label</Label>
     </>
   )
 }

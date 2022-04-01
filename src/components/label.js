@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { concatStateColor, concatTargetColor } from '../utils/concat-color'
 
 import { ButtonBase } from '../base-components'
+import { makeStyles } from '../utils/make-styles'
 
 
 const _labelSize = (size) => {
@@ -12,23 +13,22 @@ const _labelSize = (size) => {
   switch(size) {
   case 'lg':
     labelSize = {
-      box: 'h-9 p-sm',
-      font: 'text-sm tracking-sm leading-1.43',
-      title: '',
+      box: 'px-1.5 py-5px',
+      font: 'text-sm',
     }
     break
   case 'md':
     labelSize = {
-      box: 'h-7 py-1.5 px-2.5',
-      font: 'text-xs tracking-md leading-1.33',
-      title: '',
+      box: 'px-1.5 py-1',
+      font: 'text-xs',
     }
     break
   case 'sm':
     labelSize = {
-      box: 'h-7 py-1.5 px-2.5',
-      font: 'text-xxs tracking-normal leading-1',
+      box: 'px-1 py-3px',
+      font: 'text-xxs',
     }
+    break
   default:
     break
   }
@@ -36,25 +36,63 @@ const _labelSize = (size) => {
   return labelSize
 }
 
-const Label = forwardRef(({ classes, children, startIcon, endIcon, title, size, color, selectable, ...rest }, ref) => {
+const _colorType = (type, color) => {
+  let colorType = ''
+
+  switch(type) {
+  case 'light':
+    const borderElementsColor = concatStateColor(color, 'shadow', ['focus', 'hover'], [500])
+    const buttonColor = concatTargetColor(color, ['bg', 'shadow'], [100, 100, 500])
+    const textColor = concatTargetColor('secondary', ['text'], [900])
+
+    colorType = `${textColor} ${buttonColor} ${borderElementsColor}`
+    break
+  case 'dark':
+    if (color === 'warning') {
+      const borderElementsColor = concatStateColor(color, 'shadow', ['focus', 'hover'], [500])
+      const buttonColor = concatTargetColor(color, ['bg', 'shadow'], [100, 100, 500])
+      const textColor = concatTargetColor('secondary', ['text'], [900])
+
+      colorType = `${textColor} ${buttonColor} ${borderElementsColor}`
+    } else {
+      const borderElementsColor = concatStateColor(color, 'shadow', ['focus', 'hover'], [500])
+      const buttonColor = concatTargetColor(color, ['bg', 'shadow'], [100, 100, 500])
+      const textColor = concatTargetColor('secondary', ['text'], [50])
+
+      colorType = `${textColor} ${buttonColor} ${borderElementsColor}`
+    }
+    break
+  default:
+    break
+  }
+  
+  return colorType
+}
+
+const customClasses = makeStyles({
+  buttonContainer: {
+    borderWidth: 0
+  }
+})
+
+const Label = forwardRef(({ classes, children, startIcon, endIcon, title, size, shade, color, selectable, ...rest }, ref) => {
   const labelSize = _labelSize(size)
-  const borderElementsColor = concatStateColor(color, 'border', ['focus', 'hover'], [500])
-  const buttonColor = concatTargetColor(color, ['bg', 'border', 'text'], [100, 100, 500])
-  console.log('label')
+  const colorType = _colorType(shade, color)
+
   const labelClasses = Object.freeze({
-    button: `px-5px rounded-md  ${classes.root ? classes.root : ''}
-      border fill-current ${buttonColor} focus:outline-none ${borderElementsColor}
+    button: `rounded-3px  ${classes.root ? classes.root : ''} ${labelSize.box} ${customClasses.buttonContainer}
+      border fill-current focus:outline-none ${colorType}
       ${selectable ? 'cursor-pointer' : 'pointer-events-none'}
     `, 
-    content: `font-bold ${labelSize.font} ${classes.content ? classes.content : ''}`, 
+    content: `font-bold tracking-normal leading-1 ${labelSize.font} ${classes.content ? classes.content : ''}`, 
     title: `font-normal`,
-    startIcon: `mr-5px ${classes.startIcon ? classes.startIcon : ''}`, 
-    endIcon: `ml-5px ${classes.endIcon ? classes.endIcon : ''}`,
+    startIcon: `mr-1 ${classes.startIcon ? classes.startIcon : ''}`, 
+    endIcon: `ml-1 ${classes.endIcon ? classes.endIcon : ''}`,
   })
 
   return (
     <ButtonBase ref={ref} classes={labelClasses} startIcon={startIcon} endIcon={endIcon} disabled={!selectable} {...rest}>
-      {children} <span>{title}</span>
+      {children}{title && <>: <span className={`${labelClasses.title}`}>{title}</span></>}
     </ButtonBase>
   )
 })
@@ -68,6 +106,7 @@ Label.propTypes = {
   size: PropTypes.oneOf(['sm', 'md', 'lg']),
   color: PropTypes.string,
   selectable: PropTypes.bool,
+  shade: PropTypes.oneOf(['light', 'dark'])
 }
 
 Label.defaultProps = {
@@ -75,8 +114,9 @@ Label.defaultProps = {
   startIcon: null,
   endIcon: null,
   title: '',
-  size: 'sm',
-  color: 'primary',
+  size: 'lg',
+  shade: 'light',
+  color: 'neutral',
   selectable: true,
 }
 

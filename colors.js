@@ -310,6 +310,7 @@ const tailwindExtendColors = {
   'neutral-500': '#4a5c8c',
   'neutral-600': '#2c3d74',
   'neutral-700': '#202e63',
+  'neutral-800': '#0f1a4d',
 
   'interactive-50': 'rgba(238, 250, 254, 0.87)',
   'interactive-100': '#d5ecfc',

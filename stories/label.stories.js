@@ -72,7 +72,7 @@ export const variants = () => {
   return (
     <div className="flex">
       <div className='mr-10'>
-        <h3>Light</h3>
+        <h3>Light medium (default)</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -89,7 +89,7 @@ export const variants = () => {
         })}
       </div>
       <div className='mr-10'>
-        <h3>Dark</h3>
+        <h3>Dark medium (default)</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -107,7 +107,7 @@ export const variants = () => {
         })}
       </div>
       <div className='mr-10'>
-        <h3>Light without icon</h3>
+        <h3>Light medium (default) without icon</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -122,7 +122,7 @@ export const variants = () => {
         })}
       </div>
       <div className='mr-10'>
-        <h3>Dark without icon</h3>
+        <h3>Dark medium (default) without icon</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -145,7 +145,7 @@ export const variantsWithTitle = () => {
   return (
     <div className="flex">
       <div className='mr-10'>
-        <h3>Light</h3>
+        <h3>Light medium (default)</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -163,7 +163,7 @@ export const variantsWithTitle = () => {
         })}
       </div>
       <div className='mr-10'>
-        <h3>Dark</h3>
+        <h3>Dark medium (default)</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -182,7 +182,7 @@ export const variantsWithTitle = () => {
         })}
       </div>
       <div className='mr-10'>
-        <h3>Light without icon</h3>
+        <h3>Light medium (default) without icon</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -198,7 +198,7 @@ export const variantsWithTitle = () => {
         })}
       </div>
       <div className='mr-10'>
-        <h3>Dark without icon</h3>
+        <h3>Dark medium (default) without icon</h3>
         {sampleData.map((data, index) => {
           return (
             <div key={index}>
@@ -207,6 +207,83 @@ export const variantsWithTitle = () => {
                 shade='dark'
                 color={data.color} 
                 title='title sample'
+              >
+                Label
+              </Label>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export const Sizes = () => {
+  return (
+    <div className="flex">
+      <div className='mr-10'>
+        <h3>Light small</h3>
+        {sampleData.map((data, index) => {
+          return (
+            <div key={index}>
+              <p className={description.p}>{data.color}: </p>
+              <Label 
+                size='sm'
+                title='title sample'
+                color={data.color} 
+              >
+                Label
+              </Label>
+            </div>
+          )
+        })}
+      </div>
+      <div className='mr-10'>
+        <h3>Dark small</h3>
+        {sampleData.map((data, index) => {
+          return (
+            <div key={index}>
+              <p className={description.p}>{data.color}: </p>
+              <Label 
+                size='sm'
+                title='title sample'
+                shade='dark'
+                color={data.color} 
+              >
+                Label
+              </Label>
+            </div>
+          )
+        })}
+      </div>
+      <div className='mr-10'>
+        <h3>Light large</h3>
+        {sampleData.map((data, index) => {
+          return (
+            <div key={index}>
+              <p className={description.p}>{data.color}: </p>
+              <Label 
+                size='lg'
+                title='title sample'
+                color={data.color} 
+              >
+                Label
+              </Label>
+            </div>
+          )
+        })}
+      </div>
+      <div className='mr-10'>
+        <h3>Dark large</h3>
+        {sampleData.map((data, index) => {
+          return (
+            <div key={index}>
+              <p className={description.p}>{data.color}: </p>
+              <Label 
+                size='lg'
+                title='title sample'
+                shade='dark'
+                color={data.color} 
               >
                 Label
               </Label>

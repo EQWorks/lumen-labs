@@ -722,7 +722,7 @@ const DatePicker = ({
     for (let i = 0; i < getFirstDayOfMonth(multi ? dateObjectMulti : dateObject); i++) {
       prevMonthDays.push(
         <td key={`${startDays}-startDays`} className={datePickerClasses.disabledDay}>
-          <button className={datePickerClasses.disabledDay} disabled>
+          <button disabled>
             {startDays}
           </button>
         </td>,
@@ -734,8 +734,8 @@ const DatePicker = ({
     let endDays = 1
     for (let i = getEndDayOfMonth(multi ? dateObjectMulti : dateObject); i < 6; i++) {
       nextMonthDays.push(
-        <td key={`${endDays}-endDays`}>
-          <button className={datePickerClasses.disabledDay} disabled>
+        <td key={`${endDays}-endDays`} className={datePickerClasses.disabledDay}>
+          <button disabled>
             {endDays}
           </button>
         </td>,

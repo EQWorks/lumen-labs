@@ -31,6 +31,7 @@ export { default as ProgressBar } from './components/progress-bar'
 export { default as ProgressIndicator } from './components/progress-indicator'
 export { default as Checkbox } from './components/checkbox'
 export { default as RangeSliderLabel } from './components/range-slider-label/'
+export { default as Label } from './components/label'
 
 export { makeStyles, LinearAnimation } from './utils/make-styles'
 export { getTailwindConfigColor } from './utils/tailwind-config-color'

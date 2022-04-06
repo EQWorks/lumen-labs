@@ -59,6 +59,7 @@
     "@headlessui/react": "^1.4.0",
     "clsx": "^1.1.1",
     "goober": "^2.0.39",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react-resize-detector": "^6.7.6",
     "react-virtualized-auto-sizer": "^1.0.5",

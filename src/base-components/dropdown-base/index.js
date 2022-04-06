@@ -13,7 +13,7 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
   case 'lg':
     contentSize = {
       menu: 'py-5px',
-      box: `min-h-9 px-2.5 ${ selectedOptions && multiSelect ? 'py-9px' : 'py-2'}`,
+      box: `px-2.5 ${ selectedOptions && multiSelect ? 'py-9px' : 'py-2'}`,
       font: 'text-sm tracking-sm leading-1.43',
       icon: 'mb-9px',
     }
@@ -21,7 +21,7 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
   case 'md':
     contentSize = {
       menu: 'py-3px',
-      box: `min-h-7 px-2.5 ${ selectedOptions && multiSelect ? 'p-5px' : 'py-1.5'}`,
+      box: `px-2.5 ${ selectedOptions && multiSelect ? 'p-5px' : 'py-1.5'}`,
       font: 'text-xs tracking-md leading-1.33',
       icon: 'mb-5px',
     }
@@ -61,10 +61,10 @@ const DropdownBase = forwardRef(({
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
     placeholder: 'normal-case text-secondary-400',
-    startIcon: clsx(`mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`, 
+    startIcon: clsx(`start-icon mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`, 
       { 'text-secondary-600': !disabled },
     ),
-    endIcon: clsx(`fill-current stroke-current 
+    endIcon: clsx(`end-icon fill-current stroke-current 
       ${selectedOptions && multiSelect && contentSize.icon}
       ${overflow === 'horizontal' && 'ml-2.5'}`,
     { 'text-secondary-600': !disabled },

@@ -165,7 +165,7 @@ const DropdownSelect = ({
       <div
         key={`item-container-${index}`}
         className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`}
-        onClick={() => handleOnClick(index, item, type)}
+        onClick={(e) => handleOnClick(index, item, type, e)}
       >
         <div
           className={clsx(`content-container-${index} ${dropdownSelectClasses.contentContainer}`, {
@@ -201,7 +201,7 @@ const DropdownSelect = ({
     )
   }
 
-  const handleOnClick = (i, value, type) => {
+  const handleOnClick = (i, value, type, e) => {
     let newSelectedOptions = []
     if (multiSelect) {
       newSelectedOptions = finalSelectedOptions
@@ -238,10 +238,10 @@ const DropdownSelect = ({
         ? newSelectedOptions.map(({ title }) => title)
         : newSelectedOptions.title
       setSelectedOptions(simplified)
-      onSelect(simplified)
+      onSelect(e, simplified)
     } else {
       setSelectedOptions(newSelectedOptions)
-      onSelect({ ...newSelectedOptions, i })
+      onSelect(e, { ...newSelectedOptions, i })
     }
   }
   
@@ -271,7 +271,7 @@ const DropdownSelect = ({
           ? (
             allowClear
               ? <Delete size={size} onClick={(e) => onClickDelete(e)} />
-              : null
+              : endIcon
           )
           : endIcon
       }

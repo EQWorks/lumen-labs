@@ -76,7 +76,7 @@ const _colorType = (shade, color, focus) => {
   default:
     break
   }
-  
+
   return colorType
 }
 
@@ -104,7 +104,7 @@ const _outlineColor = (shade, color) => {
   default:
     break
   }
-  
+
   return colorType
 }
 
@@ -134,7 +134,7 @@ const _iconHoverColor = (shade, color) => {
   default:
     break
   }
-  
+
   return hoverColor
 }
 
@@ -154,7 +154,20 @@ const customClasses = (shade, color) => {
   })
 }
 
-const Label = forwardRef(({ classes, children, startIcon, endIcon, title, size, shade, color, onClickStartIcon, onClickEndIcon, disabled, ...rest }, ref) => {
+const Label = forwardRef(({ 
+  classes, 
+  children, 
+  startIcon, 
+  endIcon, 
+  title, 
+  size, 
+  shade, 
+  color, 
+  onClickStartIcon, 
+  onClickEndIcon, 
+  disabled, 
+  ...rest 
+}, ref) => {
   const [focus, setFocus] = useState(false)
   const labelSize = _labelSize(size)
   const colorType = _colorType(shade, color, focus)
@@ -205,7 +218,13 @@ Label.propTypes = {
 }
 
 Label.defaultProps = {
-  classes: { root: '', content: '', title: '', startIcon: '', endIcon: '' },
+  classes: { 
+    root: '', 
+    content: '', 
+    title: '', 
+    startIcon: '', 
+    endIcon: '', 
+  },
   startIcon: null,
   endIcon: null,
   title: '',

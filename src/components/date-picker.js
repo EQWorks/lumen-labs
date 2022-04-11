@@ -5,6 +5,7 @@ import moment from 'moment'
 import { Menu } from '@headlessui/react'
 import DropdownSelect from './dropdown-select'
 import Button from './button'
+import Tooltip from './tooltip'
 import { ArrowLeft, ArrowRight, ChevronDown, Delete, Calendar, Info } from '../icons'
 
 import { makeStyles } from '../utils/make-styles'
@@ -193,6 +194,7 @@ const dropdownClasses = Object.freeze({
 
 const DatePicker = ({ 
   classes, 
+  tooltip, 
   navbarType, 
   variant, 
   onSelectDay, 
@@ -1072,7 +1074,15 @@ const DatePicker = ({
                 {label && <div className='mb-1.5 flex flex-row items-center'>
                   <p className='mr-1 font-pt text-xs text-secondary-600 tracking-md leading-1.33'>{label}</p>
                   {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
-                  <Info className='text-secondary-600' size='sm'/>
+                  {(tooltip.title || tooltip.description) && (
+                    <Tooltip 
+                      type='dark'
+                      position='right'
+                      {...tooltip} 
+                    >
+                      <Info className='text-secondary-600' size='sm'/>
+                    </Tooltip>
+                  )}
                 </div>}
                 {renderInput()}
               </>
@@ -1095,6 +1105,7 @@ const DatePicker = ({
 
 DatePicker.propTypes = {
   classes: PropTypes.object,
+  tooltip: PropTypes.object,
   navbarType: PropTypes.oneOf(['both', 'year', 'none']),
   variant: PropTypes.oneOf(['single', 'range', 'multi']),
   onConfirm: PropTypes.func,
@@ -1121,6 +1132,11 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
   classes: {},
+  tooltip: {
+    classes: {},
+    title: '',
+    description: '',
+  },
   navbarType: 'both',
   variant: 'range',
   onConfirm: () => {},

@@ -23,6 +23,7 @@ export default {
  *    calendarDay: each day table cell selector
  *    disabledDay: disabled day cell selector
  *    buttonContainer: action button container div wrapper
+ * [tooltip] - object, please refer to tooltip.stories for object access
  * [navbarType] - string, control navbar types supported values ['both', 'year', 'none'], default = 'both'
  * [variant] - string, control date-picker types supported values ['range', 'single', 'multi'], default = 'range'
  * [onConfirm] - function, returns selected days values when confirm action button is clicked
@@ -43,7 +44,13 @@ export const Normal = () => {
     <div className='flex'>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (both)</h4>
-        <DatePicker />
+        <DatePicker 
+          tooltip={{
+            title: 'Tooltip',
+            description: 'Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.',
+            width: '16rem',
+          }}
+        />
       </div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (year)</h4>

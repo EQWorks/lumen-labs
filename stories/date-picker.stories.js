@@ -61,7 +61,7 @@ export const Normal = () => {
         <DatePicker
           label={{
             title: 'Date Picker',
-            icon: <MoodWarning className='text-secondary-600' size='sm' />,
+            icon: <MoodWarning className='text-warning-600' size='sm' />,
           }} 
           navbarType='year'
         />
@@ -69,15 +69,13 @@ export const Normal = () => {
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (none)</h4>
         <DatePicker
+          label='Date Picker' 
           navbarType='none'
         />
       </div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>without actionButtons (true)</h4>
         <DatePicker
-          label={{
-            title: 'Date Picker',
-          }} 
           actionButtons
         />
       </div>

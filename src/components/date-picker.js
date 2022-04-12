@@ -1085,15 +1085,17 @@ const DatePicker = ({
               </Menu.Button>
               :
               <>
-                {label.title && <div className={labelClasses.container}>
-                  <p className={labelClasses.title}>{label.title}</p>
+                { (label.title || typeof label === 'string') && <div className={labelClasses.container}>
+                  <p className={labelClasses.title}>
+                    {typeof label === 'string' ? label : label.title}
+                  </p>
                   {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
                   {(tooltip.title || tooltip.description) ? (
                     <Tooltip 
                       position='right'
                       {...tooltip} 
                     >
-                      {label.icon ? label.icon : <Info className={labelClasses.icon} size='sm'/>}
+                      {label.icon && label.icon || <Info className={labelClasses.icon} size='sm'/>}
                     </Tooltip>
                   )
                     :
@@ -1123,7 +1125,10 @@ const DatePicker = ({
 
 DatePicker.propTypes = {
   classes: PropTypes.object,
-  label: PropTypes.object,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   tooltip: PropTypes.object,
   navbarType: PropTypes.oneOf(['both', 'year', 'none']),
   variant: PropTypes.oneOf(['single', 'range', 'multi']),

@@ -232,6 +232,12 @@ const DatePicker = ({
       ${classes.buttonContainer ? classes.buttonContainer : ''}`,
   })
 
+  const labelClasses = Object.freeze({
+    container: `label-container mb-1.5 flex flex-row items-center ${label.classes && label.classes.container ? label.classes.container : ''}`,
+    title: `label-title mr-1 font-pt text-xs text-secondary-600 tracking-md leading-1.33 ${label.classes && label.classes.title ? label.classes.title : ''}`,
+    icon: `label-icon text-secondary-600 cursor-pointer ${label.classes && label.classes.icon ? label.classes.icon : ''}`,
+  })
+
   const [calendarState, setCalendarState] = useState(
     {
       dateObject: moment(defaultDate[0]),
@@ -1079,18 +1085,22 @@ const DatePicker = ({
               </Menu.Button>
               :
               <>
-                {label && <div className='mb-1.5 flex flex-row items-center cursor-pointer'>
-                  <p className='mr-1 font-pt text-xs text-secondary-600 tracking-md leading-1.33'>{label}</p>
+                {label.title && <div className={labelClasses.container}>
+                  <p className={labelClasses.title}>{label.title}</p>
                   {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
-                  {(tooltip.title || tooltip.description) && (
+                  {(tooltip.title || tooltip.description) ? (
                     <Tooltip 
-                      type='dark'
                       position='right'
                       {...tooltip} 
                     >
-                      <Info className='text-secondary-600' size='sm'/>
+                      {label.icon ? label.icon : <Info className={labelClasses.icon} size='sm'/>}
                     </Tooltip>
-                  )}
+                  )
+                    :
+                    <>
+                      {label.icon && label.icon}
+                    </>
+                  }
                 </div>}
                 {renderInput()}
               </>
@@ -1113,6 +1123,7 @@ const DatePicker = ({
 
 DatePicker.propTypes = {
   classes: PropTypes.object,
+  label: PropTypes.object,
   tooltip: PropTypes.object,
   navbarType: PropTypes.oneOf(['both', 'year', 'none']),
   variant: PropTypes.oneOf(['single', 'range', 'multi']),
@@ -1126,7 +1137,6 @@ DatePicker.propTypes = {
       PropTypes.instanceOf(moment),
     ]),
   ),
-  label: PropTypes.string,
   rangeOfYears: PropTypes.number,
   customTrigger: PropTypes.node,
   dateFormat: PropTypes.string,
@@ -1140,6 +1150,15 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
   classes: {},
+  label: {
+    title: '',
+    classes: {
+      container: '',
+      title: '',
+      icon: '',
+    },
+    icon: null,
+  },
   tooltip: {
     classes: {},
     title: '',
@@ -1152,7 +1171,6 @@ DatePicker.defaultProps = {
   onSelectDay: () => {},
   onDeleteInput: () => {},
   defaultDate: [new Date()],
-  label: 'Date Picker',
   rangeOfYears: 10,
   customTrigger: null,
   dateFormat: 'MM/DD/YYYY',

@@ -41,7 +41,7 @@ export default {
 
 export const Normal = () => {
   return (
-    <div className='flex'>
+    <div className=''>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (both)</h4>
         <DatePicker 

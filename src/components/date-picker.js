@@ -6,11 +6,14 @@ import { Menu } from '@headlessui/react'
 import DropdownSelect from './dropdown-select'
 import Button from './button'
 import Tooltip from './tooltip'
+import { InputBase } from '../base-components'
 import { ArrowLeft, ArrowRight, ChevronDown, Delete, Calendar, Info } from '../icons'
+
+import { useComponentIsActive } from '../hooks'
 
 import { makeStyles } from '../utils/make-styles'
 import { ConditionalWrapper } from '../utils/conditional-wrapper'
-import { useComponentIsActive } from '../hooks'
+import { customScroll } from '../utils/custom-scroll'
 import { 
   getWeekdayShort, 
   getDaysInMonth, 
@@ -24,7 +27,6 @@ import {
   getISODateFormat,
   getDayFormat,
 } from '../utils/helpers/calendar'
-import { InputBase } from '../base-components'
 
 
 const customClasses = makeStyles({
@@ -189,7 +191,7 @@ const inputRangeClasses = Object.freeze({
 const dropdownClasses = Object.freeze({
   button: 'dropdown-button-container bg-interactive-50',
   content: 'button-content-container font-pt font-bold',
-  menu: 'dropdown-menu-container w-full h-auto max-h-185px z-50',
+  menu: `dropdown-menu-container w-full h-auto max-h-185px z-50 ${customScroll()}`,
 })
 
 const DatePicker = ({ 
@@ -214,7 +216,7 @@ const DatePicker = ({
 }) => {
   const datePickerClasses = Object.freeze({
     root: `date-picker-root relative inline-flex ${classes.root ? classes.root : ''}`,
-    rootContainer: `date-picker-root-container relative pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm font-pt
+    rootContainer: `date-picker-root-container relative pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm font-pt z-10
       ${classes.rootContainer ? classes.rootContainer : ''} ${hideInput ? '' : 'mt-5px'}`,
     rootButtonContainer: `root-button-container ${classes.rootButtonContainer ? classes.rootButtonContainer : ''}`,
     datePickerMenu: 'date-picker-menu absolute',
@@ -471,6 +473,8 @@ const DatePicker = ({
 
     const { selectedStartDay } = calendarState
     const parseDay = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, d)
+    let _start = rangeVal.start
+    let _end = rangeVal.end
 
     if (!customTrigger && !hideInput) {
       if (rangeVal.selected === 'start') {
@@ -490,6 +494,8 @@ const DatePicker = ({
           start: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatEndDay ? rangeVal.selected : 'end',
         })
+
+        _start = moment(parseDay).format('MM/DD/YYYY')
       } else if (rangeVal.selected === 'end') {
         setCalendarState({
           ...calendarState,
@@ -507,6 +513,8 @@ const DatePicker = ({
           end: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatStartDay ? rangeVal.selected : 'start',
         })
+
+        _end = moment(parseDay).format('MM/DD/YYYY')
       }
     } else {
       if (formatStartDay > d) {
@@ -516,14 +524,13 @@ const DatePicker = ({
           selectedEndDay: selectedStartDay,
         })
 
-        if (variant === 'single') {
-          setInputVal(moment(parseDay).format('MM/DD/YYYY'))
-        } else {
-          setRangeVal({ 
-            start: moment(parseDay).format('MM/DD/YYYY'),
-            end: moment(selectedStartDay).format('MM/DD/YYYY'),
-          })
-        }
+        setRangeVal({ 
+          start: moment(parseDay).format('MM/DD/YYYY'),
+          end: moment(selectedStartDay).format('MM/DD/YYYY'),
+        })
+
+        _start = moment(parseDay).format('MM/DD/YYYY')
+        _end = moment(selectedStartDay).format('MM/DD/YYYY')
       } 
       else if (formatStartDay == d || formatEndDay == d) {
         setCalendarState({
@@ -532,14 +539,13 @@ const DatePicker = ({
           selectedEndDay:  null,
         })
 
-        if (variant === 'single') {
-          setInputVal('')
-        } else {
-          setRangeVal({ 
-            start: '',
-            end: '',
-          })
-        }
+        setRangeVal({ 
+          start: '',
+          end: '',
+        })
+
+        _start = '',
+        _end = ''
       }
       else if (selectedStartDay) {
         setCalendarState({
@@ -547,14 +553,12 @@ const DatePicker = ({
           selectedEndDay: parseDay,
         })
 
-        if (variant === 'single') {
-          setInputVal(moment(parseDay).format('MM/DD/YYYY'))
-        } else {
-          setRangeVal({ 
-            ...rangeVal,
-            end: moment(parseDay).format('MM/DD/YYYY'),
-          })
-        }
+        setRangeVal({ 
+          ...rangeVal,
+          end: moment(parseDay).format('MM/DD/YYYY'),
+        })
+
+        _end = moment(parseDay).format('MM/DD/YYYY')
       } 
       else {
         setCalendarState({
@@ -566,10 +570,12 @@ const DatePicker = ({
           ...rangeVal,
           start: moment(parseDay).format('MM/DD/YYYY'),
         })
+
+        _start = moment(parseDay).format('MM/DD/YYYY')
       }
     }
 
-    onSelectDay(e, getDayFormat(parseDay, dateFormat))
+    onSelectDay(e, { start: _start, end: _end, selected: getDayFormat(parseDay, dateFormat) })
   }
 
   const onDayClickSingle = (e, d, multi) => {
@@ -854,7 +860,8 @@ const DatePicker = ({
     )
   }
 
-  const inputOnChangeSingle = (val) => {
+  const inputOnChangeSingle = (e) => {
+    const val = e.target.value
     const date = moment(val, 'MM/DD/YYYY', true)
 
     if (variant === 'single') {
@@ -870,7 +877,8 @@ const DatePicker = ({
     }
   }
 
-  const inputOnChangeRange = (val, range = false) => {
+  const inputOnChangeRange = (e, range = false) => {
+    const val = e.target.value
     const date = moment(val, 'MM/DD/YYYY', true)
 
     if (!range) {
@@ -1071,7 +1079,7 @@ const DatePicker = ({
               </Menu.Button>
               :
               <>
-                {label && <div className='mb-1.5 flex flex-row items-center'>
+                {label && <div className='mb-1.5 flex flex-row items-center cursor-pointer'>
                   <p className='mr-1 font-pt text-xs text-secondary-600 tracking-md leading-1.33'>{label}</p>
                   {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
                   {(tooltip.title || tooltip.description) && (

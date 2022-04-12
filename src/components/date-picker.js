@@ -1087,7 +1087,7 @@ const DatePicker = ({
               <>
                 { (label.title || typeof label === 'string') && <div className={labelClasses.container}>
                   <p className={labelClasses.title}>
-                    {typeof label === 'string' ? label : label.title}
+                    {label?.title || label}
                   </p>
                   {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
                   {(tooltip.title || tooltip.description) ? (
@@ -1095,12 +1095,12 @@ const DatePicker = ({
                       position='right'
                       {...tooltip} 
                     >
-                      {label.icon && label.icon || <Info className={labelClasses.icon} size='sm'/>}
+                      {label?.icon || <Info className={labelClasses.icon} size='sm'/>}
                     </Tooltip>
                   )
                     :
                     <>
-                      {label.icon && label.icon}
+                      {label?.icon}
                     </>
                   }
                 </div>}

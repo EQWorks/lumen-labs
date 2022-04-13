@@ -2,6 +2,7 @@ import moment from 'moment'
 import React, { useState } from 'react'
 
 import { Button, DatePicker } from '../src'
+import { MoodWarning } from '../src/icons'
 
 
 export default {
@@ -41,10 +42,13 @@ export default {
 
 export const Normal = () => {
   return (
-    <div className='flex'>
+    <div className=''>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (both)</h4>
-        <DatePicker 
+        <DatePicker
+          label={{
+            title: 'Date Picker',
+          }} 
           tooltip={{
             title: 'Tooltip',
             description: 'Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.',
@@ -54,19 +58,24 @@ export const Normal = () => {
       </div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (year)</h4>
-        <DatePicker 
+        <DatePicker
+          label={{
+            title: 'Date Picker',
+            icon: <MoodWarning className='text-warning-600' size='sm' />,
+          }} 
           navbarType='year'
         />
       </div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (none)</h4>
-        <DatePicker 
+        <DatePicker
+          label='Date Picker' 
           navbarType='none'
         />
       </div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>without actionButtons (true)</h4>
-        <DatePicker 
+        <DatePicker
           actionButtons
         />
       </div>
@@ -80,12 +89,18 @@ export const Single = () => {
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (single) - navbarType (both)</h4>
         <DatePicker
+          label={{
+            title: 'Date Picker',
+          }}
           variant='single' 
         />
       </div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (single) - navbarType (year)</h4>
         <DatePicker
+          label={{
+            title: 'Date Picker',
+          }}
           variant='single' 
           navbarType='year'
         />
@@ -93,6 +108,9 @@ export const Single = () => {
       <div className='mb-2'>
         <h4 className='mb-2'>variant (single) - navbarType (none)</h4>
         <DatePicker
+          label={{
+            title: 'Date Picker',
+          }}
           variant='single' 
           navbarType='none'
         />
@@ -104,7 +122,10 @@ export const Single = () => {
 export const Multi = () => {
   return (
     <div className=''>
-      <DatePicker 
+      <DatePicker
+        label={{
+          title: 'Date Picker',
+        }} 
         variant='multi'
       />
     </div>
@@ -119,6 +140,9 @@ export const Custom = () => {
     <div className='flex flex-col'>
       <div className='mb-4 flex'>
         <DatePicker
+          label={{
+            title: 'Date Picker',
+          }}
           variant='single' 
           navbarType='none'
           hideInput
@@ -154,6 +178,9 @@ export const Custom = () => {
       </div>
       <div>
         <DatePicker
+          label={{
+            title: 'Date Picker',
+          }}
           variant='single' 
           navbarType='none'
           customTrigger={

@@ -1,4 +1,4 @@
-import { getTailwindConfigColor } from '..'
+import { getTailwindConfigColor } from './tailwind-config-color'
 import { makeStyles } from  './make-styles'
 
 /**
@@ -15,13 +15,14 @@ export const customScroll = (lumenColor = 'secondary', width = '0.1875rem', thum
     CustomScroll: {
       scrollbarWidth: 'thin',
       scrollbarColor: `${thumbColor} ${trackColor}`,
-      overflow: 'auto',
+      overflowY: 'scroll',
 
       '&::-webkit-scrollbar': {
         width: width,
+        borderRadius: '0.25rem',
       },
 
-      '&:hover::-webkit-scrollbar-thumb': {
+      '&::-webkit-scrollbar-thumb': {
         backgroundColor: thumbColor ? thumbColor : getTailwindConfigColor(`${lumenColor}-400`),
         borderRadius: '0.25rem',
       },
@@ -31,12 +32,14 @@ export const customScroll = (lumenColor = 'secondary', width = '0.1875rem', thum
         borderRadius: '0.25rem',
       },
 
-      '&:hover::-webkit-scrollbar-track': {
+      '&::-webkit-scrollbar-track': {
         backgroundColor: trackColor ? trackColor : getTailwindConfigColor(`${lumenColor}-200`),
+        borderRadius: '0.25rem',
       },
 
       '&:hover::-webkit-scrollbar-track:hover': {
         backgroundColor: hoverTrackColor ? hoverTrackColor : getTailwindConfigColor(`${lumenColor}-300`),
+        borderRadius: '0.25rem',
       },
     },
   })

@@ -5,11 +5,15 @@ import moment from 'moment'
 import { Menu } from '@headlessui/react'
 import DropdownSelect from './dropdown-select'
 import Button from './button'
+import Tooltip from './tooltip'
+import { InputBase } from '../base-components'
 import { ArrowLeft, ArrowRight, ChevronDown, Delete, Calendar, Info } from '../icons'
+
+import { useComponentIsActive } from '../hooks'
 
 import { makeStyles } from '../utils/make-styles'
 import { ConditionalWrapper } from '../utils/conditional-wrapper'
-import { useComponentIsActive } from '../hooks'
+import { customScroll } from '../utils/custom-scroll'
 import { 
   getWeekdayShort, 
   getDaysInMonth, 
@@ -23,7 +27,6 @@ import {
   getISODateFormat,
   getDayFormat,
 } from '../utils/helpers/calendar'
-import { InputBase } from '../base-components'
 
 
 const customClasses = makeStyles({
@@ -188,11 +191,12 @@ const inputRangeClasses = Object.freeze({
 const dropdownClasses = Object.freeze({
   button: 'dropdown-button-container bg-interactive-50',
   content: 'button-content-container font-pt font-bold',
-  menu: 'dropdown-menu-container w-full h-auto max-h-185px z-50',
+  menu: `dropdown-menu-container w-full h-auto max-h-185px z-50 ${customScroll()}`,
 })
 
 const DatePicker = ({ 
   classes, 
+  tooltip, 
   navbarType, 
   variant, 
   onSelectDay, 
@@ -212,7 +216,7 @@ const DatePicker = ({
 }) => {
   const datePickerClasses = Object.freeze({
     root: `date-picker-root relative inline-flex ${classes.root ? classes.root : ''}`,
-    rootContainer: `date-picker-root-container relative pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm font-pt
+    rootContainer: `date-picker-root-container relative pt-15px bg-secondary-50 shadow-light-20 border border-neutral-100 rounded-sm font-pt z-10
       ${classes.rootContainer ? classes.rootContainer : ''} ${hideInput ? '' : 'mt-5px'}`,
     rootButtonContainer: `root-button-container ${classes.rootButtonContainer ? classes.rootButtonContainer : ''}`,
     datePickerMenu: 'date-picker-menu absolute',
@@ -226,6 +230,12 @@ const DatePicker = ({
     disabledDay: `calendar-day-disabled text-secondary-400 px-5px py-0 cursor-not-allowed ${classes.disabledDay ? classes.disabledDay : ''}`,
     buttonContainer: `button-container px-15px py-2.5 flex justify-between text-xs leading-1.33 tracking-lg
       ${classes.buttonContainer ? classes.buttonContainer : ''}`,
+  })
+
+  const labelClasses = Object.freeze({
+    container: `label-container mb-1.5 flex flex-row items-center ${label.classes && label.classes.container ? label.classes.container : ''}`,
+    title: `label-title mr-1 font-pt text-xs text-secondary-600 tracking-md leading-1.33 ${label.classes && label.classes.title ? label.classes.title : ''}`,
+    icon: `label-icon text-secondary-600 cursor-pointer ${label.classes && label.classes.icon ? label.classes.icon : ''}`,
   })
 
   const [calendarState, setCalendarState] = useState(
@@ -469,6 +479,8 @@ const DatePicker = ({
 
     const { selectedStartDay } = calendarState
     const parseDay = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, d)
+    let _start = rangeVal.start
+    let _end = rangeVal.end
 
     if (!customTrigger && !hideInput) {
       if (rangeVal.selected === 'start') {
@@ -488,6 +500,8 @@ const DatePicker = ({
           start: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatEndDay ? rangeVal.selected : 'end',
         })
+
+        _start = moment(parseDay).format('MM/DD/YYYY')
       } else if (rangeVal.selected === 'end') {
         setCalendarState({
           ...calendarState,
@@ -505,6 +519,8 @@ const DatePicker = ({
           end: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatStartDay ? rangeVal.selected : 'start',
         })
+
+        _end = moment(parseDay).format('MM/DD/YYYY')
       }
     } else {
       if (formatStartDay > d) {
@@ -514,14 +530,13 @@ const DatePicker = ({
           selectedEndDay: selectedStartDay,
         })
 
-        if (variant === 'single') {
-          setInputVal(moment(parseDay).format('MM/DD/YYYY'))
-        } else {
-          setRangeVal({ 
-            start: moment(parseDay).format('MM/DD/YYYY'),
-            end: moment(selectedStartDay).format('MM/DD/YYYY'),
-          })
-        }
+        setRangeVal({ 
+          start: moment(parseDay).format('MM/DD/YYYY'),
+          end: moment(selectedStartDay).format('MM/DD/YYYY'),
+        })
+
+        _start = moment(parseDay).format('MM/DD/YYYY')
+        _end = moment(selectedStartDay).format('MM/DD/YYYY')
       } 
       else if (formatStartDay == d || formatEndDay == d) {
         setCalendarState({
@@ -530,14 +545,13 @@ const DatePicker = ({
           selectedEndDay:  null,
         })
 
-        if (variant === 'single') {
-          setInputVal('')
-        } else {
-          setRangeVal({ 
-            start: '',
-            end: '',
-          })
-        }
+        setRangeVal({ 
+          start: '',
+          end: '',
+        })
+
+        _start = '',
+        _end = ''
       }
       else if (selectedStartDay) {
         setCalendarState({
@@ -545,14 +559,12 @@ const DatePicker = ({
           selectedEndDay: parseDay,
         })
 
-        if (variant === 'single') {
-          setInputVal(moment(parseDay).format('MM/DD/YYYY'))
-        } else {
-          setRangeVal({ 
-            ...rangeVal,
-            end: moment(parseDay).format('MM/DD/YYYY'),
-          })
-        }
+        setRangeVal({ 
+          ...rangeVal,
+          end: moment(parseDay).format('MM/DD/YYYY'),
+        })
+
+        _end = moment(parseDay).format('MM/DD/YYYY')
       } 
       else {
         setCalendarState({
@@ -564,10 +576,12 @@ const DatePicker = ({
           ...rangeVal,
           start: moment(parseDay).format('MM/DD/YYYY'),
         })
+
+        _start = moment(parseDay).format('MM/DD/YYYY')
       }
     }
 
-    onSelectDay(e, getDayFormat(parseDay, dateFormat))
+    onSelectDay(e, { start: _start, end: _end, selected: getDayFormat(parseDay, dateFormat) })
   }
 
   const onDayClickSingle = (e, d, multi) => {
@@ -852,7 +866,8 @@ const DatePicker = ({
     )
   }
 
-  const inputOnChangeSingle = (val) => {
+  const inputOnChangeSingle = (e) => {
+    const val = e.target.value
     const date = moment(val, 'MM/DD/YYYY', true)
 
     if (variant === 'single') {
@@ -868,7 +883,8 @@ const DatePicker = ({
     }
   }
 
-  const inputOnChangeRange = (val, range = false) => {
+  const inputOnChangeRange = (e, range = false) => {
+    const val = e.target.value
     const date = moment(val, 'MM/DD/YYYY', true)
 
     if (!range) {
@@ -1069,10 +1085,24 @@ const DatePicker = ({
               </Menu.Button>
               :
               <>
-                {label && <div className='mb-1.5 flex flex-row items-center'>
-                  <p className='mr-1 font-pt text-xs text-secondary-600 tracking-md leading-1.33'>{label}</p>
+                { (label.title || typeof label === 'string') && <div className={labelClasses.container}>
+                  <p className={labelClasses.title}>
+                    {label?.title || label}
+                  </p>
                   {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
-                  <Info className='text-secondary-600' size='sm'/>
+                  {(tooltip.title || tooltip.description) ? (
+                    <Tooltip 
+                      position='right'
+                      {...tooltip} 
+                    >
+                      {label?.icon || <Info className={labelClasses.icon} size='sm'/>}
+                    </Tooltip>
+                  )
+                    :
+                    <>
+                      {label?.icon}
+                    </>
+                  }
                 </div>}
                 {renderInput()}
               </>
@@ -1095,6 +1125,11 @@ const DatePicker = ({
 
 DatePicker.propTypes = {
   classes: PropTypes.object,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  tooltip: PropTypes.object,
   navbarType: PropTypes.oneOf(['both', 'year', 'none']),
   variant: PropTypes.oneOf(['single', 'range', 'multi']),
   onConfirm: PropTypes.func,
@@ -1107,7 +1142,6 @@ DatePicker.propTypes = {
       PropTypes.instanceOf(moment),
     ]),
   ),
-  label: PropTypes.string,
   rangeOfYears: PropTypes.number,
   customTrigger: PropTypes.node,
   dateFormat: PropTypes.string,
@@ -1121,6 +1155,20 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
   classes: {},
+  label: {
+    title: '',
+    classes: {
+      container: '',
+      title: '',
+      icon: '',
+    },
+    icon: null,
+  },
+  tooltip: {
+    classes: {},
+    title: '',
+    description: '',
+  },
   navbarType: 'both',
   variant: 'range',
   onConfirm: () => {},
@@ -1128,7 +1176,6 @@ DatePicker.defaultProps = {
   onSelectDay: () => {},
   onDeleteInput: () => {},
   defaultDate: [new Date()],
-  label: 'Date Picker',
   rangeOfYears: 10,
   customTrigger: null,
   dateFormat: 'MM/DD/YYYY',

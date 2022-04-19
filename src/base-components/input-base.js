@@ -59,7 +59,7 @@ const InputBase = forwardRef(({
     _setValue('')
     inputRef.current.focus()
     onDelete(e)
-    onChange(`${prefix && prefix}` + '' + `${suffix && suffix}`)
+    onChange(e)
   }
 
   return (

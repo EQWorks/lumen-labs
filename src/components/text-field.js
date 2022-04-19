@@ -194,6 +194,7 @@ const TextField  = ({
   }
 
   const handleChange = (e) => {
+    e.stopPropagation()
     setValue(e.target.value)
     if (inputProps.onChange) {
       inputProps.onChange(e.target.value)

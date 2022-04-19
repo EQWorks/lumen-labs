@@ -8,6 +8,7 @@ import AlertWarning from '../icons/alert-warning'
 import MoodWarning from '../icons/mood-warning'
 
 import { makeStyles } from '../utils/make-styles'
+import './list/scrollbar.css'
 
 
 const styles = makeStyles({
@@ -47,17 +48,19 @@ const bgColors = Object.freeze({
 
 const Message = ({ classes, variant, title, description, showIcon }) => {
   return (
-    <div className={`flex flex-row justify-start items-start p-2.5 rounded-sm ${bgColors[variant]} ${classes.root}`}>
-      {showIcon && <div className={`mr-2.5 ${title ? 'mt-1' : 'mt-0.5'}`}>
-        {renderIcon(variant) || <Question size='lg' className={iconColors[variant]} />}
-      </div>}
-      <div className={classes.messageContainer}>
-        {title && <p className={`font-bold ${styles.titleTypography} text-secondary-900 ${classes.title}`}>
-          {title}
-        </p>}
-        <p className={`font-normal ${styles.descriptionTypography} text-secondary-800 ${classes.description}`}>
-          {description}
-        </p>
+    <div className={`p-1 rounded-sm ${bgColors[variant]}`}>
+      <div className={`scrollbar overflow-auto flex flex-row justify-start items-start p-1.5 rounded-sm ${bgColors[variant]} ${classes.root}`}>
+        {showIcon && <div className={`mr-2.5 ${title ? 'mt-1' : 'mt-0.5'}`}>
+          {renderIcon(variant) || <Question size='lg' className={iconColors[variant]} />}
+        </div>}
+        <div className={classes.messageContainer}>
+          {title && <p className={`font-bold ${styles.titleTypography} text-secondary-900 ${classes.title}`}>
+            {title}
+          </p>}
+          <p className={`font-normal ${styles.descriptionTypography} text-secondary-800 ${classes.description}`}>
+            {description}
+          </p>
+        </div>
       </div>
     </div>
   )

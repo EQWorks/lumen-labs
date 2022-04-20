@@ -194,12 +194,13 @@ const TextField  = ({
   }
 
   const handleChange = (e) => {
-    setValue(e.target.value)
-    if (inputProps.onChange) {
-      inputProps.onChange(e.target.value)
-    }
+    setValue(e.target ? e.target.value : e)
 
-    onChange(e.target.value)
+    if (inputProps.onChange) {
+      inputProps.onChange(e.target? e.target.value : e)
+    }
+  
+    onChange(e.target ? e.target.value : e)
   }
 
   const handleFocus = (i) => {

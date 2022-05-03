@@ -28,6 +28,7 @@ Header.propTypes = {
   children: PropTypes.any,
   classes: PropTypes.object,
   close: PropTypes.func,
+  hideClose: PropTypes.bool,
 }
 
 Header.defaultProps = {

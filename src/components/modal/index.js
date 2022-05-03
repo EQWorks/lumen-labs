@@ -78,7 +78,7 @@ Modal.defaultProps = {
   open: false,
   closeModal: () => {},
   size: 'md',
-  hideClose: false
+  hideClose: false,
 }
 
 Modal.displayName = 'Modal'

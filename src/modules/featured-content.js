@@ -23,7 +23,7 @@ const FeaturedContent = forwardRef(({ classes, buttonProps, children, title, des
     headerContent: `header-content ${classes.headerContet && classes.headerContet}`,
     title: `header-title mb-5px font-bold ${classes.title && classes.title}`,
     description: `header-description ${classes.description && classes.description}`,
-    carousel: `carousel-container flex items-center overflow-scroll ${style.carouselContainer} ${classes.carousel && classes.carousel}`,
+    carousel: `carousel-container p-30px flex items-center overflow-scroll ${style.carouselContainer} ${classes.carousel && classes.carousel}`,
   })
 
   const [carouselRef, setCarouselRef] = useState(null)

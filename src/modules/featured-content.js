@@ -52,7 +52,7 @@ const FeaturedContent = forwardRef(({ classes, buttonProps, children, title, des
         </ButtonGroup>
       </div>
       <div className={featuredContentClasses.carousel} ref={onRefChange}>
-        {children}
+        {children && children}
       </div>
     </div>
   )
@@ -68,6 +68,7 @@ FeaturedContent.propTypes = {
 }
 FeaturedContent.defaultProps = {
   classes: {},
+  children: undefined,
   buttonProps: {},
   title: 'Favorites',
   description: 'Quick access to all your favorited reports.',

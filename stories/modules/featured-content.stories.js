@@ -24,7 +24,7 @@ export const Normal = () => {
 
   const renderTest = () => (
     <>
-      {[...Array(22).keys()].map(i => (<div key={i} className='min-w-48 h-48 mr-2 bg-success-500'>Test - {i + 1}</div>))}
+      {[...Array(22).keys()].map(i => (<div key={i} className='min-w-48 h-48 mr-2 bg-success-500 last:mr-0'>Test - {i + 1}</div>))}
     </>
   )
 

@@ -51,9 +51,9 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
       </div>
       <div
         ref={autoHeight ? detailsRef : null}
-        className={clsx('transition-max-height ease-in-out duration-300 overflow-y-hidden', {
-          [`${classes.details} max-h-full`]: autoHeight && open.includes(id),
-          [`${classes.details} max-h-0`]: autoHeight && !open.includes(id),
+        className={clsx('transition-opacity ease-in-out duration-300', {
+          [`${classes.details} max-h-full opacity-100 overflow-visible`]: autoHeight && open.includes(id),
+          [`${classes.details} max-h-0 opacity-0 overflow-hidden`]: autoHeight && !open.includes(id),
           [classes.details]: !autoHeight && open.includes(id),
           [`${detailsNoHeight} h-0`]: !autoHeight && !open.includes(id),
         })}>

@@ -796,20 +796,16 @@ const DatePicker = ({
         }
       }
 
-      if (formatMinDate) {
-        if (moment(parseDay).diff(formatMinDate) < 0) {
-          selectedClass = 'cursor-not-allowed'
-          selectedRangeClass = 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
-          disableDay = true
-        }
+      if (formatMinDate && moment(parseDay).diff(formatMinDate) < 0) {
+        selectedClass = 'cursor-not-allowed'
+        selectedRangeClass = 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
+        disableDay = true
       }
 
-      if (formatMaxDate) {
-        if (moment(parseDay).diff(formatMaxDate) > 0) {
-          selectedClass = 'cursor-not-allowed'
-          selectedRangeClass = 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
-          disableDay = true
-        }
+      if (formatMaxDate && moment(parseDay).diff(formatMaxDate) > 0) {
+        selectedClass = 'cursor-not-allowed'
+        selectedRangeClass = 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
+        disableDay = true
       }
 
       if (formatStartDay && rangeVal.selected === 'end') {
@@ -892,19 +888,17 @@ const DatePicker = ({
   }
 
   const isDateOnRange = (date) => {
-    let isOnRange = true
-
     if (date.isValid()) {
       if (formatMinDate && formatMaxDate) {
-        isOnRange = (moment(formatMinDate, 'YYYY-MM-DD').diff(date) <= 0 && moment(formatMaxDate, 'YYYY-MM-DD').diff(date) >= 0) ? true : false
+        return (moment(formatMinDate, 'YYYY-MM-DD').diff(date) <= 0 && moment(formatMaxDate, 'YYYY-MM-DD').diff(date) >= 0)
       } else if (formatMinDate && !formatMaxDate) {
-        isOnRange = moment(formatMinDate, 'YYYY-MM-DD').diff(date) <= 0 ? true : false
+        return moment(formatMinDate, 'YYYY-MM-DD').diff(date) <= 0
       } else if (formatMaxDate && !formatMinDate) {
-        isOnRange = moment(formatMaxDate, 'YYYY-MM-DD').diff(date) >= 0 ? true : false
+        return moment(formatMaxDate, 'YYYY-MM-DD').diff(date) >= 0
       } 
     }
 
-    return isOnRange
+    return true
   }
 
   const inputOnChangeSingle = (e) => {

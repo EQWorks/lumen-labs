@@ -4,8 +4,19 @@ import clsx from 'clsx'
 import { useResizeDetector } from 'react-resize-detector'
 
 
-const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon, CompressIcon, alignIcon, open, setOpen, onChange, autoHeight }, ref) => {
-  const detailsNoHeight = classes.details?.split(/\bh-\w+|\bp-\w+|\bpy-\w+/).map((r) => r.trim()).filter((r) => r).join(' ')
+const PanelBase = React.forwardRef(({
+  children,
+  classes,
+  id,
+  header,
+  ExpandIcon,
+  CompressIcon,
+  alignIcon,
+  open,
+  setOpen,
+  onChange,
+  overflow,
+}, ref) => {
   const Icon = open.includes(id) ? ExpandIcon : CompressIcon ?? ExpandIcon
   const renderIcon = () => {
     if (Icon) {
@@ -37,7 +48,7 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
   const height = useMemo(() => headerHeight + detailsHeight, [headerHeight, detailsHeight])
 
   return (
-    <div ref={ref} style={autoHeight && height ? { height } : {}} >
+    <div ref={ref} style={height ? { height } : {}} >
       <div
         ref={headerRef}
         className={clsx(`${classes.header} cursor-pointer flex flex-row`, {
@@ -50,12 +61,10 @@ const PanelBase = React.forwardRef(({ children, classes, id, header, ExpandIcon,
         {alignIcon === 'end' && renderIcon()}
       </div>
       <div
-        ref={autoHeight ? detailsRef : null}
+        ref={detailsRef}
         className={clsx('transition-opacity ease-in-out duration-300', {
-          [`${classes.details} max-h-full opacity-100 overflow-visible`]: autoHeight && open.includes(id),
-          [`${classes.details} max-h-0 opacity-0 overflow-hidden`]: autoHeight && !open.includes(id),
-          [classes.details]: !autoHeight && open.includes(id),
-          [`${detailsNoHeight} h-0`]: !autoHeight && !open.includes(id),
+          [`${classes.details} max-h-full opacity-100 ${overflow ? 'overflow-visible': 'overflow-hidden'}`]: open.includes(id),
+          [`${classes.details} max-h-0 opacity-0 overflow-hidden`]: !open.includes(id),
         })}>
         {children}
       </div>
@@ -77,7 +86,7 @@ PanelBase.propTypes = {
   setOpen: PropTypes.func,
   classes: PropTypes.object,
   onChange: PropTypes.func,
-  autoHeight: PropTypes.bool,
+  overflow: PropTypes.bool,
 }
 PanelBase.defaultProps = {
   open: [],
@@ -87,7 +96,7 @@ PanelBase.defaultProps = {
   ExpandIcon: null,
   CompressIcon: null,
   alignIcon: 'start',
-  autoHeight: false,
+  overflow: false,
 }
 
 PanelBase.displayName = 'PanelBase'

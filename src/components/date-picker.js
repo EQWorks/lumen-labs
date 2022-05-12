@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef , useCallback } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
@@ -280,6 +280,12 @@ const DatePicker = ({
     }
   }, [calendarState.selectedStartDay, calendarState.selectedEndDay])
 
+  useEffect(() => {
+    if (!customTrigger) {
+      onClickDatePicker()
+    }
+  }, [focus, customTrigger, onClickDatePicker])
+
   const enforceValue = () => {
     if (variant === 'single') {
       setInputVal(formatStartDay ? moment(calendarState.selectedStartDay).format('MM/DD/YYYY') : '')
@@ -319,9 +325,10 @@ const DatePicker = ({
   if (!componentIsActive && open) { 
     enforceValue()
     setOpen(!open)
+    setFocus(false)
   }
 
-  const onClickDatePicker = () => {
+  const onClickDatePicker = useCallback(() => {
     if (!customTrigger) {
       setComponentIsActive(focus)
       setOpen(focus)
@@ -329,7 +336,7 @@ const DatePicker = ({
       setComponentIsActive((state) => !state)
       setOpen(!open)
     }
-  }
+  }, [customTrigger, open, focus, setComponentIsActive])
 
   const onSelectMonthDropdown = (e, val, multi) => {
     e.stopPropagation()
@@ -526,7 +533,7 @@ const DatePicker = ({
         })
 
         _end = parseDay
-      }
+      } 
     } else {
       if (formatStartDay > d) {
         setCalendarState({
@@ -998,9 +1005,11 @@ const DatePicker = ({
       selectedEndDay:  null,
     })
 
-    if (open) {
-      onClickDatePicker()
+    if (variant === 'single') {
+      inputSingleRef.current.childNodes[2].blur()
     }
+
+    setFocus(false)
 
     onDeleteInput(e)
   }
@@ -1012,18 +1021,36 @@ const DatePicker = ({
         classes={inputClasses}
         value={inputVal}
         onChange={inputOnChangeSingle}
-        onClick={onClickDatePicker}
         onDelete={inputOnDelete}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        startIcon={<Calendar className='text-secondary-600' size='md'/>}
+        onFocus={(e) => {
+          e.stopPropagation()
+          setFocus(true)
+        }}
+        startIcon={
+          <Calendar 
+            className='text-secondary-600' 
+            size='md' 
+            onClick={(e) => {
+              e.stopPropagation()
+              setFocus(true)
+            }}
+          />
+        }
         placeholder='MM/DD/YYYY'
         maxLength='10'
         deleteButton={deleteInputButton}
       />
       :
-      <div className={`${customClasses.inputRangeContainer} ${inputRangeClasses.container}`} onClick={onClickDatePicker}>
-        <div className="inputRangeContent flex">
+      <div 
+        className={`${customClasses.inputRangeContainer} ${inputRangeClasses.container}`} 
+        onClick={(e) => {
+          e.stopPropagation()
+          setFocus(true)
+          inputStartRef.current.childNodes[1].focus()
+          setRangeVal({ ...rangeVal, selected: 'start' })
+        }}
+      >
+        <div className="input-range-content flex">
           <div className={inputRangeClasses.startIcon}>
             <Calendar className='text-secondary-600' size='md'/>
           </div>
@@ -1031,12 +1058,15 @@ const DatePicker = ({
             ref={inputStartRef}
             classes={inputRangeClasses}
             onChange={inputOnChangeRange}
-            onFocus={() => {
+            onFocus={(e) => {
+              e.stopPropagation()
               setFocus(true)
               setRangeVal({ ...rangeVal, selected: 'start' })
             }}
-            onBlur={() => setFocus(false)}
-            onClick={() => setRangeVal({ ...rangeVal, selected: 'start' })}
+            onClick={(e) => {
+              e.stopPropagation()
+              setRangeVal({ ...rangeVal, selected: 'start' })
+            }}
             value={rangeVal.start}
             maxLength='10'
             placeholder='Start date'
@@ -1047,12 +1077,15 @@ const DatePicker = ({
             ref={inputEndRef}
             classes={inputRangeClasses}
             onChange={(val) => inputOnChangeRange(val, true)}
-            onFocus={() => {
+            onFocus={(e) => {
+              e.stopPropagation()
               setFocus(true)
               setRangeVal({ ...rangeVal, selected: 'end' })
             }}
-            onBlur={() => setFocus(false)}
-            onClick={() => setRangeVal({ ...rangeVal, selected: 'end' })}
+            onClick={(e) => {
+              e.stopPropagation()
+              setRangeVal({ ...rangeVal, selected: 'end' })
+            }}
             value={rangeVal.end}
             maxLength='10'
             placeholder='End date'
@@ -1060,7 +1093,10 @@ const DatePicker = ({
           />
         </div>
         {deleteInputButton && (rangeVal.start || rangeVal.end) &&
-          <div className={inputRangeClasses.endIcon} onClick={inputOnDelete}>
+          <div 
+            className={inputRangeClasses.endIcon} 
+            onClick={inputOnDelete}
+          >
             <Delete className='fill-current text-secondary-600 cursor-pointer' size='md'/>
           </div>
         }

@@ -32,6 +32,8 @@ export default {
  * [onSelectDay] - function, returns selected day value when a day is clicked
  * [defaultDate] - array, set initial default date for date-picker defaultDate[0] = startDay & defaultDate[1] = endDay for Range/Multi. 
         Only RFC 2822 and ISO 8601 date format, default = new Date()
+ * [minDate] - new Date() / moment() Only RFC 2822 and ISO 8601 date format, set minimum selectable date, default = null
+ * [maxDate] - new Date() / moment() Only RFC 2822 and ISO 8601 date format, set maximum selectable date, default = null
  * [rangeOfYears] - number, control the numbers of display years for the year dropdown
  * [customTrigger] - node, render your custom trigger to handle date picker display
  * [dateFormat] - string, control date format on return from onSelectDay & onConfirm function calls. ONLY MOMENT.JS FORMAT, default = 'MM/DD/YYYY'
@@ -42,7 +44,7 @@ export default {
 
 export const Normal = () => {
   return (
-    <div className=''>
+    <div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (both)</h4>
         <DatePicker
@@ -54,6 +56,21 @@ export const Normal = () => {
             description: 'Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.',
             width: '16rem',
           }}
+        />
+      </div>
+      <div className='mb-2 mr-4'>
+        <h4 className='mb-2'>variant (range) - navbarType (both) with minDate & maxDate</h4>
+        <DatePicker
+          label={{
+            title: 'Date Picker',
+          }} 
+          tooltip={{
+            title: 'Tooltip',
+            description: 'Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.',
+            width: '16rem',
+          }}
+          minDate={moment()}
+          maxDate={moment().add(1, 'month')}
         />
       </div>
       <div className='mb-2 mr-4'>
@@ -85,7 +102,7 @@ export const Normal = () => {
 
 export const Single = () => {
   return (
-    <div className='flex'>
+    <div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (single) - navbarType (both)</h4>
         <DatePicker
@@ -93,6 +110,16 @@ export const Single = () => {
             title: 'Date Picker',
           }}
           variant='single' 
+        />
+      </div>
+      <div className='mb-2 mr-4'>
+        <h4 className='mb-2'>variant (range) - navbarType (both) with minDate & maxDate</h4>
+        <DatePicker
+          label={{
+            title: 'Date Picker',
+          }} 
+          variant='single'
+          minDate={moment()}
         />
       </div>
       <div className='mb-2 mr-4'>

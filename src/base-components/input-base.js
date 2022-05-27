@@ -55,6 +55,7 @@ const InputBase = forwardRef(({
   }
 
   const handleDelete = (e) => {
+    e.preventDefault()
     e.stopPropagation()
     _setValue('')
     inputRef.current.focus()
@@ -82,7 +83,7 @@ const InputBase = forwardRef(({
       {suffix && <span className={classes.suffix}>{suffix}</span>}
       {endIcon && !(value || _value) && <div className={classes.endIcon}>{endIcon}</div>}
       {deleteButton && (value || _value) &&
-        <div className={classes.endIcon} onClick={handleDelete}>
+        <div className={classes.endIcon} onMouseDown={handleDelete}>
           <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
         </div>
       }

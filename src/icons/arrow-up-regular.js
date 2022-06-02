@@ -8,7 +8,7 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const ArrowUp = ({ className, size, ...props }) => {
+const ArrowUpRegular = ({ className, size, ...props }) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -24,7 +24,7 @@ const ArrowUp = ({ className, size, ...props }) => {
   )
 }
 
-ArrowUp.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ArrowUp.defaultProps = { className: '', size: 'lg' }
+ArrowUpRegular.propTypes = { className: PropTypes.string, size: PropTypes.string }
+ArrowUpRegular.defaultProps = { className: '', size: 'lg' }
 
-export default ArrowUp
+export default ArrowUpRegular

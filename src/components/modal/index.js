@@ -32,7 +32,7 @@ const _modalSize = (size) => {
   return modalSize
 }
 
-const Modal = forwardRef(({ classes, children, open, closeModal, size, ...rest }, ref) => {
+const Modal = forwardRef(({ classes, children, open, closeModal, size, hideClose, ...rest }, ref) => {
   const modalSize = _modalSize(size)
 
   const modalClasses = Object.freeze({
@@ -50,7 +50,7 @@ const Modal = forwardRef(({ classes, children, open, closeModal, size, ...rest }
       <div className={`modal-container ${modalClasses.container}`}>
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
-            return React.cloneElement(child, child.type.displayName === 'Header' && { close: closeModal })
+            return React.cloneElement(child, child.type.displayName === 'Header' && { close: closeModal, hideClose })
           }
           return child
         })}
@@ -65,6 +65,7 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired,
   closeModal: PropTypes.func,
   size: PropTypes.string,
+  hideClose: PropTypes.bool,
 }
 
 Modal.defaultProps = {
@@ -77,6 +78,7 @@ Modal.defaultProps = {
   open: false,
   closeModal: () => {},
   size: 'md',
+  hideClose: false,
 }
 
 Modal.displayName = 'Modal'

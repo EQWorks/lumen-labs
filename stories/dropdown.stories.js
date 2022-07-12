@@ -262,17 +262,30 @@ export const PreventDeselect = () => {
     button: 'w-80',
     menu: 'w-80',
   }
-  
+
   return (
     <>
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default - Description</p>
-          <DropdownSelect classes={classes} data={sampleDataDescription} endIcon={<ArrowDown size='md'/>} placeholder='Select an option' preventDeselect={true}/>
+          <DropdownSelect 
+            classes={classes} 
+            data={sampleDataDescription} 
+            endIcon={<ArrowDown size='md'/>} 
+            placeholder='Select an option' 
+            preventDeselect
+          />
         </div>
         <div>
           <p>MultiSelect - vertical</p>
-          <DropdownSelect data={sampleDataMultiselect} endIcon={<ArrowDown size='md'/>} overflow='vertical' placeholder='Select a subject' multiSelect preventDeselect={true}/>
+          <DropdownSelect 
+            data={sampleDataMultiselect} 
+            endIcon={<ArrowDown size='md'/>} 
+            overflow='vertical' 
+            placeholder='Select a subject' 
+            multiSelect 
+            preventDeselect
+          />
         </div>
       </div>
     </>

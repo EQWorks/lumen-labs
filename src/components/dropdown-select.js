@@ -59,7 +59,8 @@ const DropdownSelect = ({
   overflow, 
   disabled, 
   allowClear,
-  simple, 
+  simple,
+  preventDeselect,
   ...rest 
 }) => {
   const [options, setOptions] = useState([])
@@ -209,15 +210,14 @@ const DropdownSelect = ({
       const filterOptions = []
 
       const index = finalSelectedOptions.findIndex(({ title }) => title === value.title)
-      if (index != -1) {
-        newSelectedOptions.splice(index, 1)
-        currOptions.push(value)
-      } else if (finalSelectedOptions.length < selectLimit) {
-        let index = options.map(({ title }) => title).indexOf(value.title)
-        if (index !== -1) {
-          currOptions.splice(index, 1)
-          newSelectedOptions.push({ ...value, type: type || null, i })
+      if (index !== -1) {
+        if (!preventDeselect || type === 'chip') {
+          newSelectedOptions.splice(index, 1)
+          currOptions.push(value)
         }
+      } else if (finalSelectedOptions.length < selectLimit) {
+        currOptions.splice(index, 1)
+        newSelectedOptions.push({ ...value, type: type || null, i })
       }
 
       currOptions.forEach((item) => {
@@ -226,13 +226,14 @@ const DropdownSelect = ({
 
       setOptions(filterOptions)
     } else if (!multiSelect) {
-      if (finalSelectedOptions.title === value.title) {
+      if (finalSelectedOptions.title === value.title && !preventDeselect) {
         newSelectedOptions = []
       } else {
         newSelectedOptions = { ...value, type: type || null, i }
         onClickSelect()
       }
     }
+
     if (simple) {
       const simplified = multiSelect
         ? newSelectedOptions.map(({ title }) => title)
@@ -244,15 +245,15 @@ const DropdownSelect = ({
       onSelect(e, { ...newSelectedOptions, i })
     }
   }
-  
+
   const onClickClose = (e, value) => {
     e.stopPropagation()
-    handleOnClick('', value)
+    handleOnClick('', value, 'chip')
   }
 
   const onClickDelete = (e) => {
     e.stopPropagation()
-    setSelectedOptions([])
+    setSelectedOptions('')
     onDelete(e)
   }
 
@@ -351,6 +352,7 @@ DropdownSelect.propTypes = {
   disabled: PropTypes.bool,
   allowClear: PropTypes.bool,
   simple: PropTypes.bool,
+  preventDeselect: PropTypes.bool,
 }
 
 DropdownSelect.defaultProps = {
@@ -384,6 +386,7 @@ DropdownSelect.defaultProps = {
   disabled: false,
   allowClear: true,
   simple: false,
+  preventDeselect: false,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

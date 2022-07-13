@@ -147,6 +147,7 @@ export const Simple = () => {
  * [disabled] - bool, disable component status, default = false 
  * [allowClear] - bool, enable clearing button when an option is selected, default = true
  * [simple] - bool, accept arrays of strings instead of the more complex data shape outlined above, default = false 
+ * [preventDeselect] - bool, disable default deselect when an item is selected, default = false
  * [...rest] - any div element properties
  */
 
@@ -250,6 +251,41 @@ export const MultiSelect = () => {
         <div>
           <p>Large - vertical</p>
           <DropdownSelect data={sampleDataMultiselect} size='lg' endIcon={<ArrowDown size='lg'/>} overflow='vertical' placeholder='Select a subject' multiSelect/>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export const PreventDeselect = () => {
+  const classes = {
+    button: 'w-80',
+    menu: 'w-80',
+  }
+
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5'>
+          <p>Default - Description</p>
+          <DropdownSelect 
+            classes={classes} 
+            data={sampleDataDescription} 
+            endIcon={<ArrowDown size='md'/>} 
+            placeholder='Select an option' 
+            preventDeselect
+          />
+        </div>
+        <div>
+          <p>MultiSelect - vertical</p>
+          <DropdownSelect 
+            data={sampleDataMultiselect} 
+            endIcon={<ArrowDown size='md'/>} 
+            overflow='vertical' 
+            placeholder='Select a subject' 
+            multiSelect 
+            preventDeselect
+          />
         </div>
       </div>
     </>

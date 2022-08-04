@@ -70,7 +70,7 @@ const DropdownSelect = ({
       : simple ? '' : {}
   ), [multiSelect, simple])
   const [selectedOptions, setSelectedOptions] = useState(defaultValue || value || fallbackEmptyValue)
-  const [selectLimit, setSelectLimit] = useState(limit || 0)
+  const [selectLimit, setSelectLimit] = useState(0)
   const [open, setOpen] = useState(false)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
 
@@ -126,7 +126,7 @@ const DropdownSelect = ({
       })
     })
 
-    !limit && setSelectLimit(length)
+    setSelectLimit(length)
     setOptions(initialOptions)
   }, [finalData, limit])
 
@@ -215,7 +215,7 @@ const DropdownSelect = ({
           newSelectedOptions.splice(index, 1)
           currOptions.push(value)
         }
-      } else if (finalSelectedOptions.length < selectLimit) {
+      } else if (finalSelectedOptions.length < (limit || selectLimit)) {
         currOptions.splice(index, 1)
         newSelectedOptions.push({ ...value, type: type || null, i })
       }

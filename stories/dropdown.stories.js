@@ -142,6 +142,7 @@ export const Simple = () => {
  * [startIcon] - node, icon on left side of select container
  * [endIcon] - node, icon on right side of select container
  * [multiSelect] - bool, control component multiple selection feature, default = false
+ * [limit] - number, control the numbre of selectable item if multiselect is true
  * [showType] - bool, control displaying items type label if exists, default - false
  * [overflow] - string, control selected options x & y overflow - supported values ['horizontal', 'vertical'], default = 'horizontal'
  * [disabled] - bool, disable component status, default = false 

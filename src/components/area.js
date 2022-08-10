@@ -23,14 +23,14 @@ const inputSizes = (size) => {
 
 
 const _areaClasses = ({ container, size }) => ({
-  container: `font-sans ${container ? container : 'w-96 flex flex-col'} ${inputSizes(size)}`,
+  container: `w-96 flex flex-col font-sans ${container ? container : ''} ${inputSizes(size)}`,
   label: 'text-secondary-600',
   helperText: 'mt-1.5 text-secondary-600',
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
 const _textareaBaseClasses = ({ focus, root, filled, disabled }) => ({
-  root: clsx(`${root ? root : 'h-24 mt-1.5 rounded-sm p-sm'}`,
+  root: clsx(`h-24 mt-1.5 rounded-sm p-sm ${root ? root : ''}`,
     { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus },
     { 'border-interactive-500 shadow-focused-interactive': focus },
     { 'border-interactive-500 bg-secondary-50': filled },
@@ -42,7 +42,7 @@ const _textareaBaseClasses = ({ focus, root, filled, disabled }) => ({
   ),
 })
 
-const Area = ({ classes, size, inputProps, label, maxLength, helperText, disabled, onSubmit }) => {
+const Area = ({ classes, size, inputProps, label, maxLength, helperText, disabled, onChange, onSubmit, onFocus, onBlur, ...rest }) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
@@ -50,21 +50,26 @@ const Area = ({ classes, size, inputProps, label, maxLength, helperText, disable
   const areaClasses = _areaClasses({ container, size })
   const textareaBaseClasses = _textareaBaseClasses({ size, focus, root, filled, disabled })
 
-  const handleChange = (val) => {
-    setValue(val)
+  const handleChange = (e) => {
+    setValue(e.target ? e.target.value : e)
+
     if (inputProps.onChange) {
-      inputProps.onChange(val)
+      inputProps.onChange(e.target? e.target.value : e)
     }
+  
+    onChange(e.target ? e.target.value : e)
   }
 
-  const handleFocus = () => {
+  const handleFocus = (e) => {
     setFocus(true)
     setFilled(false)
+    onFocus(e)
   }
 
-  const handleBlur = () => {
+  const handleBlur = (e) => {
     setFocus(false)
     if (value) setFilled(true)
+    onBlur(e)
   }
 
   return (
@@ -73,6 +78,7 @@ const Area = ({ classes, size, inputProps, label, maxLength, helperText, disable
       <form onSubmit={onSubmit}>
         <TextareaBase
           {...inputProps}
+          {...rest}
           classes={textareaBaseClasses}
           onFocus={handleFocus}
           onBlur={handleBlur}
@@ -97,6 +103,9 @@ Area.propTypes = {
   helperText: PropTypes.string,
   disabled: PropTypes.bool,
   onSubmit: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
 }
 Area.defaultProps = {
   classes: { root: '', container: '' },
@@ -107,6 +116,9 @@ Area.defaultProps = {
   helperText: '',
   disabled: false,
   onSubmit: () => {},
+  onChange: () => {},
+  onFocus: () => {},
+  onBlur: () => {},
 }
 
 export default Area

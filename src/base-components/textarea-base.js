@@ -14,6 +14,8 @@ const TextareaBase = forwardRef(({
   placeholder,
   onClick,
   onChange,
+  onFocus,
+  onBlur,
   ...rest
 }, ref) => {
   const baseClasses = _baseClasses()
@@ -26,31 +28,37 @@ const TextareaBase = forwardRef(({
     } else {
       _setValue('')
     }
-    onChange(e.target.value)
+    onChange(e)
   }
 
-  const handleFocus = () => {
+  const handleFocus = (e) => {
     if (defaultValue) {
       _setPlaceholder(defaultValue)
       _setValue('')
     }
+
+    onFocus(e)
   }
 
-  const handleBlur = () => {
+  const handleBlur = (e) => {
     if (!value && _placeholder && defaultValue) {
       _setValue(_placeholder)
       _setPlaceholder('')
     }
+
+    onBlur(e)
   }
   
   return (
-    <div ref={ref} className={`${baseClasses.root} ${classes.root}`} onFocus={handleFocus} onBlur={handleBlur}>
+    <div ref={ref} className={`${baseClasses.root} ${classes.root}`}>
       <textarea
         className={`${baseClasses.textarea} ${classes.textarea}`}
         value={value || _value}
         onClick={onClick}
         onChange={textareaOnChange}
         placeholder={_placeholder}
+        onFocus={handleFocus} 
+        onBlur={handleBlur}
         {...rest}
       />
     </div>
@@ -64,6 +72,8 @@ TextareaBase.propTypes = {
   placeholder: PropTypes.string,
   onClick: PropTypes.func,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
 }
 TextareaBase.defaultProps = {
   classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
@@ -72,6 +82,8 @@ TextareaBase.defaultProps = {
   placeholder: '',
   onClick: () => {},
   onChange: () => {},
+  onFocus: () => {},
+  onBlur: () => {},
 }
 
 TextareaBase.displayName = 'TextareaBase'

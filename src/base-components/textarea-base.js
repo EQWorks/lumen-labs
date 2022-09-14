@@ -77,7 +77,7 @@ TextareaBase.propTypes = {
 }
 TextareaBase.defaultProps = {
   classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
-  value: null,
+  value: '',
   defaultValue: '',
   placeholder: '',
   onClick: () => {},

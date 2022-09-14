@@ -65,13 +65,13 @@ const Area = ({
   const textareaBaseClasses = _textareaBaseClasses({ size, focus, root, filled, disabled })
 
   const handleChange = (e) => {
-    _setValue(e.target ? e.target.value : e)
+    _setValue(e.target?.value || e)
 
     if (inputProps.onChange) {
-      inputProps.onChange(e.target? e.target.value : e)
+      inputProps.onChange(e.target?.value || e)
     }
   
-    onChange(e.target ? e.target.value : e)
+    onChange(e.target?.value || e)
   }
 
   const handleFocus = (e) => {
@@ -103,7 +103,7 @@ const Area = ({
       </form>
       <div className="grid grid-cols-2">
         {helperText && <p className={areaClasses.helperText}>{helperText}</p>}
-        {!isNaN(maxLength) && <p className={areaClasses.wordCount}>{_value && _value.length || 0}/{maxLength}</p>}
+        {!isNaN(maxLength) && <p className={areaClasses.wordCount}>{_value?.length || 0}/{maxLength}</p>}
       </div>
     </div>
   )

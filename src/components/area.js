@@ -42,16 +42,30 @@ const _textareaBaseClasses = ({ focus, root, filled, disabled }) => ({
   ),
 })
 
-const Area = ({ classes, size, inputProps, label, maxLength, helperText, disabled, onChange, onSubmit, onFocus, onBlur, ...rest }) => {
+const Area = ({ 
+  classes, 
+  size, 
+  inputProps, 
+  label, 
+  value,
+  maxLength, 
+  helperText, 
+  disabled, 
+  onChange, 
+  onSubmit, 
+  onFocus, 
+  onBlur, 
+  ...rest 
+}) => {
   const [filled, setFilled] = useState(false)
-  const [value, setValue] = useState(false)
+  const [_value, _setValue] = useState(value)
   const [focus, setFocus] = useState(false)
   const { root, container } = classes
   const areaClasses = _areaClasses({ container, size })
   const textareaBaseClasses = _textareaBaseClasses({ size, focus, root, filled, disabled })
 
   const handleChange = (e) => {
-    setValue(e.target ? e.target.value : e)
+    _setValue(e.target ? e.target.value : e)
 
     if (inputProps.onChange) {
       inputProps.onChange(e.target? e.target.value : e)
@@ -68,7 +82,7 @@ const Area = ({ classes, size, inputProps, label, maxLength, helperText, disable
 
   const handleBlur = (e) => {
     setFocus(false)
-    if (value) setFilled(true)
+    if (_value) setFilled(true)
     onBlur(e)
   }
 
@@ -80,6 +94,7 @@ const Area = ({ classes, size, inputProps, label, maxLength, helperText, disable
           {...inputProps}
           {...rest}
           classes={textareaBaseClasses}
+          value={value || _value}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
@@ -88,7 +103,7 @@ const Area = ({ classes, size, inputProps, label, maxLength, helperText, disable
       </form>
       <div className="grid grid-cols-2">
         {helperText && <p className={areaClasses.helperText}>{helperText}</p>}
-        {!isNaN(maxLength) && <p className={areaClasses.wordCount}>{value.length || 0}/{maxLength}</p>}
+        {!isNaN(maxLength) && <p className={areaClasses.wordCount}>{value && value.length || 0}/{maxLength}</p>}
       </div>
     </div>
   )
@@ -99,6 +114,7 @@ Area.propTypes = {
   size: PropTypes.string,
   inputProps: PropTypes.object,
   label: PropTypes.string,
+  value: PropTypes.string,
   maxLength: PropTypes.oneOfType([PropTypes.oneOf([NaN]), PropTypes.number]),
   helperText: PropTypes.string,
   disabled: PropTypes.bool,
@@ -112,6 +128,7 @@ Area.defaultProps = {
   size: 'md',
   inputProps: {},
   label: '',
+  value: '',
   maxLength: NaN,
   helperText: '',
   disabled: false,

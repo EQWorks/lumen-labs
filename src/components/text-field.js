@@ -111,7 +111,7 @@ const renderLabel = ({ label, required, textFieldClasses }) => (
 const renderFooter = ({ helperText, maxLength, value, textFieldClasses }) => (
   <div className={`flex flex-row ${helperText ? 'justify-between' : 'justify-end'}`}>
     {helperText && <p className={textFieldClasses.helperText}>{helperText}</p>}
-    {maxLength && <p className={textFieldClasses.wordCount}>{value.length || 0}/{maxLength}</p>}
+    {maxLength && <p className={textFieldClasses.wordCount}>{value && value.length || 0}/{maxLength}</p>}
   </div>
 )
 
@@ -321,6 +321,7 @@ const TextField  = ({
         size={size}
         deleteButton={!disabled && deleteButton}
         required={required}
+        maxLength={maxLength}
         {...rest}
       />
       {variant !== 'borderless' && renderFooter({ helperText, maxLength, value, textFieldClasses })}

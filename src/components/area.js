@@ -103,7 +103,7 @@ const Area = ({
       </form>
       <div className="grid grid-cols-2">
         {helperText && <p className={areaClasses.helperText}>{helperText}</p>}
-        {!isNaN(maxLength) && <p className={areaClasses.wordCount}>{value && value.length || 0}/{maxLength}</p>}
+        {!isNaN(maxLength) && <p className={areaClasses.wordCount}>{_value && _value.length || 0}/{maxLength}</p>}
       </div>
     </div>
   )

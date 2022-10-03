@@ -36,7 +36,7 @@ const SideBarItem = forwardRef(({
       <div className={sideBarItemClasses.contentContainer}>
         {icon && (
           <div className={sideBarItemClasses.icon}>
-            {React.cloneElement(icon, { ...icon.props, isactive: `${isHover}` })}
+            {React.cloneElement(icon, { ...icon.props, active: (isHover || isSelected) ? 1 : 0 })}
           </div>
         )}
         <div className={sideBarItemClasses.text}>

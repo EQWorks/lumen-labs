@@ -97,8 +97,15 @@ const Button = ({ children, classes, variant, size, type, disabled, ...rest }) =
     endIcon: `${sizes.iconPadding.endIcon[size]} ${classes.endIcon}`,
   }
 
+  const handleClick = e => {
+    e.stopPropagation()
+    if (typeof rest?.onClick === 'function') {
+      rest.onClick(e)
+    }
+  }
+
   return (
-    <ButtonBase classes={_classes} disabled={disabled} {...rest}>
+    <ButtonBase classes={_classes} disabled={disabled} {...rest} onClick={handleClick}>
       {children}
     </ButtonBase>
   )

@@ -6,7 +6,12 @@ import { CircleLoader } from '../icons'
 
 
 const Loader = ({ children, classes, backdrop, open, message, Icon }) => {
-  const iconClass = `fill-current text-white animate-spin ${classes.icon}`
+  const loaderClasses = Object.freeze({
+    root: `relative inline-flex items-center justify-center ${classes.root ? classes.root : ''}`,
+    icon: `icon-container fill-current ${classes.icon ? classes.icon : ''} animate-spin`,
+    message: `ml-2 ${classes.message ? classes.message : ''}`,
+  })
+
   let LoaderIcon = CircleLoader
 
   if (Icon) {
@@ -16,18 +21,18 @@ const Loader = ({ children, classes, backdrop, open, message, Icon }) => {
   if (backdrop) {
     return (
       <DialogBase modal open={open}>
-        <div className={classes.root || 'inline-flex'}>
-          <LoaderIcon className={iconClass} />
-          {message && <p className={`ml-2 text-white ${classes.message}`}>{message}</p>}
+        <div className={loaderClasses.root}>
+          <LoaderIcon className={loaderClasses.icon} />
+          {message && <p className={loaderClasses.message}>{message}</p>}
         </div>
       </DialogBase>
     )
   }
 
   return (
-    <div className={classes.root || 'relative inline-flex'} >
+    <div className={loaderClasses.root} >
       {children}
-      {open && <LoaderIcon className={`absolute top-1/2 left-1/2 -mt-2.5 -ml-2.5 ${iconClass}`} />}
+      {open && <LoaderIcon className={loaderClasses.icon} />}
     </div>
   )
 }

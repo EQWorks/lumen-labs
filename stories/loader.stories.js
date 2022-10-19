@@ -20,22 +20,42 @@ export default {
  */
 
 export const Backdrop = () => {
-  return (<Loader open backdrop message='Loading...' />)
+  return (
+    <Loader 
+      classes={{
+        root: 'text-white',
+      }} 
+      open 
+      backdrop 
+      message='Loading...' 
+    />)
 }
 
 export const Wrapper = () => {
   const [open, setOpen] = useState(false)
   const button = (<button
     onClick={() => setOpen(!open)}
-    className={`
-      focus:outline-none w-24 p-2 rounded-sm cursor-pointer 
+    className={`focus:outline-none w-24 p-2 rounded-sm cursor-pointer 
       hover:bg-blue-100 ${open ? 'bg-blue-100 text-blue-100' : 'bg-blue-50'}
     `}
   >Click</button>)
   
   return (
-    <Loader open={open} classes={{ icon: 'text-primary-700' }}>
+    <Loader 
+      open={open} 
+      classes={{
+        icon: 'absolute inset-0 m-auto text-primary-700', 
+      }}
+    >
       <span>{button}</span>
+    </Loader>
+  )
+}
+
+export const Simple = () => {
+  return (
+    <Loader open>
+      Loading
     </Loader>
   )
 }

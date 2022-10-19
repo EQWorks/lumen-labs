@@ -9,7 +9,7 @@ const Loader = ({ children, classes, backdrop, open, message, Icon }) => {
   const loaderClasses = Object.freeze({
     root: `relative inline-flex items-center justify-center ${classes.root ? classes.root : ''}`,
     icon: `icon-container fill-current ${classes.icon ? classes.icon : ''} animate-spin`,
-    message: `ml-2 ${classes.message ? classes.message : ''}`
+    message: `ml-2 ${classes.message ? classes.message : ''}`,
   })
 
   let LoaderIcon = CircleLoader

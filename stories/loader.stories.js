@@ -21,14 +21,14 @@ export default {
 
 export const Backdrop = () => {
   return (
-  <Loader 
-    classes={{
-      root: 'text-white'
-    }} 
-    open 
-    backdrop 
-    message='Loading...' 
-  />)
+    <Loader 
+      classes={{
+        root: 'text-white',
+      }} 
+      open 
+      backdrop 
+      message='Loading...' 
+    />)
 }
 
 export const Wrapper = () => {
@@ -44,7 +44,7 @@ export const Wrapper = () => {
     <Loader 
       open={open} 
       classes={{
-        icon: 'absolute inset-0 m-auto text-primary-700' 
+        icon: 'absolute inset-0 m-auto text-primary-700', 
       }}
     >
       <span>{button}</span>

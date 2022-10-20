@@ -7,6 +7,7 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
+
 const Alias = ({ className, size, ...props }) => (
   <svg
     className={`${iconSize[size]} ${className}`}

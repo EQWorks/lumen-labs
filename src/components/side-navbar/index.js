@@ -1,12 +1,15 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
+import SideBarHeader from './side-bar-header'
+import SideBarMenu from './side-bar-menu'
 import SideBarItem from './side-bar-item'
+import SideBarFooter from './side-bar-footer'
 
 
 const SideNavbar = forwardRef(({ children, classes, ...rest }, ref) => {
   const sideNavbarClasses = Object.freeze({
-    root: `side-navbar__root w-300px h-screen flex flex-col bg-white border-r border-solid border-secondary-300 ${classes.root}`,
+    root: `side-navbar__root relative h-screen inline-flex flex-col bg-white border-r border-solid border-secondary-300 ${classes.root}`,
   })
 
   return (
@@ -36,5 +39,9 @@ SideNavbar.defaultProps = {
 
 SideNavbar.displayName = 'SideNavbar'
 
+SideNavbar.SideBarHeader = SideBarHeader
+SideNavbar.SideBarMenu = SideBarMenu
 SideNavbar.SideBarItem = SideBarItem
+SideNavbar.SideBarFooter = SideBarFooter
+
 export default SideNavbar

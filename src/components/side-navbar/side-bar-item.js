@@ -1,6 +1,14 @@
 import React, { forwardRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import { makeStyles } from '../../utils/make-styles'
+import { getTailwindConfigColor } from '../../utils/tailwind-config-color'
 
+
+const customStyle = makeStyles({
+  boxShadowOnActive: {
+    boxShadow: `1px 0 ${getTailwindConfigColor('primary-500')}`,
+  },
+})
 
 const SideBarItem = forwardRef(({ 
   id, 
@@ -12,13 +20,13 @@ const SideBarItem = forwardRef(({
   ...rest 
 }, ref) => {
   const sideBarItemClasses = Object.freeze({
-    mainContainer: `side-bar-item__main-container px-4 py-2 text-secondary-600 cursor-pointer ${classes.mainContainer}
-      hover:text-primary-700 hover:bg-primary-50 hover:border-r-2 hover:border-solid hover:border-primary-700 hover:box-border`,
-    mainContainerActive: `side-bar-item__main-container--active ${classes.mainContainerActive}
-      px-4 py-2 text-primary-700 bg-primary-50 border-r-2 border-solid border-primary-700 box-border cursor-pointer`,
+    itemContainer: `side-bar-item__main-container pl-25px pr-6 py-18px text-secondary-600 cursor-pointer ${classes.itemContainer}
+      hover:bg-primary-50`,
+    itemContainerActive: `side-bar-item__main-container--active ${classes.itemContainerActive}
+      pl-25px pr-6 py-18px text-primary-500 bg-primary-50 cursor-pointer ${customStyle.boxShadowOnActive}`,
     contentContainer: `side-bar-item__content-container flex flex-row items-center ${classes.contentContainer}`,
-    icon: `side-bar-item__icon px-2 ${classes.icon}`,
-    text: `side-bar-item__text text-sm ${classes.text}`,
+    icon: `side-bar-item__icon pr-2.5 ${classes.icon}`,
+    text: `side-bar-item__text text-base leading-4 font-normal font-rc ${classes.text}`,
   })
 
   const [isHover, setIsHover] = useState(false)
@@ -27,7 +35,7 @@ const SideBarItem = forwardRef(({
     <div 
       ref={ref}
       key={id} 
-      className={`${isSelected ? sideBarItemClasses.mainContainerActive : sideBarItemClasses.mainContainer}`} 
+      className={`${isSelected ? sideBarItemClasses.itemContainerActive : sideBarItemClasses.itemContainer}`} 
       onClick={onClick} 
       onMouseEnter={() => setIsHover(true)} 
       onMouseLeave={() => setIsHover(false)}
@@ -39,9 +47,7 @@ const SideBarItem = forwardRef(({
             {React.cloneElement(icon, { ...icon.props, active: (isHover || isSelected) ? 1 : 0 })}
           </div>
         )}
-        <div className={sideBarItemClasses.text}>
-          <span>{label}</span>
-        </div>
+        <div className={sideBarItemClasses.text}>{label}</div>
       </div>
     </div>
   )
@@ -58,7 +64,7 @@ SideBarItem.propTypes = {
 
 SideBarItem.defaultProps = {
   id: '',
-  classes: { mainContainer: '', mainContainerActive: '', contentContainer: '', icon: '', text: '' },
+  classes: { itemContainer: '', itemContainerActive: '', contentContainer: '', icon: '', text: '' },
   label: '',
   icon: null,
   onClick: () => {},

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 
 const SideBarFooter = forwardRef(({ 
-  id, 
   classes, 
   children,
   onClick, 
@@ -17,7 +16,6 @@ const SideBarFooter = forwardRef(({
   return (
     <div 
       ref={ref}
-      key={id} 
       className={sideBarFooterClasses.footerContainer} 
       onClick={onClick} 
       {...rest}
@@ -28,14 +26,12 @@ const SideBarFooter = forwardRef(({
 })
 
 SideBarFooter.propTypes = {
-  id: PropTypes.string,
   classes: PropTypes.object,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
 }
 
 SideBarFooter.defaultProps = {
-  id: '',
   classes: { footerContainer: '' },
   onClick: () => {},
 }

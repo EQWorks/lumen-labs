@@ -2,8 +2,7 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const SideBarHeader = forwardRef(({ 
-  id, 
+const SideBarHeader = forwardRef(({  
   classes, 
   children,
   onClick, 
@@ -17,7 +16,6 @@ const SideBarHeader = forwardRef(({
   return (
     <div 
       ref={ref}
-      key={id} 
       className={sideBarHeaderClasses.headerContainer} 
       onClick={onClick} 
       {...rest}
@@ -28,14 +26,12 @@ const SideBarHeader = forwardRef(({
 })
 
 SideBarHeader.propTypes = {
-  id: PropTypes.string,
   classes: PropTypes.object,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
 }
 
 SideBarHeader.defaultProps = {
-  id: '',
   classes: { headerContainer: '' },
   onClick: () => {},
 }

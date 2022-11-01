@@ -16,7 +16,7 @@ const SideBarMenu = forwardRef(({
   return (
     <div 
       ref={ref}
-      key={id} 
+      id={id}
       className={sideBarMenuClasses.menuContainer} 
       onClick={onClick} 
       {...rest}
@@ -29,7 +29,7 @@ const SideBarMenu = forwardRef(({
 SideBarMenu.propTypes = {
   id: PropTypes.string,
   classes: PropTypes.object,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
 }
 

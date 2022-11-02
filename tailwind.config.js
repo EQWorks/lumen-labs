@@ -34,10 +34,12 @@ module.exports = {
         '9px': '0.563rem',
         '15px': '0.938rem',
         '18px': '1.125rem',
+        '25px': '1.563rem',
         '30px': '1.875rem',
         '42px': '2.625rem',
         '185px': '11.563rem',
         '250px': '15.625rem',
+        '260px': '16.25rem',
         '267px': '16.688rem',
         '300px': '18.75rem',
         '450px': '28.125rem',
@@ -252,6 +254,7 @@ module.exports = {
       DEFAULT: '1',
     },
     fontFamily: {
+      rc: ['Radio Canada', 'sans-serif'],
       pt: ['PT Sans', 'sans-serif'],
       sans: [
         'Open Sans',
@@ -967,7 +970,6 @@ module.exports = {
     }),
   
     function ({ addUtilities, theme }) {
-
       let newUtilities = {}
       const boxShadowPrefix = '0 0 0 1px'
       const colors = theme('colors')

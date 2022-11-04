@@ -94,16 +94,16 @@ const Toast = forwardRef(({
   })
 
   const toastClasses = Object.freeze({
-    root: `text-sm font-bold tracking-sm leading-1.43 rounded-sm
+    root: `toast__root-container text-sm font-bold tracking-sm leading-1.43 rounded-sm
       ${classes.root && classes.root} ${size[variant].root} ${colorType[type].root}`,
-    header: `m-2.5 justify-between ${classes.header && classes.header} ${colorType[type].header}`,
-    title: `mr-2.5 ${classes.title && classes.title}`,
-    button: `cursor-pointer ${classes.button && classes.button} ${size[variant].button} ${colorType[type].icon}`,
-    content: `${classes.content && classes.content} ${size[variant].content}`,
-    description: `text-xs font-normal tracking-md leading-1.33 
+    header: `toast__header-container m-2.5 justify-between ${classes.header && classes.header} ${colorType[type].header}`,
+    title: `toast__title-container mr-2.5 ${classes.title && classes.title}`,
+    button: `toast__button-container cursor-pointer ${classes.button && classes.button} ${size[variant].button} ${colorType[type].icon}`,
+    content: `toast__content-container ${classes.content && classes.content} ${size[variant].content}`,
+    description: `toast__description-container text-xs font-normal tracking-md leading-1.33 
       ${classes.description && classes.description} ${colorType[type].description}`,
-    startIcon: `mr-2.5 stroke-current fill-current ${classes.icon && classes.icon} ${colorType[type].icon}`,
-    endIcon: `cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
+    startIcon: `toast__start-icon-container mr-2.5 stroke-current fill-current ${classes.icon && classes.icon} ${colorType[type].icon}`,
+    endIcon: `toast__end-icon-container cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
   })
 
   const progressBarClasses = Object.freeze({

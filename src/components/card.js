@@ -11,7 +11,7 @@ const sizes = Object.freeze({
 })
 
 const Card = ({ classes, size, ...rest }) => {
-  const _classes = { ...classes, root: ['rounded-sm', sizes[size], classes.root].join(' ') }
+  const _classes = { ...classes, root: `card__root-container ${['rounded-sm', sizes[size], classes.root].join(' ')}` }
   return (
     <CardBase classes={_classes} {...rest} />
   )

@@ -55,26 +55,26 @@ const DropdownSelectSteps = ({
 
   const contentSize = _contentSize(size)
   const dropdownSelectStepsClasses = Object.freeze({
-    listContainer: `w-250px h-auto focus:outline-none ${classes.listContainer}`,
-    itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
-    contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200 
+    listContainer: `dropdown-select-steps__list-container w-250px h-auto focus:outline-none ${classes.listContainer}`,
+    itemContainer: `dropdown-select-steps__item-container text-secondary-600 ${contentSize.itemContainer}`,
+    contentContainer: `dropdown-select-steps__content-container px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200 
       ${contentSize.contentContainer} ${classes.contentContainer}`,
-    contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
-    type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
-    dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
+    contentHeader: `dropdown-select-steps__content-header w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
+    type: `dropdown-select-steps__type-container px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
+    dividerContainer: `dropdown-select-steps__divider-container px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
-    startIcon: 'mr-2.5 fill-current stroke-current',
-    endIcon: 'ml-2.5 fill-current stroke-current',
-    selected: 'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
-    category: `${categoryData.items && 'hidden'}`,
-    subCategory: `${subCategoryData.items && 'hidden'}`,
+    startIcon: 'dropdown-select-steps__start-icon-container mr-2.5 fill-current stroke-current',
+    endIcon: 'dropdown-select-steps__end-icon-container ml-2.5 fill-current stroke-current',
+    selected: 'dropdown-select-steps__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
+    category: `dropdown-select-steps__category-container ${categoryData.items && 'hidden'}`,
+    subCategory: `dropdown-select-steps__subcategory-container ${subCategoryData.items && 'hidden'}`,
   })
 
   const dropdownClasses = Object.freeze({
-    root: classes.root,
-    menu: `w-auto mt-5px flex flex-row ${!data.length > 0 && 'hidden'} ${classes.menu}`,
-    button: classes.container,
-    content: classes.content,
+    root: `dropdown-select-steps__root-container ${classes.root}`,
+    menu: `dropdown-select-steps__menu-container w-auto mt-5px flex flex-row ${!data.length > 0 && 'hidden'} ${classes.menu}`,
+    button: `dropdown-select-steps__button-container ${classes.container}`,
+    content: `dropdown-select-steps__main-container ${classes.content}`,
   })
 
   useEffect(() => {

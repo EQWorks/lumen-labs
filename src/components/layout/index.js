@@ -10,7 +10,7 @@ const Layout = ({ children, className }) => {
   const layoutClass = sider > -1 ? 'flex flex-row' : 'flex flex-col'
 
   return (
-    <div className={`${layoutClass} ${className}`}>
+    <div className={`layout__root-container ${layoutClass} ${className}`}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, { setSider })

@@ -85,7 +85,7 @@ const Button = ({ children, classes, variant, size, type, disabled, ...rest }) =
 
   const _classes = {
     button: clsx(
-      `focus:outline-none ${classes.button.borderRadius || 'rounded-sm'}
+      `button__root-container focus:outline-none ${classes.button.borderRadius || 'rounded-sm'}
       font-normal ${sizes.text[size]} ${variants[variant]} ${classes.button}`,
       {
         [sizes[size]]: typeof children === 'string',
@@ -93,8 +93,8 @@ const Button = ({ children, classes, variant, size, type, disabled, ...rest }) =
         'uppercase': size === 'sm',
       },
     ),
-    startIcon: `${sizes.iconPadding.startIcon[size]} ${classes.startIcon}`,
-    endIcon: `${sizes.iconPadding.endIcon[size]} ${classes.endIcon}`,
+    startIcon: `button__start-icon-container ${sizes.iconPadding.startIcon[size]} ${classes.startIcon}`,
+    endIcon: `button__end-icon-container ${sizes.iconPadding.endIcon[size]} ${classes.endIcon}`,
   }
 
   const handleClick = e => {

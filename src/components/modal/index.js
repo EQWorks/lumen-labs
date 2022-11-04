@@ -36,13 +36,13 @@ const Modal = forwardRef(({ classes, children, open, closeModal, size, ...rest }
   const modalSize = _modalSize(size)
 
   const modalClasses = Object.freeze({
-    container: `flex flex-col justify-between bg-secondary-50 rounded-sm border shadow-blue-60 ${modalSize.container} ${classes.content}`,
+    container: `modal__main-container flex flex-col justify-between bg-secondary-50 rounded-sm border shadow-blue-60 ${modalSize.container} ${classes.content}`,
   })
 
   const modalBaseClasses = Object.freeze({
-    root: `px-10 py-5 ${classes.root}`,
-    main: classes.main,
-    overlay: `bg-secondary-700 opacity-70 ${classes.overlay}`,
+    root: `modal__root-container px-10 py-5 ${classes.root}`,
+    main: `modal__main-container ${classes.main}`,
+    overlay: `modal__overlay-container bg-secondary-700 opacity-70 ${classes.overlay}`,
   })
   
   return (

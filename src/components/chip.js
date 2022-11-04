@@ -11,15 +11,14 @@ const Chip = forwardRef(({ classes, children, startIcon, endIcon, color, selecta
   const buttonColor = concatTargetColor(color, ['bg', 'border', 'text'], [100, 100, 500])
 
   const chipClasses = Object.freeze({
-    button: `
-      ${classes.chip ? classes.chip : 'px-5px rounded-md'}
+    button: `chip__main-container px-5px rounded-md ${classes.chip}
       border fill-current ${buttonColor} 
       focus:outline-none ${borderElementsColor}
       ${selectable ? 'cursor-pointer' : 'pointer-events-none'}
     `, 
-    content: `${classes.content ? classes.content : 'text-xxs font-semibold tracking-lg leading-1.6 uppercase'}`, 
-    startIcon: `${classes.startIcon ? classes.startIcon : 'mr-5px'}`, 
-    endIcon: `${classes.endIcon ? classes.endIcon : 'ml-5px'}`,
+    content: `chip__content-container text-xxs font-semibold tracking-lg leading-1.6 uppercase ${classes.content}`, 
+    startIcon: `chip__start-icon-container ${classes.startIcon ? classes.startIcon : 'mr-5px'}`, 
+    endIcon: `chip__end-icon-container ${classes.endIcon ? classes.endIcon : 'ml-5px'}`,
   })
 
   return (

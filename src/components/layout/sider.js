@@ -7,7 +7,7 @@ const Sider = ({ children, setSider, className }) => {
     setSider((prev) => prev + 1)
   }, [setSider])
 
-  return (<aside className={className}>{children}</aside>)
+  return (<aside className={`sider__root-container ${className}`}>{children}</aside>)
 }
 
 Sider.propTypes = { children: PropTypes.node.isRequired, setSider: PropTypes.func, className: PropTypes.string }

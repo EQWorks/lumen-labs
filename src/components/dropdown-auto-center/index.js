@@ -17,19 +17,19 @@ const DropdownAutoCenter = forwardRef(({
   ...rest
 }, ref) => {
   const dialogClasses = Object.freeze({
-    root: `min-w-5 min-h-5 text-xxs uppercase tracking-lg ${classes.root}`,
-    dialog: `w-full ${classes.dialog}`,
+    root: `dropdown-auto-center__root-container min-w-5 min-h-5 text-xxs uppercase tracking-lg ${classes.root}`,
+    dialog: `dropdown-auto-center__dialog-container w-full ${classes.dialog}`,
   })
 
   const dropdownClasses = Object.freeze({
-    button: `min-w-10 px-1.5 py-0.5 flex items-center justify-between cursor-pointer rounded-sm shadow-light-10 shadow-secondary-200
+    button: `dropdown-auto-center__button-container min-w-10 px-1.5 py-0.5 flex items-center justify-between cursor-pointer rounded-sm shadow-light-10 shadow-secondary-200
       hover:shadow-primary-50 ${classes.button && classes.button} ${disabled ? 'text-secondary-400' : 'text-interactive-500'}`,
-    menu: `min-w-10 overflow-y-auto overflow-x-hidden relative rounded-sm shadow-light-10 bg-secondary-50 shadow-secondary-200
+    menu: `dropdown-auto-center__menu-container min-w-10 overflow-y-auto overflow-x-hidden relative rounded-sm shadow-light-10 bg-secondary-50 shadow-secondary-200
       hover:shadow-primary-50 ${scrollable && 'h-10'} ${classes.menu && classes.menu}`,
-    item: `rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm text-secondary-600
+    item: `dropdown-auto-center__item-container rows-selection flex px-1.5 py-0.5 cursor-pointer rounded-sm text-secondary-600
       hover:bg-secondary-50 hover:text-secondary-800 hover:shadow-light-10
       ${classes.item && classes.item}`,
-    disabled: 'bg-secondary-100 border-secondary-400 cursor-not-allowed pointer-events-none',
+    disabled: 'dropdown-auto-center__disabled bg-secondary-100 border-secondary-400 cursor-not-allowed pointer-events-none',
   })
 
   const [open, setOpen] = useState(false)

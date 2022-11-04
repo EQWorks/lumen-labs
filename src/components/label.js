@@ -174,14 +174,14 @@ const Label = forwardRef(({
   const outlineColor = _outlineColor(shade, color)
 
   const labelClasses = Object.freeze({
-    button: `rounded-3px  ${classes.root} ${labelSize.box} ${customClasses(shade, color).buttonContainer}
+    button: `label__root-container rounded-3px  ${classes.root} ${labelSize.box} ${customClasses(shade, color).buttonContainer}
       border fill-current focus:outline-none ${colorType}
       ${!disabled ? 'cursor-pointer' : 'pointer-events-none'}
     `, 
-    content: `font-bold tracking-normal leading-1 ${labelSize.font} ${classes.content}`, 
-    title: `font-normal ${classes.title}`,
-    startIcon: `mr-3px p-px flex justify-center items-center ${labelSize.icon} ${classes.startIcon}`, 
-    endIcon: `icon-hover ml-3px p-px flex justify-center items-center rounded-3px ${labelSize.icon} ${classes.endIcon}`,
+    content: `label__content-container font-bold tracking-normal leading-1 ${labelSize.font} ${classes.content}`, 
+    title: `label__title-container font-normal ${classes.title}`,
+    startIcon: `label__start-icon-container mr-3px p-px flex justify-center items-center ${labelSize.icon} ${classes.startIcon}`, 
+    endIcon: `label__end-icon-container icon-hover ml-3px p-px flex justify-center items-center rounded-3px ${labelSize.icon} ${classes.endIcon}`,
   })
 
   return (

@@ -50,7 +50,7 @@ const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onCh
         ]: !inputProps?.disabled,
         'cursor-not-allowed bg-secondary-300 text-secondary-500': inputProps?.disabled,
       }),
-      label: clsx(`checkbo__label-container font-normal align-middle ${styles.label}`, {
+      label: clsx(`checkbox__label-container font-normal align-middle ${styles.label}`, {
         'text-secondary-500': inputProps.disabled,
         'text-secondary-600': !inputProps.disabled,
         'text-secondary-800': !inputProps.disabled && (

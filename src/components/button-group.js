@@ -25,7 +25,7 @@ const ButtonGroup = ({ children, variant, size, align }) => {
   const lastElBorder = align === 'vertical' ? 'rounded-b-sm' : 'rounded-r-sm'
 
   return (
-    <div className={`inline-flex ${flexDir}`}>
+    <div className={`buttton-group__root-contaienr inline-flex ${flexDir}`}>
       {Children.map(children, (child, i) => {
         const isFirstEl = i === 0
         const isLastEl = i === (count - 1)

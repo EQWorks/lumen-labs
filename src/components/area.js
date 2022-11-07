@@ -23,20 +23,20 @@ const inputSizes = (size) => {
 
 
 const _areaClasses = ({ container, size }) => ({
-  container: `w-96 flex flex-col font-sans ${container ? container : ''} ${inputSizes(size)}`,
+  container: `textarea__main-container w-96 flex flex-col font-sans ${container ? container : ''} ${inputSizes(size)}`,
   label: 'text-secondary-600',
   helperText: 'mt-1.5 text-secondary-600',
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
 const _textareaBaseClasses = ({ focus, root, filled, disabled }) => ({
-  root: clsx(`h-24 mt-1.5 rounded-sm p-sm ${root ? root : ''}`,
+  root: clsx(`textarea__root-container h-24 mt-1.5 rounded-sm p-sm ${root ? root : ''}`,
     { 'border-secondary-400 hover:border-secondary-500': !disabled && !focus },
     { 'border-interactive-500 shadow-focused-interactive': focus },
     { 'border-interactive-500 bg-secondary-50': filled },
     { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
   ),
-  textarea: clsx('outline-none text-secondary-800', 
+  textarea: clsx('textarea__content-container outline-none text-secondary-800', 
     { 'bg-secondary-50': filled },
     { 'bg-secondary-100 placeholder-secondary-300': disabled },
   ),

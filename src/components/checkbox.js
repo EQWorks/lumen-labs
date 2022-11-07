@@ -36,8 +36,8 @@ const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onCh
 
   return (<CheckboxBase
     classes={{
-      root: `inline-flex items-center ${classes.root}`,
-      input: clsx(`focus:ring-0 focus:ring-offset-0 border
+      root: `checkbox__root-container inline-flex items-center ${classes.root}`,
+      input: clsx(`checkbox__input-container focus:ring-0 focus:ring-offset-0 border
         rounded-sm bg-secondary-50 border-secondary-400
         ${styles.input} ${classes.input}`,
       {
@@ -50,7 +50,7 @@ const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onCh
         ]: !inputProps?.disabled,
         'cursor-not-allowed bg-secondary-300 text-secondary-500': inputProps?.disabled,
       }),
-      label: clsx(`font-normal align-middle ${styles.label}`, {
+      label: clsx(`checkbox__label-container font-normal align-middle ${styles.label}`, {
         'text-secondary-500': inputProps.disabled,
         'text-secondary-600': !inputProps.disabled,
         'text-secondary-800': !inputProps.disabled && (

@@ -9,12 +9,12 @@ const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabl
   const containerColor = concatTargetColor(color, ['bg'], [500])
 
   const switchSquareClasses = Object.freeze({
-    root: classes.root,
-    container: `w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
+    root: `switch-square__root-container ${classes.root}`,
+    container: `switch-square__main-container w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
       ${disabled ? 'shadow-secondary-400 bg-secondary-100' : `${checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'}`} ${classes.container}`,
-    button: `absolute switch-square-button flex flex-col items-center w-4 h-4 left-0.5 
+    button: `switch-square__button-container absolute switch-square-button flex flex-col items-center w-4 h-4 left-0.5 
       ${!disabled && `${checked ? 'flex-col bottom-px' : 'flex-col-reverse'}`} ${classes.button}`,
-    label: classes.label,
+    label: `switch-square__label-container ${classes.label}`,
   })
 
   return (

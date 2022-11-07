@@ -9,12 +9,12 @@ const SwitchRound = forwardRef(({ classes, id, checked, onChange, label, disable
   const containerColor = concatTargetColor(color, ['bg'], [500])
 
   const switchRoundClasses = Object.freeze({
-    root: classes.root,
-    container: `w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
+    root: `switch-round__root-container ${classes.root}`,
+    container: `switch-round__main-container w-10 h-5 cursor-pointer rounded-xl transition ease-in duration-200 
       ${disabled ? 'shadow-secondary-400 bg-secondary-100' : `${checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'}`} ${classes.container}`,
-    button: `w-4 h-4 top-0.5 left-0.5 bg-white rounded-full duration-200 
+    button: `switch-round__button-container w-4 h-4 top-0.5 left-0.5 bg-white rounded-full duration-200 
       ${disabled ? 'bg-secondary-400' : `${checked ? 'bg-secondary-50' : 'bg-secondary-400'}`} ${classes.button}`,
-    label: classes.label,
+    label: `switch-round__label-container ${classes.label}`,
   })
 
   return (

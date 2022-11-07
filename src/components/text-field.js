@@ -62,7 +62,7 @@ const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, ro
     focus = _focus === linked
   }
   return ({
-    root: clsx(`${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box} ${root && root}`}`,
+    root: clsx(`textfield__root-container ${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box} ${root && root}`}`,
       { 'border-secondary-400 hover:border-secondary-500 bg-secondary-50': !disabled && !focus && !error && !success },
       { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
       { 'border-error-500 shadow-focused-error': error },
@@ -70,13 +70,13 @@ const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, ro
       { 'border-interactive-500 bg-secondary-50': focus && filled },
       { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
     ),
-    input: clsx(`outline-none ${input && input}`, 
+    input: clsx(`textfield__input-container outline-none ${input && input}`, 
       { 'bg-secondary-50': filled },
       { 'text-secondary-800': !disabled },
       { 'bg-secondary-100 text-secondary-400 placeholder-secondary-400': disabled },
     ),
-    startIcon: clsx('mt-0.5 mr-4 fill-current stroke-current', { 'text-secondary-600': !disabled }),
-    endIcon: clsx('mt-0.5 ml-4 fill-current stroke-current',
+    startIcon: clsx('textfield__start-icon-container mt-0.5 mr-4 fill-current stroke-current', { 'text-secondary-600': !disabled }),
+    endIcon: clsx('textfield__end-icon-container mt-0.5 ml-4 fill-current stroke-current',
       {
         'text-secondary-600': !disabled,
         'text-interactive-500': focus && !error && !success, 
@@ -84,8 +84,8 @@ const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, ro
         'text-success-500': success, 
       },
     ),
-    prefix: 'mr-2.5 text-secondary-600',
-    suffix: 'ml-2.5 text-secondary-600',
+    prefix: 'textfield__prefix-container mr-2.5 text-secondary-600',
+    suffix: 'textfield__suffix-container ml-2.5 text-secondary-600',
   })
 }
 
@@ -103,13 +103,13 @@ const _borderlessClasses = ({ classes, isEdited, error, focus, disabled }) => ({
 })
 
 const renderLabel = ({ label, required, textFieldClasses }) => (
-  <div className='flex flex-row'>
+  <div className='textfield__label-container flex flex-row'>
     {label && <p className={textFieldClasses.label}>{label}</p>}
     {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
   </div>
 )
 const renderFooter = ({ helperText, maxLength, value, textFieldClasses }) => (
-  <div className={`flex flex-row ${helperText ? 'justify-between' : 'justify-end'}`}>
+  <div className={`textfield__helper-text-container flex flex-row ${helperText ? 'justify-between' : 'justify-end'}`}>
     {helperText && <p className={textFieldClasses.helperText}>{helperText}</p>}
     {maxLength && <p className={textFieldClasses.wordCount}>{value?.length || 0}/{maxLength}</p>}
   </div>

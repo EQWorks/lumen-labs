@@ -7,13 +7,13 @@ import { DropdownAutoCenter } from '..'
 
 const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage, hideRowsPerPage }) => {
   const paginationClasses = Object.freeze({
-    container: `flex items-center text-xs tracking-md leading-1.33 bg-secondary-50
+    container: `pagination__main-container flex items-center text-xs tracking-md leading-1.33 bg-secondary-50
       ${classes.container && classes.container}`,
-    item: `min-w-5 mr-5px py-0.5 flex justify-center text-secondary-400 cursor-pointer rounded-sm 'hover:text-secondary-900'
+    item: `pagination__item-container min-w-5 mr-5px py-0.5 flex justify-center text-secondary-400 cursor-pointer rounded-sm 'hover:text-secondary-900'
       ${classes.item && classes.item}`,
-    arrow: `min-h-5 flex justify-center items-center cursor-pointer ${classes.arrow && classes.arrow}`,
-    pageItem: `${classes.pageItem && classes.pageItem}` ,
-    currentPageColor: `bg-secondary-200 text-secondary-900 ${classes.currentPageColor && classes.currentPageColor}`,
+    arrow: `pagination__arrow-container min-h-5 flex justify-center items-center cursor-pointer ${classes.arrow && classes.arrow}`,
+    pageItem: `pagination__page-item-container ${classes.pageItem && classes.pageItem}` ,
+    currentPageColor: `pagination__current-page-color bg-secondary-200 text-secondary-900 ${classes.currentPageColor && classes.currentPageColor}`,
   })
 
   const [pager, setPager] = useState({})

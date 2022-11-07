@@ -92,27 +92,27 @@ const DropdownSelect = ({
 
   const contentSize = _contentSize(size)
   const dropdownSelectClasses = Object.freeze({
-    listContainer: `capitalize ${classes.listContainer}`,
-    itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
-    contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200
+    listContainer: `dropdown-select__list-containercapitalize ${classes.listContainer}`,
+    itemContainer: `dropdown-select__item-container text-secondary-600 ${contentSize.itemContainer}`,
+    contentContainer: `dropdown-select__content-container px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200
       ${contentSize.contentContainer} ${classes.contentContainer}`,
-    contentHeader: `w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
-    type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
-    description: `pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
-    dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
+    contentHeader: `dropdown-select__content-header w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
+    type: `dropdown-select__type-container px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
+    description: `dropdown-select__description-container pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
+    dividerContainer: `dropdown-select__divider-container px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
-    startIcon: 'mr-2.5 fill-current stroke-current',
-    endIcon: 'ml-2.5 fill-current stroke-current',
-    selected: 'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
-    selectedOptionTitle: `${classes.selectedOptionTitle ? classes.selectedOptionTitle : 'mr-2.5 text-secondary-800'}`,
+    startIcon: 'dropdown-select__start-icon-container mr-2.5 fill-current stroke-current',
+    endIcon: 'dropdown-select__end-icon-container ml-2.5 fill-current stroke-current',
+    selected: 'dropdown-select__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
+    selectedOptionTitle: `dropdown-select__selected-title-container ${classes.selectedOptionTitle ? classes.selectedOptionTitle : 'mr-2.5 text-secondary-800'}`,
   })
 
   const dropdownClasses = Object.freeze({
-    root: classes.root,
-    menu: `${!finalData.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
-    button: classes.button,
-    content: classes.content,
-    innerButton: classes.innerButton,
+    root: `dropdown-select__root-container ${classes.root}`,
+    menu: `dropdown-select__menu-container ${!finalData.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
+    button: `dropdown-select__button-container ${classes.button}`,
+    content: `dropdown-select__main-container ${classes.content}`,
+    innerButton: `dropdown-select__inner-button-container ${classes.innerButton}`,
   })
 
   useEffect(() => {

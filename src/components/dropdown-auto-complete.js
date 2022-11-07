@@ -59,29 +59,29 @@ const DropdownAutoComplete = ({
   const contentSize = _contentSize(size)
 
   const dropdownAutoCompleteClasses = Object.freeze({
-    listContainer: `capitalize ${classes.listContainer}`,
-    itemContainer: `text-secondary-600 ${contentSize.itemContainer}`,
-    contentContainer: `px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200
+    listContainer: `dropdown-auto-complete__list-container capitalize ${classes.listContainer}`,
+    itemContainer: `dropdown-auto-complete__item-container text-secondary-600 ${contentSize.itemContainer}`,
+    contentContainer: `dropdown-auto-complete__content-container px-2.5 cursor-pointer hover:bg-neutral-100 hover:text-secondary-800 active:bg-neutral-200
       ${contentSize.contentContainer} ${classes.contentContainer}`,
-    contentHeader: `w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
-    type: `px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
-    description: `pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
-    dividerContainer: `px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
+    contentHeader: `dropdown-auto-complete__content-header w-full flex flex-row items-center justify-between ${classes.contentHeader}`,
+    type: `dropdown-auto-complete__type-container px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
+    description: `dropdown-auto-complete__description-container pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
+    dividerContainer: `dropdown-auto-complete__divider-container px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
-    startIcon: 'mr-2.5 fill-current stroke-current',
-    endIcon: 'ml-2.5 fill-current stroke-current',
-    selected: 'font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
+    startIcon: 'dropdown-auto-complete__start-icon-container mr-2.5 fill-current stroke-current',
+    endIcon: 'dropdown-auto-complete__end-icon-container ml-2.5 fill-current stroke-current',
+    selected: 'dropdown-auto-complete__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
   })
 
   const dropdownClasses = Object.freeze({
-    root: classes.root,
-    menu: `${!data.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
-    content: classes.content,
+    root: `dropdown-auto-complete__root-container ${classes.root}`,
+    menu: `dropdown-auto-complete__menu-container ${!data.length > 0 && 'hidden'} ${classes.menu ? classes.menu : 'w-250px'}`,
+    content: `dropdown-auto-complete__main-container ${classes.content}`,
   })
 
   const textFieldClasses =  Object.freeze({
-    container: classes.inputContainer,
-    input: `capitalize ${classes.input}`,
+    container: `dropdown-auto-complete__input-contaienr ${classes.inputContainer}`,
+    input: `dropdown-auto-complete__input capitalize ${classes.input}`,
   })
 
   useEffect(() => {

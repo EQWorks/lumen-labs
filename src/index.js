@@ -37,6 +37,7 @@ export { default as Label } from './components/label'
 export { default as DatePicker } from './components/date-picker'
 export { default as Message } from './components/message'
 export { default as SideNavbar } from './components/side-navbar'
+export { default as Skeleton } from './components/skeleton'
 
 export { makeStyles, LinearAnimation } from './utils/make-styles'
 export { getTailwindConfigColor } from './utils/tailwind-config-color'

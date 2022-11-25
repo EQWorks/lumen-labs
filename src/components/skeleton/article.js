@@ -1,50 +1,32 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
-import { makeStyles } from '../../utils/make-styles'
 
-const articleStyles = (skeleton, customSkeleton) => { 
-  return makeStyles({
-    title: {
-      width: '50%',
-      height: '1.25rem',
-      marginBottom: '0.938rem',
-    },
-    text: {
-      width: '100%',
-      height: '0.75rem',
-    },
-    skeleton,
-    customSkeleton,
-  })}
+const articleClasses = Object.freeze({
+  title: 'w-2/4 h-5 h-5 my-3.5 bg-neutral-300 rounded-sm',
+  article: 'w-full h-3 my-3.5 bg-neutral-300 rounded-sm',
+})
 
-
-const Article = ({ skeleton, customSkeleton, height }) => {
-  const styles = articleStyles(skeleton, customSkeleton)
-
-  return (
-    <div>
-      <div className={`${styles.skeleton} ${styles.title} ${styles.customSkeleton}`} />
-      {
-        [...Array(height < 140 ? 3 : Math.round(((height - 45) / 22) / 1.25 - 1))]
-          .map((e, i) => <div className={`${styles.skeleton} ${styles.text} ${styles.customSkeleton}`} key={i}/>)
-      }
-    </div>
-  )
-}
+const Article = forwardRef(({ title, article }, ref) => (
+  <div className='skeleton_article__root-container'>
+    <div className={`${articleClasses.title} ${title}`} />
+    {
+      [...Array(ref.current.offsetHeight < 140 ? 3 : Math.round(((ref.current.offsetHeight - 45) / 22) / 1.25 - 1))]
+        .map((e, i) => <div className={`${articleClasses.article} ${article}`} key={i}/>)
+    }
+  </div>
+))
 
 Article.propTypes = {
-  skeleton: PropTypes.object,
-  customSkeleton: PropTypes.object,
-  height: PropTypes.number,
+  title: PropTypes.string,
+  article: PropTypes.string,
+  ref: PropTypes.forwardRef,
 }
 Article.defaultProps = {
-  skeleton: {
-    background: '',
-    margin: '',
-    borderRadius: '',
-  },
-  customSkeleton: '',
+  title: '',
+  article: '',
 }
+
+Article.displayName = 'Article'
 
 export default Article

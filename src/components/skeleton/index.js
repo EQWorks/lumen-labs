@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { css, keyframes } from 'goober'
 
 import { makeStyles } from '../../utils/make-styles'
-import { getTailwindConfigColor } from '../../utils/tailwind-config-color'
 
 // Components
 import Article from './article'
+
 
 const loading = keyframes`
     0% { 
@@ -23,64 +23,42 @@ const loading = keyframes`
 `
 
 const shimmerWrapper = css`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     animation: ${loading} 2.5s infinite;
 `
 
-const skeletonStyles = (container) => {
-  return makeStyles({
-    skeletonContainer: {
-      width: '100%',
-      height: '100%',
-      background: getTailwindConfigColor('neutral-200'),
-    },
-    skeletonWrapper: {
-      padding: '0.938rem 1.563rem',
-      position: 'relative',
-      overflow: 'hidden',
-    },
-    shimmer: {
-      width: '50%',
-      height: '100%',
-      background: 'rgba(255,255,255,0.2)',
-      transform: 'skewX(-20deg)',
-      boxShadow: '0 0 1.875rem 1.875rem rgba(255,255,255,0.2)',
-    },
-    container,
-  })
-}
+const styles = makeStyles({
+  shimmer: {
+    background: 'rgba(255,255,255,0.2)',
+    transform: 'skewX(-20deg)',
+    boxShadow: '0 0 1.875rem 1.875rem rgba(255,255,255,0.2)',
+  },
+})
 
-const skeleton = {
-  background: getTailwindConfigColor('neutral-300'),
-  margin: '0.825rem 0',
-  borderRadius: '0.25rem',
-}
-
+const skeletonClasses = Object.freeze({
+  container: 'skeleton__root-container bg-neutral-200 w-full h-full',
+  wrapper: 'relative overflow-hidden py-4 px-6',
+})
 
 const Skeleton = ({ classes, view }) => {
-  const ref = useRef(null)
+  const skeletonRef = useRef(null)
   const [height, setHeight] = useState(0)
 
-  const styles = skeletonStyles(classes.container)
+  const { container, wrapper, title, article } = classes
 
   const wireframe = {
-    null: <Article skeleton={skeleton} customSkeleton={classes.customSkeleton} height={height} />,
+    default: <Article ref={skeletonRef} title={title} article={article} />,
   } 
 
   useEffect(() => {
-    setHeight(ref.current.offsetHeight)
+    setHeight(skeletonRef.current.offsetHeight)
   }, [setHeight])
 
   return (
-    <div className={`${styles.skeletonContainer} ${styles.container}`} ref={ref}>
-      <div className={`${styles.skeletonWrapper}`}>
+    <div className={`${skeletonClasses.container} ${container}`} ref={skeletonRef}>
+      <div className={`${skeletonClasses.wrapper} ${wrapper}`}>
         {height ? wireframe[view] : null}
-        <div className={shimmerWrapper}>
-          <div className={`${styles.shimmer}`}></div>
+        <div className={`absolute w-full h-full top-0 left-0 ${shimmerWrapper}`}>
+          <div className={`w-2/4 h-full ${styles.shimmer}`}></div>
         </div>
       </div>
     </div>
@@ -92,8 +70,8 @@ Skeleton.propTypes = {
   view: PropTypes.string,
 }
 Skeleton.defaultProps = {
-  classes: { container: '', customSkeleton: '' },
-  view: null,
+  classes: { container: '', wrapper: '', skeleton: '', title: '', article: '' },
+  view: 'default',
 }
 
 export default Skeleton

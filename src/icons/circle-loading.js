@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+
 const iconSize = Object.freeze({
   lg: 'w-6 h-6',
   md: 'w-4 h-4',

@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect } from 'react'
 
+
 export const useCarousel = (ref) => {
   const [prevElement, setPrevElement] = useState(null)
   const [nextElement, setNextElement] = useState(null)

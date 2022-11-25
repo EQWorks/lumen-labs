@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { FeaturedContent } from '../../src/modules'
 
+
 export default {
   title: 'Modules/Featured Content',
 }

@@ -1,5 +1,6 @@
 import moment from 'moment'
 
+
 export const getWeekdayShort = () => (moment.weekdaysMin())
 
 export const getAllMonths = () => (moment.months())

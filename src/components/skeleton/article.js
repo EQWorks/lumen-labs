@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { makeStyles } from '../../utils/make-styles'
 
-const articleStyles = (skeleton) => { 
+const articleStyles = (skeleton, customSkeleton) => { 
   return makeStyles({
     title: {
       width: '50%',
@@ -15,18 +15,19 @@ const articleStyles = (skeleton) => {
       height: '0.75rem',
     },
     skeleton,
+    customSkeleton,
   })}
 
 
-const Article = ({ skeleton, height }) => {
-  const styles = articleStyles(skeleton)
+const Article = ({ skeleton, customSkeleton, height }) => {
+  const styles = articleStyles(skeleton, customSkeleton)
 
   return (
     <div>
-      <div className={`${styles.skeleton} ${styles.title}`} />
+      <div className={`${styles.skeleton} ${styles.title} ${styles.customSkeleton}`} />
       {
         [...Array(height < 140 ? 3 : Math.round(((height - 45) / 22) / 1.25 - 1))]
-          .map((e, i) => <div className={`${styles.skeleton} ${styles.text}`} key={i}/>)
+          .map((e, i) => <div className={`${styles.skeleton} ${styles.text} ${styles.customSkeleton}`} key={i}/>)
       }
     </div>
   )
@@ -34,6 +35,7 @@ const Article = ({ skeleton, height }) => {
 
 Article.propTypes = {
   skeleton: PropTypes.object,
+  customSkeleton: PropTypes.object,
   height: PropTypes.number,
 }
 Article.defaultProps = {
@@ -42,6 +44,7 @@ Article.defaultProps = {
     margin: '',
     borderRadius: '',
   },
+  customSkeleton: '',
 }
 
 export default Article

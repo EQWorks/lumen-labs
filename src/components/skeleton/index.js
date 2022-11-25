@@ -31,25 +31,28 @@ const shimmerWrapper = css`
     animation: ${loading} 2.5s infinite;
 `
 
-const styles = makeStyles({
-  skeletonContainer: {
-    width: '100%',
-    height: '100%',
-    background: getTailwindConfigColor('neutral-200'),
-  },
-  skeletonWrapper: {
-    padding: '0.938rem 1.563rem',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  shimmer: {
-    width: '50%',
-    height: '100%',
-    background: 'rgba(255,255,255,0.2)',
-    transform: 'skewX(-20deg)',
-    boxShadow: '0 0 1.875rem 1.875rem rgba(255,255,255,0.2)',
-  },
-})
+const skeletonStyles = (container) => {
+  return makeStyles({
+    skeletonContainer: {
+      width: '100%',
+      height: '100%',
+      background: getTailwindConfigColor('neutral-200'),
+    },
+    skeletonWrapper: {
+      padding: '0.938rem 1.563rem',
+      position: 'relative',
+      overflow: 'hidden',
+    },
+    shimmer: {
+      width: '50%',
+      height: '100%',
+      background: 'rgba(255,255,255,0.2)',
+      transform: 'skewX(-20deg)',
+      boxShadow: '0 0 1.875rem 1.875rem rgba(255,255,255,0.2)',
+    },
+    container,
+  })
+}
 
 const skeleton = {
   background: getTailwindConfigColor('neutral-300'),
@@ -58,12 +61,14 @@ const skeleton = {
 }
 
 
-const Skeleton = ({ view }) => {
+const Skeleton = ({ classes, view }) => {
   const ref = useRef(null)
   const [height, setHeight] = useState(0)
 
+  const styles = skeletonStyles(classes.container)
+
   const wireframe = {
-    null: <Article skeleton={skeleton} height={height} />,
+    null: <Article skeleton={skeleton} customSkeleton={classes.customSkeleton} height={height} />,
   } 
 
   useEffect(() => {
@@ -71,7 +76,7 @@ const Skeleton = ({ view }) => {
   }, [setHeight])
 
   return (
-    <div className={`${styles.skeletonContainer}`} ref={ref}>
+    <div className={`${styles.skeletonContainer} ${styles.container}`} ref={ref}>
       <div className={`${styles.skeletonWrapper}`}>
         {height ? wireframe[view] : null}
         <div className={shimmerWrapper}>
@@ -83,9 +88,11 @@ const Skeleton = ({ view }) => {
 }
 
 Skeleton.propTypes = {
+  classes: PropTypes.object,
   view: PropTypes.string,
 }
 Skeleton.defaultProps = {
+  classes: { container: '', customSkeleton: '' },
   view: null,
 }
 

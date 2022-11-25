@@ -36,6 +36,7 @@ module.exports = {
     'import',
   ],
   rules: {
+    'import/newline-after-import': ['error', { 'count': 2 }],
     'comma-dangle': ['error', 'always-multiline'],
     'eol-last': ['error', 'always'],
     indent: ['error', 2],

@@ -7,75 +7,146 @@ import { CheckBold } from '../../icons'
 import Spin from './spin'
 
 
+const customClasses = (size) => {
+  return makeStyles({
+    progressIndicatorRoot: {
+      '& .svg-icon': {
+        width: `${size/1.875}rem`,
+      },
+      '& .text': {
+        fontFamily: 'PT Sans',
+      },
+      '& .caption': {
+        fontFamily: 'PT Sans',
+        fontSize: `${size/2.14}rem`,
+      },
+      '& .indicator-h': {
+        width: `${(size/0.20) + 2}rem`,
+      },
+      '& .indicator-v': {
+        height: `${size/0.25}rem`,
+      },
+      '& .label-h': {
+        marginTop: '0.313rem',
+        fontSize: `${size/1.875}rem`,
+        lineHeight: `${size/1.875}rem`,
+        letterSpacing: '0.05em',
+      },
+      '& .label-v': {
+        marginLeft: '0.313rem',
+        fontSize: `${size/1.875}rem`,
+        letterSpacing: '0.05em',
+      },
+      '& .number-complete': {
+        width: `${size}rem`,
+        height: `${size}rem`,
+        padding: '0.313rem',
+        borderRadius: '50%',
+        flexShrink: 0,
+      },
+      '& .number-incomplete': {
+        width: `${size}rem`,
+        height: `${size}rem`,
+        padding: '0.344rem 0.313rem 0.313rem 0.406rem',
+        borderRadius: '50%',
+        flexShrink: 0,
+      },
+      '& .number': {
+        fontSize: `${size/2.5}rem`,
+        lineHeight: `${size/1.875}rem`,
+        letterSpacing: '0.05em',
+        flexShrink: 0,
+      },
+    },
+  })
+}
+
 const checkComplete = (startIndex, indicators) => {
   const rest = indicators.slice(startIndex)
   return rest.find(({ complete }) => complete)
 }
 
-const customClasses = (size) => {
-  return makeStyles({
-    svgIcon: {
-      width: `${size/1.875}rem`,
-    },
-    text: {
-      fontFamily: 'PT Sans',
-      fontWeight: 700,
-    },
-    caption: {
-      fontFamily: 'PT Sans',
-      fontSize: `${size/2.14}rem`,
-      fontWeight: 400,
-    },
-    captionHorizontal: {
-      marginTop: '0.2rem',
-    },
-    captionVertical: {
-      marginLeft: '0.313rem',
-      letterSpacing: '0.05em',
-    },
-    indicatorContainerHorizontal: { 
-      width: `${(size/0.20) + 2}rem`,
-    },
-    indicatorContainerVertical: { 
-      height: `${size/0.25}rem`,
-    },
-    indicatorLabelDefaultHorizontal: {
-      marginTop: '0.313rem',
-      fontSize: `${size/1.875}rem`,
-      lineHeight: `${size/1.875}rem`,
-      letterSpacing: '0.05em',
-    },
-    indicatorLabelDefaultVertical: {
-      marginLeft: '0.313rem',
-      fontSize: `${size/1.875}rem`,
-      letterSpacing: '0.05em',
-    },
-    indNumContComplete: {
-      width: `${size}rem`,
-      height: `${size}rem`,
-      padding: '0.313rem',
-      borderRadius: '50%',
-      flexShrink: 0,
-    },
-    indNumContIncomplete: {
-      width: `${size}rem`,
-      height: `${size}rem`,
-      padding: '0.344rem 0.313rem 0.313rem 0.406rem',
-      borderRadius: '50%',
-      flexShrink: 0,
-    },
-    indicatorNumberDefault: {
-      fontSize: `${size/2.5}rem`,
-      lineHeight: `${size/1.875}rem`,
-      letterSpacing: '0.05em',
-      flexShrink: 0,
-    },
-  })
-}
-
 const ProgressIndicator = ({ classes, indicators: _indicators, vertical = false, size = 1.875 }) => {
-
   const styles = customClasses(size)
+
+  const { 
+    leftLineActive, 
+    leftLineDisabled, 
+    rightLineActive, 
+    rightLineDisabled, 
+    numberActiveContainer, 
+    numberCompleteContainer, 
+    numberDisabledContainer,
+    numberActive,
+    numberDisabled,
+    labelActive,
+    labelComplete,
+    labelDisabled,
+    captionActive,
+    captionComplete,
+    captionDisabled,
+  } = classes
+  const progressIndicatorClasses = Object.freeze({ 
+    container: clsx('progress_indicator__root-container inline-flex justify-between', {
+      'flex-col': vertical,
+    }),
+    indicatorContainer: clsx('flex items-center', {
+      'indicator-v': vertical,
+      'indicator-h': !vertical,
+      'flex-col': !vertical,
+    }),
+    progressPosition: clsx('flex gap-0.5 items-center', {
+      'flex-row': !vertical,
+      'w-full': !vertical,
+      'h-full': vertical,
+      'flex-col': vertical,
+    }),
+    leftLine: (i, active, complete) => clsx({
+      'invisible': !i,
+      'w-full': !vertical,
+      'h-full': vertical,
+      'h-0.5': !vertical,
+      'w-0.5': vertical,
+      [`bg-primary-500 ${leftLineActive ? leftLineActive : ''}`]: active || complete,
+      [`bg-secondary-500 ${leftLineDisabled ? leftLineDisabled : ''}`]: !active && !complete,
+    }),
+    rightLine: (i, indicators, active, complete) => clsx({
+      'invisible': i+1 === indicators.length,
+      'w-full': !vertical,
+      'h-full': vertical,
+      'h-0.5': !vertical,
+      'w-0.5': vertical,
+      [`bg-primary-500 ${rightLineActive ? rightLineActive : '' }`]: indicators[i+1]?.active || indicators[i+1]?.complete,
+      [`bg-secondary-500 ${rightLineDisabled ? rightLineDisabled : ''}`]: !active && !complete || !indicators[i+1]?.active && !indicators[i+1]?.complete,
+    }),
+    numberContainer: (active, complete) => clsx('flex justify-center items-center border', {
+      'border-primary-500': active || complete,
+      'border-secondary-500': !active && !complete,
+      [`px-1 bg-primary-500 number-complete ${numberActiveContainer ? numberCompleteContainer : ''}`]: active,
+      [`px-1 bg-primary-600 number-complete ${numberCompleteContainer ? numberCompleteContainer : ''}`]: complete,
+      [`number-incomplete ${numberDisabledContainer ? numberDisabledContainer : ''}`]: !active && !complete,
+    }),
+    numberText: (active, complete) => clsx(`text-center font-bold text number ${classes.indicatorNumber}`, {
+      [`text-primary-500 ${numberActive ? numberActive : ''}`]: active || complete,
+      [`text-secondary-500 ${numberDisabled ? numberDisabled : ''}`]: !active && !complete,
+    }),
+    indicatorLabel: (active, complete) => clsx(`px-1 capitalize font-bold text ${classes.indicatorLabel}`, {
+      'text-center': !vertical,
+      [`font-bold text-primary-600 ${labelComplete ? labelComplete : ''}`]: complete,
+      [`font-bold text-primary-500 ${labelActive ? labelActive : ''}`]: active,
+      [`font-normal text-secondary-600 ${labelDisabled ? labelDisabled : ''}`]: !active && !complete,
+      'label-h': !vertical,
+      'label-v': vertical,
+    }),
+    indicatorCaption: (active, complete) => clsx(`caption font-normal px-1 capitalize ${classes.indicatorLabelCaption}`, {
+      'text-center': !vertical,
+      [`text-primary-500 ${captionComplete ? captionComplete : ''}`]: complete,
+      [`text-secondary-600 ${captionActive ? captionActive : ''}`]: active,
+      [`text-secondary-500 ${captionDisabled ? captionDisabled : ''}`]: !active && !complete,
+      'mt-1': !vertical,
+      'ml-1.5 tracking-wider': vertical,
+    }),
+  })
   
   const indicators = useMemo(() => _indicators.map((ind, i) => {
     if (!ind.complete && checkComplete(i, _indicators)) {
@@ -88,79 +159,31 @@ const ProgressIndicator = ({ classes, indicators: _indicators, vertical = false,
   }), [_indicators])
 
   return (
-    <div className={clsx(`inline-flex justify-between ${classes.root}`, {
-      'flex-col': vertical,
-    })}>
+    <div className={`${styles.progressIndicatorRoot} ${progressIndicatorClasses.container}`}>
       {indicators.map(({ label, caption = null, active, complete }, i) => (
-        <div key={i} className={clsx({
-          [styles.indicatorContainerVertical]: vertical,
-          [styles.indicatorContainerHorizontal]: !vertical,
-          'flex-col': !vertical,
-        }, `flex items-center ${classes.indicatorContainer}`)}>
-          <span className={clsx('flex gap-0.5 items-center', {
-            'flex-row': !vertical,
-            'w-full': !vertical,
-            'h-full': vertical,
-            'flex-col': vertical,
-          })}>
-
+        <div key={i} className={progressIndicatorClasses.indicatorContainer}>
+          <span className={progressIndicatorClasses.progressPosition}>
             {/* Left line */}
-            <div className={clsx({
-              'invisible': !i,
-              'w-full': !vertical,
-              'h-full': vertical,
-              'h-0.5': !vertical,
-              'w-0.5': vertical,
-              'bg-primary-500': active || complete,
-              'bg-secondary-500': !active && !complete,
-            })} />
+            <div className={progressIndicatorClasses.leftLine(i, active, complete)} />
 
-            <span className={clsx({
-              'border-primary-500': active || complete,
-              'border-secondary-500': !active && !complete,
-              [`px-1 ${styles.indNumContComplete} bg-primary-500`]: active,
-              [`px-1 ${styles.indNumContComplete} bg-primary-600`]: complete,
-              [styles.indNumContIncomplete]: !active && !complete,
-            }, `flex justify-center items-center border ${classes.indicatorNumberContainer}`)}>
-              {!complete && !active && <p className={clsx({
-                'text-primary-500': active || complete,
-                'text-secondary-500': !active && !complete,
-              }, `text-center font-bold ${styles.indicatorNumberDefault} ${styles.text} ${classes.indicatorNumber}`)}>{i+1}</p>}
-              {((complete && !active) || (complete && active)) && <CheckBold className={`${styles.svgIcon} filled-current text-secondary-50`} />}
-              {active && !complete && <Spin className={`${styles.svgIcon} filled-current text-secondary-50 animate-spin`} />}
+            <span className={progressIndicatorClasses.numberContainer(active, complete)}>
+              {
+                !complete && !active && 
+                <p className={progressIndicatorClasses.numberText(active, complete)}>{i+1}</p>
+              }
+              {((complete && !active) || (complete && active)) && <CheckBold className={'svg-icon filled-current text-secondary-50'} />}
+              {active && !complete && <Spin className={'svg-icon filled-current text-secondary-50 animate-spin'} />}
             </span>
 
             {/* Right Line */}
-            <div className={clsx({
-              'invisible': i+1 === indicators.length,
-              'w-full': !vertical,
-              'h-full': vertical,
-              'h-0.5': !vertical,
-              'w-0.5': vertical,
-              'bg-primary-500': indicators[i+1]?.active || indicators[i+1]?.complete,
-              'bg-secondary-500': !active && !complete || !indicators[i+1]?.active && !indicators[i+1]?.complete,
-            })} />
+            <div className={progressIndicatorClasses.rightLine(i, indicators, active, complete)} />
 
           </span>
           
           <div>
-            <p className={clsx({
-              'text-center': !vertical,
-              'font-bold text-primary-600': complete,
-              'font-bold text-primary-500': active,
-              'font-normal text-secondary-600': !active && !complete,
-              [styles.indicatorLabelDefaultHorizontal]: !vertical,
-              [styles.indicatorLabelDefaultVertical]: vertical,
-            }, `${styles.text} px-1 capitalize ${classes.indicatorLabel}`)}>{label}</p>
+            <p className={progressIndicatorClasses.indicatorLabel(active, complete)}>{label}</p>
             { caption ?           
-              <p className={clsx({
-                'text-center': !vertical,
-                'text-primary-500': complete,
-                'text-secondary-600': active,
-                'text-secondary-500': !active && !complete,
-                [styles.captionHorizontal]: !vertical,
-                [styles.captionVertical]: vertical,
-              }, `${styles.caption} px-1 capitalize ${classes.indicatorLabelCaption}`)}>
+              <p className={progressIndicatorClasses.indicatorCaption(active, complete)}>
                 {caption}
               </p> : null}
           </div>
@@ -171,25 +194,35 @@ const ProgressIndicator = ({ classes, indicators: _indicators, vertical = false,
 }
 
 ProgressIndicator.propTypes = {
-  indicators: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    caption: PropTypes.string,
-    active: PropTypes.bool.isRequired,
-    complete: PropTypes.bool.isRequired,
-  })).isRequired,
+  indicators: PropTypes.array.isRequired,
   classes: PropTypes.object,
   vertical: PropTypes.bool,
   size: PropTypes.number,
 }
 
 ProgressIndicator.defaultProps = {
+  indicators: {
+    label: PropTypes.string.isRequired,
+    caption: PropTypes.string,
+    active: PropTypes.bool.isRequired,
+    complete: PropTypes.bool.isRequired,
+  },
   classes: {
-    root: '',
-    indicatorContainer: '',
-    indicatorLabel: '',
-    indicatorLabelCaption: '',
-    indicatorNumberContainer: '',
-    indicatorNumber: '',
+    leftLineActive: '',
+    leftLineDisabled: '',
+    rightLineActive: '',
+    rightLineDisabled: '',
+    numberActiveContainer: '',
+    numberCompleteContainer: '',
+    numberDisabledContainer: '',
+    numberActive: '',
+    numberDisabled: '',
+    labelActive: '',
+    labelComplete: '',
+    labelDisabled: '',
+    captionActive: '',
+    captionComplete: '',
+    captionDisabled: '',
   },
 }
 

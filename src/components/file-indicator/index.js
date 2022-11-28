@@ -8,95 +8,88 @@ import { makeStyles, LinearAnimation } from '../../utils/make-styles'
 import { getTailwindConfigColor } from '../../utils/tailwind-config-color'
 
 
-const Text = (style, error, progress, time) => {
+const customClasses = (progress) => {
+  return makeStyles({
+    fileIndicatorRoot: {
+      '& .enabled-button': {
+        fill: getTailwindConfigColor('primary-500'),
+        '&:hover': {
+          cursor: 'pointer',
+          fill: getTailwindConfigColor('primary-600'),
+        },
+        '&:active': {
+          fill: getTailwindConfigColor('primary-700'),
+        },
+      },
+
+      '& .complete-button': {
+        pointerEvents: 'none',
+        fill: getTailwindConfigColor('primary-500'),
+      },
+
+      '& .disable-button': {
+        pointerEvents: 'none',
+        fill: getTailwindConfigColor('secondary-400'),
+      },
+
+      '& .indicator-bar': {
+        width: `${progress}%`,
+      },
+
+      '& .file-name': {
+        fontFamily: 'PT Sans',
+        fontSize: '0.875rem',
+      },
+
+      '& .uploaded': {
+        fontFamily: 'PT Sans',
+        fontSize: '0.75rem',
+      },
+    },
+  })
+}
+
+const Text = (error, progress, time) => {
   if (error) {
     return (
-      <p className={`${style.uploadedText} text-error-500`}><span className='font-bold'>Error</span>, Please Try Again Later</p>
+      <p className={'uploaded font-normal text-right mt-3 text-error-500'}><span className='font-bold'>Error</span>, Please Try Again Later</p>
     )
   }
   if (time) {
     return (
-      <p className={`${style.uploadedText} text-primary-500`}>Loaded {progress}%, {timeConverter(time)} remaining</p>
+      <p className={'uploaded font-normal text-right mt-3 text-primary-500'}>Loaded {progress}%, {timeConverter(time)} remaining</p>
     )
   } 
   return (
-    <p className={`${style.uploadedText} text-primary-500`}>Loaded {progress}%</p>
+    <p className={'uploaded font-normal text-right mt-3 text-primary-500'}>Loaded {progress}%</p>
   )
-}
-
-const customClasses = (progress) => {
-  return makeStyles({
-    flexFile: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: '1rem',
-    },
-    fileIndicator: {
-      height: '5px',
-      backgroundColor: getTailwindConfigColor('secondary-200'),
-    },
-    fileIndicatorContent: {
-      width: `${progress}%`,
-    },
-    fileName: {
-      fontSize: '0.875rem',
-      fontWeight: 700,
-      fontFamily: 'PT Sans',
-      marginBottom: '0.75rem',
-    },
-    fileSize: {
-      fontWeight: 400,
-    },
-    uploadedText: {
-      fontSize: '0.75rem',
-      fontWeight: 400,
-      fontFamily: 'PT Sans',
-      textAlign: 'right',
-      marginTop: '0.75rem',
-    },
-    pause: {
-      width: '1rem',
-    },
-    pauseEnabled: {
-      fill: getTailwindConfigColor('primary-500'),
-      '&:hover': {
-        cursor: 'pointer',
-        fill: getTailwindConfigColor('primary-600'),
-      },
-      '&:active': {
-        fill: getTailwindConfigColor('primary-700'),
-      },
-    },
-    completePause: {
-      pointerEvents: 'none',
-      fill: getTailwindConfigColor('primary-500'),
-    },
-    disabledPause: {
-      pointerEvents: 'none',
-      fill: getTailwindConfigColor('secondary-400'),
-    },
-  })
 }
 
 const FileIndicator = forwardRef(({
   classes, animate, direction, duration, fileName, fileSize, progress, time, pause, error = false, ...rest
 }, ref) => {
-
-  const fileIndicatorClasses = Object.freeze({ 
-    root: `h-5px w-full rounded-full bg-secondary-200 ${classes.root}`,
-    content: `h-full rounded-full bg-primary-500 ${classes.content}`,
-  })
   const style = customClasses(progress)
 
+  const fileIndicatorClasses = Object.freeze({ 
+    fileName: `${classes.fileName ? classes.fileName : ''}`,
+    container: classes.container ? classes.container : '',
+    barContainer: `h-5px w-full rounded-full bg-secondary-200 ${classes.barContainer ? classes.barContainer : ''}`,
+    content: `h-full rounded-full bg-primary-500 ${classes.content ? classes.content : ''}`,
+    pause: clsx(`w-4 ${classes.pause ? classes.pause : ''}`, {
+      [`enabled-button ${classes.enabledButton ? classes.enabledButton : ''}`]: !error && progress !== 100,
+      [`disable-button ${classes.disableButton ? classes.disableButton : ''}`]: error,
+      [`complete-button ${classes.completeButton ? classes.completeButton : ''}`]: progress === 100,
+    }),
+  })
+  
   return (
-    <div>
+    <div className={`filed_indicator__root-container ${style.fileIndicatorRoot}`}>
       {
         fileName && fileSize && 
-        <p className={`${style.fileName} text-secondary-700`}>{fileName} <span className={`${style.fileSize}`}>({fileSize})</span></p>
+        <p className={`file-name font-bold mb-3 text-secondary-700 ${fileIndicatorClasses.fileName}`}>{fileName} <span className='font-normal'>({fileSize})</span></p>
       }
-      <div className={style.flexFile}>
-        <div ref={ref} className={fileIndicatorClasses.root} {...rest}>
+      <div className={`flex flex-row items-center gap-4 ${fileIndicatorClasses.container}`}>
+        <div ref={ref} className={fileIndicatorClasses.barContainer} {...rest}>
           {animate && <LinearAnimation
             width={progress}
             direction={direction}
@@ -104,18 +97,14 @@ const FileIndicator = forwardRef(({
             className={fileIndicatorClasses.content}
           />}
           {!animate && (
-            <div className={clsx(`${fileIndicatorClasses.content} ${style.fileIndicatorContent}`, {
+            <div className={clsx(`${fileIndicatorClasses.content} indicator-bar`, {
               'bg-secondary-500': error,
             })} />
           )}
         </div>
-        <Pause onClick={pause} className={clsx(`${style.pause}`, {
-          [style.pauseEnabled]: !error && progress !== 100,
-          [style.disabledPause]: error,
-          [style.completePause]: progress === 100,
-        })}/>
+        <Pause onClick={pause} className={fileIndicatorClasses.pause}/>
       </div>
-      {Text(style, error, progress, time)}
+      {Text(error, progress, time)}
     </div>
   )
 })
@@ -134,7 +123,16 @@ FileIndicator.propTypes = {
 }
 
 FileIndicator.defaultProps = {
-  classes: { root: '', content: '' },
+  classes: { 
+    fileName: '', 
+    container: '', 
+    barContainer: '', 
+    content: '', 
+    pause: '',
+    enabledButton: '',
+    disableButton: '',
+    completeButton: '',
+  },
   animate: false,
   direction: 'rtl',
   duration: 10,

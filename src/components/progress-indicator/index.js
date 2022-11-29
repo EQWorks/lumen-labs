@@ -41,6 +41,7 @@ const customClasses = (size) => {
         width: `${size}rem`,
         height: `${size}rem`,
         padding: '0.313rem',
+        border: '0',
         borderRadius: '50%',
         flexShrink: 0,
       },

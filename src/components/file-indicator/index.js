@@ -83,13 +83,13 @@ const FileIndicator = forwardRef(({
   })
   
   return (
-    <div className={`filed_indicator__root-container ${style.fileIndicatorRoot}`}>
+    <div ref={ref} className={`filed_indicator__root-container ${style.fileIndicatorRoot}`} {...rest}>
       {
         fileName && fileSize && 
         <p className={`file-name font-bold mb-3 text-secondary-700 ${fileIndicatorClasses.fileName}`}>{fileName} <span className='font-normal'>({fileSize})</span></p>
       }
       <div className={`flex flex-row items-center gap-4 ${fileIndicatorClasses.container}`}>
-        <div ref={ref} className={fileIndicatorClasses.barContainer} {...rest}>
+        <div className={fileIndicatorClasses.barContainer}>
           {animate && <LinearAnimation
             width={progress}
             direction={direction}

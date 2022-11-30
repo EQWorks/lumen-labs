@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 
 import { FirstStep, MiddleStep, LastStep } from './steps'
 import { CheckBold } from '../../icons'
@@ -96,7 +96,9 @@ const checkComplete = (startIndex, indicators) => {
   return rest.find(({ complete }) => complete)
 }
 
-const StepIndicator = ({ classes, size = 16, indicators: _indicators }) => {
+const StepIndicator = forwardRef(({ 
+  classes, size = 16, indicators: _indicators, ...rest 
+}, ref) => {
 
   const styles = customClasses(size)
 
@@ -114,7 +116,7 @@ const StepIndicator = ({ classes, size = 16, indicators: _indicators }) => {
 
 
   return (
-    <div className={`step_indicator__root-container ${styles.stepIndicatorRoot}`}>
+    <div ref={ref} className={`step_indicator__root-container ${styles.stepIndicatorRoot}`} {...rest}>
       {indicators.map(({ label, active, complete }, i) => (
         <div key={i}>
           {First(i, label, active, complete, size, stepDefault, stepComplete, stepActive)}
@@ -124,7 +126,7 @@ const StepIndicator = ({ classes, size = 16, indicators: _indicators }) => {
       ))}
     </div>
   )
-}
+})
 
 StepLabel.propTypes = {
   index: PropTypes.number.isRequired,

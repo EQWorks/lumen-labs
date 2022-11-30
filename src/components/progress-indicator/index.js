@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -67,7 +67,9 @@ const checkComplete = (startIndex, indicators) => {
   return rest.find(({ complete }) => complete)
 }
 
-const ProgressIndicator = ({ classes, indicators: _indicators, vertical = false, size = 1.875 }) => {
+const ProgressIndicator = forwardRef(({
+  classes, indicators: _indicators, vertical = false, size = 1.875, ...rest
+}, ref) => {
   const styles = customClasses(size)
 
   const { 
@@ -160,7 +162,7 @@ const ProgressIndicator = ({ classes, indicators: _indicators, vertical = false,
   }), [_indicators])
 
   return (
-    <div className={`${styles.progressIndicatorRoot} ${progressIndicatorClasses.container}`}>
+    <div ref={ref} className={`${styles.progressIndicatorRoot} ${progressIndicatorClasses.container}`} {...rest}>
       {indicators.map(({ label, caption = null, active, complete }, i) => (
         <div key={i} className={progressIndicatorClasses.indicatorContainer}>
           <span className={progressIndicatorClasses.progressPosition}>
@@ -192,7 +194,7 @@ const ProgressIndicator = ({ classes, indicators: _indicators, vertical = false,
       ))}
     </div>
   )
-}
+})
 
 ProgressIndicator.propTypes = {
   indicators: PropTypes.array.isRequired,

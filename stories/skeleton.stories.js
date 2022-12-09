@@ -25,3 +25,9 @@ export const Map = () => (
     <Skeleton view='map'/>
   </div>
 )
+
+export const Pie = () => (
+  <div style={{ width: '500px' }}>
+    <Skeleton view='pie'/>
+  </div>
+)

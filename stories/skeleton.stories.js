@@ -19,3 +19,9 @@ export const Bar = () => (
     <Skeleton view='bar'/>
   </div>
 )
+
+export const Map = () => (
+  <div style={{ width: '500px' }}>
+    <Skeleton view='map'/>
+  </div>
+)

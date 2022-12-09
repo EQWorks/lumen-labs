@@ -13,3 +13,9 @@ export const Default = () => (
     <Skeleton />
   </div>
 )
+
+export const Bar = () => (
+  <div style={{ width: '500px' }}>
+    <Skeleton view='bar'/>
+  </div>
+)

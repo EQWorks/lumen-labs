@@ -6,6 +6,10 @@ import { makeStyles } from '../../utils/make-styles'
 
 // Components
 import Article from './article'
+import Bar from './bar'
+import Map from './map'
+import Pie from './pie'
+import Stat from './stat'
 
 
 const loading = keyframes`
@@ -36,17 +40,33 @@ const styles = makeStyles({
 
 const skeletonClasses = Object.freeze({
   container: 'skeleton__root-container bg-neutral-200 w-full h-full',
-  wrapper: 'relative overflow-hidden py-4 px-6',
+  wrapper: 'h-full relative overflow-hidden py-4 px-6',
 })
 
 const Skeleton = ({ classes, view }) => {
   const skeletonRef = useRef(null)
   const [height, setHeight] = useState(0)
 
-  const { container, wrapper, title, article } = classes
+  const { 
+    container, 
+    wrapper, 
+    title, 
+    article, 
+    bar, 
+    mapMarker, 
+    mapCircle, 
+    pie, 
+    pieSlice, 
+    statTop, 
+    statBottom, 
+  } = classes
 
   const wireframe = {
     default: <Article ref={skeletonRef} title={title} article={article} />,
+    bar: <Bar ref={skeletonRef} bar={bar} />,
+    map: <Map ref={skeletonRef} mapMarker={mapMarker} mapCircle={mapCircle} />,
+    pie: <Pie ref={skeletonRef} pie={pie} pieSlice={pieSlice} />,
+    stat: <Stat ref={skeletonRef} statTop={statTop} statBottom={statBottom} />,
   } 
 
   useEffect(() => {
@@ -70,7 +90,20 @@ Skeleton.propTypes = {
   view: PropTypes.string,
 }
 Skeleton.defaultProps = {
-  classes: { container: '', wrapper: '', skeleton: '', title: '', article: '' },
+  classes: { 
+    container: '', 
+    wrapper: '', 
+    skeleton: '', 
+    title: '', 
+    article: '', 
+    bar: '', 
+    mapMarker: '', 
+    mapCircle: '', 
+    pie: '',
+    pieSlice: '',
+    statTop: '',
+    statBottom: '',
+  },
   view: 'default',
 }
 

@@ -31,3 +31,9 @@ export const Pie = () => (
     <Skeleton view='pie'/>
   </div>
 )
+
+export const Stat = () => (
+  <div style={{ width: '500px' }}>
+    <Skeleton view='stat'/>
+  </div>
+)

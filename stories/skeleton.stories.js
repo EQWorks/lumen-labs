@@ -8,6 +8,16 @@ export default {
   component: Skeleton,
 }
 
+const SKELETON_TYPE = [
+  'bar',
+  'map',
+  'pie',
+  'stat',
+  'line',
+  'pyramid',
+  'barline',
+].reduce((a, v) => ({ ...a, [v]: v }), {})
+
 export const Default = () => (
   <div style={{ width: '500px' }}>
     <Skeleton />
@@ -16,42 +26,42 @@ export const Default = () => (
 
 export const Bar = () => (
   <div style={{ width: '500px' }}>
-    <Skeleton view='bar'/>
+    <Skeleton view={SKELETON_TYPE.bar}/>
   </div>
 )
 
 export const Map = () => (
   <div style={{ width: '500px' }}>
-    <Skeleton view='map'/>
+    <Skeleton view={SKELETON_TYPE.map}/>
   </div>
 )
 
 export const Pie = () => (
   <div style={{ width: '500px' }}>
-    <Skeleton view='pie'/>
+    <Skeleton view={SKELETON_TYPE.pie}/>
   </div>
 )
 
 export const Stat = () => (
   <div style={{ width: '500px' }}>
-    <Skeleton view='stat'/>
+    <Skeleton view={SKELETON_TYPE.stat}/>
   </div>
 )
 
 export const Line = () => (
   <div style={{ width: '500px' }}>
-    <Skeleton view='line'/>
+    <Skeleton view={SKELETON_TYPE.line}/>
   </div>
 )
 
 export const Pyramid = () => (
   <div style={{ width: '500px' }}>
-    <Skeleton view='pyramid'/>
+    <Skeleton view={SKELETON_TYPE.pyramid}/>
   </div>
 )
 
 export const Barline = () => (
   <div style={{ width: '500px' }}>
-    <Skeleton view='barline'/>
+    <Skeleton view={SKELETON_TYPE.barline}/>
   </div>
 )

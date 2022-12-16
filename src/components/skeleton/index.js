@@ -10,6 +10,9 @@ import Bar from './bar'
 import Map from './map'
 import Pie from './pie'
 import Stat from './stat'
+import Line from './line'
+import Pyramid from './pyramid'
+import Barline from './barline'
 
 
 const loading = keyframes`
@@ -58,7 +61,9 @@ const Skeleton = ({ classes, view }) => {
     pie, 
     pieSlice, 
     statTop, 
-    statBottom, 
+    statBottom,
+    lineCircle,
+    linePath,
   } = classes
 
   const wireframe = {
@@ -67,6 +72,10 @@ const Skeleton = ({ classes, view }) => {
     map: <Map ref={skeletonRef} mapMarker={mapMarker} mapCircle={mapCircle} />,
     pie: <Pie ref={skeletonRef} pie={pie} pieSlice={pieSlice} />,
     stat: <Stat ref={skeletonRef} statTop={statTop} statBottom={statBottom} />,
+    line: <Line ref={skeletonRef} lineCircle={lineCircle} linePath={linePath} />,
+    doubleline: <Line ref={skeletonRef} lineCircle={lineCircle} linePath={linePath} />,
+    pyramid: <Pyramid ref={skeletonRef} bar={bar} />,
+    barline: <Barline ref={skeletonRef} bar={bar} linePath={linePath} />,
   } 
 
   useEffect(() => {
@@ -103,6 +112,8 @@ Skeleton.defaultProps = {
     pieSlice: '',
     statTop: '',
     statBottom: '',
+    lineCircle: '',
+    linePath: '',
   },
   view: 'default',
 }

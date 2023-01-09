@@ -20,7 +20,6 @@ const Article = forwardRef(({ title, article }, ref) => (
 Article.propTypes = {
   title: PropTypes.string,
   article: PropTypes.string,
-  ref: PropTypes.forwardRef,
 }
 Article.defaultProps = {
   title: '',

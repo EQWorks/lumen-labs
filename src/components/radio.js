@@ -88,7 +88,7 @@ const Radio = ({ label, name, value, align, handleChange, disabled, selected, di
   } = classes
 
   return (
-    <div className={`${radioClasses.container} ${spacing} ${labelPosition} ${styles.radioRoot} ${container}`}>
+    <div className={`${radioClasses.container} ${spacing} ${labelPosition} ${styles.radioRoot} ${container} items-center`}>
       <input
         type="radio"
         name={name}
@@ -119,6 +119,9 @@ Radio.propTypes = {
 Radio.defaultProps = {
   disabled: false,
   align: 'right',
+  name: '',
+  selected: '',
+  direction: '',
   classes: {
     container: '',
     radioInput: '',

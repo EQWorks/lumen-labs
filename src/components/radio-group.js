@@ -1,4 +1,4 @@
-import React, { Children, isValidElement, cloneElement } from 'react'
+import React, { Children, isValidElement, cloneElement, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
@@ -6,7 +6,7 @@ const RadioGroup = forwardRef(({ children, name, selected, align, labelAlign }, 
   const flexDir = align === 'vertical' ? 'flex-col' : 'flex-row'
 
   return (
-    <div className={`radio-group__root-contaienr inline-flex ${flexDir}`}>
+    <div ref={ref} className={`radio-group__root-contaienr inline-flex ${flexDir}`}>
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
           return cloneElement(child, { name: name, selected: selected, direction: flexDir, align: labelAlign } )
@@ -15,7 +15,7 @@ const RadioGroup = forwardRef(({ children, name, selected, align, labelAlign }, 
       })}
     </div>
   )
-}
+})
 
 RadioGroup.propTypes = {
   children: PropTypes.node.isRequired,
@@ -28,5 +28,7 @@ RadioGroup.defaultProps = {
   align: 'vertical',
   labelAlign: 'right',
 }
+
+RadioGroup.displayName = 'RadioGroup'
 
 export default RadioGroup

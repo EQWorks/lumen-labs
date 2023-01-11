@@ -72,7 +72,7 @@ const customClasses = () => {
 }
 
 const radioClasses = Object.freeze({
-  container: 'radio__root-container flex gap-1.5',
+  container: 'radio__root-container flex gap-1.5 items-center',
   input: 'm-0 w-4 h-4 rounded-full grid radioContainer',
 })
 
@@ -88,7 +88,7 @@ const Radio = ({ label, name, value, align, handleChange, disabled, selected, di
   } = classes
 
   return (
-    <div className={`${radioClasses.container} ${spacing} ${labelPosition} ${styles.radioRoot} ${container} items-center`}>
+    <div className={`${radioClasses.container} ${spacing} ${labelPosition} ${styles.radioRoot} ${container}`}>
       <input
         type="radio"
         name={name}

@@ -39,6 +39,8 @@ export { default as DatePicker } from './components/date-picker'
 export { default as Message } from './components/message'
 export { default as SideNavbar } from './components/side-navbar'
 export { default as Skeleton } from './components/skeleton'
+export { default as RadioGroup } from './components/radio-group'
+export { default as Radio } from './components/radio'
 
 export { makeStyles, LinearAnimation } from './utils/make-styles'
 export { getTailwindConfigColor } from './utils/tailwind-config-color'

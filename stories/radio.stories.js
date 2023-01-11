@@ -10,8 +10,8 @@ export default {
 
 export const Default = () => {
   const [selectedColor, setSelectedColor] = useState('red')
-  const handleChange = (color) => {
-    setSelectedColor(color)
+  const handleChange = (event) => {
+    setSelectedColor(event.target.value)
   }
   return (
     <div>
@@ -27,8 +27,8 @@ export const Default = () => {
 
 export const Horizontal = () => {
   const [selectedColor, setSelectedColor] = useState('red')
-  const handleChange = (color) => {
-    setSelectedColor(color)
+  const handleChange = (event) => {
+    setSelectedColor(event.target.value)
   }
   return (
     <div>
@@ -44,8 +44,8 @@ export const Horizontal = () => {
 
 export const AlignLeft = () => {
   const [selectedColor, setSelectedColor] = useState('red')
-  const handleChange = (color) => {
-    setSelectedColor(color)
+  const handleChange = (event) => {
+    setSelectedColor(event.target.value)
   }
   return (
     <div>
@@ -61,8 +61,8 @@ export const AlignLeft = () => {
 
 export const HorizontalAlignLeft = () => {
   const [selectedColor, setSelectedColor] = useState('red')
-  const handleChange = (color) => {
-    setSelectedColor(color)
+  const handleChange = (event) => {
+    setSelectedColor(event.target.value)
   }
   return (
     <div>

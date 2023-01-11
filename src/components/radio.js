@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from '../utils/make-styles' 
@@ -76,7 +76,7 @@ const radioClasses = Object.freeze({
   input: 'm-0 w-4 h-4 rounded-full grid radioContainer',
 })
 
-const Radio = ({ label, name, value, align, handleChange, disabled, selected, direction, classes }) => {
+const Radio = forwardRef(({ label, name, value, align, handleChange, disabled, selected, direction, classes, ...rest }, ref) => {
   const styles = customClasses()
   const labelPosition = align === 'left' ? 'flex-row-reverse' : 'flex-row'
   const spacing = direction === 'flex-col' ? 'mb-2' : 'mr-2'
@@ -88,22 +88,23 @@ const Radio = ({ label, name, value, align, handleChange, disabled, selected, di
   } = classes
 
   return (
-    <div className={`${radioClasses.container} ${spacing} ${labelPosition} ${styles.radioRoot} ${container}`}>
+    <div ref={ref} className={`${radioClasses.container} ${spacing} ${labelPosition} ${styles.radioRoot} ${container}`}>
       <input
         type="radio"
         name={name}
         value={value}
         disabled={disabled}
         className={`${radioClasses.input} ${radioInput}`}
-        onChange={e => handleChange(e.target.value)}
+        onChange={e => handleChange(e)}
         checked={selected === value}
+        {...rest}
       />
       <span className={`label ${radioLabel}`}>
         {label}
       </span>
     </div>
   )
-}
+})
 
 Radio.propTypes = {
   label: PropTypes.string.isRequired,
@@ -128,5 +129,7 @@ Radio.defaultProps = {
     radioLabel: '',
   },
 }
+
+Radio.displayName = 'Radio'
 
 export default Radio

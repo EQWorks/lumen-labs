@@ -2,11 +2,11 @@ import React, { Children, isValidElement, cloneElement, forwardRef } from 'react
 import PropTypes from 'prop-types'
 
 
-const RadioGroup = forwardRef(({ children, name, selected, align, labelAlign }, ref) => {
+const RadioGroup = forwardRef(({ children, name, selected, align, labelAlign, ...rest }, ref) => {
   const flexDir = align === 'vertical' ? 'flex-col' : 'flex-row'
 
   return (
-    <div ref={ref} className={`radio-group__root-contaienr inline-flex ${flexDir}`}>
+    <div ref={ref} className={`radio-group__root-contaienr inline-flex ${flexDir}`} {...rest}>
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
           return cloneElement(child, { name: name, selected: selected, direction: flexDir, align: labelAlign } )

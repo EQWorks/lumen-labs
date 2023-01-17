@@ -196,7 +196,7 @@ const Login = ({
         classes={{ root: 'flex flex-col justify-between items-center', message: 'mt-2' }}
       />
       <Layout.Sider className={`border ${styles.siderContainer} relative w-5/12 h-full overflow-hidden`}>
-        <div className={`w-full h-full bg-primary-500 ${styles.siderImage}`} />
+        <div className={`w-full h-full bg-primary-500 ${styles.siderImage} ${classes.siderImage}`} />
         <div className='relative w-full h-full'>
           <div className={`${classes.logo} ${styles.logo} text-secondary-50`}>{secondaryLogo}</div>
           <div className={styles.welContainer}>
@@ -297,7 +297,7 @@ Login.propTypes = {
   errorConfig: PropTypes.object,
 }
 Login.defaultProps = {
-  classes: { logo: '', footerLogo: '', welcomeTitle: '', welcomeDescription: '' },
+  classes: { logo: '', footerLogo: '', welcomeTitle: '', welcomeDescription: '', siderImage: '' },
   secondaryLogo: null,
   welcomeTitle: 'Example Welcome Message for Login',
   welcomeDescription: `Example description lorem ipsum dolor sit amet.

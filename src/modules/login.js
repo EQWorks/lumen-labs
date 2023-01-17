@@ -26,13 +26,13 @@ const customClasses = (showPasscode) => {
       marginTop: '5rem',
     },
     welTitle: {
-      fontFamily: "'PT Sans', sans-serif",
+      fontFamily: 'Radio Canada',
       fontSize: '2.125rem',
       lineHeight: '2.25rem',
     },
     welDescription: {
-      marginTop: '2.25rem',
-      fontFamily: "'PT Sans', sans-serif",
+      marginTop: '5rem',
+      fontFamily: 'Radio Canada',
       fontSize: '1rem',
       lineHeight: '1.5rem',
       letterSpacing: '0.009rem',
@@ -91,6 +91,10 @@ const customClasses = (showPasscode) => {
     },
     buttonMargin: {
       marginTop: showPasscode ? '1rem' : '2.5rem',
+    },
+    divider: {
+      marginTop: '5rem',
+      width: '25.125rem',
     },
   })}
 
@@ -213,7 +217,7 @@ const Login = ({
             <p className={`${classes.welcomeTitle} ${styles.welTitle} font-normal text-left text-secondary-50`}>
               {welcomeTitle}
             </p>
-            <p className={`${classes.welcomeDescription} ${styles.welDescription} font-bold text-left`}>
+            <p className={`${classes.welcomeDescription} ${styles.welDescription} font-normal text-left`}>
               {welcomeDescription}
             </p>
           </div>}
@@ -280,7 +284,7 @@ const Login = ({
             disabled={showPasscode ? !passcode : !email}
             onClick={showPasscode ? handlePasscodeSubmit : handleEmailSubmit}
           >Submit</Button>
-          <hr className={`w-full ${styles.spacingMargin} border-secondary-300`} />
+          <hr className={`${styles.divider} border-secondary-300`} />
 
           <div className='w-full flex flex-col justify-center items-center'>
             <div className={`${classes.footerLogo} ${styles.footerLogo} inline-flex justify-center items-center`}>{primaryLogo}</div>
@@ -314,7 +318,6 @@ Login.defaultProps = {
   welcomeTitle: 'Example Welcome Message for Login',
   welcomeDescription: `Example description lorem ipsum dolor sit amet.
     Id veritatis omnis qui veritatis velit in tenetur consequatur ut dolorem tempore qui galisum adipisci.`,
-  copyrightMessage: 'lorem ipsum dolor sit amet',
   onChange: null,
   onEmailSubmit: null,
   onPasscodeSubmit: null,

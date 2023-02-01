@@ -14,6 +14,7 @@ const SKELETON_TYPE = [
   'pie',
   'stat',
   'line',
+  'text',
   'pyramid',
   'barline',
 ].reduce((a, v) => ({ ...a, [v]: v }), {})
@@ -63,5 +64,11 @@ export const Pyramid = () => (
 export const Barline = () => (
   <div style={{ width: '500px' }}>
     <Skeleton view={SKELETON_TYPE.barline}/>
+  </div>
+)
+
+export const Text = () => (
+  <div style={{ width: '500px', height: '40px' }}>
+    <Skeleton view={SKELETON_TYPE.text}/>
   </div>
 )

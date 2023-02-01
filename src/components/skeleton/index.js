@@ -10,6 +10,7 @@ import Bar from './bar'
 import Map from './map'
 import Pie from './pie'
 import Stat from './stat'
+import Text from './text'
 import Line from './line'
 import Pyramid from './pyramid'
 import Barline from './barline'
@@ -39,6 +40,10 @@ const styles = makeStyles({
     transform: 'skewX(-20deg)',
     boxShadow: '0 0 1.875rem 1.875rem rgba(255,255,255,0.2)',
   },
+  smallWidget: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
 })
 
 const skeletonClasses = Object.freeze({
@@ -62,6 +67,8 @@ const Skeleton = ({ classes, view }) => {
     pieSlice, 
     statTop, 
     statBottom,
+    textTop, 
+    textBottom,
     lineCircle,
     linePath,
   } = classes
@@ -76,6 +83,7 @@ const Skeleton = ({ classes, view }) => {
     doubleline: <Line ref={skeletonRef} lineCircle={lineCircle} linePath={linePath} />,
     pyramid: <Pyramid ref={skeletonRef} bar={bar} />,
     barline: <Barline ref={skeletonRef} bar={bar} linePath={linePath} />,
+    text: <Text ref={skeletonRef} textTop={textTop} textBottom={textBottom} />,
   } 
 
   useEffect(() => {
@@ -84,7 +92,7 @@ const Skeleton = ({ classes, view }) => {
 
   return (
     <div className={`${skeletonClasses.container} ${container}`} ref={skeletonRef}>
-      <div className={`${skeletonClasses.wrapper} ${wrapper}`}>
+      <div className={`${skeletonClasses.wrapper} ${wrapper} ${[40].includes(height) && styles.smallWidget}`}>
         {height ? wireframe[view] : null}
         <div className={`absolute w-full h-full top-0 left-0 ${shimmerWrapper}`}>
           <div className={`w-2/4 h-full ${styles.shimmer}`}></div>
@@ -112,6 +120,8 @@ Skeleton.defaultProps = {
     pieSlice: '',
     statTop: '',
     statBottom: '',
+    textTop: '', 
+    textBottom: '',
     lineCircle: '',
     linePath: '',
   },

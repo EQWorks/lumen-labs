@@ -66,13 +66,13 @@ const Area = ({
   const textareaBaseClasses = _textareaBaseClasses({ size, focus, root, filled, disabled })
 
   const handleChange = (e) => {
-    _setValue(e.target?.value || e)
+    _setValue(e.target ? e.target.value : e)
 
     if (inputProps.onChange) {
-      inputProps.onChange(e.target?.value || e)
+      inputProps.onChange(e.target? e.target.value : e)
     }
   
-    onChange(e.target?.value || e)
+    onChange(e.target ? e.target.value : e)
   }
 
   const handleFocus = (e) => {

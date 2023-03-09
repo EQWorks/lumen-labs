@@ -1,0 +1,30 @@
+name: Storybook Build & Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+          cache: 'yarn'
+          registry-url: https://npm.pkg.github.com/
+          scope: "@eqworks"
+
+      - run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
+      - run: yarn build-storybook
+      - name: Deploy to GitHub pages
+        run: yarn storybook-to-ghpages --ci
+        env:
+          GH_TOKEN: EQWorks:${{ secrets.CD_GITHUB_TOKEN }}

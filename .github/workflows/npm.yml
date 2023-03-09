@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout designated tagged commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: 14.x
           registry-url: https://npm.pkg.github.com/
           scope: '@eqworks'
           always-auth: true
@@ -28,9 +28,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: 14.x
           registry-url: https://registry.npmjs.org/
           scope: '@eqworks'
           always-auth: true

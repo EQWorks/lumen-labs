@@ -23,7 +23,13 @@
     "build-tailwindcss-prod": "NODE_ENV=production npx postcss src/styles/tailwind.css -o src/styles/index.css",
     "prepublishOnly": "yarn lint && yarn build-tailwindcss-prod && yarn build",
     "start": "start-storybook -p 6006",
-    "chromatic": "npx chromatic --skip 'dependabot/**'"
+    "chromatic": "npx chromatic --skip 'dependabot/**'",
+    "deploy-storybook": "storybook-to-ghpages"
+  },
+  "storybook-deployer": {
+    "gitUsername": "Deployer",
+    "gitEmail": "sb-deployer@eqworks.com",
+    "commitMessage": "Deploy Storybook"
   },
   "peerDependencies": {
     "react": "^17.0.2",
@@ -40,6 +46,7 @@
     "@storybook/addon-links": "^6.2.9",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.2.9",
+    "@storybook/storybook-deployer": "^2.8.16",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/postcss7-compat": "^2.1.2",
     "autoprefixer": "^9.8.6",

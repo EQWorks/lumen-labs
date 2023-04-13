@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Chip } from '../src'
+import { Chip, makeStyles } from '../src'
 import { Info, Close } from '../src/icons'
 
 
@@ -152,6 +152,40 @@ export const Usage = () => {
           )
         })}
       </div>
+    </>
+  )
+}
+
+const customStyleClasses = makeStyles({
+  chip: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '4px 6px',
+    width: '110px',
+    height: '24px',
+    background: '#EE6E91',
+    borderRadius: '3px',
+  },
+  content: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '14px',
+    lineHeight: '16px',
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    letterSpacing: '0.4px',
+    color: '#000000',
+  },
+})
+
+export const CustomStyling = () => {
+  return (
+    <>
+      <p className={description.p}>Custom Styling: </p>
+      <Chip classes={customStyleClasses}>CHIP</Chip>
     </>
   )
 }

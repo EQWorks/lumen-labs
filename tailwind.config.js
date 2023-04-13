@@ -1,5 +1,6 @@
 const { tailwindExtendColors, tailwindThemeColors } = require('./colors')
 
+
 module.exports = {
   purge: {
     content: ['./src/**/*.{js,jsx,ts,tsx}', './stories/**/*.{stories,js,jsx,ts,tsx}'],
@@ -83,7 +84,7 @@ module.exports = {
       fontSize: {
         xxs: ['0.625rem', { lineHeight: '1rem' }],
         '11px': ['0.688rem', { lineHeight: 1.45 }],
-        '13px': ['0.813rem', { lineHeigh: 1.23}]
+        '13px': ['0.813rem', { lineHeigh: 1.23 }],
       },
       letterSpacing: {
         lg: '1px',
@@ -100,7 +101,7 @@ module.exports = {
         '1.6': 1.6,
         '1.43': 1.43,
         '1.33': 1.33,
-        '1.23': 1.23
+        '1.23': 1.23,
       },
     },
     screens: {

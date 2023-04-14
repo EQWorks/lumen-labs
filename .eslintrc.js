@@ -16,8 +16,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
   ],
   globals: {
     Atomics: 'readonly',
@@ -37,9 +35,12 @@ module.exports = {
   ],
   rules: {
     'import/newline-after-import': ['error', { 'count': 2 }],
+    'array-bracket-spacing': ['error', 'never'],
     'comma-dangle': ['error', 'always-multiline'],
     'eol-last': ['error', 'always'],
     indent: ['error', 2],
+    'no-console': ['warn', { allow: ['error'] }],
+    'no-trailing-spaces': ['error'],
     'object-curly-spacing': ['error', 'always'],
     quotes: ['error', 'single', { 'avoidEscape': true }],
     semi: ['error', 'never'],

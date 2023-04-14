@@ -40,9 +40,9 @@ const Modal = forwardRef(({ classes, children, open, closeModal, size, ...rest }
   })
 
   const modalBaseClasses = Object.freeze({
-    root: `modal__root-container px-10 py-5 ${classes.root}`,
+    root: `modal__root-container ${classes.root} px-10 py-5`,
     main: `modal__main-container ${classes.main}`,
-    overlay: `modal__overlay-container bg-secondary-700 opacity-70 ${classes.overlay}`,
+    overlay: `modal__overlay-container ${classes.overlay} bg-secondary-700 opacity-70`,
   })
 
   return (

@@ -18,10 +18,10 @@ const ArrowDown = ({ className, size, ...props }) => (
     {...props}
   >
     <g transform="matrix(5.833333333333333,0,0,5.833333333333333,0,0)">
-      <path 
-        d="M23.25,7.311,12.53,18.03a.749.749,0,0,1-1.06,0L.75,7.311" 
+      <path
+        d="M23.25,7.311,12.53,18.03a.749.749,0,0,1-1.06,0L.75,7.311"
         strokeLinecap="round"
-        strokeLinejoin="round" 
+        strokeLinejoin="round"
         strokeWidth="1.5"
       />
     </g>

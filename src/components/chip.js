@@ -15,7 +15,7 @@ const Chip = forwardRef(({ classes, children, startIcon, endIcon, color, selecta
       border fill-current ${buttonColor} 
       focus:outline-none ${borderElementsColor}
       ${selectable ? 'cursor-pointer' : 'pointer-events-none'}
-    `, 
+    `,
     content: `chip__content-container ${classes.content || ''} text-xxs font-semibold tracking-lg leading-1.6 uppercase`,
     startIcon: `chip__start-icon-container ${classes.startIcon ? classes.startIcon : 'mr-5px'}`,
     endIcon: `chip__end-icon-container ${classes.endIcon ? classes.endIcon : 'ml-5px'}`,

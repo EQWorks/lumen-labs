@@ -16,7 +16,7 @@ const AlertInformationOutlined = ({ className, size, ...props }) => (
       <path d="M6.78125 4.375C6.90206 4.375 7 4.27706 7 4.15625C7 4.03544 6.90206 3.9375 6.78125 3.9375" strokeWidth="0.875"/>
       <path d="M7 13.5625C10.6244 13.5625 13.5625 10.6244 13.5625 7C13.5625 3.37563 10.6244 0.4375 7 0.4375C3.37563 0.4375 0.4375 3.37563 0.4375 7C0.4375 10.6244 3.37563 13.5625 7 13.5625Z" strokeWidth="0.875" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
-  </svg> 
+  </svg>
 )
 
 

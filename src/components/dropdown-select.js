@@ -36,32 +36,32 @@ const _contentSize = (size) => {
   default:
     break
   }
-  
+
   return contentSize
 }
 
-const DropdownSelect = ({ 
-  classes, 
-  data, 
-  button, 
-  size, 
+const DropdownSelect = ({
+  classes,
+  data,
+  button,
+  size,
   uncontrolled,
   defaultValue,
   value,
-  onSelect, 
+  onSelect,
   onDelete,
-  startIcon, 
-  endIcon, 
-  placeholder, 
-  multiSelect, 
+  startIcon,
+  endIcon,
+  placeholder,
+  multiSelect,
   limit,
-  showType, 
-  overflow, 
-  disabled, 
+  showType,
+  overflow,
+  disabled,
   allowClear,
   simple,
   preventDeselect,
-  ...rest 
+  ...rest
 }) => {
   const [options, setOptions] = useState([])
   const fallbackEmptyValue = useMemo(() => (
@@ -154,7 +154,7 @@ const DropdownSelect = ({
           }
         </>
       )
-    }  
+    }
 
     return finalSelectedOptions.title
       ? (<span className={dropdownSelectClasses.selectedOptionTitle}> {finalSelectedOptions.title}</span >)
@@ -258,15 +258,15 @@ const DropdownSelect = ({
   }
 
   return (
-    <DropdownBase 
+    <DropdownBase
       ref={ref}
-      classes={dropdownClasses} 
+      classes={dropdownClasses}
       renderSelectedOptions={renderSelectedOptions}
       button={button}
       onClick={onClickSelect}
       open={open}
       size={size}
-      startIcon={startIcon} 
+      startIcon={startIcon}
       endIcon={
         !multiSelect && finalSelectedOptions.title
           ? (
@@ -277,17 +277,17 @@ const DropdownSelect = ({
           : endIcon
       }
       placeholder={placeholder}
-      multiSelect={multiSelect} 
+      multiSelect={multiSelect}
       overflow={overflow}
-      disabled={disabled} 
+      disabled={disabled}
       {...rest}
     >
       <ul>
         {finalData && finalData.map((el, index) => {
           return (
-            <Menu.Item 
-              as="li" 
-              key={`list-container-${index}`} 
+            <Menu.Item
+              as="li"
+              key={`list-container-${index}`}
               className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
             >
               {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}

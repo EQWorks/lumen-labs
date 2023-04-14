@@ -74,14 +74,14 @@ ToastBase.propTypes = {
 }
 
 ToastBase.defaultProps = {
-  classes: { 
-    root: '', 
-    header: '', 
+  classes: {
+    root: '',
+    header: '',
     title: '',
-    content: '', 
+    content: '',
     description: '',
-    startIcon: '', 
-    endIcon: '', 
+    startIcon: '',
+    endIcon: '',
   },
   children: null,
   variant: 'horizontal',

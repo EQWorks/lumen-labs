@@ -2,11 +2,11 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const SideBarHeader = forwardRef(({  
-  classes, 
+const SideBarHeader = forwardRef(({
+  classes,
   children,
-  onClick, 
-  ...rest 
+  onClick,
+  ...rest
 }, ref) => {
   const sideBarHeaderClasses = Object.freeze({
     headerContainer: `side-bar__header-container mb-2 px-6 py-4 text-base font-rc leading-4 font-normal text-secondary-500 
@@ -14,10 +14,10 @@ const SideBarHeader = forwardRef(({
   })
 
   return (
-    <div 
+    <div
       ref={ref}
-      className={sideBarHeaderClasses.headerContainer} 
-      onClick={onClick} 
+      className={sideBarHeaderClasses.headerContainer}
+      onClick={onClick}
       {...rest}
     >
       {children}

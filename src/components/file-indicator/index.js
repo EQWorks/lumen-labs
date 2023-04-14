@@ -59,7 +59,7 @@ const Text = (error, progress, time) => {
     return (
       <p className={'uploaded font-normal text-right mt-3 text-primary-500'}>Loaded {progress}%, {timeConverter(time)} remaining</p>
     )
-  } 
+  }
   return (
     <p className={'uploaded font-normal text-right mt-3 text-primary-500'}>Loaded {progress}%</p>
   )
@@ -70,7 +70,7 @@ const FileIndicator = forwardRef(({
 }, ref) => {
   const style = customClasses(progress)
 
-  const fileIndicatorClasses = Object.freeze({ 
+  const fileIndicatorClasses = Object.freeze({
     fileName: `${classes.fileName ? classes.fileName : ''}`,
     container: classes.container ? classes.container : '',
     barContainer: `h-5px w-full rounded-full bg-secondary-200 ${classes.barContainer ? classes.barContainer : ''}`,
@@ -81,11 +81,11 @@ const FileIndicator = forwardRef(({
       [`complete-button ${classes.completeButton ? classes.completeButton : ''}`]: progress === 100,
     }),
   })
-  
+
   return (
     <div ref={ref} className={`filed_indicator__root-container ${style.fileIndicatorRoot}`} {...rest}>
       {
-        fileName && fileSize && 
+        fileName && fileSize &&
         <p className={`file-name font-bold mb-3 text-secondary-700 ${fileIndicatorClasses.fileName}`}>{fileName} <span className='font-normal'>({fileSize})</span></p>
       }
       <div className={`flex flex-row items-center gap-4 ${fileIndicatorClasses.container}`}>
@@ -123,11 +123,11 @@ FileIndicator.propTypes = {
 }
 
 FileIndicator.defaultProps = {
-  classes: { 
-    fileName: '', 
-    container: '', 
-    barContainer: '', 
-    content: '', 
+  classes: {
+    fileName: '',
+    container: '',
+    barContainer: '',
+    content: '',
     pause: '',
     enabledButton: '',
     disableButton: '',

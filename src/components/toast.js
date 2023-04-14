@@ -112,7 +112,7 @@ const Toast = forwardRef(({
   })
 
   const toastRef = useRef(null)
-  const [progress, setProgress] = useState(true)  
+  const [progress, setProgress] = useState(true)
 
   useEffect(() => {
     if (open && timeOut) {
@@ -124,7 +124,7 @@ const Toast = forwardRef(({
         setProgress(false)
         onClose()
       }, timeOut)
-  
+
       return () => clearTimeout(t)
     }
   }, [open, timeOut, onClose, onTimeOut])
@@ -140,7 +140,7 @@ const Toast = forwardRef(({
           toastEl.style.opacity = 1
         }, 500)
         return () => clearTimeout(fade)
-        
+
       } else if (toastEl && !open) {
         fade = setTimeout(() => {
           toastEl.style.visibility = 'hidden'
@@ -157,10 +157,10 @@ const Toast = forwardRef(({
   }
 
   const _button = <div className={toastClasses.button}>{button}</div>
-  
+
   return (
     <>
-      <div 
+      <div
         ref={toastRef}
         className={`inline-flex shadow-light-40 ${timeOut > 0 && 'invisible opacity-0 transition-all duration-500'}`}
       >
@@ -168,11 +168,11 @@ const Toast = forwardRef(({
           ref={ref}
           classes={toastClasses}
           variant={variant}
-          title={title} 
+          title={title}
           description={description}
           button={button && _button}
-          startIcon={icon} 
-          endIcon={<Close size='sm' onClick={handleOnClose}/>} 
+          startIcon={icon}
+          endIcon={<Close size='sm' onClick={handleOnClose}/>}
           {...rest}
         >
           {(timeOut > 0 && progress &&
@@ -206,13 +206,13 @@ Toast.propTypes = {
 }
 
 Toast.defaultProps = {
-  classes: { 
-    root: '', 
-    header: '', 
+  classes: {
+    root: '',
+    header: '',
     title: '',
-    content: '', 
+    content: '',
     description: '',
-    icon: '', 
+    icon: '',
   },
   variant: 'horizontal',
   open: true,

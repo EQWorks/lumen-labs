@@ -48,7 +48,7 @@ const TextareaBase = forwardRef(({
 
     onBlur(e)
   }
-  
+
   return (
     <div ref={ref} className={`${baseClasses.root} ${classes.root}`}>
       <textarea
@@ -57,7 +57,7 @@ const TextareaBase = forwardRef(({
         onClick={onClick}
         onChange={textareaOnChange}
         placeholder={_placeholder}
-        onFocus={handleFocus} 
+        onFocus={handleFocus}
         onBlur={handleBlur}
         {...rest}
       />

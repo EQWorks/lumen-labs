@@ -18,10 +18,10 @@ const Check = ({ className, size, ...props }) => (
     {...props}
   >
     <g transform="matrix(10,0,0,10,0,0)">
-      <path 
-        d="M7,0a7,7,0,1,0,7,7A7.008,7.008,0,0,0,7,0Zm3.6,5.9L6.624,9.874a1,1,0,0,1-1.415,0L3.4,8.068A1,1,0,0,1,4.818,6.654l1.1,1.1L9.182,4.487A1,1,0,0,1,10.6,5.9Z" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+      <path
+        d="M7,0a7,7,0,1,0,7,7A7.008,7.008,0,0,0,7,0Zm3.6,5.9L6.624,9.874a1,1,0,0,1-1.415,0L3.4,8.068A1,1,0,0,1,4.818,6.654l1.1,1.1L9.182,4.487A1,1,0,0,1,10.6,5.9Z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         strokeWidth="0"
       />
     </g>

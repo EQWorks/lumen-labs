@@ -23,4 +23,4 @@ const Star = ({ className, size, ...props }) => (
 Star.propTypes = { className: PropTypes.string, size: PropTypes.string }
 Star.defaultProps = { className: '', size: 'lg' }
 
-export default Star 
+export default Star

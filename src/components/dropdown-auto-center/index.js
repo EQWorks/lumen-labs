@@ -5,8 +5,8 @@ import { DialogBase } from '../../base-components'
 import './dropdown-auto-center.css'
 
 
-const DropdownAutoCenter = forwardRef(({ 
-  classes, 
+const DropdownAutoCenter = forwardRef(({
+  classes,
   data,
   onSelect,
   value,
@@ -79,16 +79,16 @@ const DropdownAutoCenter = forwardRef(({
   return (
     <>
       <DialogBase ref={ref} classes={dialogClasses} open={open} button={dropdownButton} onClick={handleSelectRowsOnClick}  disabled={disabled} {...rest}>
-        <ul 
-          ref={el => dropdownRef.current = el} 
+        <ul
+          ref={el => dropdownRef.current = el}
           className={dropdownClasses.menu}
           style={{ top: `-${dropdownOffsetTop}px` }}
         >
           {data.map((item, index) => {
             return (
-              <li 
-                key={index} 
-                className={`${dropdownClasses.item} ${item.title.toString() === active.title.toString() && 'text-interactive-500 shadow-light-10 scale-105'}`} 
+              <li
+                key={index}
+                className={`${dropdownClasses.item} ${item.title.toString() === active.title.toString() && 'text-interactive-500 shadow-light-10 scale-105'}`}
                 onClick={(e) => onSelectRowOptions(e, item, index)}
                 onPointerDown={() => setActive(item)}
               >
@@ -127,7 +127,7 @@ DropdownAutoCenter.propTypes = {
 }
 
 DropdownAutoCenter.defaultProps = {
-  classes: { 
+  classes: {
     root: '',
     button: '',
     menu: '',

@@ -14,9 +14,9 @@ import { useComponentIsActive } from '../hooks'
 import { makeStyles } from '../utils/make-styles'
 import { ConditionalWrapper } from '../utils/conditional-wrapper'
 import { customScroll } from '../utils/custom-scroll'
-import { 
-  getWeekdayShort, 
-  getDaysInMonth, 
+import {
+  getWeekdayShort,
+  getDaysInMonth,
   getYear,
   getMonth,
   getCurrentDay,
@@ -37,7 +37,7 @@ const customClasses = makeStyles({
           width: '100%',
           display: 'flex',
           justifyContent: 'space-between',
-          
+
           '& .navbar-content': {
             display: 'flex',
             justifyContent: 'center',
@@ -67,7 +67,7 @@ const customClasses = makeStyles({
             fontSize: '0.813rem',
             lineHeight: 1.23,
             border: 0,
-            
+
             '& .button-content-container': {
               padding: '0.125rem 0.375rem',
 
@@ -157,7 +157,7 @@ const customClasses = makeStyles({
           paddingLeft: '1.875rem',
           paddingRight: '1.875rem',
         },
-  
+
         '& .confirm-button': {
           paddingLeft: '2.5rem',
           paddingRight: '2.5rem',
@@ -194,27 +194,27 @@ const dropdownClasses = Object.freeze({
   menu: `dropdown-menu-container w-full h-auto max-h-185px z-50 ${customScroll()}`,
 })
 
-const DatePicker = ({ 
-  classes, 
-  tooltip, 
-  navbarType, 
-  variant, 
-  onSelectDay, 
-  onConfirm, 
-  onCancel, 
+const DatePicker = ({
+  classes,
+  tooltip,
+  navbarType,
+  variant,
+  onSelectDay,
+  onConfirm,
+  onCancel,
   onDeleteInput,
-  defaultDate, 
+  defaultDate,
   minDate,
   maxDate,
-  label, 
-  customTrigger, 
-  dateFormat, 
-  rangeOfYears, 
-  actionButtons, 
-  hideInput, 
-  defaultSelected, 
-  deleteInputButton, 
-  required, 
+  label,
+  customTrigger,
+  dateFormat,
+  rangeOfYears,
+  actionButtons,
+  hideInput,
+  defaultSelected,
+  deleteInputButton,
+  required,
 }) => {
   const datePickerClasses = Object.freeze({
     root: `date-picker-root relative inline-flex ${classes.root ? classes.root : ''}`,
@@ -252,7 +252,7 @@ const DatePicker = ({
 
   const [inputVal, setInputVal] = useState(defaultSelected ? moment(defaultDate[0]).format('MM/DD/YYYY') : '')
   const [rangeVal, setRangeVal] = useState({
-    start: defaultSelected ? moment(defaultDate[0]).format('MM/DD/YYYY') : '', 
+    start: defaultSelected ? moment(defaultDate[0]).format('MM/DD/YYYY') : '',
     end: defaultSelected && defaultDate[1] ? moment(defaultDate[1]).format('MM/DD/YYYY') : '',
     selected: '',
   })
@@ -290,7 +290,7 @@ const DatePicker = ({
     if (variant === 'single') {
       setInputVal(formatStartDay ? moment(calendarState.selectedStartDay).format('MM/DD/YYYY') : '')
     } else {
-      setRangeVal({ 
+      setRangeVal({
         start: formatStartDay ? moment(calendarState.selectedStartDay).format('MM/DD/YYYY') : '',
         end: formatEndDay ? moment(calendarState.selectedEndDay).format('MM/DD/YYYY') : '',
         selected: '',
@@ -302,7 +302,7 @@ const DatePicker = ({
     if (variant === 'single') {
       setInputVal('')
     } else {
-      setRangeVal({ 
+      setRangeVal({
         start: '',
         end: '',
         selected: '',
@@ -322,7 +322,7 @@ const DatePicker = ({
     }
   }
 
-  if (!componentIsActive && open) { 
+  if (!componentIsActive && open) {
     enforceValue()
     setOpen(!open)
     setFocus(false)
@@ -377,9 +377,9 @@ const DatePicker = ({
     })
 
     return (
-      <DropdownSelect 
+      <DropdownSelect
         classes={dropdownClasses}
-        data={months}  
+        data={months}
         value={getMonth(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}
         onSelect={(e, val) => { onSelectMonthDropdown(e, val, multi) }}
         endIcon={<ChevronDown className='stroke-current text-secondary-800' size='sm' />}
@@ -448,9 +448,9 @@ const DatePicker = ({
     }
 
     return (
-      <DropdownSelect 
+      <DropdownSelect
         classes={dropdownClasses}
-        data={selectableYears}  
+        data={selectableYears}
         value={getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}
         onSelect={(e, val) => { onSelectYear(e, val, multi) }}
         endIcon={<ChevronDown className='stroke-current text-secondary-800' size='sm' />}
@@ -493,7 +493,7 @@ const DatePicker = ({
     const parseDay = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, d)
     let _start = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, moment(rangeVal.start, 'MM/DD/YYYY').format('DD'))
     let _end = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, moment(rangeVal.end, 'MM/DD/YYYY').format('DD'))
-    
+
     if (!customTrigger && !hideInput) {
       if (rangeVal.selected === 'start') {
         setCalendarState({
@@ -507,8 +507,8 @@ const DatePicker = ({
           inputStartRef.current.childNodes[1].focus()
         }
 
-        setRangeVal({ 
-          ...rangeVal, 
+        setRangeVal({
+          ...rangeVal,
           start: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatEndDay ? rangeVal.selected : 'end',
         })
@@ -526,14 +526,14 @@ const DatePicker = ({
           inputEndRef.current.childNodes[1].focus()
         }
 
-        setRangeVal({ 
-          ...rangeVal, 
+        setRangeVal({
+          ...rangeVal,
           end: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatStartDay ? rangeVal.selected : 'start',
         })
 
         _end = parseDay
-      } 
+      }
     } else {
       if (formatStartDay > d) {
         setCalendarState({
@@ -542,14 +542,14 @@ const DatePicker = ({
           selectedEndDay: selectedStartDay,
         })
 
-        setRangeVal({ 
+        setRangeVal({
           start: moment(parseDay).format('MM/DD/YYYY'),
           end: moment(selectedStartDay).format('MM/DD/YYYY'),
         })
 
         _start = parseDay
         _end = moment(selectedStartDay).format('MM/DD/YYYY')
-      } 
+      }
       else if (formatStartDay == d || formatEndDay == d) {
         setCalendarState({
           ...calendarState,
@@ -557,7 +557,7 @@ const DatePicker = ({
           selectedEndDay:  null,
         })
 
-        setRangeVal({ 
+        setRangeVal({
           start: '',
           end: '',
         })
@@ -571,20 +571,20 @@ const DatePicker = ({
           selectedEndDay: parseDay,
         })
 
-        setRangeVal({ 
+        setRangeVal({
           ...rangeVal,
           end: moment(parseDay).format('MM/DD/YYYY'),
         })
 
         _end = parseDay
-      } 
+      }
       else {
         setCalendarState({
           ...calendarState,
           selectedStartDay: parseDay,
         })
 
-        setRangeVal({ 
+        setRangeVal({
           ...rangeVal,
           start: moment(parseDay).format('MM/DD/YYYY'),
         })
@@ -593,10 +593,10 @@ const DatePicker = ({
       }
     }
 
-    onSelectDay(e, { 
-      start: getDayFormat(_start, dateFormat), 
-      end: getDayFormat(_end, dateFormat), 
-      selected: getDayFormat(parseDay, dateFormat), 
+    onSelectDay(e, {
+      start: getDayFormat(_start, dateFormat),
+      end: getDayFormat(_end, dateFormat),
+      selected: getDayFormat(parseDay, dateFormat),
     })
   }
 
@@ -615,7 +615,7 @@ const DatePicker = ({
         ...rangeVal,
         end: moment(parseDay).format('MM/DD/YYYY'),
       })
-  
+
       if (formatEndDay == d) {
         setCalendarState({
           ...calendarState,
@@ -666,7 +666,7 @@ const DatePicker = ({
     let renderType = ''
     if (variant !== 'multi') {
       switch(navbarType) {
-      case 'both': 
+      case 'both':
         renderType = (
           <>
             <div className="month-dropdown">
@@ -678,7 +678,7 @@ const DatePicker = ({
           </>
         )
         break
-      case 'year': 
+      case 'year':
         renderType = (
           <>
             <span>
@@ -687,7 +687,7 @@ const DatePicker = ({
           </>
         )
         break
-      case 'none': 
+      case 'none':
         renderType = (
           <>
             <span>
@@ -697,7 +697,7 @@ const DatePicker = ({
         )
         break
       default:
-        break 
+        break
       }
     } else {
       renderType = (
@@ -780,17 +780,17 @@ const DatePicker = ({
       let selectedRangeClass = 'cursor-pointer'
       let disableDay = false
 
-      if (moment(selectedStartDay).format('YYYY-MM-DD') === parseDay || 
+      if (moment(selectedStartDay).format('YYYY-MM-DD') === parseDay ||
         moment(selectedEndDay).format('YYYY-MM-DD') === parseDay
       ) {
         selectedClass = 'bg-interactive-500 text-interactive-50 rounded-sm font-bold'
-      } 
+      }
       else if (d == getCurrentDay(multi ? dateObjectMulti : dateObject)) {
         if (moment().format('YYYY-MM') === moment(multi ? dateObjectMulti : dateObject).format('YYYY-MM')) {
           selectedClass = 'border border-secondary-400'
         }
-      } 
-      
+      }
+
       if (formatStartDay && formatEndDay) {
         const parseStartDay = moment(calendarState.selectedStartDay).format('YYYY-MM-DD')
         const parseEndDay = moment(calendarState.selectedEndDay).format('YYYY-MM-DD')
@@ -817,7 +817,7 @@ const DatePicker = ({
 
       if (formatStartDay && rangeVal.selected === 'end') {
         const parseStartDay = moment(calendarState.selectedStartDay).format('YYYY-MM-DD')
-        
+
         if (moment(parseDay).diff(parseStartDay) < 0) {
           selectedClass = 'cursor-not-allowed'
           selectedRangeClass = 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
@@ -837,8 +837,8 @@ const DatePicker = ({
 
 
       currMonthDays.push(
-        <td 
-          key={d} 
+        <td
+          key={d}
           className={`${selectedRangeClass && selectedRangeClass} ${datePickerClasses.calendarDayContainer}`}>
           <button
             className={`${selectedClass} ${datePickerClasses.calendarDay}`}
@@ -902,7 +902,7 @@ const DatePicker = ({
         return moment(formatMinDate, 'YYYY-MM-DD').diff(date) <= 0
       } else if (formatMaxDate && !formatMinDate) {
         return moment(formatMaxDate, 'YYYY-MM-DD').diff(date) >= 0
-      } 
+      }
     }
 
     return true
@@ -921,7 +921,7 @@ const DatePicker = ({
           selectedStartDay: getISODateFormat(moment(date), moment(date).format('DD')),
         })
       }
-  
+
       setInputVal(val)
     }
   }
@@ -935,7 +935,7 @@ const DatePicker = ({
       if (date.isValid() && isOnRange) {
         if (formatEndDay) {
           if (moment(date, 'MM/DD/YYYY').diff(calendarState.selectedEndDay) <= 0) {
-            if (variant === 'multi' && 
+            if (variant === 'multi' &&
               moment(date, 'MM/DD/YYYY').format('YYYY-MM') !== calendarState.dateObjectMulti.format('YYYY-MM')
             ) {
               setCalendarState({
@@ -966,7 +966,7 @@ const DatePicker = ({
       if (date.isValid() && isOnRange) {
         if (formatStartDay) {
           if (moment(date, 'MM/DD/YYYY').diff(calendarState.selectedStartDay) >= 0) {
-            if (variant === 'multi' && 
+            if (variant === 'multi' &&
               moment(date, 'MM/DD/YYYY').format('YYYY-MM') !== calendarState.dateObject.format('YYYY-MM')
             ) {
               setCalendarState({
@@ -1016,7 +1016,7 @@ const DatePicker = ({
 
   const renderInput = () => (
     variant === 'single' ?
-      <InputBase 
+      <InputBase
         ref={inputSingleRef}
         classes={inputClasses}
         value={inputVal}
@@ -1027,9 +1027,9 @@ const DatePicker = ({
           setFocus(true)
         }}
         startIcon={
-          <Calendar 
-            className='text-secondary-600' 
-            size='md' 
+          <Calendar
+            className='text-secondary-600'
+            size='md'
             onClick={(e) => {
               e.stopPropagation()
               setFocus(true)
@@ -1041,8 +1041,8 @@ const DatePicker = ({
         deleteButton={deleteInputButton}
       />
       :
-      <div 
-        className={`${customClasses.inputRangeContainer} ${inputRangeClasses.container}`} 
+      <div
+        className={`${customClasses.inputRangeContainer} ${inputRangeClasses.container}`}
         onClick={(e) => {
           e.stopPropagation()
           setFocus(true)
@@ -1054,7 +1054,7 @@ const DatePicker = ({
           <div className={inputRangeClasses.startIcon}>
             <Calendar className='text-secondary-600' size='md'/>
           </div>
-          <InputBase 
+          <InputBase
             ref={inputStartRef}
             classes={inputRangeClasses}
             onChange={inputOnChangeRange}
@@ -1073,7 +1073,7 @@ const DatePicker = ({
             deleteButton={false}
           />
           <span className='text-secondary-400 mr-5px'>——</span>
-          <InputBase 
+          <InputBase
             ref={inputEndRef}
             classes={inputRangeClasses}
             onChange={(val) => inputOnChangeRange(val, true)}
@@ -1093,8 +1093,8 @@ const DatePicker = ({
           />
         </div>
         {deleteInputButton && (rangeVal.start || rangeVal.end) &&
-          <div 
-            className={inputRangeClasses.endIcon} 
+          <div
+            className={inputRangeClasses.endIcon}
             onClick={inputOnDelete}
           >
             <Delete className='fill-current text-secondary-600 cursor-pointer' size='md'/>
@@ -1108,7 +1108,7 @@ const DatePicker = ({
     enforceValue()
     onClickDatePicker()
 
-    onConfirm(e, variant === 'single' ? getDayFormat(calendarState.selectedStartDay, dateFormat) : 
+    onConfirm(e, variant === 'single' ? getDayFormat(calendarState.selectedStartDay, dateFormat) :
       { startDay: getDayFormat(calendarState.selectedStartDay, dateFormat), endDay: getDayFormat(calendarState.selectedEndDay, dateFormat) },
     )
   }
@@ -1150,7 +1150,7 @@ const DatePicker = ({
         condition={!hideInput}
         wrapper={wrappedChildren => (
           <Menu as='div' className={datePickerClasses.rootButtonContainer}>
-            {customTrigger ? 
+            {customTrigger ?
               <Menu.Button as='div' className='date-picker-button'>
                 <div className="button-content" onClick={onClickDatePicker}>
                   {customTrigger}
@@ -1164,9 +1164,9 @@ const DatePicker = ({
                   </p>
                   {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
                   {(tooltip.title || tooltip.description) ? (
-                    <Tooltip 
+                    <Tooltip
                       position='right'
-                      {...tooltip} 
+                      {...tooltip}
                     >
                       {label?.icon || <Info className={labelClasses.icon} size='sm'/>}
                     </Tooltip>

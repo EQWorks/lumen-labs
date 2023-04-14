@@ -72,13 +72,13 @@ const ProgressIndicator = forwardRef(({
 }, ref) => {
   const styles = customClasses(size)
 
-  const { 
-    leftLineActive, 
-    leftLineDisabled, 
-    rightLineActive, 
-    rightLineDisabled, 
-    numberActiveContainer, 
-    numberCompleteContainer, 
+  const {
+    leftLineActive,
+    leftLineDisabled,
+    rightLineActive,
+    rightLineDisabled,
+    numberActiveContainer,
+    numberCompleteContainer,
     numberDisabledContainer,
     numberActive,
     numberDisabled,
@@ -89,7 +89,7 @@ const ProgressIndicator = forwardRef(({
     captionComplete,
     captionDisabled,
   } = classes
-  const progressIndicatorClasses = Object.freeze({ 
+  const progressIndicatorClasses = Object.freeze({
     container: clsx('progress_indicator__root-container inline-flex justify-between', {
       'flex-col': vertical,
     }),
@@ -150,7 +150,7 @@ const ProgressIndicator = forwardRef(({
       'ml-1.5 tracking-wider': vertical,
     }),
   })
-  
+
   const indicators = useMemo(() => _indicators.map((ind, i) => {
     if (!ind.complete && checkComplete(i, _indicators)) {
       return ({ ...ind, complete: true })
@@ -171,7 +171,7 @@ const ProgressIndicator = forwardRef(({
 
             <span className={progressIndicatorClasses.numberContainer(active, complete)}>
               {
-                !complete && !active && 
+                !complete && !active &&
                 <p className={progressIndicatorClasses.numberText(active, complete)}>{i+1}</p>
               }
               {((complete && !active) || (complete && active)) && <CheckBold className={'svg-icon filled-current text-secondary-50'} />}
@@ -182,10 +182,10 @@ const ProgressIndicator = forwardRef(({
             <div className={progressIndicatorClasses.rightLine(i, indicators, active, complete)} />
 
           </span>
-          
+
           <div>
             <p className={progressIndicatorClasses.indicatorLabel(active, complete)}>{label}</p>
-            { caption ?           
+            { caption ?
               <p className={progressIndicatorClasses.indicatorCaption(active, complete)}>
                 {caption}
               </p> : null}

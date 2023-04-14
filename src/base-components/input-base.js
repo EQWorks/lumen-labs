@@ -28,7 +28,7 @@ const InputBase = forwardRef(({
   })
   const [_value, _setValue] = useState(defaultValue)
   const [_placeholder, _setPlaceholder] = useState(placeholder)
-  
+
   const inputRef = useRef(null)
 
   const inputOnChange = (e) => {

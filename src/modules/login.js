@@ -150,7 +150,7 @@ const Login = ({
 
   const handleChange = (field, value) => {
     let changes = { email, passcode, errorConfig: errors, loadingConfig: loading }
-  
+
     if (field === 'email') {
       setEmail(value)
       // basic validation source
@@ -176,7 +176,7 @@ const Login = ({
       setErrors(error)
       changes = { ...changes, errorConfig: error }
     }
-  
+
     if (field === 'passcode') {
       setPasscode(value)
       const match = (value).match(/[^A-F\d]/gi)
@@ -255,7 +255,7 @@ const Login = ({
             onSubmit={handleEmailSubmit}
             classes={{ container: `${styles.largeWidth} ${styles.spacingMargin}` }}
           />}
-          {showPasscode && 
+          {showPasscode &&
           <div className={`flex flex-col ${styles.spacingMargin}`}>
             <TextField
               autoFocus
@@ -304,7 +304,7 @@ Login.propTypes = {
   secondaryLogo: PropTypes.element,
   classes: PropTypes.object,
   welcomeTitle: PropTypes.string,
-  welcomeDescription: PropTypes.string, 
+  welcomeDescription: PropTypes.string,
   copyrightMessage: PropTypes.string,
   onChange: PropTypes.func,
   onEmailSubmit: PropTypes.func,

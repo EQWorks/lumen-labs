@@ -55,19 +55,19 @@ const Skeleton = ({ classes, view }) => {
   const skeletonRef = useRef(null)
   const [height, setHeight] = useState(0)
 
-  const { 
-    container, 
-    wrapper, 
-    title, 
-    article, 
-    bar, 
-    mapMarker, 
-    mapCircle, 
-    pie, 
-    pieSlice, 
-    statTop, 
+  const {
+    container,
+    wrapper,
+    title,
+    article,
+    bar,
+    mapMarker,
+    mapCircle,
+    pie,
+    pieSlice,
+    statTop,
     statBottom,
-    textTop, 
+    textTop,
     textBottom,
     lineCircle,
     linePath,
@@ -84,7 +84,7 @@ const Skeleton = ({ classes, view }) => {
     pyramid: <Pyramid ref={skeletonRef} bar={bar} />,
     barline: <Barline ref={skeletonRef} bar={bar} linePath={linePath} />,
     text: <Text ref={skeletonRef} textTop={textTop} textBottom={textBottom} />,
-  } 
+  }
 
   useEffect(() => {
     setHeight(skeletonRef.current.offsetHeight)
@@ -107,20 +107,20 @@ Skeleton.propTypes = {
   view: PropTypes.string,
 }
 Skeleton.defaultProps = {
-  classes: { 
-    container: '', 
-    wrapper: '', 
-    skeleton: '', 
-    title: '', 
-    article: '', 
-    bar: '', 
-    mapMarker: '', 
-    mapCircle: '', 
+  classes: {
+    container: '',
+    wrapper: '',
+    skeleton: '',
+    title: '',
+    article: '',
+    bar: '',
+    mapMarker: '',
+    mapCircle: '',
     pie: '',
     pieSlice: '',
     statTop: '',
     statBottom: '',
-    textTop: '', 
+    textTop: '',
     textBottom: '',
     lineCircle: '',
     linePath: '',

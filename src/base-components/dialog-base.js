@@ -28,7 +28,7 @@ const DialogBase = ({ classes, button, children, modal, open, anchor, onClick, d
   if (!componentIsActive && open) {
     onClick()
   }
-  
+
   const handleClick = (e) => {
     e.stopPropagation()
 

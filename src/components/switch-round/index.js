@@ -18,10 +18,10 @@ const SwitchRound = forwardRef(({ classes, id, checked, onChange, label, disable
   })
 
   return (
-    <SwitchBase 
-      id={id} 
+    <SwitchBase
+      id={id}
       ref={ref}
-      classes={switchRoundClasses}                   
+      classes={switchRoundClasses}
       checked={checked}
       onChange={onChange}
       label={label}

@@ -35,7 +35,7 @@ const _inputSize = ({ size, variant }) => {
   default:
     break
   }
-  
+
   return inputSize
 }
 
@@ -49,9 +49,9 @@ const _textFieldClasses = ({ container, inputSize, success, error, linkedFields 
     },
   },
   label: 'text-secondary-600',
-  helperText: clsx('mt-1.5 text-secondary-600', { 
-    'text-error-500': error, 
-    'text-success-500': success, 
+  helperText: clsx('mt-1.5 text-secondary-600', {
+    'text-error-500': error,
+    'text-success-500': success,
   }),
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
@@ -70,7 +70,7 @@ const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, ro
       { 'border-interactive-500 bg-secondary-50': focus && filled },
       { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
     ),
-    input: clsx(`textfield__input-container outline-none ${input && input}`, 
+    input: clsx(`textfield__input-container outline-none ${input && input}`,
       { 'bg-secondary-50': filled },
       { 'text-secondary-800': !disabled },
       { 'bg-secondary-100 text-secondary-400 placeholder-secondary-400': disabled },
@@ -79,9 +79,9 @@ const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, ro
     endIcon: clsx('textfield__end-icon-container mt-0.5 ml-4 fill-current stroke-current',
       {
         'text-secondary-600': !disabled,
-        'text-interactive-500': focus && !error && !success, 
-        'text-error-500': error, 
-        'text-success-500': success, 
+        'text-interactive-500': focus && !error && !success,
+        'text-error-500': error,
+        'text-success-500': success,
       },
     ),
     prefix: 'textfield__prefix-container mr-2.5 text-secondary-600',
@@ -180,7 +180,7 @@ const TextField  = ({
 
     const v = [...linkedValues]
     v.splice(i, 1, e.target.value)
-  
+
     if (v.filter((r) => r).length > linkedValues.filter((r) => r).length) {
       const next = document.getElementById(`linked-${inputID}-${i+2}`)
       if (next) {
@@ -188,7 +188,7 @@ const TextField  = ({
         setFocus(i+2)
       }
     }
-  
+
     setLinkedValues(v)
     return onChange(v.join(''))
   }
@@ -199,7 +199,7 @@ const TextField  = ({
     if (inputProps.onChange) {
       inputProps.onChange(e.target? e.target.value : e)
     }
-  
+
     onChange(e.target ? e.target.value : e)
   }
 

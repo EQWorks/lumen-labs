@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card } from '../src'
+import { Card, makeStyles } from '../src'
 import { CardBase } from '../src/base-components'
 
 
@@ -62,6 +62,47 @@ export const Normal = () => {
         <Card size='lg' classes={_classes} {...cardProps} />
         <Card size='lg' onClose={() => {}} {...cardProps} classes={_classes} />
       </div>
+    </>
+  )
+}
+
+
+export const CustomStyling = () => {
+  const cardProps = { header: 'Header section', content: 'Content section', footer: 'Footer section' }
+  const _classes = makeStyles({
+    root: {
+      position: 'relative',
+      padding: '0',
+      width: '42rem',
+      height: '33rem',
+      margin: '0.5rem',
+      '& > * > *': {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+    },
+    header: {
+      background: '#FBF7EF',
+      height: '11rem',
+    },
+    content:{
+      fontSize: '2rem',
+    },
+    footer:{
+      background: '#FBF7EF',
+      height: '15%',
+    },
+    closeIcon:{
+      position: 'absolute',
+      right: '0.5rem',
+      top: '0.5rem',
+    },
+  })
+  return (
+    <>
+      <p className='text-blue-300 mt-5 mb-1'>Custom Styling:</p>
+      <Card onClose={() => {}} {...cardProps} classes={_classes} />
     </>
   )
 }

@@ -85,16 +85,17 @@ const Button = ({ children, classes, variant, size, type, disabled, ...rest }) =
 
   const _classes = {
     button: clsx(
-      `button__root-container focus:outline-none ${classes.button.borderRadius || 'rounded-sm'}
-      font-normal ${sizes.text[size]} ${variants[variant]} ${classes.button}`,
+      `button__root-container ${classes.button || ''} focus:outline-none ${classes.button.borderRadius || 'rounded-sm'}
+      font-normal ${sizes.text[size]} ${variants[variant]}`,
       {
         [sizes[size]]: typeof children === 'string',
         [sizes.squared[size]]: typeof children !== 'string',
         'uppercase': size === 'sm',
       },
     ),
-    startIcon: `button__start-icon-container ${sizes.iconPadding.startIcon[size]} ${classes.startIcon}`,
-    endIcon: `button__end-icon-container ${sizes.iconPadding.endIcon[size]} ${classes.endIcon}`,
+    content: `button__content-container ${classes.content || ''}`,
+    startIcon: `button__start-icon-container ${classes.startIcon || ''} ${sizes.iconPadding.startIcon[size]}`,
+    endIcon: `button__end-icon-container ${classes.endIcon || ''} ${sizes.iconPadding.endIcon[size]}`,
   }
 
   const handleClick = e => {
@@ -120,7 +121,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
 }
 Button.defaultProps = {
-  classes: { button: '', startIcon: '', endIcon: '' },
+  classes:{ button: '', content: '', startIcon: '', endIcon: '' },
   variant: 'outlined',
   size: '',
   type: 'primary',

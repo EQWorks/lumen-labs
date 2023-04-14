@@ -2,12 +2,36 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const ButtonBase = forwardRef(({ children, classes, startIcon, endIcon, onClickStartIcon, onClickEndIcon, ...rest }, ref) => {
+const ButtonBase = forwardRef((
+  {
+    children,
+    classes,
+    startIcon,
+    endIcon,
+    onClickStartIcon,
+    onClickEndIcon,
+    ...rest
+  },
+  ref,
+) => {
   return (
-    <button ref={ref} className={`flex flex-row justify-between items-center ${classes.button}`} {...rest}>
-      {startIcon && <div className={classes.startIcon} onClick={onClickStartIcon}>{startIcon}</div>}
-      <div className={`m-auto ${classes.content}`}>{children}</div>
-      {endIcon && <div className={classes.endIcon} onClick={onClickEndIcon}>{endIcon}</div>}
+    <button
+      ref={ref}
+      className={`${classes.button} flex flex-row justify-between items-center`} {...rest}
+    >
+      {startIcon &&
+        <div className={classes.startIcon} onClick={onClickStartIcon}>
+          {startIcon}
+        </div>
+      }
+      <div className={`${classes.content} m-auto`}>
+        {children}
+      </div>
+      {endIcon &&
+        <div className={classes.endIcon} onClick={onClickEndIcon}>
+          {endIcon}
+        </div>
+      }
     </button>
   )
 })

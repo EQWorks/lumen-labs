@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, ButtonGroup } from '../src'
+import { Button, ButtonGroup, makeStyles } from '../src'
 import { ButtonBase } from '../src/base-components'
 import { Add } from '../src/icons'
 
@@ -46,6 +46,7 @@ export const Base = () => (
 /** -- props (Button):
  * [classes] - object, custom styling supported keys:
  *    button: button element of ButtonBase
+ *    content: button content span
  *    startIcon: startIcon container div of ButtonBase
  *    endIcon: endIcon container div of ButtonBase
  * [variant] - string, includes: outlined/borderless/elevated/filled
@@ -184,3 +185,45 @@ Elevated.args = { variant: 'elevated' }
 
 export const Filled = Template.bind({})
 Filled.args = { variant: 'filled' }
+
+const Template1 = (a) => (
+  <>
+    <div>
+      <p className='text-primary-700 mb-3'>CUSTOM STYLING:</p>
+      <Button variant={a.variant} classes={a.classes}>Custom Button</Button>
+    </div>
+  </>
+)
+
+const customStyleClasses = makeStyles({
+  button: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '16px 40px',
+    gap: '10px',
+    width: '256px',
+    height: '52px',
+    background: 'linear-gradient(180deg, #FF6391 0%, #FF972A 100%)',
+    borderRadius: '100px',
+  },
+  content: {
+    fontStyle: 'normal',
+    fontWeight: '700',
+    fontSize: '18px',
+    lineHeight: '20px',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+    color: '#FFFFFF',
+  },
+})
+
+export const CustomStyling = Template1.bind({})
+CustomStyling.args = {
+  variant: 'borderless',
+  classes: {
+    button: customStyleClasses.button,
+    content: customStyleClasses.content,
+  },
+}

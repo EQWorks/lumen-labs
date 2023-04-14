@@ -15,10 +15,10 @@ const labelClass = 'my-1 font-bold capitalize'
 
 const colors = ['info', 'success', 'warning', 'error']
 const icons = [
-  { icon: <AlertInformation size='lg'/> }, 
-  { icon: <CheckBadge size='lg'/> }, 
-  { icon: <AlertWarning size='lg'/> }, 
-  { icon: <MoodWarning size='lg'/> }, 
+  { icon: <AlertInformation size='lg'/> },
+  { icon: <CheckBadge size='lg'/> },
+  { icon: <AlertWarning size='lg'/> },
+  { icon: <MoodWarning size='lg'/> },
 ]
 
 /** -- props (ToastBase):
@@ -45,20 +45,20 @@ export const Base = () => {
   return (
     <>
       <p className={labelClass}>Horizontal</p>
-      <ToastBase 
-        title='horizontal' 
+      <ToastBase
+        title='horizontal'
         button={button}
-        startIcon={<Alert size='lg'/>} 
-        endIcon={<Close size='sm'/>} 
+        startIcon={<Alert size='lg'/>}
+        endIcon={<Close size='sm'/>}
       />
       <p className={labelClass}>Vertical</p>
-      <ToastBase 
+      <ToastBase
         title='vertical'
-        variant='vertical' 
-        description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+        variant='vertical'
+        description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
         button={button}
-        startIcon={<Alert size='lg'/>} 
-        endIcon={<Close size='sm'/>} 
+        startIcon={<Alert size='lg'/>}
+        endIcon={<Close size='sm'/>}
       />
     </>
   )
@@ -81,7 +81,7 @@ export const Base = () => {
  * [description] - string, description text under the title/name
  * [button] - node, custom onClick element
  * [icon] - node, icon on left side of title
- * [timeOut] - number, toast pop up timer 
+ * [timeOut] - number, toast pop up timer
  * [onTimeOut] - func, on call when toast timer is finished
  * [...rest] - any div element properties
  */
@@ -102,9 +102,9 @@ export const Normal = () => {
               <div key={`light-${index}`} className='mb-2'>
                 <Toast
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={_button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -119,9 +119,9 @@ export const Normal = () => {
                 <Toast
                   type='semantic-light'
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={_button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -138,9 +138,9 @@ export const Normal = () => {
                 <Toast
                   type='dark'
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={_button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -155,9 +155,9 @@ export const Normal = () => {
                 <Toast
                   type='semantic-dark'
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={_button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -185,12 +185,12 @@ export const Vertical = () => {
             return (
               <div key={`light-${index}`} className='mb-2'>
                 <Toast
-                  variant='vertical' 
-                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+                  variant='vertical'
+                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -203,12 +203,12 @@ export const Vertical = () => {
               <div key={`semantic-light-${index}`} className='mb-2'>
                 <Toast
                   type='semantic-light'
-                  variant='vertical' 
-                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+                  variant='vertical'
+                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -223,12 +223,12 @@ export const Vertical = () => {
               <div key={`light-${index}`} className='mb-2'>
                 <Toast
                   type='dark'
-                  variant='vertical' 
-                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+                  variant='vertical'
+                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -241,12 +241,12 @@ export const Vertical = () => {
               <div key={`semantic-dark-${index}`} className='mb-2'>
                 <Toast
                   type='semantic-dark'
-                  variant='vertical' 
-                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+                  variant='vertical'
+                  description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
                   color={data}
-                  title='Toast message' 
+                  title='Toast message'
                   button={button}
-                  icon={icons[index].icon} 
+                  icon={icons[index].icon}
                 />
               </div>
             )
@@ -270,27 +270,27 @@ export const Usage = () => {
         <p className={labelClass}>10 seconds toast pop-up</p>
         <div className="flex">
           <div className="mr-2">
-            <input 
-              type="radio" 
-              id="horizontal" 
-              name="horizontal" 
+            <input
+              type="radio"
+              id="horizontal"
+              name="horizontal"
               onChange={() => {
                 setChecked(!checked)
-              }} 
-              value="horizontal" 
+              }}
+              value="horizontal"
               checked={checked}
             />
             <label htmlFor="horizontal">Horizontal</label>
           </div>
           <div>
-            <input 
-              type="radio" 
-              id="vertical" 
-              name="vertical" 
+            <input
+              type="radio"
+              id="vertical"
+              name="vertical"
               onChange={() => {
                 setChecked(!checked)
-              }} 
-              value="vertical" 
+              }}
+              value="vertical"
               checked={!checked}
             />
             <label htmlFor="vertical">Vertical</label>
@@ -304,9 +304,9 @@ export const Usage = () => {
             <Toast
               type='semantic-light'
               color='success'
-              title='Pop-up Success' 
+              title='Pop-up Success'
               button={buttonP}
-              icon={<CheckBadge size='lg'/>} 
+              icon={<CheckBadge size='lg'/>}
               open={popUp}
               onClose={() => setPopUp(false)}
               timeOut={10000}
@@ -314,12 +314,12 @@ export const Usage = () => {
             :
             <Toast
               type='semantic-light'
-              variant='vertical' 
+              variant='vertical'
               color='error'
-              title='Invalid Query - [ERROR_CODE]' 
-              description='There was a problem with your build. Try selecting a different dataset or refer to the QL documentation on how to build a correct query.' 
+              title='Invalid Query - [ERROR_CODE]'
+              description='There was a problem with your build. Try selecting a different dataset or refer to the QL documentation on how to build a correct query.'
               button={buttonV}
-              icon={<MoodWarning size='lg'/>} 
+              icon={<MoodWarning size='lg'/>}
               open={popUp}
               onClose={() => setPopUp(false)}
               timeOut={10000}
@@ -332,18 +332,18 @@ export const Usage = () => {
         <Toast
           type='dark'
           color='info'
-          title='6 items deleted.' 
+          title='6 items deleted.'
           button={buttonH}
-          icon={<AlertInformation size='lg'/>} 
+          icon={<AlertInformation size='lg'/>}
         />
         <p className={labelClass}>Large/Vertical toast - error message</p>
         <Toast
-          variant='vertical' 
+          variant='vertical'
           color='error'
-          title='Invalid Query - [ERROR_CODE]' 
-          description='There was a problem with your build. Try selecting a different dataset or refer to the QL documentation on how to build a correct query.' 
+          title='Invalid Query - [ERROR_CODE]'
+          description='There was a problem with your build. Try selecting a different dataset or refer to the QL documentation on how to build a correct query.'
           button={buttonV}
-          icon={<MoodWarning size='lg'/>} 
+          icon={<MoodWarning size='lg'/>}
         />
       </div>
     </div>

@@ -79,10 +79,10 @@ export const Default = () => {
   return (
     <>
       <p className={labelClass}>Label + Helper Text:</p>
-      <TextField 
-        inputProps={inputProps} 
-        label='Label' 
-        helperText='I am helper text' 
+      <TextField
+        inputProps={inputProps}
+        label='Label'
+        helperText='I am helper text'
       />
       <p className={labelClass}>Start Icon:</p>
       <TextField
@@ -91,11 +91,11 @@ export const Default = () => {
         helperText='I am helper text'
       />
       <p className={labelClass}>End Icon:</p>
-      <TextField        
+      <TextField
         inputProps={{ ...inputProps, endIcon: <Search size='md'/> }}
         label='Label - search icon'
       />
-      <TextField        
+      <TextField
         inputProps={{ ...inputProps, endIcon: <ArrowDown size='md'/> }}
         label='Label - arrow down icon'
       />
@@ -106,25 +106,25 @@ export const Default = () => {
         helperText='I am helper text'
       />
       <p className={labelClass}>Success:</p>
-      <TextField 
-        success 
+      <TextField
+        success
         inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Check size='md'/> }}
-        label='Label' 
-        helperText='Success state' 
+        label='Label'
+        helperText='Success state'
       />
       <p className={labelClass}>Error:</p>
-      <TextField 
-        error 
+      <TextField
+        error
         inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Alert size='md'/> }}
-        label='Label' 
-        helperText='Error state' 
+        label='Label'
+        helperText='Error state'
       />
       <p className={labelClass}>Disabled:</p>
-      <TextField 
-        disabled 
+      <TextField
+        disabled
         inputProps={{ ...inputProps, startIcon: <Dollar size='md'/>, endIcon: <Search size='md'/> }}
-        label='Label' 
-        helperText='Disabled state' 
+        label='Label'
+        helperText='Disabled state'
       />
     </>
   )
@@ -132,24 +132,24 @@ export const Default = () => {
 
 export const SizeLarge = () => {
   const inputProps = { placeholder: 'Placeholder text' }
-  const classes = { 
-    container: 'w-96 flex flex-col', 
+  const classes = {
+    container: 'w-96 flex flex-col',
   }
-  
+
   return (
     <>
       <p className={labelClass}>Label + Helper Text:</p>
       <TextField
         classes={classes}
         size='lg'
-        inputProps={inputProps} 
-        label='Label' 
-        helperText='I am helper text' 
+        inputProps={inputProps}
+        label='Label'
+        helperText='I am helper text'
       />
       <p className={labelClass}>Start Icon:</p>
       <TextField
         classes={classes}
-        size='lg'        
+        size='lg'
         inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/> }}
         label='Label'
         helperText='I am helper text'
@@ -157,20 +157,20 @@ export const SizeLarge = () => {
       <p className={labelClass}>End Icon:</p>
       <TextField
         classes={classes}
-        size='lg'        
+        size='lg'
         inputProps={{ ...inputProps, endIcon: <Search size='lg'/> }}
         label='Label - search icon'
       />
       <TextField
         classes={classes}
-        size='lg'        
+        size='lg'
         inputProps={{ ...inputProps, endIcon: <ArrowDown size='lg'/> }}
         label='Label - arrow down icon'
       />
       <p className={labelClass}>Prefix & Suffix: </p>
       <TextField
         classes={classes}
-        size='lg' 
+        size='lg'
         inputProps={{ ...inputProps, prefix: 'https://', suffix: '.com' }}
         label='Label'
         helperText='I am helper text'
@@ -179,28 +179,28 @@ export const SizeLarge = () => {
       <TextField
         classes={classes}
         size='lg'
-        success 
+        success
         inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/>, endIcon: <Check size='lg'/> }}
-        label='Label' 
-        helperText='Success state' 
+        label='Label'
+        helperText='Success state'
       />
       <p className={labelClass}>Error:</p>
       <TextField
         classes={classes}
         size='lg'
-        error 
+        error
         inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/>, endIcon: <Alert size='lg'/> }}
-        label='Label' 
-        helperText='Error state' 
+        label='Label'
+        helperText='Error state'
       />
       <p className={labelClass}>Disabled:</p>
       <TextField
         classes={classes}
         size='lg'
-        disabled 
+        disabled
         inputProps={{ ...inputProps, startIcon: <Dollar size='lg'/>, endIcon: <Search size='lg'/> }}
-        label='Label' 
-        helperText='Disabled state' 
+        label='Label'
+        helperText='Disabled state'
       />
     </>
   )
@@ -209,29 +209,29 @@ export const SizeLarge = () => {
 export const Area = () => {
   const inputProps = { placeholder: 'Placeholder text' }
   const classes = {
-    container: 'w-96 flex flex-col', 
+    container: 'w-96 flex flex-col',
   }
 
   return (
     <>
       <p className={labelClass}>Input Area y-axis</p>
       <TextField.Area
-        inputProps={inputProps} 
+        inputProps={inputProps}
         label='Label Area'
-        maxLength={100} 
-      /> 
+        maxLength={100}
+      />
       <p className={labelClass}>Input Area y-axis - NO LIMIT</p>
       <TextField.Area
-        inputProps={inputProps} 
+        inputProps={inputProps}
         label='Label Area'
-      /> 
+      />
       <p className={labelClass}>Input Area x-axis</p>
       <TextField
         classes={classes}
-        inputProps={inputProps} 
-        label='Label Area' 
-        maxLength={125} 
-      /> 
+        inputProps={inputProps}
+        label='Label Area'
+        maxLength={125}
+      />
     </>
   )
 }
@@ -267,17 +267,17 @@ export const Usage = () => {
   return (
     <>
       <p className={labelClass}>Basic Input:</p>
-      <TextField 
-        label='First name'
-      /> 
-      <TextField 
-        label='Last name'
-      /> 
       <TextField
-        inputProps={{ placeholder: 'your_website', prefix: 'https://', suffix: '.com' }} 
+        label='First name'
+      />
+      <TextField
+        label='Last name'
+      />
+      <TextField
+        inputProps={{ placeholder: 'your_website', prefix: 'https://', suffix: '.com' }}
         label='Website URL'
       />
-      <TextField 
+      <TextField
         label='Date'
         type='date'
         value={date}
@@ -287,14 +287,14 @@ export const Usage = () => {
       />
 
       <p className={labelClass}>Input Label with Icon:</p>
-      <TextField 
+      <TextField
         label={
           <span className='inline-flex items-center'>
             <p className='mr-1'>Info Icon</p>
             <Info size='md' />
           </span>
         }
-      /> 
+      />
 
       <p className={labelClass}>Required Input</p>
       <div className='flex flex-row'>
@@ -305,11 +305,11 @@ export const Usage = () => {
           inputProps={{ placeholder: 'Required', endIcon: requiredError && <Alert size='md'/> }}
           required
           onChange={requiredOnChange}
-        /> 
+        />
         <div className='ml-2'>
-          <TextField 
+          <TextField
             classes={extensionClasses}
-            label='Extension' 
+            label='Extension'
             inputProps={{ placeholder: 'Optional' }}
           />
         </div>
@@ -320,13 +320,13 @@ export const Usage = () => {
         <TextField
           success={success}
           error={error}
-          inputProps={{ endIcon: success && <Check size='md'/> || error && <Alert size='md'/> }} 
+          inputProps={{ endIcon: success && <Check size='md'/> || error && <Alert size='md'/> }}
           label='Password'
           helperText={`${error ? 'min 6 characters' : ''}`}
           onChange={handleOnChange}
-        /> 
+        />
         <div className='ml-5'>
-          {success ? 
+          {success ?
             <Button variant='filled' size='md' type='success'>Submit</Button>
             :
             <Button variant='filled' size='md' disabled>Submit</Button>
@@ -336,14 +336,14 @@ export const Usage = () => {
 
       <p className={labelClass}>Input Area:</p>
       <TextField
-        inputProps={{ placeholder: 'Amount' }} 
+        inputProps={{ placeholder: 'Amount' }}
         label='Total:'
-      /> 
+      />
       <TextField.Area
-        inputProps={{ placeholder: 'Do not include banking information' }} 
-        label='Note:' 
-        helperText='I am helper text' 
-      /> 
+        inputProps={{ placeholder: 'Do not include banking information' }}
+        label='Note:'
+        helperText='I am helper text'
+      />
     </>
   )
 }

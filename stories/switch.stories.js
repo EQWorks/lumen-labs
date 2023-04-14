@@ -34,15 +34,15 @@ const multipleSwitch = [
  * [checked] - boolean, flag state to watch the status. If true, the component is checked.
  * [onChange] - function, callback fired when the state is changed.
  * [disabled] - boolean, if true, the switch will be disabled.
- * [tabIndex] - number, indicates that its element can be focused, and where it participates in 
+ * [tabIndex] - number, indicates that its element can be focused, and where it participates in
  */
 
 export const Base = () => {
   const [checked, setChecked] = useState(true)
 
   return (
-    <SwitchBase 
-      id='base'                   
+    <SwitchBase
+      id='base'
       checked={checked}
       onChange={() => setChecked(!checked)}
     />
@@ -59,7 +59,7 @@ export const Base = () => {
  * [checked] - boolean, flag state to watch the status. If true, the component is checked.
  * [onChange] - function, callback fired when the state is changed.
  * [disabled] - boolean, if true, the switch will be disabled.
- * [tabIndex] - number, indicates that its element can be focused, and where it participates in 
+ * [tabIndex] - number, indicates that its element can be focused, and where it participates in
  * [color] - string, set outer container color - only classes color palette
  */
 
@@ -68,7 +68,7 @@ export const Rounded = () => {
 
   return (
     <SwitchRound
-      id='round'                        
+      id='round'
       checked={checked}
       onChange={() => {
         setChecked(!checked)
@@ -82,7 +82,7 @@ export const Rectangle = () => {
 
   return (
     <SwitchRect
-      id='rect'                         
+      id='rect'
       checked={checked}
       onChange={() => setChecked(!checked)}
     />
@@ -94,7 +94,7 @@ export const Square = () => {
 
   return (
     <SwitchSquare
-      id='square'                         
+      id='square'
       checked={checked}
       onChange={() => setChecked(!checked)}
     />
@@ -117,7 +117,7 @@ export const CustomColor = () => {
     case 'Rounded':
       return (
         <SwitchRound
-          id={`${data.type}-${index}`}                         
+          id={`${data.type}-${index}`}
           checked={checkedItems[`${data.type}-${index}`]}
           onChange={handleOnChange}
           label='label'
@@ -127,7 +127,7 @@ export const CustomColor = () => {
     case 'Rectangle':
       return (
         <SwitchRect
-          id={`${data.type}-${index}`}                       
+          id={`${data.type}-${index}`}
           checked={checkedItems[`${data.type}-${index}`]}
           onChange={handleOnChange}
           label='label'
@@ -137,7 +137,7 @@ export const CustomColor = () => {
     case 'Square':
       return (
         <SwitchSquare
-          id={`${data.type}-${index}`}                         
+          id={`${data.type}-${index}`}
           checked={checkedItems[`${data.type}-${index}`]}
           onChange={handleOnChange}
           label='label'
@@ -169,7 +169,7 @@ export const Disabled = () => {
       <div className="container my-4">
         <span>Rounded</span>
         <SwitchRound
-          id='round'                         
+          id='round'
           checked={checked}
           onChange={() => setChecked(!checked)}
           disabled={true}
@@ -178,7 +178,7 @@ export const Disabled = () => {
       <div className="container my-4">
         <span>Rectangle</span>
         <SwitchRect
-          id='rect'                         
+          id='rect'
           checked={checked}
           onChange={() => setChecked(!checked)}
           disabled={true}
@@ -187,7 +187,7 @@ export const Disabled = () => {
       <div className="container my-4">
         <span>Square</span>
         <SwitchSquare
-          id='square'                         
+          id='square'
           checked={checked}
           onChange={() => setChecked(!checked)}
           disabled={true}

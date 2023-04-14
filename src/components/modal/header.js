@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { Close } from '../../icons'
 
 
-const Header = forwardRef(({ classes, children, close, ...rest }, ref) => {  
+const Header = forwardRef(({ classes, children, close, ...rest }, ref) => {
   const modalClasses = Object.freeze({
     header: `p-5 flex justify-between border-b ${classes.header}`,
     title: `font-bold text-xl font-sans text-secondary-900 tracking-xs leading-1.2 ${classes.title}`,
@@ -29,10 +29,10 @@ Header.propTypes = {
 }
 
 Header.defaultProps = {
-  classes: { 
-    header: '', 
-    title: '', 
-    close: '', 
+  classes: {
+    header: '',
+    title: '',
+    close: '',
   },
   close: () => {},
 }

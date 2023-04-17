@@ -41,8 +41,8 @@ const _inputSize = ({ size, variant }) => {
 
 const _textFieldClasses = ({ container, inputSize, success, error, linkedFields }) => ({
   container: {
-    default: `flex flex-col font-sans ${container ? container : 'w-250px'} ${inputSize.font}`,
-    borderless: `${container ? container : 'w-250px'} bg-secondary-200`,
+    default: `textfield__container flex flex-col font-sans ${container ? container : 'w-250px'} ${inputSize.font}`,
+    borderless: `textfield__container ${container ? container : 'w-250px'} bg-secondary-200`,
     linked: {
       outer: `inline-flex flex-col ${container} ${inputSize.font}`,
       inner: `inline-grid gap-1.5 grid-cols-${linkedFields}`,
@@ -56,7 +56,7 @@ const _textFieldClasses = ({ container, inputSize, success, error, linkedFields 
   wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
-const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, root, input, filled, disabled, linked }) => {
+const _inputBaseClasses = ({ root, input, label, inputSize, focus: _focus, success, error, filled, disabled, linked }) => {
   let focus = _focus
   if (linked) {
     focus = _focus === linked
@@ -89,14 +89,14 @@ const _inputBaseClasses = ({ label, inputSize, focus: _focus, success, error, ro
   })
 }
 
-const _borderlessClasses = ({ classes, isEdited, error, focus, disabled }) => ({
-  root: clsx(`flex flex-row items-center ${classes.root} m-0 pr-1 border-t-0 border-l-0 border-r-0 border-b border-secondary-200`, {
+const _borderlessClasses = ({ root, input, isEdited, error, focus, disabled }) => ({
+  root: clsx(`textfield__root-container flex flex-row items-center ${root} m-0 pr-1 border-t-0 border-l-0 border-r-0 border-b border-secondary-200`, {
     'hover:border-secondary-600': !focus,
     'border-b border-interactive-500': focus && !error,
     'border-b border-error-500': focus && error,
     'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled,
   }),
-  input: clsx(`${classes.input} outline-none mb-0.5 bg-transparent font-normal tracking-md text-xs ${styles.borderlessInput}`, {
+  input: clsx(`textfield__input-container ${input} outline-none mb-0.5 bg-transparent font-normal tracking-md text-xs ${styles.borderlessInput}`, {
     'text-secondary-900': isEdited,
     'text-secondary-600': !isEdited,
   }),
@@ -145,12 +145,12 @@ const TextField  = ({
   const [linkedIncompleteError, setLinkedIncompleteError] = useState(false)
 
   const inputID = counter()
-  const { root, input, container } = classes
+  const { root = '', input = '', container = '' } = classes
   const inputSize = _inputSize({ size, variant })
   const textFieldClasses = _textFieldClasses({ container, inputSize, success, error: error || linkedIncompleteError, linkedFields })
   const generateVariants = ({ linked }) => ({
-    default: _inputBaseClasses({ label, inputSize, focus, success, error: error || linkedIncompleteError, root, input, filled, disabled, linked }),
-    borderless: _borderlessClasses({ classes, isEdited, error, focus, disabled }),
+    default: _inputBaseClasses({ root, input, label, inputSize, focus, success, error: error || linkedIncompleteError, filled, disabled, linked }),
+    borderless: _borderlessClasses({ root, input, isEdited, error, focus, disabled }),
   })
 
   const handleLinkedChange = (e, i, inputID) => {

@@ -16,9 +16,9 @@ const NavbarItem = forwardRef(({
     itemContainerActive: `navbar-item__main-container--active ${classes.itemContainerActive} py-2 px-4 mx-2 rounded-full bg-black`,
     contentContainer: `navbar-item__content-container ${classes.contentContainer} flex flex-row items-center`,
     icon: `navbar-item__icon ${classes.icon} pr-2.5`,
-    iconActive: `navbar-item__icon ${classes.iconActive} pr-2.5 text-white`,
+    iconActive: `navbar-item__icon--active ${classes.iconActive} pr-2.5 text-white`,
     text: `navbar-item__text ${classes.text} text-black`,
-    textActive: `navbar-item__text ${classes.textActive} text-white`,
+    textActive: `navbar-item__text--active ${classes.textActive} text-white`,
   })
 
   return (

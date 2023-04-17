@@ -2,21 +2,21 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const NavbarHeader = forwardRef(({  
-  classes, 
+const NavbarHeader = forwardRef(({
+  classes,
   children,
-  onClick, 
-  ...rest 
+  onClick,
+  ...rest
 }, ref) => {
   const navbarHeaderClasses = Object.freeze({
-    headerContainer: `${classes.headerContainer} navbar__header-container flex items-center cursor-pointer`,
+    headerContainer: `navbar__header-container ${classes.headerContainer} flex items-center cursor-pointer`,
   })
 
   return (
-    <div 
+    <div
       ref={ref}
-      className={navbarHeaderClasses.headerContainer} 
-      onClick={onClick} 
+      className={navbarHeaderClasses.headerContainer}
+      onClick={onClick}
       {...rest}
     >
       {children}
@@ -29,12 +29,12 @@ NavbarHeader.propTypes = {
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
 }
-  
+
 NavbarHeader.defaultProps = {
   classes: { headerContainer: '' },
   onClick: () => {},
 }
-  
+
 NavbarHeader.displayName = 'NavbarHeader'
-  
+
 export default NavbarHeader

@@ -64,12 +64,12 @@ export const Default = () => {
       </Navbar.NavbarHeader>
       {
         icons.map(({ icon, title }) => (
-          <Navbar.NavbarItem 
+          <Navbar.NavbarItem
             key={`navbar-item-${title}`}
             icon={icon}
             id={title}
             label={title}
-            isSelected={currentSelected === title} 
+            isSelected={currentSelected === title}
             onClick={() => setCurrentSelected(title)}/>
         ))
       }
@@ -90,18 +90,18 @@ export const CustomStyle = () => {
       </Navbar.NavbarHeader>
       {
         icons.map(({ icon, title }) => (
-          <Navbar.NavbarItem 
+          <Navbar.NavbarItem
             key={`navbar-item-${title}`}
             icon={icon}
             id={title}
             label={title}
-            isSelected={currentSelected === title} 
-            classes={{ 
-              itemContainer: customStyle.itemContainer, 
-              itemContainerActive: customStyle.itemContainerActive, 
-              text: customStyle.text, 
+            isSelected={currentSelected === title}
+            classes={{
+              itemContainer: customStyle.itemContainer,
+              itemContainerActive: customStyle.itemContainerActive,
+              text: customStyle.text,
               textActive: customStyle.textActive,
-              iconActive: customStyle.iconActive, 
+              iconActive: customStyle.iconActive,
             }}
             onClick={() => setCurrentSelected(title)}/>
         ))

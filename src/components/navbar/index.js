@@ -7,12 +7,13 @@ import NavbarItem from './navbar-item'
 
 const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
   const navbarClasses = Object.freeze({
-    root: `${classes.root} navbar__root w-screen h-16 px-10 flex items-center justify-between`,
+    root: `navbar__root ${classes.root} w-screen h-16 px-10 flex items-center justify-between`,
+    items: `navbar__items ${classes.items} flex items-center justify-center`,
   })
   return (
     <div
       ref={ref}
-      className={navbarClasses.root} 
+      className={navbarClasses.root}
       {...rest}
     >
       {React.Children.map(children, (child) => {
@@ -21,7 +22,7 @@ const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
         }
       })}
 
-      <div className="navbar__items flex items-center justify-center">
+      <div className={navbarClasses.items}>
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child) && child.type.__docgenInfo.displayName === 'NavbarItem') {
             return React.cloneElement(child)
@@ -31,8 +32,8 @@ const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
 
       {React.Children.map(children, (child) => {
         if (
-          React.isValidElement(child) 
-          && child.type.__docgenInfo.displayName !== 'NavbarHeader' 
+          React.isValidElement(child)
+          && child.type.__docgenInfo.displayName !== 'NavbarHeader'
           && child.type.__docgenInfo.displayName !== 'NavbarItem'
         ) {
           return React.cloneElement(child)
@@ -48,7 +49,7 @@ Navbar.propTypes = {
 }
 
 Navbar.defaultProps = {
-  classes: { root: '' },
+  classes: { root: '', items: '' },
 }
 
 Navbar.displayName = 'Navbar'

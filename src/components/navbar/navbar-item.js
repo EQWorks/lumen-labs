@@ -2,31 +2,31 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const NavbarItem = forwardRef(({ 
-  id, 
-  classes, 
-  label, 
-  icon, 
-  onClick, 
-  isSelected, 
-  ...rest 
+const NavbarItem = forwardRef(({
+  id,
+  classes,
+  label,
+  icon,
+  onClick,
+  isSelected,
+  ...rest
 }, ref) => {
   const NavbarItemClasses = Object.freeze({
-    itemContainer: `${classes.itemContainer} navbar-item__main-container cursor-pointer mx-6`,
-    itemContainerActive: `${classes.itemContainerActive} navbar-item__main-container--active py-2 px-4 mx-2 rounded-full bg-black`,
-    contentContainer: `${classes.contentContainer} navbar-item__content-container flex flex-row items-center`,
-    icon: `${classes.icon} navbar-item__icon pr-2.5`,
-    iconActive: `${classes.iconActive} navbar-item__icon pr-2.5 text-white`,
-    text: `${classes.text} navbar-item__text text-black`,
-    textActive: `${classes.textActive} navbar-item__text text-white`,
+    itemContainer: `navbar-item__main-container ${classes.itemContainer} cursor-pointer mx-6`,
+    itemContainerActive: `navbar-item__main-container--active ${classes.itemContainerActive} py-2 px-4 mx-2 rounded-full bg-black`,
+    contentContainer: `navbar-item__content-container ${classes.contentContainer} flex flex-row items-center`,
+    icon: `navbar-item__icon ${classes.icon} pr-2.5`,
+    iconActive: `navbar-item__icon ${classes.iconActive} pr-2.5 text-white`,
+    text: `navbar-item__text ${classes.text} text-black`,
+    textActive: `navbar-item__text ${classes.textActive} text-white`,
   })
 
   return (
-    <div 
+    <div
       ref={ref}
       key={id}
-      className={`${isSelected ? NavbarItemClasses.itemContainerActive : NavbarItemClasses.itemContainer}`} 
-      onClick={onClick} 
+      className={`${isSelected ? NavbarItemClasses.itemContainerActive : NavbarItemClasses.itemContainer}`}
+      onClick={onClick}
       {...rest}
     >
       <div className={NavbarItemClasses.contentContainer}>
@@ -50,15 +50,15 @@ NavbarItem.propTypes = {
 
 NavbarItem.defaultProps = {
   id: '',
-  classes: { 
-    itemContainer: '', 
-    itemContainerActive: '', 
-    contentContainer: '', 
-    icon: '',
-    iconActive: '', 
-    text: '',
-    textActive: '',
-  },
+  classes: PropTypes.shape({
+    itemContainer: PropTypes.string,
+    itemContainerActive: PropTypes.string,
+    contentContainer: PropTypes.string,
+    icon: PropTypes.string,
+    iconActive: PropTypes.string,
+    text: PropTypes.string,
+    textActive: PropTypes.string,
+  }),
   label: '',
   onClick: () => {},
   isSelected: false,

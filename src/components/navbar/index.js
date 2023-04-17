@@ -45,7 +45,10 @@ const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
 
 Navbar.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object,
+  classes: PropTypes.shape({
+    root: PropTypes.string,
+    items: PropTypes.string,
+  }),
 }
 
 Navbar.defaultProps = {

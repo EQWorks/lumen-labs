@@ -41,15 +41,6 @@ const NavbarItem = forwardRef(({
 
 NavbarItem.propTypes = {
   id: PropTypes.string,
-  classes: PropTypes.object,
-  label: PropTypes.string,
-  icon: PropTypes.node.isRequired,
-  onClick: PropTypes.func,
-  isSelected: PropTypes.bool,
-}
-
-NavbarItem.defaultProps = {
-  id: '',
   classes: PropTypes.shape({
     itemContainer: PropTypes.string,
     itemContainerActive: PropTypes.string,
@@ -59,6 +50,23 @@ NavbarItem.defaultProps = {
     text: PropTypes.string,
     textActive: PropTypes.string,
   }),
+  label: PropTypes.string,
+  icon: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  isSelected: PropTypes.bool,
+}
+
+NavbarItem.defaultProps = {
+  id: '',
+  classes: {
+    itemContainer: '',
+    itemContainerActive: '',
+    contentContainer: '',
+    icon: '',
+    iconActive: '',
+    text: '',
+    textActive: '',
+  },
   label: '',
   onClick: () => {},
   isSelected: false,

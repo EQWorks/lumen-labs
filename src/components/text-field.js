@@ -41,7 +41,7 @@ const _inputSize = ({ size, variant }) => {
 
 const _textFieldClasses = ({ container, inputSize, success, error, linkedFields }) => ({
   container: {
-    default: `textfield__container flex flex-col font-sans ${container ? container : 'w-250px'} ${inputSize.font}`,
+    default: `textfield__container ${container ? container : 'w-250px'} flex flex-col font-sans ${inputSize.font}`,
     borderless: `textfield__container ${container ? container : 'w-250px'} bg-secondary-200`,
     linked: {
       outer: `inline-flex flex-col ${container} ${inputSize.font}`,
@@ -62,7 +62,7 @@ const _inputBaseClasses = ({ root, input, label, inputSize, focus: _focus, succe
     focus = _focus === linked
   }
   return ({
-    root: clsx(`textfield__root-container ${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box} ${root && root}`}`,
+    root: clsx(`textfield__root-container ${root} ${`rounded-sm ${label && 'mt-1.5'} ${inputSize.box}`}`,
       { 'border-secondary-400 hover:border-secondary-500 bg-secondary-50': !disabled && !focus && !error && !success },
       { 'border-interactive-500 shadow-focused-interactive': focus && !error && !success },
       { 'border-error-500 shadow-focused-error': error },
@@ -70,7 +70,7 @@ const _inputBaseClasses = ({ root, input, label, inputSize, focus: _focus, succe
       { 'border-interactive-500 bg-secondary-50': focus && filled },
       { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
     ),
-    input: clsx(`textfield__input-container outline-none ${input && input}`,
+    input: clsx(`textfield__input-container ${input} outline-none`,
       { 'bg-secondary-50': filled },
       { 'text-secondary-800': !disabled },
       { 'bg-secondary-100 text-secondary-400 placeholder-secondary-400': disabled },
@@ -90,7 +90,7 @@ const _inputBaseClasses = ({ root, input, label, inputSize, focus: _focus, succe
 }
 
 const _borderlessClasses = ({ root, input, isEdited, error, focus, disabled }) => ({
-  root: clsx(`textfield__root-container flex flex-row items-center ${root} m-0 pr-1 border-t-0 border-l-0 border-r-0 border-b border-secondary-200`, {
+  root: clsx(`textfield__root-container ${root} flex flex-row items-center m-0 pr-1 border-t-0 border-l-0 border-r-0 border-b border-secondary-200`, {
     'hover:border-secondary-600': !focus,
     'border-b border-interactive-500': focus && !error,
     'border-b border-error-500': focus && error,

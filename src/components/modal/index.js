@@ -28,7 +28,7 @@ const _modalSize = (size) => {
   default:
     break
   }
-  
+
   return modalSize
 }
 
@@ -36,15 +36,15 @@ const Modal = forwardRef(({ classes, children, open, closeModal, size, ...rest }
   const modalSize = _modalSize(size)
 
   const modalClasses = Object.freeze({
-    container: `modal__main-container flex flex-col justify-between bg-secondary-50 rounded-sm border shadow-blue-60 ${modalSize.container} ${classes.content}`,
+    container: `modal__main-container ${classes.container} flex flex-col justify-between bg-secondary-50 rounded-sm border shadow-blue-60 ${modalSize.container}`,
   })
 
   const modalBaseClasses = Object.freeze({
-    root: `modal__root-container px-10 py-5 ${classes.root}`,
+    root: `modal__root-container ${classes.root} px-10 py-5`,
     main: `modal__main-container ${classes.main}`,
-    overlay: `modal__overlay-container bg-secondary-700 opacity-70 ${classes.overlay}`,
+    overlay: `modal__overlay-container ${classes.overlay} bg-secondary-700 opacity-70`,
   })
-  
+
   return (
     <ModalBase ref={ref} classes={modalBaseClasses} open={open} closeModal={closeModal} {...rest}>
       <div className={`modal-container ${modalClasses.container}`}>
@@ -68,11 +68,11 @@ Modal.propTypes = {
 }
 
 Modal.defaultProps = {
-  classes: { 
-    root: '', 
-    main: '', 
-    overlay: '', 
-    container: '', 
+  classes: {
+    root: '',
+    main: '',
+    overlay: '',
+    container: '',
   },
   open: false,
   closeModal: () => {},

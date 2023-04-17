@@ -5,9 +5,9 @@ import { Dialog } from '@headlessui/react'
 
 const ModalBase = forwardRef(({ classes, children, open, closeModal, ...rest }, ref) => {
   const modalClasses = Object.freeze({
-    root: `min-h-screen flex justify-center items-center ${classes.root}`,
-    main: `flex justify-center items-center transition-all transform ${classes.main}`,
-    overlay: `fixed inset-0 ${classes.overlay}`,
+    root: `${classes.root} min-h-screen flex justify-center items-center`,
+    main: `${classes.main} flex justify-center items-center transition-all transform`,
+    overlay: `${classes.overlay} fixed inset-0`,
   })
 
   return (

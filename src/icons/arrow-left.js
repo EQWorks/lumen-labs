@@ -18,10 +18,10 @@ const ArrowLeft = ({ className, size, ...props }) => (
     {...props}
   >
     <g transform="matrix(5.833333333333333,0,0,5.833333333333333,0,0)">
-      <path 
-        d="M18.4.5,5.825,11.626a.5.5,0,0,0,0,.748L18.4,23.5" 
-        fill="none" 
-        strokeLinecap="round" 
+      <path
+        d="M18.4.5,5.825,11.626a.5.5,0,0,0,0,.748L18.4,23.5"
+        fill="none"
+        strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.5"
       />

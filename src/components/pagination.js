@@ -60,7 +60,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
   const getPagerObject = (totalItems, currentPage, pageSize) => {
     currentPage = currentPage || 1
     pageSize = pageSize || 10
-    
+
     let totalPages = Math.ceil(totalItems / pageSize)
 
     let startPage, endPage
@@ -107,15 +107,15 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
 
   return (
     <>
-      {pager.pages &&     
+      {pager.pages &&
       <ul className={`pagination ${paginationClasses.container}`}>
-        { counter && 
+        { counter &&
           <li className='min-w-40 px-2'>
             <span>{pager.startIndex + 1} - {pager.endIndex + 1} of {pager.totalItems} items</span>
           </li>
         }
 
-        <li 
+        <li
           className={`mr-5px
             ${paginationClasses.arrow} 
             ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
@@ -133,8 +133,8 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
         }
 
         { showPage && pager.pages.map((page, index) =>
-          <li 
-            key={index} 
+          <li
+            key={index}
             className={`
               ${paginationClasses.item}
               ${paginationClasses.pageItem}
@@ -145,8 +145,8 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
             {page}
           </li>,
         )}
-        
-        { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 && 
+
+        { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 &&
           <li className='flex'>
             <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
             <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, pager.totalPages)}>
@@ -154,7 +154,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
             </div>
           </li>
         }
-        <li 
+        <li
           className={`
             ${paginationClasses.arrow} 
             ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
@@ -162,14 +162,14 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
         >
           <ArrowRight size='md' onClick={(e) => setPage(e, pager.currentPage + 1)}/>
         </li>
-        { !hideRowsPerPage && 
+        { !hideRowsPerPage &&
           <li className='min-h-5 pl-5 flex items-center'>
             <span className={'mr-2.5'}>Rows: </span>
-            <DropdownAutoCenter 
-              data={dropdownData} 
+            <DropdownAutoCenter
+              data={dropdownData}
               onSelect={(e, val) => {
                 handleOnChangeRowsPerPage(e, val)
-              }} 
+              }}
               value={{ title: pager.pageSize }}
               endIcon={<ArrowUpDown size='sm'/>}
             />

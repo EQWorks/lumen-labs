@@ -30,7 +30,7 @@ export default {
  * [onConfirm] - function, returns selected days values when confirm action button is clicked
  * [onCancel] - function, call onCancel when cancel action button is clicked
  * [onSelectDay] - function, returns selected day value when a day is clicked
- * [defaultDate] - array, set initial default date for date-picker defaultDate[0] = startDay & defaultDate[1] = endDay for Range/Multi. 
+ * [defaultDate] - array, set initial default date for date-picker defaultDate[0] = startDay & defaultDate[1] = endDay for Range/Multi.
         Only RFC 2822 and ISO 8601 date format, default = new Date()
  * [minDate] - new Date() / moment() Only RFC 2822 and ISO 8601 date format, set minimum selectable date, default = null
  * [maxDate] - new Date() / moment() Only RFC 2822 and ISO 8601 date format, set maximum selectable date, default = null
@@ -50,7 +50,7 @@ export const Normal = () => {
         <DatePicker
           label={{
             title: 'Date Picker',
-          }} 
+          }}
           tooltip={{
             title: 'Tooltip',
             description: 'Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.',
@@ -63,7 +63,7 @@ export const Normal = () => {
         <DatePicker
           label={{
             title: 'Date Picker',
-          }} 
+          }}
           tooltip={{
             title: 'Tooltip',
             description: 'Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.',
@@ -79,14 +79,14 @@ export const Normal = () => {
           label={{
             title: 'Date Picker',
             icon: <MoodWarning className='text-warning-600' size='sm' />,
-          }} 
+          }}
           navbarType='year'
         />
       </div>
       <div className='mb-2 mr-4'>
         <h4 className='mb-2'>variant (range) - navbarType (none)</h4>
         <DatePicker
-          label='Date Picker' 
+          label='Date Picker'
           navbarType='none'
         />
       </div>
@@ -109,7 +109,7 @@ export const Single = () => {
           label={{
             title: 'Date Picker',
           }}
-          variant='single' 
+          variant='single'
         />
       </div>
       <div className='mb-2 mr-4'>
@@ -117,7 +117,7 @@ export const Single = () => {
         <DatePicker
           label={{
             title: 'Date Picker',
-          }} 
+          }}
           variant='single'
           minDate={moment()}
         />
@@ -128,7 +128,7 @@ export const Single = () => {
           label={{
             title: 'Date Picker',
           }}
-          variant='single' 
+          variant='single'
           navbarType='year'
         />
       </div>
@@ -138,7 +138,7 @@ export const Single = () => {
           label={{
             title: 'Date Picker',
           }}
-          variant='single' 
+          variant='single'
           navbarType='none'
         />
       </div>
@@ -152,7 +152,7 @@ export const Multi = () => {
       <DatePicker
         label={{
           title: 'Date Picker',
-        }} 
+        }}
         variant='multi'
       />
     </div>
@@ -170,7 +170,7 @@ export const Custom = () => {
           label={{
             title: 'Date Picker',
           }}
-          variant='single' 
+          variant='single'
           navbarType='none'
           hideInput
           onSelectDay={(_, val) => {
@@ -183,7 +183,7 @@ export const Custom = () => {
           dateFormat={'YYYY-MM-DD'}
         />
         <div className="w-250px p-4 flex flex-col items-center bg-interactive-500 text-secondary-50">
-          {dateValue ? 
+          {dateValue ?
             (<>
               <span className='text-2xl mb-2'>You Picked</span>
               <span className='text-2xl mb-2'>{moment(dateValue).format('dddd')}</span>
@@ -208,7 +208,7 @@ export const Custom = () => {
           label={{
             title: 'Date Picker',
           }}
-          variant='single' 
+          variant='single'
           navbarType='none'
           customTrigger={
             <Button size='lg'>Show Date Picker</Button>

@@ -3,7 +3,7 @@ import { makeStyles } from  './make-styles'
 
 /**
  * @param {string} lumenColor use lumen predefined color rules, default = secondary
- * @param {string} width scrollbar width, default = '0.1875rem'. 
+ * @param {string} width scrollbar width, default = '0.1875rem'.
  * @param {string - Hex Color} thumbColor scrollbar thumb color'.
  * @param {string - Hex Color} trackColor scrollbar track color'.
  * @param {string - Hex Color} hoverThumbColor scrollbar thumb color onHover'.

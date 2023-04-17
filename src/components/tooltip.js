@@ -76,7 +76,7 @@ const Tooltip = ({
   }
 
   return (
-    <div 
+    <div
       ref={tooltipRef}
       className={`${classes.container} relative inline-flex flex-col items-center justify-center`}
       onMouseEnter={handleMouseEnter}
@@ -85,12 +85,12 @@ const Tooltip = ({
       <ToastBase
         classes={tooltipClasses}
         variant='vertical'
-        title={title} 
+        title={title}
         description={description}
         width={width}
         {...rest}
       />
-      { arrow && <>  
+      { arrow && <>
         <div
           className={`shadow-dark-10 ${tooltipClasses.arrow}`}
           style={{
@@ -102,7 +102,7 @@ const Tooltip = ({
         />
       </>}
       {children}
-    </div> 
+    </div>
   )
 }
 
@@ -120,13 +120,13 @@ Tooltip.propTypes = {
 }
 
 Tooltip.defaultProps = {
-  classes: { 
-    container: '', 
-    root: '', 
-    arrow: '', 
-    header: '', 
+  classes: {
+    container: '',
+    root: '',
+    arrow: '',
+    header: '',
     title: '',
-    content: '', 
+    content: '',
     description: '',
   },
   onClose: () => {},

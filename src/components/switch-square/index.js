@@ -18,10 +18,10 @@ const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabl
   })
 
   return (
-    <SwitchBase 
-      id={id}  
-      ref={ref}    
-      classes={switchSquareClasses}                   
+    <SwitchBase
+      id={id}
+      ref={ref}
+      classes={switchSquareClasses}
       checked={checked}
       onChange={onChange}
       label={label}
@@ -29,16 +29,16 @@ const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabl
       tabIndex={tabIndex}
       {...rest}
     >
-      <div 
+      <div
         className={`switch-button ${switchSquareClasses.button}`}
       >
-        <span 
+        <span
           className={`line w-4 h-3px bg-white rounded-xl ${disabled && 'bg-secondary-400'}
             ${checked ? 'mb-2 bg-secondary-50' : 'bg-secondary-400'}
           `}
           tabIndex={tabIndex}
         />
-        <span 
+        <span
           className={`dot w-1 h-1 rounded-2px ${disabled && 'border-secondary-400 bg-secondary-400'}
             ${checked ? 'w-2 h-px bg-secondary-50' : 'mb-1 border border-secondary-400'} 
           `}

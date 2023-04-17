@@ -18,7 +18,7 @@ const inputSizes = (size) => {
   default:
     break
   }
-  
+
   return inputSize
 }
 
@@ -37,26 +37,26 @@ const _textareaBaseClasses = ({ focus, root, filled, disabled }) => ({
     { 'border-interactive-500 bg-secondary-50': filled },
     { 'pointer-events-none bg-secondary-100 text-secondary-300 border-secondary-300': disabled },
   ),
-  textarea: clsx('textarea__content-container outline-none text-secondary-800', 
+  textarea: clsx('textarea__content-container outline-none text-secondary-800',
     { 'bg-secondary-50': filled },
     { 'bg-secondary-100 placeholder-secondary-300': disabled },
   ),
 })
 
-const Area = ({ 
-  classes, 
-  size, 
-  inputProps, 
-  label, 
+const Area = ({
+  classes,
+  size,
+  inputProps,
+  label,
   value,
-  maxLength, 
-  helperText, 
-  disabled, 
-  onChange, 
-  onSubmit, 
-  onFocus, 
-  onBlur, 
-  ...rest 
+  maxLength,
+  helperText,
+  disabled,
+  onChange,
+  onSubmit,
+  onFocus,
+  onBlur,
+  ...rest
 }) => {
   const [filled, setFilled] = useState(false)
   const [_value, _setValue] = useState(value)
@@ -71,7 +71,7 @@ const Area = ({
     if (inputProps.onChange) {
       inputProps.onChange(e.target? e.target.value : e)
     }
-  
+
     onChange(e.target ? e.target.value : e)
   }
 

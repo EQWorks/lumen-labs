@@ -29,22 +29,22 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
   default:
     break
   }
-  
+
   return contentSize
 }
 
-const DropdownBase = forwardRef(({ 
-  classes, 
-  renderSelectedOptions, 
-  button, 
+const DropdownBase = forwardRef(({
+  classes,
+  renderSelectedOptions,
+  button,
   onClick,
   open,
-  startIcon, 
-  endIcon, 
-  size, 
-  children, 
-  placeholder, 
-  multiSelect, 
+  startIcon,
+  endIcon,
+  size,
+  children,
+  placeholder,
+  multiSelect,
   customTrigger,
   overflow,
   disabled,
@@ -61,7 +61,7 @@ const DropdownBase = forwardRef(({
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
     placeholder: 'normal-case text-secondary-400',
-    startIcon: clsx(`start-icon mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`, 
+    startIcon: clsx(`start-icon mr-2.5 fill-current stroke-current ${selectedOptions && multiSelect && contentSize.icon}`,
       { 'text-secondary-600': !disabled },
     ),
     endIcon: clsx(`end-icon fill-current stroke-current 
@@ -71,7 +71,7 @@ const DropdownBase = forwardRef(({
     { 'text-interactive-500': open && !disabled },
     ),
   })
-  
+
   const containerClasses = Object.freeze({
     root: `relative ${contentSize.font} ${classes.root}`,
     menu: `absolute max-h-60 overflow-y-auto font-sans bg-white z-10 shadow-blue-30 mt-5px border rounded-sm border-secondary-400 focus:outline-none
@@ -86,9 +86,9 @@ const DropdownBase = forwardRef(({
         ${overflow === 'vertical' && selectedOptions && 'flex-wrap'}
         ${overflow === 'horizontal' && selectedOptions && 'scroll-overlay overflow-x-auto overflow-y-hidden'}`
       }>
-        { selectedOptions ? 
+        { selectedOptions ?
           renderSelectedOptions()
-          : 
+          :
           (
             <span className={dropdownClasses.placeholder}>
               {placeholder}
@@ -144,7 +144,7 @@ DropdownBase.propTypes = {
 }
 
 DropdownBase.defaultProps = {
-  classes: { 
+  classes: {
     root: '',
     button: '',
     content: '',

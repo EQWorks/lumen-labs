@@ -29,7 +29,7 @@ export const useCarousel = (ref) => {
         ) {
           e.preventDefault()
         }
-        
+
         ref.scrollTo({
           left: ref.scrollLeft + e.deltaY,
           behavior: 'smooth',

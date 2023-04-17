@@ -9,7 +9,7 @@ const iconSize = Object.freeze({
 })
 
 const ArrowUpDown = ({ className, size, ...props }) => (
-  <svg 
+  <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
     xmlns="http://www.w3.org/2000/svg"

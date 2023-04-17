@@ -36,7 +36,7 @@ const _labelSize = (size) => {
   default:
     break
   }
-  
+
   return labelSize
 }
 
@@ -154,19 +154,19 @@ const customClasses = (shade, color) => {
   })
 }
 
-const Label = forwardRef(({ 
-  classes, 
-  children, 
-  startIcon, 
-  endIcon, 
-  title, 
-  size, 
-  shade, 
-  color, 
-  onClickStartIcon, 
-  onClickEndIcon, 
-  disabled, 
-  ...rest 
+const Label = forwardRef(({
+  classes,
+  children,
+  startIcon,
+  endIcon,
+  title,
+  size,
+  shade,
+  color,
+  onClickStartIcon,
+  onClickEndIcon,
+  disabled,
+  ...rest
 }, ref) => {
   const [focus, setFocus] = useState(false)
   const labelSize = _labelSize(size)
@@ -177,25 +177,25 @@ const Label = forwardRef(({
     button: `label__root-container rounded-3px  ${classes.root} ${labelSize.box} ${customClasses(shade, color).buttonContainer}
       border fill-current focus:outline-none ${colorType}
       ${!disabled ? 'cursor-pointer' : 'pointer-events-none'}
-    `, 
-    content: `label__content-container font-bold tracking-normal leading-1 ${labelSize.font} ${classes.content}`, 
+    `,
+    content: `label__content-container font-bold tracking-normal leading-1 ${labelSize.font} ${classes.content}`,
     title: `label__title-container font-normal ${classes.title}`,
-    startIcon: `label__start-icon-container mr-3px p-px flex justify-center items-center ${labelSize.icon} ${classes.startIcon}`, 
+    startIcon: `label__start-icon-container mr-3px p-px flex justify-center items-center ${labelSize.icon} ${classes.startIcon}`,
     endIcon: `label__end-icon-container icon-hover ml-3px p-px flex justify-center items-center rounded-3px ${labelSize.icon} ${classes.endIcon}`,
   })
 
   return (
-    <ButtonBase 
-      ref={ref} 
-      classes={labelClasses} 
+    <ButtonBase
+      ref={ref}
+      classes={labelClasses}
       style={{ boxShadow: `0 0 0 0.8px ${outlineColor}` }}
-      startIcon={startIcon} 
-      endIcon={endIcon} 
-      onFocus={() => setFocus(true)} 
+      startIcon={startIcon}
+      endIcon={endIcon}
+      onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
       onClickStartIcon={onClickStartIcon}
       onClickEndIcon={onClickEndIcon}
-      disabled={disabled} 
+      disabled={disabled}
       {...rest}
     >
       {children}{title && <>: <span className={`${labelClasses.title}`}>{title}</span></>}
@@ -218,12 +218,12 @@ Label.propTypes = {
 }
 
 Label.defaultProps = {
-  classes: { 
-    root: '', 
-    content: '', 
-    title: '', 
-    startIcon: '', 
-    endIcon: '', 
+  classes: {
+    root: '',
+    content: '',
+    title: '',
+    startIcon: '',
+    endIcon: '',
   },
   startIcon: null,
   endIcon: null,

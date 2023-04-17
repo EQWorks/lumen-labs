@@ -11,11 +11,11 @@ const ModalBase = forwardRef(({ classes, children, open, closeModal, ...rest }, 
   })
 
   return (
-    <Dialog 
+    <Dialog
       ref={ref}
-      as="div" 
+      as="div"
       className='fixed inset-0 z-10 overflow-y-auto'
-      open={open} 
+      open={open}
       onClose={closeModal}
       {...rest}
     >

@@ -28,7 +28,7 @@ const CheckboxGroupBase = React.forwardRef(({
   const CheckboxComponent = StyledCheckbox || CheckboxBase
   const [groups, setGroups] = useState(options)
 
-  return (  
+  return (
     <div ref={ref} className={`grid ${alignStyleRoot} gap-${classes.gap} ${classes.root}`}>
       {options.map((option, index) => {
         if (Array.isArray(option)) {

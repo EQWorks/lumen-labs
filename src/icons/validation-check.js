@@ -18,10 +18,10 @@ const ValidationCheck = ({ className, size, ...props }) => (
     {...props}
   >
     <g transform="matrix(5.833333333333333,0,0,5.833333333333333,0,0)">
-      <path 
-        d="M23.5 0.499L7 23.499 0.5 16.999" 
-        fill="none"  
-        strokeLinecap="round" 
+      <path
+        d="M23.5 0.499L7 23.499 0.5 16.999"
+        fill="none"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </g>

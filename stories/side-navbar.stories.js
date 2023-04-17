@@ -60,7 +60,7 @@ const customStyle = makeStyles({
  * [classes] - object, custom styling supported keys:
  *    menuContainer: header main container div
  * [id] - string, attribute specifies an unique id for the item element
- * [children] - any, render inner content elements, 
+ * [children] - any, render inner content elements,
  * [onClick] - func, callback when the item is clicked
  * [...rest] - any SideBarItem component div props
  */
@@ -68,7 +68,7 @@ const customStyle = makeStyles({
  * [classes] - object, custom styling supported keys:
  *    headerContainer: header main container div ---- for SideBarHeader
  *    footerContainer: header main container div ---- for SideBarFooter
- * [children] - any, render inner content elements, 
+ * [children] - any, render inner content elements,
  * [onClick] - func, callback when the item is clicked
  * [...rest] - any SideBarItem component div props
  */
@@ -76,7 +76,7 @@ const customStyle = makeStyles({
  * [classes] - object, custom styling supported keys:
  *   mainContainer: main container div
  *   mainContainerActive: main container div when the item is selected/active
- *   contentContainer: content container div 
+ *   contentContainer: content container div
  *   icon: icon container div
  *   text: text container div
  * [id] - string, attribute specifies an unique id for the item element
@@ -108,23 +108,23 @@ export const Default = () => {
       </SideNavbar.SideBarHeader>
       <SideNavbar.SideBarMenu id='reports'>Reports</SideNavbar.SideBarMenu>
       {icons.map(({ icon, title }) => (
-        <SideNavbar.SideBarItem 
+        <SideNavbar.SideBarItem
           key={`sidebar-item-${title}`}
-          icon={icon} 
-          id={title} 
-          label={title} 
-          isSelected={currentSelected === title} 
+          icon={icon}
+          id={title}
+          label={title}
+          isSelected={currentSelected === title}
           onClick={() => setCurrentSelected(title)}/>
       ))}
       <SideNavbar.SideBarFooter>
         <SideNavbar.SideBarMenu id='footer-label'>SIDE BAR FOOTER</SideNavbar.SideBarMenu>
         {footerIcons.map(({ icon, title }) => (
-          <SideNavbar.SideBarItem 
+          <SideNavbar.SideBarItem
             key={`sidebar-item-${title}`}
-            icon={icon} 
-            id={title} 
-            label={title} 
-            isSelected={currentSelected === title} 
+            icon={icon}
+            id={title}
+            label={title}
+            isSelected={currentSelected === title}
             onClick={() => setCurrentSelected(title)}/>
         ))}
       </SideNavbar.SideBarFooter>

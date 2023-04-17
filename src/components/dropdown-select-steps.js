@@ -29,23 +29,23 @@ const _contentSize = (size) => {
   default:
     break
   }
-  
+
   return contentSize
 }
 
-const DropdownSelectSteps = ({ 
-  classes, 
-  data, 
-  button, 
-  size, 
-  onSelect, 
-  startIcon, 
-  endIcon, 
-  placeholder, 
-  showType, 
-  showDivider, 
-  disabled, 
-  ...rest 
+const DropdownSelectSteps = ({
+  classes,
+  data,
+  button,
+  size,
+  onSelect,
+  startIcon,
+  endIcon,
+  placeholder,
+  showType,
+  showDivider,
+  disabled,
+  ...rest
 }) => {
   const [options, setOptions] = useState([])
   const [open, setOpen] = useState(false)
@@ -87,11 +87,11 @@ const DropdownSelectSteps = ({
 
   const renderSelectedOptions = () => (
     <>
-      {categoryData.title ? 
+      {categoryData.title ?
         (<span className='mr-2.5 text-secondary-800'>
           {`${categoryData.title} ${subCategoryData && `> ${subCategoryData.title}`} ${selectedOptions && `> ${selectedOptions.title}`}`}
-        </span>) 
-        : 
+        </span>)
+        :
         ''
       }
     </>
@@ -138,7 +138,7 @@ const DropdownSelectSteps = ({
         index,
       },
     }
-    
+
     if (selectedOptions === value) {
       setSelectedOptions('')
     } else {
@@ -151,7 +151,7 @@ const DropdownSelectSteps = ({
   const renderList = (data, type) => {
     let handleOnClick = ''
     let selectedData = ''
-    
+
     switch(type) {
     case 'category':
       handleOnClick = handleCategoryOnClick
@@ -168,15 +168,15 @@ const DropdownSelectSteps = ({
     default:
       break
     }
-    
+
     return (
       <>
         { data.map((item, index) => {
           return (
             <Menu.Item
-              as="li" 
-              key={index} 
-              className={`item-container-${index} ${dropdownSelectStepsClasses.itemContainer}`} 
+              as="li"
+              key={index}
+              className={`item-container-${index} ${dropdownSelectStepsClasses.itemContainer}`}
               onClick={() => handleOnClick(item, index)}
             >
               <div className={`content-container-${index}
@@ -184,7 +184,7 @@ const DropdownSelectSteps = ({
                 ${Object.values(selectedData).includes(item.title) && dropdownSelectStepsClasses.selected}
               `}>
                 {renderListItem(item, selectedData)}
-              </div>  
+              </div>
             </Menu.Item>
           )
         })}
@@ -215,32 +215,32 @@ const DropdownSelectSteps = ({
   }
 
   return (
-    <DropdownBase 
-      classes={dropdownClasses} 
-      renderSelectedOptions={renderSelectedOptions} 
+    <DropdownBase
+      classes={dropdownClasses}
+      renderSelectedOptions={renderSelectedOptions}
       button={button}
       onClick={onClickSelect}
       open={open}
-      size={size} 
-      startIcon={startIcon} 
+      size={size}
+      startIcon={startIcon}
       endIcon={endIcon}
       placeholder={placeholder}
-      disabled={disabled} 
+      disabled={disabled}
       {...rest}
     >
       <ul className={`capitalize ${dropdownSelectStepsClasses.listContainer} ${dropdownSelectStepsClasses.category}`}>
         { options && renderList(options, 'category') }
       </ul>
-      { categoryData.items && 
+      { categoryData.items &&
         <ul className={`${dropdownSelectStepsClasses.listContainer} ${dropdownSelectStepsClasses.subCategory}`}>
-          {showType && categoryData.type && 
+          {showType && categoryData.type &&
           <label className={`capitalize ${dropdownSelectStepsClasses.type}`} htmlFor="span">
             {renderListItem(categoryData)}
           </label>}
           { renderList(categoryData.items, 'subcategory') }
-          {showDivider && categoryData.type && 
-          <div 
-            className={`capitalize ${dropdownSelectStepsClasses.dividerContainer}`} 
+          {showDivider && categoryData.type &&
+          <div
+            className={`capitalize ${dropdownSelectStepsClasses.dividerContainer}`}
             onClick={() => handleCategoryOnClick(categoryData)}
           >
             <ArrowLeft className={dropdownSelectStepsClasses.startIcon} size={size}/>
@@ -248,16 +248,16 @@ const DropdownSelectSteps = ({
           </div>}
         </ul>
       }
-      { subCategoryData.items && 
+      { subCategoryData.items &&
         <ul className={dropdownSelectStepsClasses.listContainer}>
-          {showType && categoryData.type && 
+          {showType && categoryData.type &&
           <label className={dropdownSelectStepsClasses.type} htmlFor="span">
             {renderListItem(subCategoryData)}
           </label>}
           { renderList(subCategoryData.items, 'item') }
           {showDivider && subCategoryData.type &&
-          <div 
-            className={dropdownSelectStepsClasses.dividerContainer} 
+          <div
+            className={dropdownSelectStepsClasses.dividerContainer}
             onClick={() => handleSubCategoryOnClick(subCategoryData)}
           >
             <ArrowLeft className={dropdownSelectStepsClasses.startIcon} size={size}/>

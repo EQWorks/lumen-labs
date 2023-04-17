@@ -27,4 +27,4 @@ const Expand = ({ className, size, ...props }) => (
 Expand.propTypes = { className: PropTypes.string, size: PropTypes.string }
 Expand.defaultProps = { className: '', size: 'lg' }
 
-export default Expand 
+export default Expand

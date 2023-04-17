@@ -127,7 +127,7 @@ NestedCheckboxes.propTypes = {
   onChange: PropTypes.func,
 }
 NestedCheckboxes.defaultProps = {
-  classes: {}, 
+  classes: {},
   disabled: false,
   defaultValues: [],
   onChange: () => {},

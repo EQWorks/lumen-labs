@@ -10,14 +10,14 @@ const customStyle = makeStyles({
   },
 })
 
-const SideBarItem = forwardRef(({ 
-  id, 
-  classes, 
-  label, 
-  icon, 
-  onClick, 
-  isSelected, 
-  ...rest 
+const SideBarItem = forwardRef(({
+  id,
+  classes,
+  label,
+  icon,
+  onClick,
+  isSelected,
+  ...rest
 }, ref) => {
   const sideBarItemClasses = Object.freeze({
     itemContainer: `side-bar-item__main-container pl-25px pr-6 py-18px text-secondary-600 cursor-pointer ${classes.itemContainer}
@@ -32,12 +32,12 @@ const SideBarItem = forwardRef(({
   const [isHover, setIsHover] = useState(false)
 
   return (
-    <div 
+    <div
       ref={ref}
-      key={id} 
-      className={`${isSelected ? sideBarItemClasses.itemContainerActive : sideBarItemClasses.itemContainer}`} 
-      onClick={onClick} 
-      onMouseEnter={() => setIsHover(true)} 
+      key={id}
+      className={`${isSelected ? sideBarItemClasses.itemContainerActive : sideBarItemClasses.itemContainer}`}
+      onClick={onClick}
+      onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       {...rest}
     >

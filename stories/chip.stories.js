@@ -14,16 +14,16 @@ const description = {
 }
 
 const sampleData = [
-  { 
+  {
     color: 'error',
     selectable: true,
   },
-  { 
+  {
     color: 'interactive',
     icon: 'end',
     selectable: true,
   },
-  { 
+  {
     color: 'success',
     icon: 'start',
     selectable: true,
@@ -49,7 +49,7 @@ const sampleData = [
  * [startIcon] - node, icon on left side of chip
  * [endIcon] - node, icon on right side of chip
  * [color] - string set chip color
- * [disabled] - boolean disable chip 
+ * [disabled] - boolean disable chip
  */
 
 export const Normal = () => {
@@ -77,7 +77,7 @@ export const Multiple = () => {
             {data.icon ?
               ( data.icon === 'start' && <Chip color={data.color} startIcon={<Info size='sm'/>}>CHIP</Chip> ) ||
               ( data.icon === 'end' && <Chip color={data.color} endIcon={<Info size='sm'/>}>CHIP</Chip> )
-              : 
+              :
               <Chip color={data.color}>CHIP</Chip>
             }
           </div>
@@ -90,14 +90,14 @@ export const Multiple = () => {
 export const Usage = () => {
   const [options, setOptions] = useState(sampleData)
   const [selectedOptions, setSelectedOptions] = useState([
-    { 
+    {
       color: 'info',
       icon: 'end',
       selectable: false,
     },
   ])
 
-  const handleAddChip = (data) => { 
+  const handleAddChip = (data) => {
     const filterOptions = []
 
     options.forEach(op => {
@@ -140,10 +140,10 @@ export const Usage = () => {
         {selectedOptions.map((data, index) => {
           return (
             <div className='mr-1' key={index}>
-              <Chip 
-                color={data.color} 
-                endIcon={data.selectable !== false && <Close size='xs'/>} 
-                selectable={data.selectable} 
+              <Chip
+                color={data.color}
+                endIcon={data.selectable !== false && <Close size='xs'/>}
+                selectable={data.selectable}
                 onClick={() => handleRemoveChip(data)}
               >
                 CHIP

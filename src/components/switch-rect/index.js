@@ -18,10 +18,10 @@ const SwitchRect = forwardRef(({ classes, id, checked, onChange, label, disabled
   })
 
   return (
-    <SwitchBase 
-      id={id}  
-      ref={ref}    
-      classes={switchRectClasses}                   
+    <SwitchBase
+      id={id}
+      ref={ref}
+      classes={switchRectClasses}
       checked={checked}
       onChange={onChange}
       label={label}

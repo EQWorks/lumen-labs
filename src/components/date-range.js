@@ -14,13 +14,13 @@ const DateRange = forwardRef(({ classes, defaultValue, setFromValue, setToValue,
     <form ref={ref} className={`${dateRangeClasses.form}`} noValidate>
       <div className={`fieldContainer ${dateRangeClasses.field}`}>
         {showLabel && <label className={`${dateRangeClasses.label}`} htmlFor="from">From</label>}
-        <input className={`date-input ${dateRangeClasses.input}`} 
+        <input className={`date-input ${dateRangeClasses.input}`}
           type="date" id="from" name="from" pattern="\d{4}-\d{2}-\d{2}"
           value={defaultValue[0] || ''} onChange={({ target: { value } }) => setFromValue(value)}/>
       </div>
       <div className={`fieldContainer ${dateRangeClasses.field}`}>
         {showLabel && <label className={`${dateRangeClasses.label}`} htmlFor="to">To</label>}
-        <input className={`date-input ${dateRangeClasses.input}`} 
+        <input className={`date-input ${dateRangeClasses.input}`}
           type="date" id="to" name="to" pattern="\d{4}-\d{2}-\d{2}"
           value={defaultValue[1] || ''} onChange={({ target: { value } }) => setToValue(value)}/>
       </div>

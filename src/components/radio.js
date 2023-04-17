@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
-import { makeStyles } from '../utils/make-styles' 
+import { makeStyles } from '../utils/make-styles'
 import { getTailwindConfigColor } from '../utils/tailwind-config-color'
 
 
@@ -81,9 +81,9 @@ const Radio = forwardRef(({ label, name, value, align, handleChange, disabled, s
   const labelPosition = align === 'left' ? 'flex-row-reverse' : 'flex-row'
   const spacing = direction === 'flex-col' ? 'mb-2' : 'mr-2'
 
-  const { 
+  const {
     container,
-    radioInput, 
+    radioInput,
     radioLabel,
   } = classes
 

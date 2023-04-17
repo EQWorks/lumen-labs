@@ -31,7 +31,7 @@ const RangeSliderLabel = ({ classes, width, color, min, max, values, onChange, l
   })
 
   const sliderBaseRef = useRef(null)
-  
+
   useEffect(() => {
     let thumb = sliderBaseRef.current.querySelectorAll('.thumb')
     let tooltip = sliderBaseRef.current.querySelectorAll('output[name="tooltip"]')
@@ -45,7 +45,7 @@ const RangeSliderLabel = ({ classes, width, color, min, max, values, onChange, l
       let min = el.min ? el.min : 0
       let max = el.max ? el.max : 100
       let newVal = Number(((val - min) * 100) / (max - min))
-      
+
       tooltip[i].style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`
 
       el.addEventListener('mouseover', () => {
@@ -57,38 +57,38 @@ const RangeSliderLabel = ({ classes, width, color, min, max, values, onChange, l
       })
     })
   }
-  
+
   return (
-    <RangeSliderBase 
-      ref={sliderBaseRef} 
-      classes={sliderClasses} 
-      min={min} 
-      max={max} 
-      values={singleSlider ? values : [values[0], values[1]]} 
-      onChange={onChange} 
+    <RangeSliderBase
+      ref={sliderBaseRef}
+      classes={sliderClasses}
+      min={min}
+      max={max}
+      values={singleSlider ? values : [values[0], values[1]]}
+      onChange={onChange}
       width={width}
       singleSlider={singleSlider}
       disabled={disabled}
       {...rest}
     >
-      {showLabel && 
+      {showLabel &&
       <div className={'label-container flex justify-between'}>
         <label className={`left-value ${sliderLabelClasses.label}`}>{labelFormat[0] || min}</label>
         <label className={`right-value -mr-1 ${sliderLabelClasses.label}`}>{labelFormat[1] || max}</label>
-      </div>      
+      </div>
       }
       {showTooltip &&
       <>
-        <output 
-          className={`left-tooltip ${sliderLabelClasses.tooltip} ${color.tooltip ? tooltipColor : 'bg-interactive-500'}`} 
-          name='tooltip' 
+        <output
+          className={`left-tooltip ${sliderLabelClasses.tooltip} ${color.tooltip ? tooltipColor : 'bg-interactive-500'}`}
+          name='tooltip'
           style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
         >
           {tooltipFormat[0] || (singleSlider ? values : values[0])}
         </output>
-        {!singleSlider &&        
-          <output 
-            className={`right-tooltip ${sliderLabelClasses.tooltip} ${color.tooltip ? tooltipColor : 'bg-interactive-500'}`} 
+        {!singleSlider &&
+          <output
+            className={`right-tooltip ${sliderLabelClasses.tooltip} ${color.tooltip ? tooltipColor : 'bg-interactive-500'}`}
             name='tooltip'
             style={{ '--tooltip-tail-color': `${tooltipTailColor} transparent transparent transparent` }}
           >
@@ -122,13 +122,13 @@ RangeSliderLabel.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   values: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.number), 
+    PropTypes.arrayOf(PropTypes.number),
     PropTypes.number,
   ]).isRequired,
   onChange: PropTypes.func.isRequired,
   labelFormat: PropTypes.arrayOf(PropTypes.number || PropTypes.string),
   tooltipFormat: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.number || PropTypes.string), 
+    PropTypes.arrayOf(PropTypes.number || PropTypes.string),
     PropTypes.number,
   ]),
   showLabel: PropTypes.bool,

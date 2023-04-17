@@ -34,21 +34,21 @@ const _contentSize = (size) => {
   default:
     break
   }
-  
+
   return contentSize
 }
 
-const DropdownAutoComplete = ({ 
-  classes, 
-  data, 
-  size, 
+const DropdownAutoComplete = ({
+  classes,
+  data,
+  size,
   value,
   onSelect,
-  onDelete, 
-  inputProps, 
-  showType, 
-  disabled, 
-  ...rest 
+  onDelete,
+  inputProps,
+  showType,
+  disabled,
+  ...rest
 }) => {
   const [options, setOptions] = useState(data)
   const [selectedOptions, setSelectedOptions] = useState(value || {})
@@ -110,15 +110,15 @@ const DropdownAutoComplete = ({
     <>
       {data.map((item, index) => {
         return (
-          <div 
-            key={`item-container-${index}`} 
+          <div
+            key={`item-container-${index}`}
             className={`item-container-${index} 
               ${dropdownAutoCompleteClasses.itemContainer}
               ${!filteredOptions.some(op => op.title === item.title) && 'hidden'} 
-            `} 
+            `}
             onClick={() => handleOnClick(index, item)}
           >
-            <div 
+            <div
               className={`content-container-${index}
                 ${dropdownAutoCompleteClasses.contentContainer}
                 ${selectedOptions.title === item.title && dropdownAutoCompleteClasses.selected} 
@@ -156,7 +156,7 @@ const DropdownAutoComplete = ({
       setUserInput(value.title)
       onClickSelect()
     }
-    
+
     onSelect({ ...value, i })
     setFilteredOptions(options)
   }
@@ -164,7 +164,7 @@ const DropdownAutoComplete = ({
   const onChange = (val) => {
     const filteredSuggestions = options.filter(
       suggestion =>
-        suggestion.title.toLowerCase().indexOf(val.toLowerCase()) > -1 || 
+        suggestion.title.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
         suggestion.type && suggestion.type.toLowerCase().indexOf(val.toLowerCase()) > -1,
     )
 
@@ -190,44 +190,44 @@ const DropdownAutoComplete = ({
   const onClickDelete = (e) => {
     onDelete(e)
   }
-  
+
   const autoComplete = (
-    <TextField 
+    <TextField
       classes={textFieldClasses}
-      size={size} 
+      size={size}
       value={userInput}
-      onClick={onClickSelect} 
+      onClick={onClickSelect}
       onChange={onChange}
       onDelete={onClickDelete}
-      inputProps={inputProps} 
+      inputProps={inputProps}
       disabled={disabled}
     />
   )
 
   return (
-    <DropdownBase 
+    <DropdownBase
       ref={ref}
-      classes={dropdownClasses} 
+      classes={dropdownClasses}
       open={open}
       size={size}
       customTrigger={autoComplete}
-      disabled={disabled} 
+      disabled={disabled}
       {...rest}
     >
       <ul>
         {data && data.map((el, index) => {
           return (
-            <Menu.Item 
-              as="li" 
-              key={`list-container-${index}`} 
+            <Menu.Item
+              as="li"
+              key={`list-container-${index}`}
               className={`list-container-${index} ${dropdownAutoCompleteClasses.listContainer}`}
             >
-              {showType && el.type && 
-                <label 
+              {showType && el.type &&
+                <label
                   className={`
                     type-container-${index} ${dropdownAutoCompleteClasses.type}
                     ${!filteredOptions.some(op => op.type === el.type.title) && 'hidden'}
-                  `} 
+                  `}
                   htmlFor="span"
                 >
                   {renderListItem(el.type)}

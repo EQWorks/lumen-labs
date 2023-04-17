@@ -4,7 +4,7 @@ import React, { useMemo, forwardRef } from 'react'
 
 import { FirstStep, MiddleStep, LastStep } from './steps'
 import { CheckBold } from '../../icons'
-import { makeStyles } from '../../utils/make-styles' 
+import { makeStyles } from '../../utils/make-styles'
 import { getTailwindConfigColor } from '../../utils/tailwind-config-color'
 
 
@@ -54,9 +54,9 @@ const StepLabel = ({ index, label, active, complete }) => (
         'bg-primary-500': complete || active,
         'border border-white': active && !complete,
       })}>
-        { complete ? 
-          <CheckBold className='checkSize filled-current text-secondary-50' /> 
-          : 
+        { complete ?
+          <CheckBold className='checkSize filled-current text-secondary-50' />
+          :
           <p className={clsx({
             'text-white': active || (!active && !complete),
           }, 'font-bold text')}>{index+1}</p> }
@@ -75,7 +75,7 @@ const First = (index, label, active, complete, stepDefault, stepComplete, stepAc
     {StepLabel({ index, label, active, complete })}
     <FirstStep className={clsx({ [`stepDefault ${stepDefault ? stepDefault : '' }`]: !active && !complete, [`stepComplete ${stepComplete ? stepComplete : ''}`]: complete, [`stepActive ${stepActive ? stepActive : ''}`]: active })} />
   </div>
-)  : null 
+)  : null
 
 const Middle = (index, indiLength, label, active, complete, styles, size, stepDefault, stepComplete, stepActive) => index !== 0 && index !== indiLength ? (
   <div className='absolute container' style={{ left: index === 1 ? `${size}rem` : `${size + ((size*0.47) * (index - 2)) + ((size*0.47) * index)}rem` }}>
@@ -96,8 +96,8 @@ const checkComplete = (startIndex, indicators) => {
   return rest.find(({ complete }) => complete)
 }
 
-const StepIndicator = forwardRef(({ 
-  classes, size = 16, indicators: _indicators, ...rest 
+const StepIndicator = forwardRef(({
+  classes, size = 16, indicators: _indicators, ...rest
 }, ref) => {
 
   const styles = customClasses(size)

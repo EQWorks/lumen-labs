@@ -53,7 +53,7 @@ const CheckboxBase = React.forwardRef(({
           name={label}
           checked={_defaultCheck
             ? _defaultCheck
-            : checked === null 
+            : checked === null
               ? name === label
               : checked}
           onChange={handleChange}

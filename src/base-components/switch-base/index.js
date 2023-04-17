@@ -21,7 +21,7 @@ const SwitchBase = forwardRef(({ classes, id, checked, onChange, label, disabled
         className={`switch-checkbox ${switchClasses.checkbox}`}
         id={`switch-checkbox-${id}`}
         name={id}
-        type="checkbox"        
+        type="checkbox"
         checked={checked}
         onChange={(e) => {onChange(e)}}
         disabled={disabled}
@@ -29,14 +29,14 @@ const SwitchBase = forwardRef(({ classes, id, checked, onChange, label, disabled
       />
       <label
         className={`switch-container ${switchClasses.container} ${disabled && switchClasses.disabled}`}
-        htmlFor={`switch-checkbox-${id}`} 
+        htmlFor={`switch-checkbox-${id}`}
         tabIndex={disabled ? -1 : 1}
       >
-        {children ? 
-          children 
+        {children ?
+          children
           :
-          <span 
-            className={`switch-button ${switchClasses.button} ${disabled && switchClasses.disabled}`} 
+          <span
+            className={`switch-button ${switchClasses.button} ${disabled && switchClasses.disabled}`}
             tabIndex={tabIndex}
           />
         }
@@ -63,10 +63,10 @@ SwitchBase.propTypes = {
 }
 
 SwitchBase.defaultProps = {
-  classes: { 
+  classes: {
     root: '',
-    container: '', 
-    button: '', 
+    container: '',
+    button: '',
     label: '',
   },
   label: '',

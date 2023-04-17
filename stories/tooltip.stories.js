@@ -34,19 +34,19 @@ export const Normal = () => {
     <div className='flex flex-row justify-center m-10'>
       <div>
         <p className={labelClass}>Light - Left</p>
-        <Tooltip 
+        <Tooltip
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           position='left'
         >
           <Chip>Tooltip</Chip>
         </Tooltip>
         <p className={`${labelClass}`}>Dark - Left</p>
-        <Tooltip 
+        <Tooltip
           type='dark'
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           position='left'
         >
@@ -57,9 +57,9 @@ export const Normal = () => {
         <div className='flex flex-row'>
           <div>
             <p className={labelClass}>Light - Top</p>
-            <Tooltip 
+            <Tooltip
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               position='top'
             >
@@ -68,10 +68,10 @@ export const Normal = () => {
           </div>
           <div>
             <p className={`${labelClass}`}>Dark - Top</p>
-            <Tooltip 
+            <Tooltip
               type='dark'
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               position='top'
             >
@@ -82,10 +82,10 @@ export const Normal = () => {
         <div className='flex flex-row'>
           <div>
             <p className={`${labelClass}`}>Light - Bottom</p>
-            <Tooltip 
+            <Tooltip
               type='light'
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               position='bottom'
             >
@@ -94,10 +94,10 @@ export const Normal = () => {
           </div>
           <div>
             <p className={`${labelClass}`}>Dark - Bottom</p>
-            <Tooltip 
+            <Tooltip
               type='dark'
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               position='bottom'
             >
@@ -108,19 +108,19 @@ export const Normal = () => {
       </div>
       <div>
         <p className={labelClass}>Light - Right</p>
-        <Tooltip 
+        <Tooltip
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           position='right'
         >
           <Chip color='info'>Tooltip</Chip>
         </Tooltip>
         <p className={`${labelClass}`}>Dark - Right</p>
-        <Tooltip 
+        <Tooltip
           type='dark'
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           position='right'
         >
@@ -136,9 +136,9 @@ export const NoArrow = () => {
     <div className='flex flex-row justify-center m-10'>
       <div>
         <p className={labelClass}>Light - Left</p>
-        <Tooltip 
+        <Tooltip
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           arrow={false}
           position='left'
@@ -146,10 +146,10 @@ export const NoArrow = () => {
           <Chip>Tooltip</Chip>
         </Tooltip>
         <p className={`${labelClass}`}>Dark - Left</p>
-        <Tooltip 
+        <Tooltip
           type='dark'
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           arrow={false}
           position='left'
@@ -161,9 +161,9 @@ export const NoArrow = () => {
         <div className='flex flex-row'>
           <div>
             <p className={labelClass}>Light - Top</p>
-            <Tooltip 
+            <Tooltip
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               arrow={false}
               position='top'
@@ -173,10 +173,10 @@ export const NoArrow = () => {
           </div>
           <div>
             <p className={`${labelClass}`}>Dark - Top</p>
-            <Tooltip 
+            <Tooltip
               type='dark'
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               arrow={false}
               position='top'
@@ -188,10 +188,10 @@ export const NoArrow = () => {
         <div className='flex flex-row'>
           <div>
             <p className={`${labelClass}`}>Light - Bottom</p>
-            <Tooltip 
+            <Tooltip
               type='light'
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               arrow={false}
               position='bottom'
@@ -201,10 +201,10 @@ export const NoArrow = () => {
           </div>
           <div>
             <p className={`${labelClass}`}>Dark - Bottom</p>
-            <Tooltip 
+            <Tooltip
               type='dark'
               title='Tooltip'
-              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+              description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
               width='16.875rem'
               arrow={false}
               position='bottom'
@@ -216,9 +216,9 @@ export const NoArrow = () => {
       </div>
       <div>
         <p className={labelClass}>Light - Right</p>
-        <Tooltip 
+        <Tooltip
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           arrow={false}
           position='right'
@@ -226,10 +226,10 @@ export const NoArrow = () => {
           <Chip color='info'>Tooltip</Chip>
         </Tooltip>
         <p className={`${labelClass}`}>Dark - Right</p>
-        <Tooltip 
+        <Tooltip
           type='dark'
           title='Tooltip'
-          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+          description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
           width='16.875rem'
           arrow={false}
           position='right'
@@ -245,9 +245,9 @@ export const Delay = () => {
   return (
     <>
       <p className={labelClass}>Light - 2000ms</p>
-      <Tooltip 
+      <Tooltip
         title='Tooltip'
-        description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+        description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
         width='16.875rem'
         delay={2000}
         arrow={false}
@@ -256,10 +256,10 @@ export const Delay = () => {
         <Chip>Tooltip</Chip>
       </Tooltip>
       <p className={`mt-5 ${labelClass}`}>Dark - 5000ms</p>
-      <Tooltip 
+      <Tooltip
         type='dark'
         title='Tooltip'
-        description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.' 
+        description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
         width='16.875rem'
         delay={5000}
         position='right'

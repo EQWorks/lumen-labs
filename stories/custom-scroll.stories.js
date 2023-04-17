@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Layout } from '../src'
-import { customScroll } from '../src/utils/custom-scroll' 
+import { customScroll } from '../src/utils/custom-scroll'
 
 
 export default {

@@ -4,17 +4,17 @@ import { DropdownBase } from '../src/base-components'
 import { DropdownSelect, DropdownSelectSteps, DropdownAutoComplete, DropdownAutoCenter, Button } from '../src'
 
 import { ArrowDown, Search, ArrowUpDown } from '../src/icons'
-import { 
-  sampleDataBasic, 
-  sampleDataGroups, 
-  sampleDataDivider, 
-  sampleDataIcons, 
-  sampleDataDescription, 
-  sampleDataMultiselect, 
-  sampleDataIconsLarge, 
-  sampleDataSteps, 
-  sampleDataLinked, 
-  sampleDataSubLinked, 
+import {
+  sampleDataBasic,
+  sampleDataGroups,
+  sampleDataDivider,
+  sampleDataIcons,
+  sampleDataDescription,
+  sampleDataMultiselect,
+  sampleDataIconsLarge,
+  sampleDataSteps,
+  sampleDataLinked,
+  sampleDataSubLinked,
 } from './data/dropdown-data'
 
 
@@ -43,7 +43,7 @@ export default {
  * [multiSelect] - bool, control component multiple selection feature, default = false
  * [customTrigger] - node, render your custom trigger to handle dropdown menu/select display
  * [overflow] - string, control selected options x & y overflow - supported values ['horizontal', 'vertical'], default = 'horizontal'
- * [disabled] - bool, disable component status, default = false 
+ * [disabled] - bool, disable component status, default = false
  * [...rest] - any div element properties
  */
 
@@ -111,7 +111,7 @@ export const Simple = () => {
  *    contentContainer: content container inside a itemContainer div
  *    contentHeader: header container inside a contentContainer div
  *    description: description container inside a contentContainer div
- *    type: type container inside a listContainer div 
+ *    type: type container inside a listContainer div
  *    dividerContainer: divider container inside a listContainer div
  *    selectedOptionTitle: text inside selected content element
  * [data] - array, data json structure to render the item inside the dropdown
@@ -134,8 +134,8 @@ export const Simple = () => {
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
  * [value] - array (multiSelect) / object (single), selected option(s) (serves as default value if uncontrolled)
- * [uncontrolled] - bool, don't react to changes in value, default = false 
- * [defaultValue] - array (multiSelect) / object (single), initial selected option 
+ * [uncontrolled] - bool, don't react to changes in value, default = false
+ * [defaultValue] - array (multiSelect) / object (single), initial selected option
  * [placeholder] - string, helper value of input if value is empty
  * [onSelect] - function, returns selected value
  * [onDelete] - function, callback function on delete selected value
@@ -145,9 +145,9 @@ export const Simple = () => {
  * [limit] - number, control the numbre of selectable item if multiselect is true
  * [showType] - bool, control displaying items type label if exists, default - false
  * [overflow] - string, control selected options x & y overflow - supported values ['horizontal', 'vertical'], default = 'horizontal'
- * [disabled] - bool, disable component status, default = false 
+ * [disabled] - bool, disable component status, default = false
  * [allowClear] - bool, enable clearing button when an option is selected, default = true
- * [simple] - bool, accept arrays of strings instead of the more complex data shape outlined above, default = false 
+ * [simple] - bool, accept arrays of strings instead of the more complex data shape outlined above, default = false
  * [preventDeselect] - bool, disable default deselect when an item is selected, default = false
  * [...rest] - any div element properties
  */
@@ -269,22 +269,22 @@ export const PreventDeselect = () => {
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default - Description</p>
-          <DropdownSelect 
-            classes={classes} 
-            data={sampleDataDescription} 
-            endIcon={<ArrowDown size='md'/>} 
-            placeholder='Select an option' 
+          <DropdownSelect
+            classes={classes}
+            data={sampleDataDescription}
+            endIcon={<ArrowDown size='md'/>}
+            placeholder='Select an option'
             preventDeselect
           />
         </div>
         <div>
           <p>MultiSelect - vertical</p>
-          <DropdownSelect 
-            data={sampleDataMultiselect} 
-            endIcon={<ArrowDown size='md'/>} 
-            overflow='vertical' 
-            placeholder='Select a subject' 
-            multiSelect 
+          <DropdownSelect
+            data={sampleDataMultiselect}
+            endIcon={<ArrowDown size='md'/>}
+            overflow='vertical'
+            placeholder='Select a subject'
+            multiSelect
             preventDeselect
           />
         </div>
@@ -305,7 +305,7 @@ export const PreventDeselect = () => {
  *    contentContainer: content container inside a itemContainer div
  *    contentHeader: header container inside a contentContainer div
  *    description: description container inside a contentContainer div
- *    type: type container inside a listContainer div 
+ *    type: type container inside a listContainer div
  *    dividerContainer: divider container inside a listContainer div
  *    selectedOptionTitle: text inside selected content element
  * [data] - array, data json structure to render the item inside the dropdown
@@ -331,7 +331,7 @@ export const PreventDeselect = () => {
  * [onSelect] - function, returns selected value
  * [onDelete] - function, callback function on delete selected value
  * [showType] - bool, control displaying items type label if exists, default - false
- * [disabled] - bool, disable component status, default = false 
+ * [disabled] - bool, disable component status, default = false
  * [...rest] - any div element properties
  */
 
@@ -346,20 +346,20 @@ export const AutoComplete = () => {
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default</p>
-          <DropdownAutoComplete 
-            classes={classes} 
-            data={sampleDataGroups} 
-            inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }} 
+          <DropdownAutoComplete
+            classes={classes}
+            data={sampleDataGroups}
+            inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }}
             showType
           />
         </div>
         <div>
           <p>Large</p>
-          <DropdownAutoComplete 
-            classes={classes} 
-            data={sampleDataGroups} 
-            size='lg' 
-            inputProps={{ placeholder: 'Search', endIcon: <Search size='lg'/> }} 
+          <DropdownAutoComplete
+            classes={classes}
+            data={sampleDataGroups}
+            size='lg'
+            inputProps={{ placeholder: 'Search', endIcon: <Search size='lg'/> }}
             showType
           />
         </div>
@@ -378,7 +378,7 @@ export const AutoComplete = () => {
  *    itemContainer: item container inside a listContainer div
  *    contentContainer: content container inside a itemContainer div
  *    contentHeader: header container inside a contentContainer div
- *    type: type container inside a listContainer div 
+ *    type: type container inside a listContainer div
  *    dividerContainer: divider container inside a listContainer div
  *    selectedOptionTitle: text inside selected content element
  * [data] - array, data json structure to render the item inside the dropdown
@@ -405,7 +405,7 @@ export const AutoComplete = () => {
  * [endIcon] - node, icon on right side of select container
  * [showType] - bool, control displaying items type label if exists, default - true
  * [showDivider] - bool, control displaying items type label at bottom of the list to return previous step, default - true
- * [disabled] - bool, disable component status, default = false 
+ * [disabled] - bool, disable component status, default = false
  * [...rest] - any div element properties
  */
 
@@ -442,7 +442,7 @@ export const LinkedSelect = () => {
     } else {
       setDisabled(true)
       setSubData([])
-    } 
+    }
   }, [value])
 
   const onSelect = (selected) => {
@@ -452,7 +452,7 @@ export const LinkedSelect = () => {
       setValue(selected)
     }
   }
-  
+
   return (
     <div className={'flex flex-row'}>
       <div className='mr-2.5'>
@@ -477,7 +477,7 @@ export const LinkedSelectLarge = () => {
         setDisabled(false)
       }
     })
-    
+
     if (!value) {
       setDisabled(true)
     }
@@ -538,8 +538,8 @@ export const DropdownCenterSelectedItem = () => {
     <>
       <div className='flex flex-row'>
         <div>No padding</div>
-        <DropdownAutoCenter 
-          data={sampleDataMultiselect[0].items} 
+        <DropdownAutoCenter
+          data={sampleDataMultiselect[0].items}
           value={{ title: 'orange' }}
           endIcon={<ArrowUpDown size='sm'/>}
           scrollable
@@ -547,8 +547,8 @@ export const DropdownCenterSelectedItem = () => {
       </div>
       <div className='flex flex-row p-20'>
         <div>With padding</div>
-        <DropdownAutoCenter 
-          data={sampleDataMultiselect[0].items} 
+        <DropdownAutoCenter
+          data={sampleDataMultiselect[0].items}
           value={value}
           endIcon={<ArrowUpDown size='sm'/>}
           onSelect={(_, val) => { setValue({ title: val.item.title, index: val.index })}}
@@ -557,8 +557,8 @@ export const DropdownCenterSelectedItem = () => {
       </div>
       <div className='flex flex-row p-20'>
         <div>With padding no scroll</div>
-        <DropdownAutoCenter 
-          data={sampleDataMultiselect[0].items} 
+        <DropdownAutoCenter
+          data={sampleDataMultiselect[0].items}
           value={{ title: 'orange' }}
           endIcon={<ArrowUpDown size='sm'/>}
         />
@@ -580,17 +580,17 @@ export const Disabled = () => {
       </div>
       <div className='mr-5'>
         <p>Auto Complete</p>
-        <DropdownAutoComplete 
-          data={sampleDataGroups} 
-          inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }} 
+        <DropdownAutoComplete
+          data={sampleDataGroups}
+          inputProps={{ placeholder: 'Search', endIcon: <Search size='md'/> }}
           showType
           disabled
         />
       </div>
       <div>
         <p>Auto Center</p>
-        <DropdownAutoCenter 
-          data={sampleDataMultiselect[0].items} 
+        <DropdownAutoCenter
+          data={sampleDataMultiselect[0].items}
           value={{ title: 'orange' }}
           endIcon={<ArrowUpDown size='sm'/>}
           disabled

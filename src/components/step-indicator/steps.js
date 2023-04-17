@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-export const FirstStep = ({ className }) => (  
+export const FirstStep = ({ className }) => (
   <svg viewBox="0 0 224 38" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#filter0_d_869_4025)">
       <mask id="path-1-inside-1_869_4025" fill="white">

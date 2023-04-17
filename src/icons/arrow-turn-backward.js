@@ -18,13 +18,13 @@ const ArrowTurnBackward = ({ className, size, ...props }) => (
     {...props}
   >
     <g transform="matrix(10,0,0,10,0,0)">
-      <path 
+      <path
         d="M9,3.5H3.414L4.707,2.207A1,1,0,0,0,3.293.793l-3,3a1,1,0,0,0,0,1.414l3,3A1,1,0,0,0,4.707,6.793L3.414,5.5H9a3,3,0,0,1,0,6H5a1,1,0,0,0,0,2H9a5,5,0,0,0,0-10Z"
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+        strokeLinecap="round"
+        strokeLinejoin="round"
         strokeWidth="0"
       />
-    </g>  
+    </g>
   </svg>
 )
 

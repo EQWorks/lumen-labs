@@ -21,13 +21,13 @@ export default {
 
 export const Backdrop = () => {
   return (
-    <Loader 
+    <Loader
       classes={{
         root: 'text-white',
-      }} 
-      open 
-      backdrop 
-      message='Loading...' 
+      }}
+      open
+      backdrop
+      message='Loading...'
     />)
 }
 
@@ -39,12 +39,12 @@ export const Wrapper = () => {
       hover:bg-blue-100 ${open ? 'bg-blue-100 text-blue-100' : 'bg-blue-50'}
     `}
   >Click</button>)
-  
+
   return (
-    <Loader 
-      open={open} 
+    <Loader
+      open={open}
       classes={{
-        icon: 'absolute inset-0 m-auto text-primary-700', 
+        icon: 'absolute inset-0 m-auto text-primary-700',
       }}
     >
       <span>{button}</span>

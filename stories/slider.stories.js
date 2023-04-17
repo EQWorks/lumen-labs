@@ -12,7 +12,7 @@ export default {
 export const Base = () => {
   const [minValue, setMinValue] = useState(200)
   const [maxValue, setMaxValue] = useState(1000)
-  
+
   const handleOnChange = (e, values) => {
     setMinValue(values[0])
     setMaxValue(values[1])
@@ -26,7 +26,7 @@ export const Base = () => {
 export const Label = () => {
   const [minValue, setMinValue] = useState(0)
   const [maxValue, setMaxValue] = useState(1000)
-  
+
   const handleOnChange = (e, values) => {
     setMinValue(values[0])
     setMaxValue(values[1])
@@ -42,7 +42,7 @@ export const Label = () => {
 export const CustomColor = () => {
   const [minValue, setMinValue] = useState(200)
   const [maxValue, setMaxValue] = useState(1000)
-  
+
   const handleOnChange = (e, values) => {
     setMinValue(values[0])
     setMaxValue(values[1])
@@ -101,7 +101,7 @@ export const SingleSlider = () => {
 export const Disabled = () => {
   const [minValue, setMinValue] = useState(200)
   const [maxValue, setMaxValue] = useState(1000)
-  
+
   const handleOnChange = (e, values) => {
     setMinValue(values[0])
     setMaxValue(values[1])

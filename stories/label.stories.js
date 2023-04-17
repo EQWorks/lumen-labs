@@ -14,15 +14,15 @@ const description = {
 }
 
 const sampleData = [
-  { 
+  {
     color: 'neutral',
     disabled: false,
   },
-  { 
+  {
     color: 'secondary',
     disabled: false,
   },
-  { 
+  {
     color: 'success',
     disabled: false,
   },
@@ -50,7 +50,7 @@ const sampleData = [
  * [endIcon] - node, icon on right side of label
  * [onClickStartIcon] - func, called when startIcon is clicked
  * [onClickEndIcon] - func, called when endIcon is clicked
- * [disabled] - boolean disable label 
+ * [disabled] - boolean disable label
  */
 
 export const Normal = () => {
@@ -77,8 +77,8 @@ export const variants = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
-                color={data.color} 
+              <Label
+                color={data.color}
                 startIcon={<Info size='sm'/>}
                 endIcon={<Close size='xs'/>}
               >
@@ -94,9 +94,9 @@ export const variants = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 shade='dark'
-                color={data.color} 
+                color={data.color}
                 startIcon={<Info size='sm'/>}
                 endIcon={<Close size='xs'/>}
               >
@@ -112,8 +112,8 @@ export const variants = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
-                color={data.color} 
+              <Label
+                color={data.color}
               >
                 Label
               </Label>
@@ -127,9 +127,9 @@ export const variants = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 shade='dark'
-                color={data.color} 
+                color={data.color}
               >
                 Label
               </Label>
@@ -150,8 +150,8 @@ export const variantsWithTitle = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
-                color={data.color} 
+              <Label
+                color={data.color}
                 title='title sample'
                 startIcon={<Info size='sm'/>}
                 endIcon={<Close size='xs'/>}
@@ -168,9 +168,9 @@ export const variantsWithTitle = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 shade='dark'
-                color={data.color} 
+                color={data.color}
                 title='title sample'
                 startIcon={<Info size='sm'/>}
                 endIcon={<Close size='xs'/>}
@@ -187,8 +187,8 @@ export const variantsWithTitle = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
-                color={data.color} 
+              <Label
+                color={data.color}
                 title='title sample'
               >
                 Label
@@ -203,9 +203,9 @@ export const variantsWithTitle = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 shade='dark'
-                color={data.color} 
+                color={data.color}
                 title='title sample'
               >
                 Label
@@ -227,10 +227,10 @@ export const Sizes = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 size='sm'
                 title='title sample'
-                color={data.color} 
+                color={data.color}
               >
                 Label
               </Label>
@@ -244,11 +244,11 @@ export const Sizes = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 size='sm'
                 title='title sample'
                 shade='dark'
-                color={data.color} 
+                color={data.color}
               >
                 Label
               </Label>
@@ -262,10 +262,10 @@ export const Sizes = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 size='lg'
                 title='title sample'
-                color={data.color} 
+                color={data.color}
               >
                 Label
               </Label>
@@ -279,11 +279,11 @@ export const Sizes = () => {
           return (
             <div key={index}>
               <p className={description.p}>{data.color}: </p>
-              <Label 
+              <Label
                 size='lg'
                 title='title sample'
                 shade='dark'
-                color={data.color} 
+                color={data.color}
               >
                 Label
               </Label>
@@ -299,7 +299,7 @@ export const Usage = () => {
   const [options, setOptions] = useState(sampleData)
   const [selectedOptions, setSelectedOptions] = useState([])
 
-  const handleAddLabel = (data) => { 
+  const handleAddLabel = (data) => {
     const filterOptions = []
 
     options.forEach(op => {
@@ -342,12 +342,12 @@ export const Usage = () => {
         {selectedOptions.map((data, index) => {
           return (
             <div className='mr-1' key={index}>
-              <Label 
+              <Label
                 shade='dark'
-                color={data.color} 
-                endIcon={data.disabled !== true && <Close size='xs'/>} 
+                color={data.color}
+                endIcon={data.disabled !== true && <Close size='xs'/>}
                 onClickEndIcon={() => handleRemoveLabel(data)}
-                disabled={data.disabled} 
+                disabled={data.disabled}
               >
                 Label
               </Label>

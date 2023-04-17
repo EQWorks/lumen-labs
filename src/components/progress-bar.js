@@ -7,7 +7,7 @@ import { makeStyles, LinearAnimation } from '../utils/make-styles'
 const ProgressBar = forwardRef(({
   classes, animate, direction, duration, progress, ...rest
 }, ref) => {
-  const progressBarClasses = Object.freeze({ 
+  const progressBarClasses = Object.freeze({
     root: `h-5px w-full bg-primary-100 ${classes.root}`,
     content: `h-full bg-primary-500 ${classes.content}`,
   })

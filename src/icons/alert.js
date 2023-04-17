@@ -18,13 +18,13 @@ const Alert = ({ className, size, ...props }) => (
     {...props}
   >
     <g transform="matrix(10,0,0,10,0,0)">
-      <path 
-        d="M7,0a7,7,0,1,0,7,7A7.008,7.008,0,0,0,7,0ZM6.25,3.5a.75.75,0,0,1,1.5,0v3a.75.75,0,0,1-1.5,0ZM7,11a1,1,0,1,1,1-1A1,1,0,0,1,7,11Z" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+      <path
+        d="M7,0a7,7,0,1,0,7,7A7.008,7.008,0,0,0,7,0ZM6.25,3.5a.75.75,0,0,1,1.5,0v3a.75.75,0,0,1-1.5,0ZM7,11a1,1,0,1,1,1-1A1,1,0,0,1,7,11Z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         strokeWidth="0"
       />
-    </g>  
+    </g>
   </svg>
 )
 

@@ -54,7 +54,7 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
     if (!singleSlider) {
       const minPercent = getPercent(minValRef.current)
       const maxPercent = getPercent(maxVal)
-  
+
       if (range.current) {
         range.current.style.width = `${maxPercent - minPercent}%`
       }
@@ -62,7 +62,7 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
   }, [maxVal, singleSlider, getPercent])
 
   return (
-    <div ref={ref} className={`slider-container ${sliderClasses.sliderContainer}`} {...rest}>      
+    <div ref={ref} className={`slider-container ${sliderClasses.sliderContainer}`} {...rest}>
       <input
         type="range"
         min={min}
@@ -75,13 +75,13 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
           minValRef.current = value
         }}
         className={`thumb thumb-left ${sliderClasses.thumb} ${disabled && 'slider-disabled'}`}
-        style={{ 
+        style={{
           '--slider-thumb-color': sliderClasses.thumbColor && sliderClasses.thumbColor,
           zIndex: minVal > max - 100 && '5',
         }}
         disabled={disabled}
       />
-      {!singleSlider &&      
+      {!singleSlider &&
         <input
           type="range"
           min={min}
@@ -94,16 +94,16 @@ const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width
             maxValRef.current = value
           }}
           className={`thumb thumb-right ${sliderClasses.thumb} ${disabled && 'slider-disabled'}`}
-          style={{ 
+          style={{
             '--slider-thumb-color': sliderClasses.thumbColor && sliderClasses.thumbColor,
           }}
           disabled={disabled}
         />
       }
       <div className={`slider-track absolute ${sliderClasses.slider} ${sliderClasses.sliderTrack} ${disabled && 'slider-disabled'}`}/>
-      <div 
-        ref={range} 
-        className={`slider-range absolute ${sliderClasses.slider} ${sliderClasses.sliderRange} ${disabled && 'slider-disabled'}`} 
+      <div
+        ref={range}
+        className={`slider-range absolute ${sliderClasses.slider} ${sliderClasses.sliderRange} ${disabled && 'slider-disabled'}`}
       />
       { children && children }
     </div>
@@ -124,7 +124,7 @@ RangeSliderBase.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   values: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.number), 
+    PropTypes.arrayOf(PropTypes.number),
     PropTypes.number,
   ]).isRequired,
   onChange: PropTypes.func,

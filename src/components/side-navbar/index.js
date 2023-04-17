@@ -13,8 +13,8 @@ const SideNavbar = forwardRef(({ children, classes, ...rest }, ref) => {
   })
 
   return (
-    <div 
-      ref={ref} 
+    <div
+      ref={ref}
       className={sideNavbarClasses.root}
       {...rest}
     >

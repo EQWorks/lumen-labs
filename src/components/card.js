@@ -11,7 +11,14 @@ const sizes = Object.freeze({
 })
 
 const Card = ({ classes, size, ...rest }) => {
-  const _classes = { ...classes, root: `card__root-container ${[classes.root, 'rounded-sm', sizes[size]].join(' ')}` }
+  const _classes = {
+    ...classes,
+    root: `card__root-container ${[classes.root, 'rounded-sm', sizes[size]].join(' ')}`,
+    closeIcon: `card__close-icon ${classes.closeIcon || ''}`,
+    header: `card__header-container ${classes.header || ''}`,
+    content: `card__content-container ${classes.content || ''}`,
+    footer: `card__footer-container ${classes.footer || ''}`,
+  }
   return (
     <CardBase classes={_classes} {...rest} />
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { InputBase } from '../src/base-components'
-import { TextField, Button } from '../src'
+import { TextField, Button, makeStyles } from '../src'
 
 import { ChevronUp, ChevronDown, Alert, Check, Dollar, Search, ArrowDown, Info } from '../src/icons'
 
@@ -376,6 +376,38 @@ export const Linked = () => {
         variant='linked'
         linkedFields={6}
         onSubmit={() => {}}
+      />
+    </>
+  )
+}
+
+export const CustomStyling = () => {
+  const inputProps = { placeholder: 'SEARCH' }
+  const _classes = makeStyles({
+    root: {
+      width: '15.6rem',
+      height: '2.25rem',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '0.5rem 1rem',
+      '&:hover': {
+        border: '1px solid #4C4C4C',
+      },
+      '&:focus-within':{
+        border: '1px solid #F6B747',
+        boxShadow: '0px 0px 0px 2px rgba(246, 183, 71, 0.25)',
+        '& svg': {
+          stroke: '#F6B747',
+        },
+      },
+    },
+  })
+  return (
+    <>
+      <p className={labelClass}>Custom Styling:</p>
+      <TextField
+        inputProps={{ ...inputProps, endIcon: <Search size='md'/> }}
+        classes={_classes}
       />
     </>
   )

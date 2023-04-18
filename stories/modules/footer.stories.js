@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { makeStyles } from '../../src'
 import Footer from '../../src/modules/footer'
 
 
@@ -69,3 +70,69 @@ export const WithLinks = () => {
     quickLinks={links}
   />)
 }
+
+const simpleLinks = [
+  { title: 'FAQ', onClick: () => {} },
+  { title: 'Terms of Use', onClick: () => {} },
+  { title: 'Privacy Policy', onClick: () => {} },
+  { title: 'Contact Us', onClick: () => {} },
+  { title: 'EN/FR', onClick: () => {} },
+]
+
+const customStyle = makeStyles({
+  root: {
+    minHeight: '0rem',
+    height: '12.5rem',
+    paddingLeft: '7.5rem',
+    paddingRight: '7.5rem',
+    paddingTop: '2.5rem',
+    background: 'black',
+  },
+  content: {
+    padding: 0,
+    alignItems: 'center',
+  },
+  logo: {
+    height: 'auto',
+  },
+  links: {
+    display: 'flex',
+    width: '43.313rem',
+    justifyContent: 'space-between',
+  },
+  quickLinks: {
+    color: 'white',
+    cursor: 'pointer',
+    marginBottom: 0,
+    fontFamily: 'Radio Canada',
+    fontSize: '1.125rem',
+    lineHeight: 'initial',
+  },
+  copyrightMsg: {
+    padding: '0',
+    fontFamily: 'Radio Canada',
+    fontSize: '1rem',
+    lineHeight: 'initial',
+    letterSpacing: 'initial',
+    color: 'rgba(254, 254, 254, 1)',
+    opacity: 0.8,
+    background: 'none',
+    marginBottom: '0.5rem',
+  },
+})
+
+export const CustomStyle = () => (
+  <Footer
+    logo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
+    quickLinks={simpleLinks}
+    type='vertical'
+    classes={{
+      root: customStyle.root,
+      content: customStyle.content,
+      logo: customStyle.logo,
+      links: customStyle.links,
+      quickLinks: customStyle.quickLinks,
+      copyrightMsg: customStyle.copyrightMsg,
+    }}
+  />
+)

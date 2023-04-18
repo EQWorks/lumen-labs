@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Layout , Pagination } from '../src'
+import { Layout , Pagination, makeStyles } from '../src'
 
 
 export default {
@@ -64,6 +64,58 @@ export const NoAttachments = () => {
       </Layout.Content>
       <Layout.Footer className={headerClass}>
         <Pagination itemsLength={data.exampleData.length} onChangePage={onChangePage} showPage={false} firstLast={false} counter={false} hideRowsPerPage/>
+      </Layout.Footer>
+    </Layout>
+  )
+}
+
+export const CustomStyling = () => {
+  const [data, setData] = useState({
+    exampleData: exampleData,
+    pageOfItems: [],
+    pager: {},
+  })
+
+  const headerClass = 'bg-primary-200 text-black text-center h-full'
+  const contentClass = 'bg-primary-400 text-black text-center h-full w-full'
+  const paginationClass = makeStyles({
+    container: {
+      padding: '1rem',
+      justifyContent: 'flex-end',
+    },
+    arrow: {
+      '&:hover': {
+        color: '#F6B747',
+        transition: 'all 0.3s ease',
+      },
+    },
+    currentPageColor: {
+      backgroundColor: '#F6B747',
+    },
+  })
+
+  const onChangePage = (_, val) => {
+    setData({ ...data, pageOfItems: val.pageOfItems, pager: val._pager })
+  }
+
+  return (
+    <Layout>
+      <Layout.Header className={headerClass}>Custom styling</Layout.Header>
+      <Layout.Content className={contentClass}>
+        {data.pageOfItems.map((item, index) => (
+          <div key={index}>{data.exampleData[item.i].name}</div>
+        ))}
+      </Layout.Content>
+      <Layout.Footer className={headerClass}>
+        <Pagination
+          itemsLength={data.exampleData.length}
+          onChangePage={onChangePage}
+          rowsPerPage={[10,20,30,40,50]}
+          classes={paginationClass}
+          hideRowsPerPage
+          counter={false}
+        />
+        <div className="w-full h-40 bg-blue-50"></div>
       </Layout.Footer>
     </Layout>
   )

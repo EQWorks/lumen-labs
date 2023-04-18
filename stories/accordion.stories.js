@@ -1,8 +1,9 @@
 import React from 'react'
 
 import { AccordionBase } from '../src/base-components'
-import { Accordion } from '../src'
-import { ChevronDown, Add, Remove } from '../src/icons'
+import { Accordion, DropdownSelect } from '../src'
+import { ArrowDown, ChevronDown, Add, Remove } from '../src/icons'
+import { sampleDataBasic } from './data/dropdown-data'
 
 
 export default {
@@ -25,7 +26,9 @@ export default {
  * [ExpandIcon] - elementType, icon for panel expansion
  * [CompressIcon] - elementType, icon for panel compression
  * [alignIcon] - string, (start, end) icon alignment for [ExpandIcon] & [CompressIcon]
+ * [overflow] - allows Accordion children components to overflow on the content of below Accordion components
  */
+
 export const Base = () => {
   return (
     <>
@@ -157,5 +160,27 @@ export const LeftBordered = () => {
         </Accordion>
       </div>
     </>
+  )
+}
+
+export const Overflow = () => {
+  return (
+    <div className='h-32'>
+      <p className='text-blue-300 mb-1'>Overflow:</p>
+      <div>
+        <Accordion variant='left-bordered' className='w-1/3' color='secondary'>
+          <Accordion.Panel id='1' header='HEADER - 1' ExpandIcon={Add} CompressIcon={Remove} overflow>
+            <DropdownSelect simple
+              data={sampleDataBasic}
+              endIcon={<ArrowDown size='md' />}
+              placeholder='Select a word'
+            />
+          </Accordion.Panel>
+          <Accordion.Panel id='2' header='HEADER - 2' ExpandIcon={Add} CompressIcon={Remove}>
+            Details 2
+          </Accordion.Panel>
+        </Accordion>
+      </div>
+    </div>
   )
 }

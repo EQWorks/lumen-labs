@@ -8,8 +8,8 @@ const ProgressBar = forwardRef(({
   classes, animate, direction, duration, progress, ...rest
 }, ref) => {
   const progressBarClasses = Object.freeze({
-    root: `h-5px w-full bg-primary-100 ${classes.root}`,
-    content: `h-full bg-primary-500 ${classes.content}`,
+    root: `progressBar__root-container ${classes.root} h-5px w-full bg-primary-100`,
+    content: `progressBar__content-container ${classes.content} h-full bg-primary-500`,
   })
   const style = makeStyles({
     progressBarContent: {

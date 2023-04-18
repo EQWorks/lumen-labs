@@ -22,13 +22,13 @@ const ToastBase = forwardRef(({
   })
 
   const toastBaseClasses = Object.freeze({
-    root: `flex flex-col ${classes.root ? classes.root : 'w-80 border'}`,
-    header: `flex flex-row items-center ${classes.header && classes.header}`,
-    title: `flex flex-row items-center ${classes.title && classes.title}`,
-    content: `${classes.content && classes.content}`,
-    description: `${classes.description && classes.description}`,
-    startIcon: `${classes.startIcon && classes.startIcon}`,
-    endIcon: `${classes.endIcon && classes.endIcon}`,
+    root: `toastBase__root-container ${classes.root ? classes.root : 'w-80 border'} flex flex-col`,
+    header: `toastBase__header-container ${classes.header} flex flex-row items-center`,
+    title: `toastBase__title-container ${classes.title} flex flex-row items-center`,
+    content: `toastBase__content-container ${classes.content}`,
+    description: `toastBase__description-container ${classes.description}`,
+    startIcon: `toastBase__startIcon-container ${classes.startIcon}`,
+    endIcon: `toastBase__endIcon-container ${classes.endIcon}`,
   })
 
   return (
@@ -62,7 +62,15 @@ const ToastBase = forwardRef(({
 })
 
 ToastBase.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.shape({
+    root: PropTypes.string,
+    header: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    description: PropTypes.string,
+    startIcon: PropTypes.string,
+    endIcon: PropTypes.string,
+  }),
   children: PropTypes.node,
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
   title: PropTypes.string,

@@ -94,21 +94,19 @@ const Toast = forwardRef(({
   })
 
   const toastClasses = Object.freeze({
-    root: `toast__root-container text-sm font-bold tracking-sm leading-1.43 rounded-sm
-      ${classes.root && classes.root} ${size[variant].root} ${colorType[type].root}`,
-    header: `toast__header-container m-2.5 justify-between ${classes.header && classes.header} ${colorType[type].header}`,
-    title: `toast__title-container mr-2.5 ${classes.title && classes.title}`,
-    button: `toast__button-container cursor-pointer ${classes.button && classes.button} ${size[variant].button} ${colorType[type].icon}`,
-    content: `toast__content-container ${classes.content && classes.content} ${size[variant].content}`,
-    description: `toast__description-container text-xs font-normal tracking-md leading-1.33 
-      ${classes.description && classes.description} ${colorType[type].description}`,
-    startIcon: `toast__start-icon-container mr-2.5 stroke-current fill-current ${classes.icon && classes.icon} ${colorType[type].icon}`,
-    endIcon: `toast__end-icon-container cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
+    root: `toast__root-container ${classes.root} text-sm font-bold tracking-sm leading-1.43 rounded-sm ${size[variant].root} ${colorType[type].root}`,
+    header: `toast__header-container ${classes.header} m-2.5 justify-between ${colorType[type].header}`,
+    title: `toast__title-container ${classes.title} mr-2.5`,
+    button: `toast__button-container${classes.button} cursor-pointer ${size[variant].button} ${colorType[type].icon}`,
+    content: `toast__content-container ${classes.content} ${size[variant].content}`,
+    description: `toast__description-container ${classes.description} text-xs font-normal tracking-md leading-1.33 ${colorType[type].description}`,
+    startIcon: `toast__start-icon-container ${classes.icon} mr-2.5 stroke-current fill-current ${colorType[type].icon}`,
+    endIcon: `toast__end-icon-container ${classes.endIcon} cursor-pointer stroke-current fill-current ${colorType[type].closeIcon}`,
   })
 
   const progressBarClasses = Object.freeze({
-    root: `${style.progressBarRoot} ${colorType[type].progressBar.root}`,
-    content: `${style.progressBarContent} ${colorType[type].progressBar.content}`,
+    root: `progressBar__root-container ${classes.rootProgress} ${style.progressBarRoot} ${colorType[type].progressBar.root}`,
+    content: `progressBar__content-container ${classes.contentProgress} ${style.progressBarContent} ${colorType[type].progressBar.content}`,
   })
 
   const toastRef = useRef(null)
@@ -191,7 +189,18 @@ const Toast = forwardRef(({
 })
 
 Toast.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.shape({
+    root: PropTypes.string,
+    button: PropTypes.string,
+    header: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    description: PropTypes.string,
+    icon: PropTypes.string,
+    endIcon: PropTypes.string,
+    rootProgress: PropTypes.string,
+    contentProgress: PropTypes.string,
+  }),
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
   open: PropTypes.bool,
   onClose: PropTypes.func,
@@ -208,11 +217,15 @@ Toast.propTypes = {
 Toast.defaultProps = {
   classes: {
     root: '',
+    button: '',
     header: '',
     title: '',
     content: '',
     description: '',
     icon: '',
+    endIcon: '',
+    rootProgress: '',
+    contentProgress: '',
   },
   variant: 'horizontal',
   open: true,

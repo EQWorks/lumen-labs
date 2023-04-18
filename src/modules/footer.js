@@ -5,8 +5,8 @@ import { makeStyles } from '../utils/make-styles'
 
 
 const styles = makeStyles({
-  container: { minHeight: '455px' },
-  details: { padding: '80px 150px 80px 150px' },
+  root: { minHeight: '455px' },
+  content: { padding: '80px 150px 80px 150px' },
   logo: { width: '145px', height: '80px' },
   infoContainer: { width: '500px' },
   description: {
@@ -46,46 +46,77 @@ const styles = makeStyles({
   },
 })
 
-const Footer = ({ logo, description, socialIcons, copyrightMessage, quickLinks }) => {
+const Footer = ({ classes, logo, description, socialIcons, copyrightMessage, quickLinks, type }) => {
+  const footerClasses = Object.freeze({
+    root: `footer__root-container ${classes.root} w-full flex flex-col justify-between bg-primary-700`,
+    content: `footer__content-container ${classes.content} flex`,
+    info: `footer__info-container ${classes.info}`,
+    logo: `footer__logo-container ${classes.logo}`,
+    description: `footer__description-container ${classes.description} font-normal text-secondary-50`,
+    social: `footer__social-container ${classes.social} w-full inline-flex mt-10`,
+    socialIconButtons: `footer__socialIconButtons-container ${classes.socialIconButtons} focus:outline-none inline-flex justify-center
+    items-center cursor-pointer bg-primary-800 border border-primary-800 hover:border-primary-100 active:bg-primary-900 text-secondary-50`,
+    socialIcon: `footer__socialIcon-container ${classes.socialIcon}`,
+    links: `footer__links-container ${classes.links} inline-flex justify-between`,
+    quickLinkHeading: `footer__quickLinkHeading-container ${classes.quickLinkHeading} uppercase font-bold text-secondary-200`,
+    linkList: `footer__linkList-container ${classes.linkList} list-none w-40`,
+    quickLinks: `footer__quickLinks-container ${classes.quickLinks} font-normal text-secondary-50 hover:underline cursor-pointer`,
+    copyrightMsg: `footer__copyrightMsg-container ${classes.copyrightMsg} font-normal text-secondary-50 bg-primary-800`,
+  })
+
   return (
-    <div className={`w-full flex flex-col justify-between bg-primary-700 ${styles.container}`}>
-      <div className={`${styles.details} flex`}>
-        <div className={styles.infoContainer}>
-          <div className={styles.logo}>{logo}</div>
-          <p className={`${styles.description} font-normal text-secondary-50`}>{description}</p>
-          {socialIcons && Boolean(socialIcons.length) && <div className='w-full inline-flex mt-10'>
+    <div className={`${footerClasses.root} ${styles.root}`}>
+      <div className={`${footerClasses.content} ${styles.content}`}>
+        <div className={`${footerClasses.info} ${styles.infoContainer}`}>
+          <div className={`${footerClasses.logo} ${styles.logo}`}>{logo}</div>
+          <p className={`${footerClasses.description} ${styles.description}`}>{description}</p>
+          {socialIcons && Boolean(socialIcons.length) && <div className={`${footerClasses.social}`}>
             {socialIcons.map(({ Icon, link }, i) => (
               <button
                 key={i}
                 onClick={() => window.open(link, '_blank')}
-                className={`focus:outline-none inline-flex justify-center items-center ${styles.socialIconButtons}
-                  cursor-pointer bg-primary-800 border border-primary-800 hover:border-primary-100 active:bg-primary-900`}
+                className={`${footerClasses.socialIconButtons} ${styles.socialIconButtons}`}
               >
-                <Icon key={i} className={`${styles.socialIcons} text-secondary-50`} />
+                <Icon key={i} className={`${footerClasses.socialIcon} ${styles.socialIcons}`} />
               </button>
             ))}
           </div>}
         </div>
 
-        <div className={`${styles.linksContainer} inline-flex justify-between`}>
-          {quickLinks && Boolean(quickLinks.length) && quickLinks.map(({ heading, links }, i) => (
-            <div key={i} className={(i === quickLinks.length - 1) ? '' : 'mr-28'}>
-              <p className={`${styles.quickLinkHeading} uppercase font-bold text-secondary-200`}>{heading}</p>
-              <li className='list-none w-40'>
-                {links.map(({ title, link }, i) => (
-                  <ul
-                    key={`${title}-${i}`}
-                    onClick={() => window.open(link, '_blank')}
-                    className={`${styles.quickLinks} font-normal text-secondary-50 hover:underline cursor-pointer`}
-                  >{title}</ul>
-                ))}
-              </li>
-            </div>
-          ))}
+        <div className={`${footerClasses.links} ${styles.linksContainer}`}>
+          {
+            quickLinks
+            && type === 'horizontal'
+            && Boolean(quickLinks.length)
+            && quickLinks.map(({ heading, links }, i) => (
+              <div key={i} className={(i === quickLinks.length - 1) ? '' : 'mr-28'}>
+                <p className={`${footerClasses.quickLinkHeading} ${styles.quickLinkHeading}`}>{heading}</p>
+                <li className={footerClasses.linkList}>
+                  {links.map(({ title, link }, i) => (
+                    <ul
+                      key={`${title}-${i}`}
+                      onClick={() => window.open(link, '_blank')}
+                      className={`${footerClasses.quickLinks} ${styles.quickLinks}`}
+                    >{title}</ul>
+                  ))}
+                </li>
+              </div>
+            ))
+          }
+          {
+            quickLinks
+            && type === 'vertical'
+            && Boolean(quickLinks.length)
+            && quickLinks.map(({ title, onClick }, i) => (
+              <div key={i} onClick={onClick}>
+                <p className={`${footerClasses.quickLinks} ${styles.quickLinks}`}>{title}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
 
-      <div className={`${styles.copyrightMsg} font-normal text-secondary-50 bg-primary-800`}>
+      <div className={`${footerClasses.copyrightMsg} ${styles.copyrightMsg}`}>
         {copyrightMessage}
       </div>
     </div>
@@ -93,18 +124,34 @@ const Footer = ({ logo, description, socialIcons, copyrightMessage, quickLinks }
 }
 
 Footer.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string),
   logo: PropTypes.element.isRequired,
   description: PropTypes.string,
   socialIcons: PropTypes.array,
   copyrightMessage: PropTypes.string,
   quickLinks: PropTypes.array,
+  type: PropTypes.string,
 }
 Footer.defaultProps = {
-  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Hendrerit felis faucibus volutpat, nulla pharetra tellus libero orci.
-  Pulvinar netus volutpat augue eget.`,
+  classes: {
+    root: '',
+    content: '',
+    info: '',
+    logo: '',
+    description: '',
+    social: '',
+    socialIconButtons: '',
+    socialIcon: '',
+    links: '',
+    quickLinkHeading: '',
+    linkList: '',
+    quickLinks: '',
+    copyrightMsg: '',
+  },
+  description: '',
   copyrightMessage: '© 2022 Company. All rights reserved.',
   socialIcons: [],
   quickLinks: [],
+  type: 'horizontal',
 }
 export default Footer

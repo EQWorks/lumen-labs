@@ -62,15 +62,7 @@ const ToastBase = forwardRef(({
 })
 
 ToastBase.propTypes = {
-  classes: PropTypes.shape({
-    root: PropTypes.string,
-    header: PropTypes.string,
-    title: PropTypes.string,
-    content: PropTypes.string,
-    description: PropTypes.string,
-    startIcon: PropTypes.string,
-    endIcon: PropTypes.string,
-  }),
+  classes: PropTypes.objectOf(PropTypes.string),
   children: PropTypes.node,
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
   title: PropTypes.string,

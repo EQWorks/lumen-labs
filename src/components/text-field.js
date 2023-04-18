@@ -41,8 +41,8 @@ const _inputSize = ({ size, variant }) => {
 
 const _textFieldClasses = ({ container, inputSize, success, error, linkedFields }) => ({
   container: {
-    default: `textfield__container ${container ? container : 'w-250px'} flex flex-col font-sans ${inputSize.font}`,
-    borderless: `textfield__container ${container ? container : 'w-250px'} bg-secondary-200`,
+    default: `textfield__default-container ${container ? container : 'w-250px'} flex flex-col font-sans ${inputSize.font}`,
+    borderless: `textfield__borderless-container ${container ? container : 'w-250px'} bg-secondary-200`,
     linked: {
       outer: `inline-flex flex-col ${container} ${inputSize.font}`,
       inner: `inline-grid gap-1.5 grid-cols-${linkedFields}`,

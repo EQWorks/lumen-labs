@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { ToastBase } from '../src/base-components'
-import { Toast, Button } from '../src'
+import { Toast, Button, makeStyles } from '../src'
 
 import { Alert, Close, AlertInformation, AlertWarning, MoodWarning, CheckBadge, ArrowTurnBackward } from '../src/icons'
 
@@ -347,5 +347,59 @@ export const Usage = () => {
         />
       </div>
     </div>
+  )
+}
+
+const customStyle = makeStyles({
+  root: {
+    background: 'rgba(254, 254, 254, 1)',
+    height: '4.875rem',
+  },
+  header: {
+    paddingLeft: '1.281rem',
+    paddingRight: '1.281rem',
+    marginBottom: '0.25rem',
+  },
+  title: {
+    fontSize: '1.25rem',
+  },
+  description: {
+    paddingLeft: '2.625rem',
+    fontSize: '1rem',
+    fontFamily: 'Radio Canada',
+    marginBottom: 'none',
+  },
+  contentProgress: {
+    background: '#5EADD5',
+  },
+  startIcon: {
+    color: '#5EADD5',
+    height: '1.438rem',
+    width: '1.438rem',
+  },
+  endIcon: {
+    marginLeft: 'auto',
+  },
+})
+
+export const CustomStyle = () => {
+  return (
+    <Toast
+      variant='vertical'
+      title='Your Password Has Been Changed.'
+      description='You can change your password at anytime through your account settings.'
+      classes={{
+        root: customStyle.root,
+        header: customStyle.header,
+        title: customStyle.title,
+        description: customStyle.description,
+        contentProgress: customStyle.contentProgress,
+        endIcon: customStyle.endIcon,
+      }}
+      startIcon={<Alert className={customStyle.startIcon} />}
+      endIcon={<Close size='lg'/>}
+      timeOut={100000}
+      width='90vw'
+    />
   )
 }

@@ -189,18 +189,7 @@ const Toast = forwardRef(({
 })
 
 Toast.propTypes = {
-  classes: PropTypes.shape({
-    root: PropTypes.string,
-    button: PropTypes.string,
-    header: PropTypes.string,
-    title: PropTypes.string,
-    content: PropTypes.string,
-    description: PropTypes.string,
-    icon: PropTypes.string,
-    endIcon: PropTypes.string,
-    rootProgress: PropTypes.string,
-    contentProgress: PropTypes.string,
-  }),
+  classes: PropTypes.objectOf(PropTypes.string),
   variant: PropTypes.oneOf(['horizontal', 'vertical']),
   open: PropTypes.bool,
   onClose: PropTypes.func,

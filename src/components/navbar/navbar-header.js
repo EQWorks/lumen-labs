@@ -25,9 +25,7 @@ const NavbarHeader = forwardRef(({
 })
 
 NavbarHeader.propTypes = {
-  classes: PropTypes.shape({
-    headerContainer: '',
-  }),
+  classes: PropTypes.objectOf(PropTypes.string),
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
 }

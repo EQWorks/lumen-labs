@@ -9,13 +9,13 @@ const CarouselItem = forwardRef(({
   ...rest 
 }, ref) => {
   const carouselItemClasses = Object.freeze({
-    root: `${classes.carouselItemContainer} h-48 inline-flex items-center justify-center bg-error-500`,
+    root: `carousel-item__root ${classes.root} w-full h-full inline-flex items-center justify-center snap-start`,
   })
 
   return (
     <div 
       ref={ref}
-      className={`carousel-item__root ${carouselItemClasses.root}`}
+      className={carouselItemClasses.root}
       onClick={onClick} 
       {...rest}
     >
@@ -25,7 +25,9 @@ const CarouselItem = forwardRef(({
 })
 
 CarouselItem.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.shape({
+    root: PropTypes.string,
+  }),
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
 }

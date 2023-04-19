@@ -95,13 +95,13 @@ const Carousel = forwardRef(({ children, classes, variant, nextIcon, prevIcon, o
   }
 
   return (
-    <div 
-      ref={ref} 
+    <div
+      ref={ref}
       className={carouselClasses.root}
       {...rest}
     >
-      <div 
-        ref={carouselContainerRef} 
+      <div
+        ref={carouselContainerRef}
         className={carouselClasses.mainContainer}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -139,7 +139,7 @@ Carousel.propTypes = {
 }
 
 Carousel.defaultProps = {
-  classes: { 
+  classes: {
     root: '',
     mainContainer: '',
     prevNextContainer: '',

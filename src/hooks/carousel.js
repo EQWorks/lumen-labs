@@ -98,12 +98,12 @@ export const useCarousel = (carouselRef, variant, length) => {
   const moveNext = () => {
     if (variant === 'multi') {
       if (
-        carouselRef.current !== null && currentIndex < Math.ceil((length / Math.floor(carouselRef.current.offsetWidth / 
+        carouselRef.current !== null && currentIndex < Math.ceil((length / Math.floor(carouselRef.current.offsetWidth /
           carouselRef.current.childNodes[0].clientWidth) - 1))
       ) {
         setCurrentIndex((prevState) => prevState + 1)
       }
-    } 
+    }
     else if (variant === 'single' && carouselRef.current !== null && currentIndex < length - 1) {
       setCurrentIndex(currentIndex + 1)
     }
@@ -131,11 +131,11 @@ export const useCarousel = (carouselRef, variant, length) => {
       const getMarginRight = getContainerMargin(carouselRef.current.childNodes[0], 'marginRight')
       const getMarginLeft = getContainerMargin(carouselRef.current.childNodes[0], 'marginLeft')
       const visibleItems = Math.floor(carouselRef.current.offsetWidth / carouselRef.current.childNodes[0].clientWidth)
-      const calcOffsetWidth = carouselRef.current.offsetWidth - 
-        ((carouselRef.current.childNodes[0].clientWidth * visibleItems) + 
+      const calcOffsetWidth = carouselRef.current.offsetWidth -
+        ((carouselRef.current.childNodes[0].clientWidth * visibleItems) +
         ((getMarginRight + getMarginLeft) * visibleItems))
 
-      carouselRef.current.scrollLeft = 
+      carouselRef.current.scrollLeft =
         (carouselRef.current.offsetWidth - calcOffsetWidth) * currentIndex
     }
   }, [currentIndex, carouselRef])

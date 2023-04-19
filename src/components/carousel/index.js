@@ -72,11 +72,11 @@ const Carousel = forwardRef(({ children, classes, variant, nextIcon, prevIcon, o
     const diff = touchDown - currentTouch
 
     if (diff > 5) {
-      handleOnMoveNext()
+      handleOnMoveNext(e)
     }
 
     if (diff < -5) {
-      handleOnMovePrev()
+      handleOnMovePrev(e)
     }
 
     setTouchPosition(null)

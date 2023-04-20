@@ -7,14 +7,16 @@ import SwitchBase from '../../base-components/switch-base'
 
 const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, color, ...rest }, ref) => {
   const containerColor = concatTargetColor(color, ['bg'], [500])
+  const containerCheckedStyling = checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'
+  const buttonCheckedStyling = checked ? 'flex-col bottom-px' : 'flex-col-reverse'
 
   const switchSquareClasses = Object.freeze({
-    root: `switch-square__root-container ${classes.root}`,
-    container: `switch-square__main-container w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200 
-      ${disabled ? 'shadow-secondary-400 bg-secondary-100' : `${checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'}`} ${classes.container}`,
-    button: `switch-square__button-container absolute switch-square-button flex flex-col items-center w-4 h-4 left-0.5 
-      ${!disabled && `${checked ? 'flex-col bottom-px' : 'flex-col-reverse'}`} ${classes.button}`,
-    label: `switch-square__label-container ${classes.label}`,
+    root: `switch-square__root-container ${classes.root || ''}`,
+    container: `switch-square__main-container ${classes.container || ''} w-5 h-5 cursor-pointer rounded-sm transition ease-in duration-200
+      ${disabled ? 'shadow-secondary-400 bg-secondary-100' : containerCheckedStyling}`,
+    button: `switch-square__button-container ${classes.button || ''} absolute switch-square-button flex flex-col items-center w-4 h-4 left-0.5
+      ${!disabled && buttonCheckedStyling}`,
+    label: `switch-square__label-container ${classes.label || ''}`,
   })
 
   return (
@@ -50,7 +52,7 @@ const SwitchSquare = forwardRef(({ classes, id, checked, onChange, label, disabl
 })
 
 SwitchSquare.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.objectOf(PropTypes.string),
   id: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,

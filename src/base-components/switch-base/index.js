@@ -6,9 +6,9 @@ import './switch-base.css'
 
 const SwitchBase = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, children, ...rest }, ref) => {
   const switchClasses = Object.freeze({
-    root: `flex items-center ${classes.root}`,
-    container: `relative flex items-center justify-between ${classes.container ? classes.container : 'w-9 h-4 bg-secondary-300'}`,
-    button: `absolute ${classes.button ? classes.button : 'w-4 h-3.5 top-px left-px bg-secondary-800'}`,
+    root: `${classes.root} flex items-center`,
+    container: `${classes.container ? classes.container : 'w-9 h-4 bg-secondary-300'} relative flex items-center justify-between`,
+    button: ` ${classes.button ? classes.button : 'w-4 h-3.5 top-px left-px bg-secondary-800'} absolute`,
     label: `${classes.label}`,
     checkbox: 'w-0 h-0 hidden',
     disabled: 'cursor-not-allowed',

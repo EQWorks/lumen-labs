@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { SwitchBase } from '../src/base-components'
-import { SwitchRound, SwitchRect, SwitchSquare } from '../src'
+import { SwitchRound, SwitchRect, SwitchSquare, makeStyles } from '../src'
 
 
 export default {
@@ -191,6 +191,63 @@ export const Disabled = () => {
           checked={checked}
           onChange={() => setChecked(!checked)}
           disabled={true}
+        />
+      </div>
+    </>
+  )
+}
+
+const customStyling = ({ checked }) => makeStyles({
+  root: {
+    marginTop: '10px',
+  },
+  container: {
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: '48px',
+    height: '23px',
+    background: checked ? '#289DC8' : 'shadow-secondary-400 bg-secondary-100',
+    border: '0.5px solid #289DC8;',
+    borderRadius: '50px',
+  },
+  button: {
+    width: '17px',
+    height: '17px',
+    background: '#FEFEFE',
+    boxShadow: '0px 3px 12px rgba(81, 113, 151, 0.1)',
+  },
+  label: {
+    width: '41px',
+    height: '24px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '24px',
+    letterSpacing: '0.25px',
+    color: '#4C4C4C',
+    marginLeft: '5px',
+  },
+})
+
+export const CustomStyling = () => {
+  const [checked, setChecked] = useState(true)
+
+  const customClasses = customStyling({ checked })
+
+  return (
+    <>
+      <div className="container my-4">
+        <span>Custom Styling</span>
+        <SwitchRound
+          id='round'
+          classes={customClasses}
+          checked={checked}
+          onChange={() => setChecked(!checked)}
+          disabled={false}
+          label='label'
         />
       </div>
     </>

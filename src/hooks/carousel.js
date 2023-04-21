@@ -85,27 +85,29 @@ export const useCarousel = (carouselRef, variant, length) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const movePrev = () => {
-    if (variant === 'multi' && carouselRef.current !== null) {
-      if (currentIndex > 0) {
+    if (carouselRef.current !== null && currentIndex > 0) {
+      if (variant === 'multi') {
         setCurrentIndex((prevState) => prevState - 1)
       }
-    }
-    else if (variant === 'single' && carouselRef.current !== null && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1)
+
+      if (variant === 'single') {
+        setCurrentIndex(currentIndex - 1)
+      }
     }
   }
 
   const moveNext = () => {
-    if (variant === 'multi') {
+    if (carouselRef.current !== null) {
       if (
-        carouselRef.current !== null && currentIndex < Math.ceil((length / Math.floor(carouselRef.current.offsetWidth /
+        variant === 'multi' && currentIndex < Math.ceil((length / Math.floor(carouselRef.current.offsetWidth /
           carouselRef.current.childNodes[0].clientWidth) - 1))
       ) {
         setCurrentIndex((prevState) => prevState + 1)
       }
-    }
-    else if (variant === 'single' && carouselRef.current !== null && currentIndex < length - 1) {
-      setCurrentIndex(currentIndex + 1)
+
+      if (variant === 'single' && currentIndex < length - 1) {
+        setCurrentIndex(currentIndex + 1)
+      }
     }
   }
 
@@ -118,7 +120,8 @@ export const useCarousel = (carouselRef, variant, length) => {
       if (variant === 'multi') {
         return currentIndex >= Math.ceil((length / Math.floor(carouselRef.current.offsetWidth / carouselRef.current.childNodes[0].clientWidth) - 1))
       }
-      else if (variant === 'single') {
+
+      if (variant === 'single') {
         return currentIndex === length - 1
       }
     }

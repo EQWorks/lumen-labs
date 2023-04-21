@@ -2,7 +2,7 @@ import React, { useState, useCallback, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from '../utils/make-styles'
-import { useCarousel } from '../hooks/carousel'
+import { useFeaturedCarousel } from '../hooks/carousel'
 
 import Button from '../components/button'
 import ButtonGroup from '../components/button-group'
@@ -27,7 +27,7 @@ const FeaturedContent = forwardRef(({ classes, buttonProps, children, title, des
   })
 
   const [carouselRef, setCarouselRef] = useState(null)
-  const { scrollLeft, scrollRight } = useCarousel(carouselRef)
+  const { scrollLeft, scrollRight } = useFeaturedCarousel(carouselRef)
 
   const onRefChange = useCallback((node) => {
     if (!isLoading && node) {

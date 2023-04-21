@@ -2,14 +2,14 @@ import React, { Children, isValidElement, cloneElement, forwardRef } from 'react
 import PropTypes from 'prop-types'
 
 
-const RadioGroup = forwardRef(({ children, name, selected, align, labelAlign, ...rest }, ref) => {
+const RadioGroup = forwardRef(({ children, name, selected, align, labelAlign, classStyle,...rest }, ref) => {
   const flexDir = align === 'vertical' ? 'flex-col' : 'flex-row'
 
   return (
-    <div ref={ref} className={`radio-group__root-contaienr inline-flex ${flexDir}`} {...rest}>
+    <div ref={ref} className={`radio-group__root-container ${classStyle} inline-flex ${flexDir}`} {...rest}>
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
-          return cloneElement(child, { name: name, selected: selected, direction: flexDir, align: labelAlign } )
+          return cloneElement(child, { name, selected, direction: flexDir, align: labelAlign } )
         }
         return child
       })}
@@ -18,6 +18,7 @@ const RadioGroup = forwardRef(({ children, name, selected, align, labelAlign, ..
 })
 
 RadioGroup.propTypes = {
+  classStyle: PropTypes.string,
   children: PropTypes.node.isRequired,
   name: PropTypes.string.isRequired,
   selected: PropTypes.string.isRequired,
@@ -25,6 +26,7 @@ RadioGroup.propTypes = {
   labelAlign: PropTypes.string,
 }
 RadioGroup.defaultProps = {
+  classStyle: '',
   align: 'vertical',
   labelAlign: 'right',
 }

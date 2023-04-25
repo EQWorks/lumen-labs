@@ -41,13 +41,13 @@ const colorConfig = ({ color }) => {
 const Panel = ({ children, classes, variant, color, ...props }) => {
   const colors = useMemo(() => colorConfig({ color }), [color])
   const _classes = {
-    icon: `${colors[variant]?.icon || ''} ${variants[variant].icon || ''} ${classes.icon}`,
-    iconRoot: clsx(`${variants[variant].iconRoot || ''} ${classes.iconRoot}`, {
+    icon: `panel__icon-container ${classes.icon} ${colors[variant]?.icon || ''} ${variants[variant].icon || ''}`,
+    iconRoot: clsx(`panel__iconRoot-container ${classes.iconRoot} ${variants[variant].iconRoot || ''}`, {
       'mr-2': props.alignIcon === 'start',
       'ml-2': props.alignIcon === 'end',
     }),
-    header: `${colors[variant]?.header || ''} ${variants[variant].header || ''} ${classes.header}`,
-    details: `${colors[variant]?.details || ''} ${variants[variant].details || ''} ${classes.details}`,
+    header: `panel__header-container ${classes.header} ${colors[variant]?.header || ''} ${variants[variant].header || ''}`,
+    details: `panel__details-container ${classes.details} ${colors[variant]?.details || ''} ${variants[variant].details || ''}`,
   }
   const _props = {
     ...props,
@@ -61,13 +61,18 @@ const Panel = ({ children, classes, variant, color, ...props }) => {
 
 Panel.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object,
+  classes: PropTypes.objectOf(PropTypes.string),
   color: PropTypes.string,
   variant: PropTypes.string,
   alignIcon: PropTypes.string,
 }
 Panel.defaultProps = {
-  classes: { details: 'h-10' },
+  classes: {
+    icon: '',
+    iconRoot: '',
+    header: '',
+    details: 'h-10',
+  },
   color: '',
   variant: 'default',
   alignIcon: 'start',

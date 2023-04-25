@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { AccordionBase } from '../src/base-components'
-import { Accordion, DropdownSelect } from '../src'
-import { ArrowDown, ChevronDown, Add, Remove } from '../src/icons'
+import { Accordion, DropdownSelect, makeStyles } from '../src'
+import { ArrowDown, ChevronDown, ChevronUp, Add, Remove } from '../src/icons'
 import { sampleDataBasic } from './data/dropdown-data'
 
 
@@ -182,5 +182,39 @@ export const Overflow = () => {
         </Accordion>
       </div>
     </div>
+  )
+}
+
+const customStyle = makeStyles({
+  root: {
+    width: '1235px',
+  },
+  detailedInfo: {
+    height: '180px',
+    justifyContent: 'space-between',
+    paddingLeft: '72px',
+    paddingRight: '110px',
+  },
+  details: {
+    paddingLeft: '72px',
+    paddingRight: '110px',
+  },
+})
+
+export const DetailedPanel = () => {
+  return (
+    <Accordion classes={{ root: customStyle.root }} >
+      <Accordion.DetailedPanel
+        id='1'
+        header={<><h1>Hello</h1></>}
+        ExpandIcon={ChevronDown}
+        CompressIcon={ChevronUp}
+        classes={{
+          detailedInfo: customStyle.detailedInfo,
+          details: customStyle.details,
+        }}>
+        <h1>Bye</h1>
+      </Accordion.DetailedPanel>
+    </Accordion>
   )
 }

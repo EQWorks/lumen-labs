@@ -10,7 +10,7 @@ const AccordionBase = React.forwardRef(({ children, className, onChange, default
     setOpen(defaultActivePanels)
   }, [defaultActivePanels])
   return (
-    <div ref={ref} className={`inline-flex flex-col ${className}`}>
+    <div ref={ref} className={`accordion__base-container ${className} inline-flex flex-col`}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, { open, setOpen, onChange })

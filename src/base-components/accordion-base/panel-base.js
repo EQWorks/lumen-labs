@@ -17,12 +17,20 @@ const PanelBase = React.forwardRef(({
   onChange,
   overflow,
 }, ref) => {
+  const panelBaseClasses = Object.freeze({
+    root: `panelBase__root-container ${classes.root}`,
+    header: `panelBase__header-container ${classes.header} cursor-pointer flex flex-row`,
+    iconRoot: `panelBase__iconRoot-container ${classes.iconRoot}`,
+    icon: `panelBase__icon-container ${classes.icon} transition-transform duration-300 ease-in-out origin-center transform`,
+    details: `panelBase__details-container ${classes.details} transition-opacity ease-in-out duration-300`,
+  })
+
   const Icon = open.includes(id) ? ExpandIcon : CompressIcon ?? ExpandIcon
   const renderIcon = () => {
     if (Icon) {
       return (
-        <span className={`${classes.iconRoot}`}>
-          <Icon className={clsx(`${classes.icon} transition-transform duration-300 ease-in-out origin-center transform`, {
+        <span className={panelBaseClasses.iconRoot}>
+          <Icon className={clsx(panelBaseClasses.icon, {
             'rotate-0': open.includes(id),
             '-rotate-90': !open.includes(id) && !CompressIcon,
           })} />
@@ -48,10 +56,10 @@ const PanelBase = React.forwardRef(({
   const height = useMemo(() => headerHeight + detailsHeight, [headerHeight, detailsHeight])
 
   return (
-    <div ref={ref} style={height ? { height } : {}} >
+    <div ref={ref} style={height ? { height } : {}} className={panelBaseClasses.root}>
       <div
         ref={headerRef}
-        className={clsx(`${classes.header} cursor-pointer flex flex-row`, {
+        className={clsx(panelBaseClasses.header, {
           'justify-between': alignIcon === 'end',
         })}
         onClick={handleClick}
@@ -62,9 +70,9 @@ const PanelBase = React.forwardRef(({
       </div>
       <div
         ref={detailsRef}
-        className={clsx('transition-opacity ease-in-out duration-300', {
-          [`${classes.details} max-h-full opacity-100 ${overflow ? 'overflow-visible': 'overflow-hidden'}`]: open.includes(id),
-          [`${classes.details} max-h-0 opacity-0 overflow-hidden`]: !open.includes(id),
+        className={clsx(panelBaseClasses.details, {
+          [`max-h-full opacity-100 ${overflow ? 'overflow-visible': 'overflow-hidden'}`]: open.includes(id),
+          ['max-h-0 opacity-0 overflow-hidden']: !open.includes(id),
         })}>
         {children}
       </div>
@@ -91,7 +99,13 @@ PanelBase.propTypes = {
 PanelBase.defaultProps = {
   open: [],
   setOpen: () => {},
-  classes: { header: '', details: 'h-10', icon: '', iconRoot: '' },
+  classes: {
+    root: '',
+    header: '',
+    details: 'h-10',
+    icon: '',
+    iconRoot: '',
+  },
   onChange: () => {},
   ExpandIcon: null,
   CompressIcon: null,

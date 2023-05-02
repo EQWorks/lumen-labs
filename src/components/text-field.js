@@ -133,8 +133,23 @@ const linkedValsFormatHelper = (value, linkedValues, linkedFields) => {
 }
 
 const TextField  = ({
-  classes, variant, size, inputProps, label, maxLength, helperText, success, error,
-  required, disabled, deleteButton, onChange, onClick, onDelete, onSubmit, linkedFields,
+  classes = { root: '', input: '', container: '' },
+  size = 'md',
+  inputProps = {},
+  label = '',
+  maxLength = null,
+  helperText = '',
+  success = false,
+  error = false,
+  required = false,
+  disabled = false,
+  deleteButton = false,
+  onChange = () => {},
+  onClick = () => {},
+  onDelete = () => {},
+  onSubmit = null,
+  variant = 'default',
+  linkedFields = 0,
   ...rest
 }) => {
   const [filled, setFilled] = useState(false)
@@ -347,25 +362,6 @@ TextField.propTypes = {
   onSubmit: PropTypes.func,
   variant: PropTypes.string,
   linkedFields: PropTypes.number,
-}
-TextField.defaultProps = {
-  classes: { root: '', input: '', container: '' },
-  size: 'md',
-  inputProps: {},
-  label: '',
-  maxLength: null,
-  helperText: '',
-  success: false,
-  error: false,
-  required: false,
-  disabled: false,
-  deleteButton: true,
-  onChange: () => {},
-  onClick: () => {},
-  onDelete: () => {},
-  onSubmit: null,
-  variant: 'default',
-  linkedFields: 0,
 }
 
 TextField.Area = Area

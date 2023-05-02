@@ -96,6 +96,10 @@ export const Default = () => {
         label='Label - search icon'
       />
       <TextField
+        inputProps={{ ...inputProps, hideIcon: false, endIcon: <Search size='md'/> }}
+        label='Label - persistant search icon'
+      />
+      <TextField
         inputProps={{ ...inputProps, endIcon: <ArrowDown size='md'/> }}
         label='Label - arrow down icon'
       />

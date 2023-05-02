@@ -17,14 +17,20 @@ const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
       {...rest}
     >
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child) && child.type.__docgenInfo.displayName === 'NavbarHeader') {
+        if (React.isValidElement(child)
+          && (child.type.__docgenInfo?.displayName === 'NavbarHeader'
+          || child.type.displayName === 'NavbarHeader')
+        ) {
           return React.cloneElement(child)
         }
       })}
 
       <div className={navbarClasses.items}>
         {React.Children.map(children, (child) => {
-          if (React.isValidElement(child) && child.type.__docgenInfo.displayName === 'NavbarItem') {
+          if (React.isValidElement(child)
+            && (child.type.__docgenInfo?.displayName === 'NavbarItem'
+            || child.type.displayName === 'NavbarItem')
+          ) {
             return React.cloneElement(child)
           }
         })}
@@ -33,8 +39,10 @@ const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
       {React.Children.map(children, (child) => {
         if (
           React.isValidElement(child)
-          && child.type.__docgenInfo.displayName !== 'NavbarHeader'
-          && child.type.__docgenInfo.displayName !== 'NavbarItem'
+          && child.type.__docgenInfo?.displayName !== 'NavbarHeader'
+          && child.type.displayName !== 'NavbarHeader'
+          && child.type.__docgenInfo?.displayName !== 'NavbarItem'
+          && child.type.displayName !== 'NavbarItem'
         ) {
           return React.cloneElement(child)
         }

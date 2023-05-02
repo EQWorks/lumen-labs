@@ -5,21 +5,22 @@ import { Delete } from '../icons'
 
 
 const InputBase = forwardRef(({
-  classes,
-  value,
-  defaultValue,
-  placeholder,
-  onClick,
-  onChange,
-  onDelete,
-  startIcon,
-  endIcon,
-  prefix,
-  suffix,
-  deleteButton,
-  size,
-  required,
-  disabled,
+  classes = { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
+  value = null,
+  defaultValue = '',
+  placeholder = '',
+  onClick = () => {},
+  onChange = () => {},
+  onDelete = () => {},
+  startIcon = null,
+  endIcon = null,
+  hideIcon = true,
+  prefix = '',
+  suffix = '',
+  deleteButton = true,
+  size = 'md',
+  required = false,
+  disabled = false,
   ...rest
 }, ref) => {
   const baseClasses = Object.freeze({
@@ -81,7 +82,7 @@ const InputBase = forwardRef(({
         {...rest}
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
-      {endIcon && !(value || _value) && <div className={classes.endIcon}>{endIcon}</div>}
+      {endIcon && !((value || _value) && hideIcon) && <div className={classes.endIcon}>{endIcon}</div>}
       {deleteButton && (value || _value) &&
         <div className={classes.endIcon} onMouseDown={handleDelete}>
           <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
@@ -101,29 +102,13 @@ InputBase.propTypes = {
   onDelete: PropTypes.func,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
+  hideIcon: PropTypes.boolean,
   prefix: PropTypes.string,
   suffix: PropTypes.string,
   deleteButton: PropTypes.bool,
   size: PropTypes.string,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
-}
-InputBase.defaultProps = {
-  classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
-  value: null,
-  defaultValue: '',
-  placeholder: '',
-  onClick: () => {},
-  onChange: () => {},
-  onDelete: () => {},
-  startIcon: null,
-  endIcon: null,
-  prefix: '',
-  suffix: '',
-  deleteButton: true,
-  size: 'md',
-  required: false,
-  disabled: false,
 }
 
 InputBase.displayName = 'InputBase'

@@ -24,8 +24,8 @@ const InputBase = forwardRef(({
   ...rest
 }, ref) => {
   const baseClasses = Object.freeze({
-    root: 'flex border',
-    input: `w-full ${disabled ? 'cursor-not-allowed' : ''}`,
+    root: `inputBase__root-container ${classes.root} flex border`,
+    input: `inputBase__input-container ${classes.input} w-full ${disabled ? 'cursor-not-allowed' : ''}`,
   })
   const [_value, _setValue] = useState(defaultValue)
   const [_placeholder, _setPlaceholder] = useState(placeholder)
@@ -65,12 +65,12 @@ const InputBase = forwardRef(({
   }
 
   return (
-    <div ref={ref} className={`${baseClasses.root} ${classes.root}`}>
+    <div ref={ref} className={baseClasses.root}>
       {startIcon && <div className={classes.startIcon}>{startIcon}</div>}
       {prefix && <span className={classes.prefix}>{prefix}</span>}
       <input
         ref={inputRef}
-        className={`${baseClasses.input} ${classes.input}`}
+        className={baseClasses.input}
         value={value || _value}
         onClick={onClick}
         onChange={inputOnChange}

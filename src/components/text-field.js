@@ -39,21 +39,27 @@ const _inputSize = ({ size, variant }) => {
   return inputSize
 }
 
-const _textFieldClasses = ({ container, inputSize, success, error, linkedFields }) => ({
+const _textFieldClasses = ({
+  container,
+  inputSize,
+  success,
+  error,
+  linkedFields,
+}) => ({
   container: {
     default: `textfield__default-container ${container ? container : 'w-250px'} flex flex-col font-sans ${inputSize.font}`,
     borderless: `textfield__borderless-container ${container ? container : 'w-250px'} bg-secondary-200`,
     linked: {
-      outer: `inline-flex flex-col ${container} ${inputSize.font}`,
-      inner: `inline-grid gap-1.5 grid-cols-${linkedFields}`,
+      outer: `textfield__linked-outer-container inline-flex flex-col ${container} ${inputSize.font}`,
+      inner: `textfield__linked-inner-container inline-grid gap-1.5 grid-cols-${linkedFields}`,
     },
   },
-  label: 'text-secondary-600',
-  helperText: clsx('mt-1.5 text-secondary-600', {
+  label: 'textfield__input-container text-secondary-600',
+  helperText: clsx('textfield__wordCount-container mt-1.5 text-secondary-600', {
     'text-error-500': error,
     'text-success-500': success,
   }),
-  wordCount: 'mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
+  wordCount: 'textfield__wordCount-container mt-1.5 col-start-2 justify-self-end text-secondary-600 text-xxs tracking-lg leading-1.6',
 })
 
 const _inputBaseClasses = ({ root, input, label, inputSize, focus: _focus, success, error, filled, disabled, linked }) => {

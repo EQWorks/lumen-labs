@@ -41,26 +41,41 @@ const _contentSize = (size) => {
 }
 
 const DropdownSelect = ({
-  classes,
-  data,
-  button,
-  size,
-  uncontrolled,
-  defaultValue,
-  value,
-  onSelect,
-  onDelete,
-  startIcon,
-  endIcon,
-  placeholder,
-  multiSelect,
-  limit,
-  showType,
-  overflow,
-  disabled,
-  allowClear,
-  simple,
-  preventDeselect,
+  classes = {
+    root: '',
+    menu: '',
+    button: '',
+    content: '',
+    selectedOptionTitle: '',
+    listContainer: '',
+    itemContainer: '',
+    contentContainer: '',
+    contentHeader: '',
+    description: '',
+    type: '',
+    dividerContainer: '',
+    innerButton: '',
+  },
+  data = [],
+  button = null,
+  size = 'md',
+  uncontrolled = false,
+  defaultValue = '',
+  value = '',
+  onSelect = () => {},
+  onDelete = () => {},
+  startIcon = null,
+  endIcon = null,
+  placeholder = 'Select',
+  multiSelect = false,
+  limit = null,
+  showType = false,
+  overflow = 'horizontal',
+  disabled = false,
+  allowClear = true,
+  simple = false,
+  preventDeselect = false,
+  onOpenClose = () => {},
   ...rest
 }) => {
   const [options, setOptions] = useState([])
@@ -132,11 +147,13 @@ const DropdownSelect = ({
 
   if (!componentIsActive && open) {
     setOpen(!open)
+    onOpenClose(!open)
   }
 
   const onClickSelect = () => {
     setComponentIsActive((state) => !state)
     setOpen(!open)
+    onOpenClose(!open)
   }
 
   const renderSelectedOptions = () => {
@@ -353,40 +370,7 @@ DropdownSelect.propTypes = {
   allowClear: PropTypes.bool,
   simple: PropTypes.bool,
   preventDeselect: PropTypes.bool,
-}
-
-DropdownSelect.defaultProps = {
-  classes: {
-    root: '',
-    menu: '',
-    button: '',
-    content: '',
-    selectedOptionTitle: '',
-    listContainer: '',
-    itemContainer: '',
-    contentContainer: '',
-    contentHeader: '',
-    description: '',
-    type: '',
-    dividerContainer: '',
-    innerButton: '',
-  },
-  data: [],
-  button: null,
-  size: 'md',
-  uncontrolled: false,
-  onSelect: () => {},
-  onDelete: () => {},
-  startIcon: null,
-  endIcon: null,
-  placeholder: 'Select',
-  multiSelect: false,
-  showType: false,
-  overflow: 'horizontal',
-  disabled: false,
-  allowClear: true,
-  simple: false,
-  preventDeselect: false,
+  onOpenClose: PropTypes.func,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

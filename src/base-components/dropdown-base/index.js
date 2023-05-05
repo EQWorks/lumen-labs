@@ -34,20 +34,26 @@ const _contentSize = (size, multiSelect, selectedOptions) => {
 }
 
 const DropdownBase = forwardRef(({
-  classes,
-  renderSelectedOptions,
-  button,
-  onClick,
+  classes = {
+    root: '',
+    button: '',
+    content: '',
+    menu: '',
+    innerButton: '',
+  },
+  children = null,
   open,
-  startIcon,
-  endIcon,
-  size,
-  children,
-  placeholder,
-  multiSelect,
-  customTrigger,
-  overflow,
-  disabled,
+  onClick,
+  renderSelectedOptions = () => {},
+  button = null,
+  size = 'md',
+  startIcon = null,
+  endIcon = null,
+  placeholder = 'Select',
+  multiSelect = false,
+  customTrigger = null,
+  overflow = 'horizontal',
+  disabled = false,
   ...rest
 }, ref) => {
   const selectedOptions = typeof renderSelectedOptions === 'function' && Boolean(renderSelectedOptions()?.props?.children)
@@ -56,8 +62,8 @@ const DropdownBase = forwardRef(({
   const dropdownClasses = Object.freeze({
     button: clsx(`font-sans cursor-pointer border rounded-sm ${classes.button ? classes.button : 'w-250px'}`,
       { 'border-secondary-400 hover:border-secondary-500': !disabled && !open },
-      { 'border-interactive-500 shadow-focused-interactive': open && !disabled },
-      { 'pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
+      { 'dropdown-select__button-on-open border-interactive-500 shadow-focused-interactive': open && !disabled },
+      { 'dropdown-select__button-on-disabled pointer-events-none bg-secondary-100 text-secondary-400 border-secondary-400': disabled },
     ),
     content: `flex justify-between items-center ${contentSize.box} ${classes.content ? classes.content : 'w-full'}`,
     placeholder: 'normal-case text-secondary-400',
@@ -68,7 +74,7 @@ const DropdownBase = forwardRef(({
       ${selectedOptions && multiSelect && contentSize.icon}
       ${overflow === 'horizontal' && 'ml-2.5'}`,
     { 'text-secondary-600': !disabled },
-    { 'text-interactive-500': open && !disabled },
+    { 'dropdown-select__end-icon-on-open text-interactive-500': open && !disabled },
     ),
   })
 
@@ -131,8 +137,8 @@ DropdownBase.propTypes = {
   children: PropTypes.node,
   renderSelectedOptions: PropTypes.func,
   button: PropTypes.node,
-  onClick: PropTypes.func,
-  open: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
   size: PropTypes.string,
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
@@ -141,27 +147,6 @@ DropdownBase.propTypes = {
   customTrigger: PropTypes.node,
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
-}
-
-DropdownBase.defaultProps = {
-  classes: {
-    root: '',
-    button: '',
-    content: '',
-    menu: '',
-    innerButton: '',
-  },
-  children: null,
-  renderSelectedOptions: () => {},
-  button: null,
-  size: 'md',
-  startIcon: null,
-  endIcon: null,
-  placeholder: 'Select',
-  multiSelect: false,
-  customTrigger: null,
-  overflow: 'horizontal',
-  disabled: false,
 }
 
 DropdownBase.displayName = 'DropdownBase'

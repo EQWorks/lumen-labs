@@ -5,7 +5,27 @@ import { ArrowLeft, ArrowRight, ArrowUpDown } from '../icons'
 import { DropdownAutoCenter } from '..'
 
 
-const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, initialPage, pageSize, showPage, firstLast, counter, rowsPerPage, hideRowsPerPage }) => {
+const Pagination = ({
+  classes = {
+    container: '',
+    item: '',
+    arrow: '',
+    pageItem: '',
+    currentPageColor: '',
+  },
+  itemsLength,
+  onChangePage,
+  onChangeRowsPerPage = () => {},
+  initialPage = 1,
+  pageSize = 10,
+  showPage = true,
+  firstLast = true,
+  counter = true,
+  rowsPerPage,
+  hideRowsPerPage = false,
+  arrowLeft = null,
+  arrowRight = null,
+}) => {
   const paginationClasses = Object.freeze({
     container: `pagination__main-container ${classes.container || ''} flex items-center text-xs tracking-md leading-1.33 bg-secondary-50`,
     item: `pagination__item-container ${classes.item || ''} min-w-5 mr-5px py-0.5 flex justify-center text-secondary-400 cursor-pointer rounded-sm 'hover:text-secondary-900'`,
@@ -116,14 +136,15 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
         <li
           className={`mr-5px
             ${paginationClasses.arrow} 
-            ${pager.currentPage === 1 ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+            ${pager.currentPage === 1 ? 'text-secondary-400 --disabled' : 'text-secondary-900'}
           `}
+          onClick={(e) => setPage(e, pager.currentPage - 1)}
         >
-          <ArrowLeft size='md' onClick={(e) => setPage(e, pager.currentPage - 1)}/>
+          {arrowLeft ? arrowLeft : <ArrowLeft size='md'/>}
         </li>
         { firstLast && pager.startPage > 1 &&
           <li className='flex'>
-            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, 1)}>
+            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? '--disabled' : ''}`} onClick={(e) => setPage(e, 1)}>
               1
             </div>
             <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
@@ -147,7 +168,7 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
         { firstLast && (pager.currentPage + 2) < pager.totalPages && pager.totalPages > 5 &&
           <li className='flex'>
             <span className='min-w-5 mr-5px py-0.5 flex justify-center'>...</span>
-            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`} onClick={(e) => setPage(e, pager.totalPages)}>
+            <div className={`${paginationClasses.item} ${pager.currentPage === pager.totalPages ? '--disabled' : ''}`} onClick={(e) => setPage(e, pager.totalPages)}>
               {pager.totalPages}
             </div>
           </li>
@@ -155,10 +176,11 @@ const Pagination = ({ classes, itemsLength, onChangePage, onChangeRowsPerPage, i
         <li
           className={`
             ${paginationClasses.arrow} 
-            ${pager.currentPage === pager.totalPages ? 'text-secondary-400 disabled' : 'text-secondary-900'}
+            ${pager.currentPage === pager.totalPages ? 'text-secondary-400 --disabled' : 'text-secondary-900'}
           `}
+          onClick={(e) => setPage(e, pager.currentPage + 1)}
         >
-          <ArrowRight size='md' onClick={(e) => setPage(e, pager.currentPage + 1)}/>
+          {arrowRight ? arrowRight : <ArrowRight size='md'/>}
         </li>
         { !hideRowsPerPage &&
           <li className='min-h-5 pl-5 flex items-center'>
@@ -196,23 +218,8 @@ Pagination.propTypes = {
   counter: PropTypes.bool,
   rowsPerPage: PropTypes.arrayOf(PropTypes.number),
   hideRowsPerPage: PropTypes.bool,
-}
-
-Pagination.defaultProps = {
-  classes: {
-    container: '',
-    item: '',
-    arrow: '',
-    pageItem: '',
-    currentPageColor: '',
-  },
-  initialPage: 1,
-  pageSize: 10,
-  showPage: true,
-  firstLast: true,
-  counter: true,
-  onChangeRowsPerPage: () => {},
-  hideRowsPerPage: false,
+  arrowLeft: PropTypes.node,
+  arrowRight: PropTypes.node,
 }
 
 export default Pagination

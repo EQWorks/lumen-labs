@@ -2,11 +2,17 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const ChevronRight = forwardRef(({ className, ...props }, ref) => (
+const iconSize = Object.freeze({
+  xl: 'w-5 h-5',
+  lg: 'w-3.5 h-3.5',
+  md: 'w-3 h-3',
+  sm: 'w-2.5, h-2.5',
+})
+const ChevronRight = forwardRef(({ className, size = 'xl', ...props }, ref) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     ref={ref}
-    className={`h-5 w-5 ${className}`}
+    className={`${iconSize[size]} ${className}`}
     viewBox="0 0 20 20"
     fill="currentColor"
     {...props}
@@ -19,8 +25,7 @@ const ChevronRight = forwardRef(({ className, ...props }, ref) => (
   </svg>
 ))
 
-ChevronRight.propTypes = { className: PropTypes.string }
-ChevronRight.defaultProps = { className: '' }
+ChevronRight.propTypes = { className: PropTypes.string, size: PropTypes.string }
 
 ChevronRight.displayName = 'ChevronRight'
 

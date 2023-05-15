@@ -91,14 +91,16 @@ const customStyle = makeStyles({
   content: {
     padding: 0,
     alignItems: 'center',
+    justifyContent:'space-between',
   },
   logo: {
     height: 'auto',
   },
   links: {
+    marginLeft: '0rem',
     display: 'flex',
-    width: '43.313rem',
     justifyContent: 'space-between',
+    gap: '1rem',
   },
   quickLinks: {
     color: 'white',
@@ -133,6 +135,73 @@ export const CustomStyle = () => (
       links: customStyle.links,
       quickLinks: customStyle.quickLinks,
       copyrightMsg: customStyle.copyrightMsg,
+    }}
+  />
+)
+
+const customLinkStyle = makeStyles({
+  root: {
+    minHeight: '0rem',
+    height: '12.5rem',
+    paddingLeft: '7.5rem',
+    paddingRight: '7.5rem',
+    paddingTop: '2.547rem',
+    paddingBottom: '0.5rem',
+    background: 'black',
+  },
+  content: {
+    padding: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  logo: {
+    height: 'auto',
+  },
+  links: {
+    width: 'fit-content',
+    display: 'flex',
+    marginLeft: '2rem',
+    paddingBottom: '2rem',
+    gap: '2.5rem',
+    justifyContent: 'space-between',
+  },
+  quickLinks: {
+    color: 'white',
+    cursor: 'pointer',
+    marginBottom: 0,
+    fontFamily: 'Radio Canada',
+    fontSize: '1.125rem',
+    fontWeight: '700',
+    lineHeight: 'initial',
+    textTransform: 'uppercase',
+  },
+  copyrightMsg: {
+    padding: '0',
+    fontFamily: 'Radio Canada',
+    fontSize: '0.75rem',
+    lineHeight: 'initial',
+    letterSpacing: 'initial',
+    color: 'rgba(254, 254, 254, 1)',
+    opacity: 0.8,
+    background: 'none',
+    marginBottom: '0.5rem',
+  },
+})
+
+export const CustomLinks = () => (
+  <Footer
+    logo={<h1 className='uppercase text-5xl text-secondary-50'>logo</h1>}
+    type='horizontal'
+    customLinks={['Link 1', 'Link 2']}
+    description='Lorem ipsum dolor sit amet.'
+    copyrightMessage='© 2023 Company. All rights reserved.'
+    classes={{
+      root: customLinkStyle.root,
+      content: customLinkStyle.content,
+      logo: customLinkStyle.logo,
+      links: customLinkStyle.links,
+      quickLinks: customLinkStyle.quickLinks,
+      copyrightMsg: customLinkStyle.copyrightMsg,
     }}
   />
 )

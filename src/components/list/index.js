@@ -6,7 +6,11 @@ import './scrollbar.css'
 
 
 /*-- ListBase - base component for List --*/
-const ListBase = React.forwardRef(({ children, className, ...props }, ref) => {
+const ListBase = React.forwardRef(({
+  children,
+  className = '',
+  ...props
+}, ref) => {
   return (
     <ul ref={ref} className={className}>
       {React.Children.map(children, (child) => {
@@ -18,11 +22,17 @@ const ListBase = React.forwardRef(({ children, className, ...props }, ref) => {
 })
 ListBase.displayName = 'ListBase'
 ListBase.propTypes = { children: PropTypes.node.isRequired, className: PropTypes.string }
-ListBase.defaultProps = { className: '' }
 
 
 /*-- ListItem --*/
-const ListItem = React.forwardRef(({ children, className, classes, gridCols, selected, onClick }, ref) => {
+const ListItem = React.forwardRef(({
+  children,
+  className = '',
+  classes = {},
+  gridCols = 0,
+  selected = false,
+  onClick = () => {},
+}, ref) => {
   const _grid = gridCols > 0 ? ['grid grid-cols', gridCols].join('-') : ''
   const _selected = selected ? classes.selected ? classes.selected : 'bg-secondary-100' : ''
   return (
@@ -38,7 +48,6 @@ ListItem.propTypes = {
   selected: PropTypes.bool,
   onClick: PropTypes.func,
 }
-ListItem.defaultProps = { className: '', classes: {}, gridCols: 0, selected: false, onClick: () => {} }
 
 
 /*-- List --*/
@@ -47,7 +56,21 @@ const renderListItems = ({ data, gridCols, renderItem }) => data.map((item, inde
   return renderItem(gridCols ? { ..._item, ListCol } : _item)
 })
 
-const List = React.forwardRef(({ classes, data, renderHeader, renderFooter, renderItem, spacing, gridCols }, ref) => {
+const List = React.forwardRef(({
+  classes = {
+    root: '',
+    header: '',
+    list: '',
+    footer: '',
+    selected: '',
+  },
+  data,
+  renderHeader = null,
+  renderFooter = null,
+  renderItem,
+  spacing = 0,
+  gridCols = 0,
+}, ref) => {
   const _grid = gridCols > 0 ? ['grid grid-cols', gridCols].join('-') : ''
   const _spacing = ['space-y', spacing].join('-')
   return (
@@ -84,13 +107,6 @@ List.propTypes = {
     PropTypes.string,
   ]),
   gridCols: PropTypes.number,
-}
-List.defaultProps = {
-  classes: { root: '', header: '', list: '', footer: '', selected: '' },
-  renderHeader: null,
-  renderFooter: null,
-  spacing: 0,
-  gridCols: 0,
 }
 
 List.ListItem = ListItem

@@ -6,7 +6,10 @@ const lineClasses = Object.freeze({
   lineContainer: 'h-full flex justify-center',
 })
 
-const Line = forwardRef(({ lineCircle, linePath }, ref) => (
+const Line = forwardRef(({
+  lineCircle = '',
+  linePath = '',
+}, ref) => (
   <div height={ref.current.offsetHeight} className={`skeleton_line__root-container ${lineClasses.lineContainer}`}>
     <svg width={ref.current.offsetHeight >= 900 ? 500 : 320} viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="20" cy="140" r="20" fill="#A9B7D0" className={lineCircle}/>
@@ -24,10 +27,6 @@ const Line = forwardRef(({ lineCircle, linePath }, ref) => (
 Line.propTypes = {
   lineCircle: PropTypes.string,
   linePath: PropTypes.string,
-}
-Line.defaultProps = {
-  lineCircle: '',
-  linePath: '',
 }
 
 Line.displayName = 'Line'

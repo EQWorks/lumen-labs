@@ -5,7 +5,14 @@ import { DialogBase } from '../base-components'
 import { CircleLoader } from '../icons'
 
 
-const Loader = ({ children, classes, backdrop, open, message, Icon }) => {
+const Loader = ({
+  children = null,
+  classes = { icon: '', message: '', root: '' },
+  backdrop = false,
+  open = false,
+  message = '',
+  Icon = null,
+}) => {
   const loaderClasses = Object.freeze({
     root: `loader__root-container relative inline-flex items-center justify-center ${classes.root ? classes.root : ''}`,
     icon: `icon-container fill-current ${classes.icon ? classes.icon : ''} animate-spin`,
@@ -44,14 +51,6 @@ Loader.propTypes = {
   open: PropTypes.bool,
   message: PropTypes.string,
   Icon: PropTypes.node,
-}
-Loader.defaultProps = {
-  children: null,
-  classes: { icon: '', message: '', root: '' },
-  backdrop: false,
-  open: false,
-  message: '',
-  Icon: null,
 }
 
 export default Loader

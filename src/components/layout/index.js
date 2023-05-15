@@ -5,7 +5,10 @@ import Sider from './sider'
 import { generateElement } from './generate-element'
 
 
-const Layout = ({ children, className }) => {
+const Layout = ({
+  children,
+  className = 'w-full',
+}) => {
   const [sider, setSider] = useState(-1)
   const layoutClass = sider > -1 ? 'flex flex-row' : 'flex flex-col'
 
@@ -22,7 +25,6 @@ const Layout = ({ children, className }) => {
 }
 
 Layout.propTypes = { children: PropTypes.node.isRequired, className: PropTypes.string }
-Layout.defaultProps = { className: 'w-full' }
 
 Layout.Sider = Sider
 Layout.Header = generateElement({ tagName: 'header', displayName: 'Header' })

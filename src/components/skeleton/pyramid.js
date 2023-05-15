@@ -6,7 +6,7 @@ const pyramidClasses = Object.freeze({
   pyramidContainer: 'h-full flex justify-center',
 })
 
-const Pyramid = forwardRef(({ bar }, ref) => (
+const Pyramid = forwardRef(({ bar = '' }, ref) => (
   <div height={ref.current.offsetHeight} className={`skeleton_pyramid__root-container ${pyramidClasses.pyramidContainer}`}>
     <svg width={ref.current.offsetHeight >= 900 ? 500 : 320} viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="116" width="36" height="33" rx="4" fill="#A9B7D0" className={bar}/>
@@ -23,9 +23,6 @@ const Pyramid = forwardRef(({ bar }, ref) => (
 
 Pyramid.propTypes = {
   bar: PropTypes.string,
-}
-Pyramid.defaultProps = {
-  bar: '',
 }
 
 Pyramid.displayName = 'Pyramid'

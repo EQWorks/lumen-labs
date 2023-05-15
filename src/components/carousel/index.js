@@ -36,7 +36,24 @@ const customStyle =  makeStyles({
   },
 })
 
-const Carousel = forwardRef(({ children, classes, variant, nextIcon, prevIcon, onClickNext, onClickPrev, ...rest }, ref) => {
+const Carousel = forwardRef(({
+  children,
+  classes = {
+    root: '',
+    mainContainer: '',
+    prevNextContainer: '',
+    paginationContainer: '',
+    paginationItem: '',
+    prevIconContainer: '',
+    nextIconContainer: '',
+  },
+  variant = 'multi',
+  nextIcon = null,
+  prevIcon = null,
+  onClickNext = () => {},
+  onClickPrev = () => {},
+  ...rest
+}, ref) => {
   const [touchPosition, setTouchPosition] = useState(null)
   const carouselContainerRef = useRef(null)
 
@@ -168,23 +185,6 @@ Carousel.propTypes = {
   prevIcon: PropTypes.node,
   onClickNext: PropTypes.func,
   onClickPrev: PropTypes.func,
-}
-
-Carousel.defaultProps = {
-  classes: {
-    root: '',
-    mainContainer: '',
-    prevNextContainer: '',
-    paginationContainer: '',
-    paginationItem: '',
-    prevIconContainer: '',
-    nextIconContainer: '',
-  },
-  variant: 'multi',
-  nextIcon: null,
-  prevIcon: null,
-  onClickNext: () => {},
-  onClickPrev: () => {},
 }
 
 Carousel.displayName = 'Carousel'

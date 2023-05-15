@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const MoveDown = ({ className, size, ...props }) => {
+const MoveDown = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -26,6 +30,5 @@ const MoveDown = ({ className, size, ...props }) => {
 }
 
 MoveDown.propTypes = { className: PropTypes.string, size: PropTypes.string }
-MoveDown.defaultProps = { className: '', size: '' }
 
 export default MoveDown

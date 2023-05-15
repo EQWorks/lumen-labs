@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 
 
 /*-- ListCol - grid column component wrapper if gridCols > 0 --*/
-const ListCol = React.forwardRef(({ children, className, colSpan }, ref) => {
+const ListCol = React.forwardRef(({
+  children,
+  className = '',
+  colSpan,
+}, ref) => {
   const _colSpan = ['col-span', colSpan].join('-')
   return (<div ref={ref} className={`${_colSpan} ${className}`}>{children}</div>)
 })
@@ -13,7 +17,6 @@ ListCol.propTypes = {
   colSpan: PropTypes.number.isRequired,
   className: PropTypes.string,
 }
-ListCol.defaultProps = { className: '' }
 
 ListCol.displayName = 'ListCol'
 

@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Trash = ({ className, size, ...props }) => (
+const Trash = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -34,6 +38,5 @@ const Trash = ({ className, size, ...props }) => (
 )
 
 Trash.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Trash.defaultProps = { className: '', size: '' }
 
 export default Trash

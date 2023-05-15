@@ -7,7 +7,27 @@ import { concatTargetColor } from '../../utils/concat-color'
 import './range-slider-base.css'
 
 
-const RangeSliderBase = forwardRef(({ classes, min, max, values, onChange, width, singleSlider, children, disabled, ...rest }, ref) => {
+const RangeSliderBase = forwardRef(({
+  classes = {
+    sliderContainer: '',
+    thumb: '',
+    thumbColor: '',
+    slider: '',
+    sliderTrack: '',
+    sliderRange: '',
+    trackColor: '',
+    rangeColor: '',
+  },
+  min,
+  max,
+  values,
+  onChange,
+  width = 'w-48',
+  singleSlider = false,
+  children,
+  disabled = false,
+  ...rest
+}, ref) => {
   const sliderTrackColor = concatTargetColor(classes.trackColor, ['bg'], [100])
   const sliderRangeColor = concatTargetColor(classes.rangeColor, ['bg'], [500])
   //pseudo elements dynamic color
@@ -132,22 +152,6 @@ RangeSliderBase.propTypes = {
   children: PropTypes.node,
   singleSlider: PropTypes.bool,
   disabled: PropTypes.bool,
-}
-
-RangeSliderBase.defaultProps = {
-  classes: {
-    sliderContainer: '',
-    thumb: '',
-    thumbColor: '',
-    slider: '',
-    sliderTrack: '',
-    sliderRange: '',
-    trackColor: '',
-    rangeColor: '',
-  },
-  width: 'w-48',
-  disabled: false,
-  singleSlider: false,
 }
 
 RangeSliderBase.displayName = 'RangeSliderBase'

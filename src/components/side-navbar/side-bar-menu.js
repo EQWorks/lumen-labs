@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 
 const SideBarMenu = forwardRef(({
-  id,
-  classes,
+  id = '',
+  classes = { menuContainer: '' },
   children,
-  onClick,
+  onClick = () => {},
   ...rest
 }, ref) => {
   const sideBarMenuClasses = Object.freeze({
@@ -31,12 +31,6 @@ SideBarMenu.propTypes = {
   classes: PropTypes.object,
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
-}
-
-SideBarMenu.defaultProps = {
-  id: '',
-  classes: { menuContainer: '' },
-  onClick: () => {},
 }
 
 SideBarMenu.displayName = 'SideBarMenu'

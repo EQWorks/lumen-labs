@@ -6,14 +6,19 @@ import './dropdown-auto-center.css'
 
 
 const DropdownAutoCenter = forwardRef(({
-  classes,
-  data,
-  onSelect,
+  classes = {
+    root: '',
+    button: '',
+    menu: '',
+    item: '',
+  },
+  data = [],
+  onSelect = () => {},
   value,
-  startIcon,
-  endIcon,
-  scrollable,
-  disabled,
+  startIcon = null,
+  endIcon = null,
+  scrollable = false,
+  disabled = false,
   ...rest
 }, ref) => {
   const dialogClasses = Object.freeze({
@@ -124,21 +129,6 @@ DropdownAutoCenter.propTypes = {
   endIcon: PropTypes.node,
   scrollable: PropTypes.bool,
   disabled: PropTypes.bool,
-}
-
-DropdownAutoCenter.defaultProps = {
-  classes: {
-    root: '',
-    button: '',
-    menu: '',
-    item: '',
-  },
-  data: [],
-  onSelect: () => {},
-  startIcon: null,
-  endIcon: null,
-  scrollable: false,
-  disabled: false,
 }
 
 DropdownAutoCenter.displayName = 'DropdownAutoCenter'

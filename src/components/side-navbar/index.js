@@ -7,7 +7,11 @@ import SideBarItem from './side-bar-item'
 import SideBarFooter from './side-bar-footer'
 
 
-const SideNavbar = forwardRef(({ children, classes, ...rest }, ref) => {
+const SideNavbar = forwardRef(({
+  children,
+  classes = { root: '' },
+  ...rest
+}, ref) => {
   const sideNavbarClasses = Object.freeze({
     root: `side-navbar__root relative h-screen inline-flex flex-col bg-white border-r border-solid border-secondary-300 ${classes.root}`,
   })
@@ -31,10 +35,6 @@ const SideNavbar = forwardRef(({ children, classes, ...rest }, ref) => {
 SideNavbar.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object,
-}
-
-SideNavbar.defaultProps = {
-  classes: { root: '' },
 }
 
 SideNavbar.displayName = 'SideNavbar'

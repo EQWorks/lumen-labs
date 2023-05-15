@@ -6,7 +6,7 @@ const barClasses = Object.freeze({
   barContainer: 'h-full flex justify-center',
 })
 
-const Bar = forwardRef(({ bar }, ref) => (
+const Bar = forwardRef(({ bar = '' }, ref) => (
   <div height={ref.current.offsetHeight} className={`skeleton_bar__root-container ${barClasses.barContainer}`}>
     <svg width={ref.current.offsetHeight >= 900 ? 500 : 320} viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect y="116" width="13%" height="36%" fill="#A9B7D0" rx="4" className={`${bar}`}/>
@@ -21,9 +21,6 @@ const Bar = forwardRef(({ bar }, ref) => (
 
 Bar.propTypes = {
   bar: PropTypes.string,
-}
-Bar.defaultProps = {
-  bar: '',
 }
 
 Bar.displayName = 'Bar'

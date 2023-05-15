@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Controls = ({ className, size, ...props }) => {
+const Controls = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${size ? iconSize[size] : ''} ${className}`}
@@ -33,6 +37,5 @@ const Controls = ({ className, size, ...props }) => {
 }
 
 Controls.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Controls.defaultProps = { className: '', size: '' }
 
 export default Controls

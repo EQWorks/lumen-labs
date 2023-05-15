@@ -10,7 +10,11 @@ const sizes = Object.freeze({
   lg: 'w-112.5 min-h-107.5 p-4 shadow-10',
 })
 
-const Card = ({ classes, size, ...rest }) => {
+const Card = ({
+  classes = {},
+  size = 'md',
+  ...rest
+}) => {
   const _classes = {
     ...classes,
     root: `card__root-container ${[classes.root, 'rounded-sm', sizes[size]].join(' ')}`,
@@ -27,10 +31,6 @@ const Card = ({ classes, size, ...rest }) => {
 Card.propTypes = {
   classes: PropTypes.object,
   size: PropTypes.string,
-}
-Card.defaultProps = {
-  classes: {},
-  size: 'md',
 }
 
 export default Card

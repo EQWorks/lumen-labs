@@ -16,7 +16,14 @@ const style = makeStyles({
   },
 })
 
-const FeaturedContent = forwardRef(({ classes, buttonProps, children, title, description, isLoading }, ref) => {
+const FeaturedContent = forwardRef(({
+  classes = {},
+  buttonProps = {},
+  children = undefined,
+  title = 'Favorites',
+  description = 'Quick access to all your favorited reports.',
+  isLoading = false,
+}, ref) => {
   const featuredContentClasses = Object.freeze({
     root: `featured-content-root w-full flex flex-col bg-neutral-50 border-2 border-solid border-neutral-50 ${classes.root && classes.root}`,
     header: `featured-content-header p-30px flex items-end justify-between bg-secondary-50 text-secondary-800 ${classes.header && classes.header}`,
@@ -65,14 +72,6 @@ FeaturedContent.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   isLoading: PropTypes.bool,
-}
-FeaturedContent.defaultProps = {
-  classes: {},
-  children: undefined,
-  buttonProps: {},
-  title: 'Favorites',
-  description: 'Quick access to all your favorited reports.',
-  isLoading: false,
 }
 
 FeaturedContent.displayName = ''

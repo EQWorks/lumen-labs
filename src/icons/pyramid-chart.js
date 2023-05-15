@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const pyramidChart = ({ className, size, ...props }) => {
+const pyramidChart = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -31,6 +35,5 @@ const pyramidChart = ({ className, size, ...props }) => {
 }
 
 pyramidChart.propTypes = { className: PropTypes.string, size: PropTypes.string }
-pyramidChart.defaultProps = { className: '', size: '' }
 
 export default pyramidChart

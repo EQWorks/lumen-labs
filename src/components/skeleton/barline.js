@@ -6,7 +6,10 @@ const barlineClasses = Object.freeze({
   barlineContainer: 'h-full flex justify-center',
 })
 
-const Barline = forwardRef(({ bar, linePath }, ref) => (
+const Barline = forwardRef(({
+  bar = '',
+  linePath = '',
+}, ref) => (
   <div height={ref.current.offsetHeight} className={`skeleton_barline__root-container ${barlineClasses.barlineContainer}`}>
     <svg width={ref.current.offsetHeight >= 900 ? 500 : 320} viewBox="0 0 320 177" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect y="137" width="40" height="40" rx="4" fill="#A9B7D0" className={bar}/>
@@ -24,10 +27,6 @@ const Barline = forwardRef(({ bar, linePath }, ref) => (
 Barline.propTypes = {
   bar: PropTypes.string,
   linePath: PropTypes.string,
-}
-Barline.defaultProps = {
-  bar: '',
-  linePath: '',
 }
 
 Barline.displayName = 'Barline'

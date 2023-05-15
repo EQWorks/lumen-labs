@@ -97,7 +97,14 @@ const checkComplete = (startIndex, indicators) => {
 }
 
 const StepIndicator = forwardRef(({
-  classes, size = 16, indicators: _indicators, ...rest
+  classes = {
+    stepDefault: '',
+    stepComplete: '',
+    stepActive: '',
+  },
+  size = 16,
+  indicators: _indicators,
+  ...rest
 }, ref) => {
 
   const styles = customClasses(size)
@@ -139,14 +146,6 @@ StepIndicator.propTypes = {
   classes: PropTypes.object,
   indicators: PropTypes.array.isRequired,
   size: PropTypes.number,
-}
-
-StepIndicator.defaultProps = {
-  classes: {
-    stepDefault: '',
-    stepComplete: '',
-    stepActive: '',
-  },
 }
 
 StepIndicator.displayName = 'StepIndicator'

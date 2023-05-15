@@ -6,14 +6,18 @@ import { counter } from '../../utils/counter'
 
 
 const CheckboxBase = React.forwardRef(({
-  classes,
-  label,
-  checked,
-  defaultChecked,
-  indeterminate,
-  onChange,
-  inputProps,
-  isNestingGroup,
+  classes = {
+    root: '',
+    input: '',
+    label: '',
+  },
+  label = '',
+  checked = null,
+  defaultChecked = null,
+  indeterminate = null,
+  onChange = null,
+  inputProps = {},
+  isNestingGroup = false,
 }, ref) => {
   const inputID = counter('styled-checkbox')
   const inputRef = useRef()
@@ -77,21 +81,6 @@ CheckboxBase.propTypes = {
   inputProps: PropTypes.object,
   isNestingGroup: PropTypes.bool,
   showLabel: PropTypes.bool,
-}
-CheckboxBase.defaultProps = {
-  classes: {
-    root: '',
-    input: '',
-    label: '',
-  },
-  label: '',
-  checked: null,
-  defaultChecked: null,
-  indeterminate: null,
-  onChange: null,
-  inputProps: {},
-  isNestingGroup: false,
-  showLabel: true,
 }
 
 CheckboxBase.displayName = 'CheckboxBase'

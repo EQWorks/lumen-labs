@@ -99,20 +99,35 @@ const customClasses = (showPasscode) => {
   })}
 
 const Login = ({
-  classes,
+  classes = {
+    logo: '',
+    footerLogo: '',
+    welcomeTitle: '',
+    welcomeDescription: '',
+    siderImage: '',
+  },
   product,
   showPasscode,
   emailChangeToggle,
   primaryLogo,
-  secondaryLogo,
-  welcomeTitle,
-  welcomeDescription,
+  secondaryLogo = null,
+  welcomeTitle = 'Example Welcome Message for Login',
+  welcomeDescription = `Example description lorem ipsum dolor sit amet.
+  Id veritatis omnis qui veritatis velit in tenetur consequatur ut dolorem tempore qui galisum adipisci.`,
   copyrightMessage,
-  loadingConfig,
-  errorConfig,
-  onEmailSubmit,
-  onPasscodeSubmit,
-  onChange,
+  loadingConfig = {
+    type: '',
+    isLoading: false,
+    message: '',
+  },
+  errorConfig = {
+    type: '',
+    isError: false,
+    message: '',
+  },
+  onEmailSubmit = null,
+  onPasscodeSubmit = null,
+  onChange = null,
 }) => {
   const [email, setEmail] = useState('')
   const [passcode, setPasscode] = useState('')
@@ -311,26 +326,6 @@ Login.propTypes = {
   onPasscodeSubmit: PropTypes.func,
   loadingConfig: PropTypes.object,
   errorConfig: PropTypes.object,
-}
-Login.defaultProps = {
-  classes: { logo: '', footerLogo: '', welcomeTitle: '', welcomeDescription: '', siderImage: '' },
-  secondaryLogo: null,
-  welcomeTitle: 'Example Welcome Message for Login',
-  welcomeDescription: `Example description lorem ipsum dolor sit amet.
-    Id veritatis omnis qui veritatis velit in tenetur consequatur ut dolorem tempore qui galisum adipisci.`,
-  onChange: null,
-  onEmailSubmit: null,
-  onPasscodeSubmit: null,
-  loadingConfig: {
-    type: '',
-    isLoading: false,
-    message: '',
-  },
-  errorConfig: {
-    type: '',
-    isError: false,
-    message: '',
-  },
 }
 
 export default Login

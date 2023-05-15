@@ -14,8 +14,16 @@ const PropsInheritor = React.forwardRef(({ children, ...props }, ref) => (
 ))
 PropsInheritor.propTypes = { children: PropTypes.node.isRequired }
 
-
-const ListItem = React.forwardRef(({ children, style, className, width, classes, gridCols, selected, onClick }, ref) => {
+const ListItem = React.forwardRef(({
+  children,
+  style = {},
+  className = '',
+  width = '100%',
+  classes = {},
+  gridCols = 0,
+  selected = false,
+  onClick = () => {},
+}, ref) => {
   const _grid = gridCols > 0 ? ['grid grid-cols', gridCols].join('-') : ''
   const _selected = selected ? classes.selected ? classes.selected : 'bg-secondary-100' : ''
   return (
@@ -39,15 +47,6 @@ ListItem.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-}
-ListItem.defaultProps = {
-  style: {},
-  className: '',
-  classes: {},
-  gridCols: 0,
-  selected: false,
-  onClick: () => {},
-  width: '100%',
 }
 
 PropsInheritor.displayName = 'PropsInheritor'

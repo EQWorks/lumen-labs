@@ -6,16 +6,22 @@ import { useResizeDetector } from 'react-resize-detector'
 
 const PanelBase = React.forwardRef(({
   children,
-  classes,
+  classes = {
+    root: '',
+    header: '',
+    details: 'h-10',
+    icon: '',
+    iconRoot: '',
+  },
   id,
   header,
-  ExpandIcon,
-  CompressIcon,
-  alignIcon,
-  open,
-  setOpen,
-  onChange,
-  overflow,
+  ExpandIcon = null,
+  CompressIcon = null,
+  alignIcon = 'start',
+  open = [],
+  setOpen = () => {},
+  onChange = () => {},
+  overflow = false,
 }, ref) => {
   const panelBaseClasses = Object.freeze({
     root: `panelBase__root-container ${classes.root}`,
@@ -95,22 +101,6 @@ PanelBase.propTypes = {
   classes: PropTypes.object,
   onChange: PropTypes.func,
   overflow: PropTypes.bool,
-}
-PanelBase.defaultProps = {
-  open: [],
-  setOpen: () => {},
-  classes: {
-    root: '',
-    header: '',
-    details: 'h-10',
-    icon: '',
-    iconRoot: '',
-  },
-  onChange: () => {},
-  ExpandIcon: null,
-  CompressIcon: null,
-  alignIcon: 'start',
-  overflow: false,
 }
 
 PanelBase.displayName = 'PanelBase'

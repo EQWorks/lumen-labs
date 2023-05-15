@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const DataFailed = ({ className, size, ...props }) => {
+const DataFailed = ({
+  className = 'h-5 w-5',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -29,5 +33,5 @@ const DataFailed = ({ className, size, ...props }) => {
 }
 
 DataFailed.propTypes = { className: PropTypes.string, size: PropTypes.string }
-DataFailed.defaultProps = { className: 'h-5 w-5', size: '' }
+
 export default DataFailed

@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Clock = ({ className, size, ...props }) => {
+const Clock = ({
+  className = 'h-5 w-5',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -22,5 +26,5 @@ const Clock = ({ className, size, ...props }) => {
 }
 
 Clock.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Clock.defaultProps = { className: 'h-5 w-5', size: '' }
+
 export default Clock

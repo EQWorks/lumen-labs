@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5 h-2.5',
 })
-const ChevronUp = ({ className, size, ...props }) => (
+const ChevronUp = ({
+  className = 'h-5 w-5',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     xmlns="http://www.w3.org/2000/svg"
@@ -24,5 +28,5 @@ const ChevronUp = ({ className, size, ...props }) => (
 )
 
 ChevronUp.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ChevronUp.defaultProps = { className: 'h-5 w-5', size: '' }
+
 export default ChevronUp

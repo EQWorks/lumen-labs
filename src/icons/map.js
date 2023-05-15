@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const Map = ({ className, size, ...props }) => {
+const Map = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -28,6 +32,5 @@ const Map = ({ className, size, ...props }) => {
 }
 
 Map.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Map.defaultProps = { className: '', size: '' }
 
 export default Map

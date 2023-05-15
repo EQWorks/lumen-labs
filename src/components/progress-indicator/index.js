@@ -68,7 +68,27 @@ const checkComplete = (startIndex, indicators) => {
 }
 
 const ProgressIndicator = forwardRef(({
-  classes, indicators: _indicators, vertical = false, size = 1.875, ...rest
+  classes = {
+    leftLineActive: '',
+    leftLineDisabled: '',
+    rightLineActive: '',
+    rightLineDisabled: '',
+    numberActiveContainer: '',
+    numberCompleteContainer: '',
+    numberDisabledContainer: '',
+    numberActive: '',
+    numberDisabled: '',
+    labelActive: '',
+    labelComplete: '',
+    labelDisabled: '',
+    captionActive: '',
+    captionComplete: '',
+    captionDisabled: '',
+  },
+  indicators: _indicators,
+  vertical = false,
+  size = 1.875,
+  ...rest
 }, ref) => {
   const styles = customClasses(size)
 
@@ -201,32 +221,6 @@ ProgressIndicator.propTypes = {
   classes: PropTypes.object,
   vertical: PropTypes.bool,
   size: PropTypes.number,
-}
-
-ProgressIndicator.defaultProps = {
-  indicators: {
-    label: PropTypes.string.isRequired,
-    caption: PropTypes.string,
-    active: PropTypes.bool.isRequired,
-    complete: PropTypes.bool.isRequired,
-  },
-  classes: {
-    leftLineActive: '',
-    leftLineDisabled: '',
-    rightLineActive: '',
-    rightLineDisabled: '',
-    numberActiveContainer: '',
-    numberCompleteContainer: '',
-    numberDisabledContainer: '',
-    numberActive: '',
-    numberDisabled: '',
-    labelActive: '',
-    labelComplete: '',
-    labelDisabled: '',
-    captionActive: '',
-    captionComplete: '',
-    captionDisabled: '',
-  },
 }
 
 ProgressIndicator.displayName = 'ProgressIndicator'

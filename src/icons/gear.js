@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Gear = ({ className, size, ...props }) => (
+const Gear = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 100 100"
@@ -20,6 +24,5 @@ const Gear = ({ className, size, ...props }) => (
 )
 
 Gear.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Gear.defaultProps = { className: '', size: 'lg' }
 
 export default Gear

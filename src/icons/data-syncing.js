@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const DataSyncing = ({ className, size, ...props }) => {
+const DataSyncing = ({
+  className = 'h-5 w-5',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -30,5 +34,5 @@ const DataSyncing = ({ className, size, ...props }) => {
 }
 
 DataSyncing.propTypes = { className: PropTypes.string, size: PropTypes.string }
-DataSyncing.defaultProps = { className: 'h-5 w-5', size: '' }
+
 export default DataSyncing

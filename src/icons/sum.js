@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Sum = ({ className, size, ...props }) => {
+const Sum = ({
+  className = '',
+  size = null,
+  ...props
+}) => {
   return (
     <svg
       className={`${size ? iconSize[size] : ''} ${className}`}
@@ -23,6 +27,5 @@ const Sum = ({ className, size, ...props }) => {
 }
 
 Sum.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Sum.defaultProps = { className: '', size: null }
 
 export default Sum

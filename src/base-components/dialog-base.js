@@ -15,7 +15,16 @@ const _baseClasses = ({ anchor }) => ({
   overlay: 'absolute z-10 inset-0 w-full h-full bg-black bg-opacity-50 transition-opacity duration-200',
 })
 
-const DialogBase = ({ classes, button, children, modal, open, anchor, onClick, disabled }) => {
+const DialogBase = ({
+  classes = { root: '', button: '', modal: '', dialogContainer: '', dialog: '', overlay: '' },
+  button = null,
+  children,
+  modal = false,
+  open = undefined,
+  anchor = 'vertical',
+  onClick = () => {},
+  disabled = false,
+}) => {
   const baseClasses = _baseClasses({ anchor, modal })
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   const controlledOpen = open || open === false || open === ''
@@ -70,13 +79,5 @@ DialogBase.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
 }
-DialogBase.defaultProps = {
-  classes: { root: '', button: '', modal: '', dialogContainer: '', dialog: '', overlay: '' },
-  button: null,
-  modal: false,
-  open: undefined,
-  anchor: 'vertical',
-  onClick: () => {},
-  disabled: false,
-}
+
 export default DialogBase

@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const LayerIntersect = ({ className, size, ...props }) => {
+const LayerIntersect = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -40,6 +44,5 @@ const LayerIntersect = ({ className, size, ...props }) => {
 }
 
 LayerIntersect.propTypes = { className: PropTypes.string, size: PropTypes.string }
-LayerIntersect.defaultProps = { className: '', size: 'lg' }
 
 export default LayerIntersect

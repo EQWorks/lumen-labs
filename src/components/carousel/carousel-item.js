@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 
 const CarouselItem = forwardRef(({
-  classes,
+  classes = { root: '' },
   children,
-  onClick,
+  onClick = () => {},
   ...rest
 }, ref) => {
   const carouselItemClasses = Object.freeze({
@@ -30,11 +30,6 @@ CarouselItem.propTypes = {
   }),
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
-}
-
-CarouselItem.defaultProps = {
-  classes: { root: '' },
-  onClick: () => {},
 }
 
 CarouselItem.displayName = 'CarouselItem'

@@ -6,14 +6,19 @@ import clsx from 'clsx'
 
 const DetailedPanel = forwardRef(({
   children,
-  classes,
+  classes = {
+    detailedRoot: '',
+    detailedInfo: '',
+    iconRoot: '',
+    details: '',
+  },
   id,
-  open,
-  header,
-  ExpandIcon,
-  CompressIcon,
-  setOpen,
-  onChange,
+  open = [],
+  header = null,
+  ExpandIcon = null,
+  CompressIcon = null,
+  setOpen = () => {},
+  onChange = () => {},
 }, ref) => {
   const detailedPanelClasses = Object.freeze({
     detailedRoot: `detailedPanel__root-container ${classes.detailedRoot} shadow-light-50`,
@@ -89,21 +94,6 @@ DetailedPanel.propTypes = {
   open: PropTypes.array,
   setOpen: PropTypes.func,
   onChange: PropTypes.func,
-}
-
-DetailedPanel.defaultProps = {
-  open: [],
-  classes: {
-    detailedRoot: '',
-    detailedInfo: '',
-    iconRoot: '',
-    details: '',
-  },
-  header: null,
-  ExpandIcon: null,
-  CompressIcon: null,
-  setOpen: () => {},
-  onChange: () => {},
 }
 
 DetailedPanel.displayName = 'DetailedPanel'

@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const Alias = ({ className, size, ...props }) => (
+const Alias = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox=".41 -.1 14 14"
@@ -30,6 +34,5 @@ const Alias = ({ className, size, ...props }) => (
 )
 
 Alias.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Alias.defaultProps = { className: '', size: '' }
 
 export default Alias

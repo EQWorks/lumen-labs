@@ -2,7 +2,13 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const Footer = forwardRef(({ classes, children, ...rest }, ref) => {
+const Footer = forwardRef(({
+  classes = {
+    footer: '',
+  },
+  children,
+  ...rest
+}, ref) => {
   const modalClasses = Object.freeze({
     footer: `${classes.footer} px-5 py-18px border-t`,
   })
@@ -17,12 +23,6 @@ const Footer = forwardRef(({ classes, children, ...rest }, ref) => {
 Footer.propTypes = {
   children: PropTypes.any,
   classes: PropTypes.object,
-}
-
-Footer.defaultProps = {
-  classes: {
-    footer: '',
-  },
 }
 
 Footer.displayName = 'Footer'

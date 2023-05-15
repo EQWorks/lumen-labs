@@ -5,7 +5,13 @@ import { Close } from '../icons'
 import Layout from '../components/layout'
 
 
-const CardBase = ({ classes, header, content, footer, onClose }) => (
+const CardBase = ({
+  classes = { root: '', closeIcon: '', header: '', content: '', footer: '' },
+  header = null,
+  content = null,
+  footer = null,
+  onClose = null,
+}) => (
   <div className={`${classes.root} inline-flex flex-col border`}>
     {onClose && <Close size='md' className={`${classes.closeIcon} self-end cursor-pointer`} onClick={onClose} />}
     <Layout className='h-full'>
@@ -22,12 +28,6 @@ CardBase.propTypes = {
   header: PropTypes.any,
   footer: PropTypes.any,
   onClose: PropTypes.func,
-}
-CardBase.defaultProps = {
-  classes: { root: '', closeIcon: '', header: '', content: '', footer: '' },
-  header: null,
-  footer: null,
-  onClose: null,
 }
 
 export default CardBase

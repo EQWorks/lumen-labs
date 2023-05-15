@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const EditClipboard = ({ className, size, ...props }) => {
+const EditClipboard = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -27,6 +31,5 @@ const EditClipboard = ({ className, size, ...props }) => {
 }
 
 EditClipboard.propTypes = { className: PropTypes.string, size: PropTypes.string }
-EditClipboard.defaultProps = { className: '', size: 'lg' }
 
 export default EditClipboard

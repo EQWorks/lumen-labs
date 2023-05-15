@@ -39,15 +39,28 @@ const _contentSize = (size) => {
 }
 
 const DropdownAutoComplete = ({
-  classes,
-  data,
-  size,
+  classes = {
+    root: '',
+    menu: '',
+    input: '',
+    inputContainer: '',
+    content: '',
+    listContainer: '',
+    itemContainer: '',
+    contentContainer: '',
+    contentHeader: '',
+    description: '',
+    type: '',
+    dividerContainer: '',
+  },
+  data = [],
+  size = 'md',
   value,
-  onSelect,
-  onDelete,
-  inputProps,
-  showType,
-  disabled,
+  onSelect = () => {},
+  onDelete = () => {},
+  inputProps = {},
+  showType = false,
+  disabled = false,
   ...rest
 }) => {
   const [options, setOptions] = useState(data)
@@ -276,30 +289,6 @@ DropdownAutoComplete.propTypes = {
   inputProps: PropTypes.object,
   showType: PropTypes.bool,
   disabled: PropTypes.bool,
-}
-
-DropdownAutoComplete.defaultProps = {
-  classes: {
-    root: '',
-    menu: '',
-    input: '',
-    inputContainer: '',
-    content: '',
-    listContainer: '',
-    itemContainer: '',
-    contentContainer: '',
-    contentHeader: '',
-    description: '',
-    type: '',
-    dividerContainer: '',
-  },
-  data: [],
-  size: 'md',
-  onSelect: () => {},
-  onDelete: () => {},
-  inputProps: {},
-  showType: false,
-  disabled: false,
 }
 
 DropdownAutoComplete.displayName = 'DropdownAutoComplete'

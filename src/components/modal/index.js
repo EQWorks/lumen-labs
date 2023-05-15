@@ -32,7 +32,19 @@ const _modalSize = (size) => {
   return modalSize
 }
 
-const Modal = forwardRef(({ classes, children, open, closeModal, size, ...rest }, ref) => {
+const Modal = forwardRef(({
+  classes = {
+    root: '',
+    main: '',
+    overlay: '',
+    container: '',
+  },
+  children,
+  open = false,
+  closeModal = () => {},
+  size = 'md',
+  ...rest
+}, ref) => {
   const modalSize = _modalSize(size)
 
   const modalClasses = Object.freeze({
@@ -65,18 +77,6 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired,
   closeModal: PropTypes.func,
   size: PropTypes.string,
-}
-
-Modal.defaultProps = {
-  classes: {
-    root: '',
-    main: '',
-    overlay: '',
-    container: '',
-  },
-  open: false,
-  closeModal: () => {},
-  size: 'md',
 }
 
 Modal.displayName = 'Modal'

@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const ArrowSolidRight = ({ className, size, ...props }) => {
+const ArrowSolidRight = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -22,6 +26,5 @@ const ArrowSolidRight = ({ className, size, ...props }) => {
 }
 
 ArrowSolidRight.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ArrowSolidRight.defaultProps = { className: '', size: '' }
 
 export default ArrowSolidRight

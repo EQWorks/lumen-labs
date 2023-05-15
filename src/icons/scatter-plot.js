@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const ScatterPlot = ({ className, size, ...props }) => {
+const ScatterPlot = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -46,6 +50,5 @@ const ScatterPlot = ({ className, size, ...props }) => {
 }
 
 ScatterPlot.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ScatterPlot.defaultProps = { className: '', size: '' }
 
 export default ScatterPlot

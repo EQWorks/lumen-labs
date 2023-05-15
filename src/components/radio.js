@@ -72,7 +72,22 @@ const radioClasses = Object.freeze({
   input: 'm-0 w-4 h-4 rounded-full grid',
 })
 
-const Radio = forwardRef(({ label, name, value, align, handleChange, disabled, selected, direction, classes, ...rest }, ref) => {
+const Radio = forwardRef(({
+  label,
+  value,
+  handleChange,
+  name = '',
+  align = 'right',
+  disabled = false,
+  selected = '',
+  direction = '',
+  classes = {
+    container: '',
+    radioInput: '',
+    radioLabel: '',
+  },
+  ...rest
+}, ref) => {
   const labelPosition = align === 'left' ? 'flex-row-reverse' : 'flex-row'
   const spacing = direction === 'flex-col' ? 'mb-2' : 'mr-2'
 
@@ -114,18 +129,6 @@ Radio.propTypes = {
   disabled: PropTypes.bool,
   align: PropTypes.string,
   classes: PropTypes.object,
-}
-Radio.defaultProps = {
-  disabled: false,
-  align: 'right',
-  name: '',
-  selected: '',
-  direction: '',
-  classes: {
-    container: '',
-    radioInput: '',
-    radioLabel: '',
-  },
 }
 
 Radio.displayName = 'Radio'

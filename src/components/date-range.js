@@ -2,7 +2,18 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const DateRange = forwardRef(({ classes, defaultValue, setFromValue, setToValue, showLabel }, ref) => {
+const DateRange = forwardRef(({
+  classes = {
+    form: '',
+    field: '',
+    label: '',
+    input: '',
+  },
+  defaultValue,
+  setFromValue,
+  setToValue,
+  showLabel = true,
+}, ref) => {
   const dateRangeClasses = Object.freeze({
     form: `${classes.form ? classes.form : 'container w-96 flex'}`,
     field: `${classes.field ? classes.field : 'w-full mx-2'}`,
@@ -39,16 +50,6 @@ DateRange.propTypes = {
   setFromValue: PropTypes.func.isRequired,
   setToValue: PropTypes.func.isRequired,
   showLabel: PropTypes.bool,
-}
-
-DateRange.defaultProps = {
-  classes: {
-    form: '',
-    field: '',
-    label: '',
-    input: '',
-  },
-  showLabel: true,
 }
 
 DateRange.displayName = 'DateRange'

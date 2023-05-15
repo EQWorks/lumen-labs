@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 
 const NestedCheckboxes = ({
-  classes,
+  classes = {},
   option,
   index,
-  disabled,
-  defaultValues,
+  disabled = false,
+  defaultValues = [],
   onChange: onGroupChange,
   updateParentGroups,
   CheckboxComponent,
@@ -125,12 +125,6 @@ NestedCheckboxes.propTypes = {
   disabled: PropTypes.bool,
   defaultValues: PropTypes.array,
   onChange: PropTypes.func,
-}
-NestedCheckboxes.defaultProps = {
-  classes: {},
-  disabled: false,
-  defaultValues: [],
-  onChange: () => {},
 }
 
 export default NestedCheckboxes

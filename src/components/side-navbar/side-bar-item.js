@@ -11,12 +11,12 @@ const customStyle = makeStyles({
 })
 
 const SideBarItem = forwardRef(({
-  id,
-  classes,
-  label,
-  icon,
-  onClick,
-  isSelected,
+  id = '',
+  classes = { itemContainer: '', itemContainerActive: '', contentContainer: '', icon: '', text: '' },
+  label = '',
+  icon = null,
+  onClick = () => {},
+  isSelected = false,
   ...rest
 }, ref) => {
   const sideBarItemClasses = Object.freeze({
@@ -60,15 +60,6 @@ SideBarItem.propTypes = {
   icon: PropTypes.node,
   onClick: PropTypes.func,
   isSelected: PropTypes.bool,
-}
-
-SideBarItem.defaultProps = {
-  id: '',
-  classes: { itemContainer: '', itemContainerActive: '', contentContainer: '', icon: '', text: '' },
-  label: '',
-  icon: null,
-  onClick: () => {},
-  isSelected: false,
 }
 
 SideBarItem.displayName = 'SideBarItem'

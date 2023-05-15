@@ -62,7 +62,15 @@ const colourTransform = (type) => ({
   },
 })
 
-const Button = ({ children, classes, variant, size, type, disabled, ...rest }) => {
+const Button = ({
+  children,
+  classes = { button: '', content: '', startIcon: '', endIcon: '' },
+  variant = 'outlined',
+  size = '',
+  type = 'primary',
+  disabled = false,
+  ...rest
+}) => {
   const colors = useMemo(() => colourTransform(type), [type])
   const variants = {
     outlined: clsx('border border-1 bg-secondary-50', {
@@ -119,13 +127,6 @@ Button.propTypes = {
   size: PropTypes.string,
   type: PropTypes.string,
   disabled: PropTypes.bool,
-}
-Button.defaultProps = {
-  classes:{ button: '', content: '', startIcon: '', endIcon: '' },
-  variant: 'outlined',
-  size: '',
-  type: 'primary',
-  disabled: false,
 }
 
 export default Button

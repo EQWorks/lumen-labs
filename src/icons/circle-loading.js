@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-3 h-3',
 })
 
-const CircleLoading = ({ className, size, ...props }) => (
+const CircleLoading = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -31,6 +35,5 @@ const CircleLoading = ({ className, size, ...props }) => (
 )
 
 CircleLoading.propTypes = { className: PropTypes.string, size: PropTypes.string }
-CircleLoading.defaultProps = { className: '', size: '' }
 
 export default CircleLoading

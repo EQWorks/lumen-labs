@@ -6,7 +6,10 @@ const mapClasses = Object.freeze({
   mapContainer: 'h-full flex justify-center',
 })
 
-const Map = forwardRef(({ mapMarker, mapCircle }, ref) => (
+const Map = forwardRef(({
+  mapMarker = '',
+  mapCircle = '',
+}, ref) => (
   <div height={ref.current.offsetHeight} className={`skeleton_map__root-container ${mapClasses.mapContainer}`}>
     <svg width={ref.current.offsetHeight >= 900 ? 240 : 156} viewBox="0 0 156 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fillRule="evenodd" clipRule="evenodd" d="M77.6719 0C41.5677 0 12.3289 29.3996 12.3289 65.6299C12.3289 88.7482 24.0057 108.353 37.0396 123.063C50.0993 137.802 64.8518 148.006 71.779 152.398C75.3959 154.692 79.948 154.692 83.5649 152.398C90.492 148.006 105.245 137.802 118.304 123.063C131.338 108.353 143.015 88.7482 143.015 65.6299C143.015 29.3996 113.776 0 77.6719 0ZM57.9457 64.1102C57.9457 52.5348 67.3295 43.1511 78.9048 43.1511C90.4802 43.1511 99.8639 52.5348 99.8639 64.1102C99.8639 75.6855 90.4802 85.0693 78.9048 85.0693C67.3295 85.0693 57.9457 75.6855 57.9457 64.1102Z" fill="#A9B7D0" className={`${mapMarker}`}/>
@@ -18,10 +21,6 @@ const Map = forwardRef(({ mapMarker, mapCircle }, ref) => (
 Map.propTypes = {
   mapMarker: PropTypes.string,
   mapCircle: PropTypes.string,
-}
-Map.defaultProps = {
-  mapMarker: '',
-  mapCircle: '',
 }
 
 Map.displayName = 'Map'

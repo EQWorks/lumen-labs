@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const ShareExternalLink = ({ className, size, ...props }) => (
+const ShareExternalLink = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -26,6 +30,5 @@ const ShareExternalLink = ({ className, size, ...props }) => (
 )
 
 ShareExternalLink.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ShareExternalLink.defaultProps = { className: '', size: '' }
 
 export default ShareExternalLink

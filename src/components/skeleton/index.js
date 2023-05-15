@@ -51,7 +51,27 @@ const skeletonClasses = Object.freeze({
   wrapper: 'h-full relative overflow-hidden py-4 px-6',
 })
 
-const Skeleton = ({ classes, view }) => {
+const Skeleton = ({
+  classes = {
+    container: '',
+    wrapper: '',
+    skeleton: '',
+    title: '',
+    article: '',
+    bar: '',
+    mapMarker: '',
+    mapCircle: '',
+    pie: '',
+    pieSlice: '',
+    statTop: '',
+    statBottom: '',
+    textTop: '',
+    textBottom: '',
+    lineCircle: '',
+    linePath: '',
+  },
+  view = 'default',
+}) => {
   const skeletonRef = useRef(null)
   const [height, setHeight] = useState(0)
 
@@ -105,27 +125,6 @@ const Skeleton = ({ classes, view }) => {
 Skeleton.propTypes = {
   classes: PropTypes.object,
   view: PropTypes.string,
-}
-Skeleton.defaultProps = {
-  classes: {
-    container: '',
-    wrapper: '',
-    skeleton: '',
-    title: '',
-    article: '',
-    bar: '',
-    mapMarker: '',
-    mapCircle: '',
-    pie: '',
-    pieSlice: '',
-    statTop: '',
-    statBottom: '',
-    textTop: '',
-    textBottom: '',
-    lineCircle: '',
-    linePath: '',
-  },
-  view: 'default',
 }
 
 export default Skeleton

@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const CircleLoader = ({ className, ...props }) => (
+const CircleLoader = ({
+  className = '',
+  ...props
+}) => (
   <svg
     className={`w-5 h-5 ${className}`}
     viewBox="0 0 14 14"
@@ -23,6 +26,5 @@ const CircleLoader = ({ className, ...props }) => (
 )
 
 CircleLoader.propTypes = { className: PropTypes.string }
-CircleLoader.defaultProps = { className: '' }
 
 export default CircleLoader

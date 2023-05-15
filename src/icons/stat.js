@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const Stat = ({ className, size, ...props }) => {
+const Stat = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -26,6 +30,5 @@ const Stat = ({ className, size, ...props }) => {
 }
 
 Stat.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Stat.defaultProps = { className: '', size: '' }
 
 export default Stat

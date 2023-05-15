@@ -11,7 +11,16 @@ const variants = Object.freeze({
   'left-bordered': 'border-l-4',
 })
 
-const Accordion = ({ classes, children, variant, color, className, ...props }) => {
+const Accordion = ({
+  classes = {
+    root: '',
+  },
+  children,
+  variant = 'default',
+  color = '',
+  className = '',
+  ...props
+}) => {
   const accordionClasses = Object.freeze({
     root: `accordion__root ${classes.root}`,
   })
@@ -43,14 +52,6 @@ Accordion.propTypes = {
   className: PropTypes.string,
   variant: PropTypes.string,
   color: PropTypes.string,
-}
-Accordion.defaultProps = {
-  classes: {
-    root: '',
-  },
-  className: '',
-  variant: 'default',
-  color: '',
 }
 
 Accordion.Panel = Panel

@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const AlertInformationOutlined = ({ className, size, ...props }) => (
+const AlertInformationOutlined = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg className={`${iconSize[size]} ${className}`} viewBox="0 0 14 14" fill='none' stroke='currentColor' xmlns="http://www.w3.org/2000/svg" {...props}>
     <g clipPath="url(#clip0_417_2719)">
       <path d="M8.3125 9.625H7.875C7.64295 9.625 7.42035 9.53283 7.25626 9.36874C7.09217 9.20465 7 8.98205 7 8.75V6.5625C7 6.44647 6.95392 6.33517 6.87184 6.25316C6.78983 6.17108 6.67852 6.125 6.5625 6.125H6.125" strokeWidth="0.875" strokeLinecap="round" strokeLinejoin="round"/>
@@ -22,6 +26,5 @@ const AlertInformationOutlined = ({ className, size, ...props }) => (
 
 
 AlertInformationOutlined.propTypes = { className: PropTypes.string, size: PropTypes.string }
-AlertInformationOutlined.defaultProps = { className: '', size: '' }
 
 export default AlertInformationOutlined

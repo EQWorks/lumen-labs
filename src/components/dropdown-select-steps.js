@@ -34,17 +34,28 @@ const _contentSize = (size) => {
 }
 
 const DropdownSelectSteps = ({
-  classes,
-  data,
-  button,
-  size,
-  onSelect,
-  startIcon,
-  endIcon,
-  placeholder,
-  showType,
-  showDivider,
-  disabled,
+  classes = {
+    root: '',
+    menu: '',
+    button: '',
+    content: '',
+    listContainer: '',
+    itemContainer: '',
+    contentContainer: '',
+    contentHeader: '',
+    type: '',
+    dividerContainer: '',
+  },
+  data = [],
+  button = null,
+  size = 'md',
+  onSelect = () => {},
+  startIcon = null,
+  endIcon = null,
+  placeholder = 'Select',
+  showType = true,
+  showDivider = true,
+  disabled = false,
   ...rest
 }) => {
   const [options, setOptions] = useState([])
@@ -303,31 +314,6 @@ DropdownSelectSteps.propTypes = {
   showType: PropTypes.bool,
   showDivider: PropTypes.bool,
   disabled: PropTypes.bool,
-}
-
-DropdownSelectSteps.defaultProps = {
-  classes: {
-    root: '',
-    menu: '',
-    button: '',
-    content: '',
-    listContainer: '',
-    itemContainer: '',
-    contentContainer: '',
-    contentHeader: '',
-    type: '',
-    dividerContainer: '',
-  },
-  data: [],
-  button: null,
-  size: 'md',
-  onSelect: () => {},
-  startIcon: null,
-  endIcon: null,
-  placeholder: 'Select',
-  showType: true,
-  showDivider: true,
-  disabled: false,
 }
 
 DropdownSelectSteps.displayName = 'DropdownSelectSteps'

@@ -18,7 +18,12 @@ const border = Object.freeze({
   }),
 })
 
-const ButtonGroup = ({ children, variant, size, align }) => {
+const ButtonGroup = ({
+  children,
+  variant = 'outlined',
+  size = '',
+  align = 'horizontal',
+}) => {
   const count = React.Children.count(children)
   const flexDir = align === 'vertical' ? 'flex-col' : 'flex-row'
   const firstElBorder = align === 'vertical' ? 'rounded-t-sm' : 'rounded-l-sm'
@@ -47,11 +52,6 @@ ButtonGroup.propTypes = {
   variant: PropTypes.string,
   size: PropTypes.string,
   align: PropTypes.string,
-}
-ButtonGroup.defaultProps = {
-  variant: 'outlined',
-  size: '',
-  align: 'horizontal',
 }
 
 export default ButtonGroup

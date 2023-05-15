@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Reset = ({ className, size, ...props }) => (
+const Reset = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 15 15"
@@ -22,6 +26,5 @@ const Reset = ({ className, size, ...props }) => (
 )
 
 Reset.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Reset.defaultProps = { className: '', size: '' }
 
 export default Reset

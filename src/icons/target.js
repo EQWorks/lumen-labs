@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Target = ({ className, size, ...props }) => {
+const Target = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -31,6 +35,5 @@ const Target = ({ className, size, ...props }) => {
 }
 
 Target.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Target.defaultProps = { className: '', size: 'lg' }
 
 export default Target

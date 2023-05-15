@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const DragIndicator = ({ className, size, ...props }) => {
+const DragIndicator = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -27,6 +31,5 @@ const DragIndicator = ({ className, size, ...props }) => {
 }
 
 DragIndicator.propTypes = { className: PropTypes.string, size: PropTypes.string }
-DragIndicator.defaultProps = { className: '', size: 'lg' }
 
 export default DragIndicator

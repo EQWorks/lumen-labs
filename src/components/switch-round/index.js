@@ -5,7 +5,22 @@ import { concatTargetColor } from '../../utils/concat-color'
 import SwitchBase from '../../base-components/switch-base'
 
 
-const SwitchRound = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, color, ...rest }, ref) => {
+const SwitchRound = forwardRef(({
+  classes = {
+    root: '',
+    container: '',
+    button: '',
+    label: '',
+  },
+  id,
+  checked = true,
+  onChange,
+  label = '',
+  disabled = false,
+  tabIndex = 1,
+  color = 'interactive',
+  ...rest
+}, ref) => {
   const containerColor = concatTargetColor(color, ['bg'], [500])
   const containerCheckedStyling = checked ? containerColor : 'shadow-secondary-400 bg-secondary-100'
   const buttonCheckedStyling = checked ? 'bg-secondary-50' : 'bg-secondary-400'
@@ -43,15 +58,6 @@ SwitchRound.propTypes = {
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,
   color: PropTypes.string,
-}
-
-SwitchRound.defaultProps = {
-  classes: { root: '', container: '', button: '', label: '' },
-  checked: true,
-  label: '',
-  disabled: false,
-  tabIndex: 1,
-  color: 'interactive',
 }
 
 SwitchRound.displayName = 'SwitchRound'

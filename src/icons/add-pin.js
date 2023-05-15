@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const AddPin = ({ className, size, ...props }) => (
+const AddPin = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 120 140"
@@ -30,6 +34,5 @@ const AddPin = ({ className, size, ...props }) => (
 )
 
 AddPin.propTypes = { className: PropTypes.string, size: PropTypes.string }
-AddPin.defaultProps = { className: '', size: '' }
 
 export default AddPin

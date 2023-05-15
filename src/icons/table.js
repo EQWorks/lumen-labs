@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const Table = ({ className, size, ...props }) => {
+const Table = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -25,6 +29,5 @@ const Table = ({ className, size, ...props }) => {
 }
 
 Table.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Table.defaultProps = { className: '', size: '' }
 
 export default Table

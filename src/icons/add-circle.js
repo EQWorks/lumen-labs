@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const AddCircle = ({ className, size, ...props }) => (
+const AddCircle = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -30,6 +34,5 @@ const AddCircle = ({ className, size, ...props }) => (
 )
 
 AddCircle.propTypes = { className: PropTypes.string, size: PropTypes.string }
-AddCircle.defaultProps = { className: '', size: '' }
 
 export default AddCircle

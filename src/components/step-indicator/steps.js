@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-export const FirstStep = ({ className }) => (
+export const FirstStep = ({ className = '' }) => (
   <svg viewBox="0 0 224 38" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#filter0_d_869_4025)">
       <mask id="path-1-inside-1_869_4025" fill="white">
@@ -25,7 +25,7 @@ export const FirstStep = ({ className }) => (
   </svg>
 )
 
-export const MiddleStep = ({ className }) => (
+export const MiddleStep = ({ className = '' }) => (
   <svg id='middle' viewBox="0 0 222 39" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#filter0_d_869_4344)">
       <mask id="path-1-inside-1_869_4344" fill="white">
@@ -48,7 +48,7 @@ export const MiddleStep = ({ className }) => (
   </svg>
 )
 
-export const LastStep = ({ className }) => (
+export const LastStep = ({ className = '' }) => (
   <svg id='last' viewBox="0 0 221 39" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#filter0_d_869_2134)">
       <mask id="path-1-inside-1_869_2134" fill="white">
@@ -74,7 +74,3 @@ export const LastStep = ({ className }) => (
 FirstStep.propTypes = { className: PropTypes.string }
 MiddleStep.propTypes = { className: PropTypes.string }
 LastStep.propTypes = { className: PropTypes.string }
-
-FirstStep.defaultProps = { className: '' }
-MiddleStep.defaultProps = { className: '' }
-LastStep.defaultProps = { className: '' }

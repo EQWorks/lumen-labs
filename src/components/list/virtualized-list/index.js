@@ -16,8 +16,18 @@ const _renderItems = ({ data, index, columnIndex, rowIndex, style }) => ({ rende
 }
 
 const VirtualizedList = ({
-  classes, data, rowHeight, gridCols, renderItem, renderHeader, renderFooter, scrollbar,
-  columnCount, columnWidth, rowCount, rowWidth,
+  classes = { root: 'w-full h-2/3', list: 'w-full h-full' },
+  data,
+  rowHeight,
+  gridCols = -1,
+  renderItem,
+  renderHeader = () => {},
+  renderFooter = () => {},
+  scrollbar = true,
+  columnCount = -1,
+  columnWidth = -1,
+  rowCount = -1,
+  rowWidth = -1,
 }) => {
   const isGrid = columnCount > -1 || columnWidth > -1 || rowCount > -1 || rowWidth > -1
   const props = isGrid ? { columnCount, columnWidth, rowCount, rowWidth, rowHeight } : { itemSize: rowHeight }
@@ -73,18 +83,6 @@ VirtualizedList.propTypes = {
   columnWidth: PropTypes.number,
   rowCount: PropTypes.number,
   rowWidth: PropTypes.number,
-}
-VirtualizedList.defaultProps = {
-  classes: { root: 'w-full h-2/3', list: 'w-full h-full' },
-  width: null,
-  gridCols: -1,
-  renderHeader: () => {},
-  renderFooter: () => {},
-  scrollbar: true,
-  columnCount: -1,
-  columnWidth: -1,
-  rowCount: -1,
-  rowWidth: -1,
 }
 
 VirtualizedList.ListItem = ListItem

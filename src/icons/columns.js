@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Columns = ({ className, size, ...props }) => {
+const Columns = ({
+  className = '',
+  size = null,
+  ...props
+}) => {
   return (
     <svg
       className={`${size ? iconSize[size] : ''} ${className}`}
@@ -32,6 +36,5 @@ const Columns = ({ className, size, ...props }) => {
 }
 
 Columns.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Columns.defaultProps = { className: '', size: null }
 
 export default Columns

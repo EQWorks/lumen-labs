@@ -18,7 +18,20 @@ const styles = makeStyles({
   },
 })
 
-const Checkbox = ({ classes, label, checked, defaultChecked, indeterminate, onChange, inputProps, ...rest }) => {
+const Checkbox = ({
+  classes = {
+    root: '',
+    input: '',
+    label: '',
+  },
+  label = '',
+  checked = null,
+  defaultChecked = null,
+  indeterminate = null,
+  onChange = () => {},
+  inputProps = {},
+  ...rest
+}) => {
   const [check, setCheck] = useState({ label, checked })
 
   useEffect(() => {
@@ -82,18 +95,6 @@ Checkbox.propTypes = {
   indeterminate: PropTypes.bool,
   inputProps: PropTypes.object,
   onChange: PropTypes.func,
-}
-Checkbox.defaultProps = {
-  classes: {
-    root: '',
-    input: '',
-    label: '',
-  },
-  checked: null,
-  defaultChecked: null,
-  indeterminate: null,
-  inputProps: {},
-  onChange: () => {},
 }
 
 const CheckboxGroup = (props) => (<CheckboxGroupBase {...props} StyledCheckbox={Checkbox} />)

@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Question = ({ className, size, ...props }) => (
+const Question = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 15 15"
@@ -21,6 +25,5 @@ const Question = ({ className, size, ...props }) => (
 )
 
 Question.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Question.defaultProps = { className: '', size: '' }
 
 export default Question

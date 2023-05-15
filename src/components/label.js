@@ -155,17 +155,23 @@ const customClasses = (shade, color) => {
 }
 
 const Label = forwardRef(({
-  classes,
+  classes = {
+    root: '',
+    content: '',
+    title: '',
+    startIcon: '',
+    endIcon: '',
+  },
   children,
-  startIcon,
-  endIcon,
-  title,
-  size,
-  shade,
-  color,
-  onClickStartIcon,
-  onClickEndIcon,
-  disabled,
+  startIcon = null,
+  endIcon = null,
+  title = '',
+  size = 'md',
+  shade = 'light',
+  color = 'neutral',
+  onClickStartIcon = () => {},
+  onClickEndIcon = () => {},
+  disabled = false,
   ...rest
 }, ref) => {
   const [focus, setFocus] = useState(false)
@@ -215,25 +221,6 @@ Label.propTypes = {
   onClickStartIcon: PropTypes.func,
   onClickEndIcon: PropTypes.func,
   disabled: PropTypes.bool,
-}
-
-Label.defaultProps = {
-  classes: {
-    root: '',
-    content: '',
-    title: '',
-    startIcon: '',
-    endIcon: '',
-  },
-  startIcon: null,
-  endIcon: null,
-  title: '',
-  size: 'md',
-  shade: 'light',
-  color: 'neutral',
-  onClickStartIcon: () => {},
-  onClickEndIcon: () => {},
-  disabled: false,
 }
 
 Label.displayName = 'Label'

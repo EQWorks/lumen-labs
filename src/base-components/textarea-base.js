@@ -8,14 +8,14 @@ const _baseClasses = () => ({
 })
 
 const TextareaBase = forwardRef(({
-  classes,
-  value,
-  defaultValue,
-  placeholder,
-  onClick,
-  onChange,
-  onFocus,
-  onBlur,
+  classes = { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
+  value = '',
+  defaultValue = '',
+  placeholder = '',
+  onClick = () => {},
+  onChange = () => {},
+  onFocus = () => {},
+  onBlur = () => {},
   ...rest
 }, ref) => {
   const baseClasses = _baseClasses()
@@ -74,16 +74,6 @@ TextareaBase.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-}
-TextareaBase.defaultProps = {
-  classes: { root: '', input: '', startIon: '', endIcon: '', prefix: '', suffix: '' },
-  value: '',
-  defaultValue: '',
-  placeholder: '',
-  onClick: () => {},
-  onChange: () => {},
-  onFocus: () => {},
-  onBlur: () => {},
 }
 
 TextareaBase.displayName = 'TextareaBase'

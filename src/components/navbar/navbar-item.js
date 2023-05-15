@@ -3,12 +3,20 @@ import PropTypes from 'prop-types'
 
 
 const NavbarItem = forwardRef(({
-  id,
-  classes,
-  label,
-  icon,
-  onClick,
-  isSelected,
+  id = '',
+  classes = {
+    itemContainer: '',
+    itemContainerActive: '',
+    contentContainer: '',
+    icon: '',
+    iconActive: '',
+    text: '',
+    textActive: '',
+  },
+  label = '',
+  icon = '',
+  onClick = () => {},
+  isSelected = false,
   ...rest
 }, ref) => {
   const NavbarItemClasses = Object.freeze({
@@ -46,22 +54,6 @@ NavbarItem.propTypes = {
   icon: PropTypes.node.isRequired,
   onClick: PropTypes.func,
   isSelected: PropTypes.bool,
-}
-
-NavbarItem.defaultProps = {
-  id: '',
-  classes: {
-    itemContainer: '',
-    itemContainerActive: '',
-    contentContainer: '',
-    icon: '',
-    iconActive: '',
-    text: '',
-    textActive: '',
-  },
-  label: '',
-  onClick: () => {},
-  isSelected: false,
 }
 
 NavbarItem.displayName = 'NavbarItem'

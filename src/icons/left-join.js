@@ -7,7 +7,13 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const LeftJoin = ({ className, size, stroke, fill, ...props }) => {
+const LeftJoin = ({
+  className = '',
+  size = 'lg',
+  stroke = '#3174D5',
+  fill = '#619CE5',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -28,6 +34,5 @@ LeftJoin.propTypes = {
   stroke: PropTypes.string,
   fill: PropTypes.string,
 }
-LeftJoin.defaultProps = { className: '', size: 'lg', stroke: '#3174D5', fill: '#619CE5' }
 
 export default LeftJoin

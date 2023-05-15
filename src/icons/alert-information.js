@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const AlertInformation = ({ className, size, ...props }) => (
+const AlertInformation = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -31,6 +35,5 @@ const AlertInformation = ({ className, size, ...props }) => (
 
 
 AlertInformation.propTypes = { className: PropTypes.string, size: PropTypes.string }
-AlertInformation.defaultProps = { className: '', size: '' }
 
 export default AlertInformation

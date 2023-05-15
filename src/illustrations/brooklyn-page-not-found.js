@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const BrooklynPageNotFound = ({ className, ...props }) => {
+const BrooklynPageNotFound = ({
+  className = 'w-40 h-40',
+  ...props
+}) => {
   return (
     <svg
       className={className}
@@ -72,6 +75,5 @@ const BrooklynPageNotFound = ({ className, ...props }) => {
 }
 
 BrooklynPageNotFound.propTypes = { className: PropTypes.string }
-BrooklynPageNotFound.defaultProps = { className: 'w-40 h-40' }
 
 export default BrooklynPageNotFound

@@ -9,7 +9,11 @@ const iconSize = Object.freeze({
   xs: 'w-1.5 h-1.5',
 })
 
-const EyeClosed = ({ className, size, ...props }) => (
+const EyeClosed = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 120"
@@ -29,6 +33,5 @@ const EyeClosed = ({ className, size, ...props }) => (
 )
 
 EyeClosed.propTypes = { className: PropTypes.string, size: PropTypes.string }
-EyeClosed.defaultProps = { className: '', size: '' }
 
 export default EyeClosed

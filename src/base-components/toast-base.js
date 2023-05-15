@@ -4,15 +4,23 @@ import { makeStyles } from '../utils/make-styles'
 
 
 const ToastBase = forwardRef(({
-  classes,
-  children,
-  variant,
-  title,
-  description,
-  button,
-  startIcon,
-  endIcon,
-  width,
+  classes = {
+    root: '',
+    header: '',
+    title: '',
+    content: '',
+    description: '',
+    startIcon: '',
+    endIcon: '',
+  },
+  children = null,
+  variant = 'horizontal',
+  title = '',
+  description = '',
+  button = null,
+  startIcon = null,
+  endIcon = null,
+  width = '',
   ...rest
 }, ref) => {
   const styles = makeStyles({
@@ -71,26 +79,6 @@ ToastBase.propTypes = {
   startIcon: PropTypes.node,
   endIcon: PropTypes.node,
   width: PropTypes.string,
-}
-
-ToastBase.defaultProps = {
-  classes: {
-    root: '',
-    header: '',
-    title: '',
-    content: '',
-    description: '',
-    startIcon: '',
-    endIcon: '',
-  },
-  children: null,
-  variant: 'horizontal',
-  title: '',
-  description: '',
-  button: null,
-  startIcon: null,
-  endIcon: null,
-  width: '',
 }
 
 ToastBase.displayName = 'ToastBase'

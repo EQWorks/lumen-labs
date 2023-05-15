@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const PieChart = ({ className, size, ...props }) => {
+const PieChart = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -31,6 +35,5 @@ const PieChart = ({ className, size, ...props }) => {
 }
 
 PieChart.propTypes = { className: PropTypes.string, size: PropTypes.string }
-PieChart.defaultProps = { className: '', size: '' }
 
 export default PieChart

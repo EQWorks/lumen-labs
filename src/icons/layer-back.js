@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const LayerBack = ({ className, size, ...props }) => {
+const LayerBack = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -36,6 +40,5 @@ const LayerBack = ({ className, size, ...props }) => {
 }
 
 LayerBack.propTypes = { className: PropTypes.string, size: PropTypes.string }
-LayerBack.defaultProps = { className: '', size: 'lg' }
 
 export default LayerBack

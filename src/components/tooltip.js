@@ -5,15 +5,23 @@ import { ToastBase } from '../base-components'
 
 
 const Tooltip = ({
-  classes,
+  classes = {
+    container: '',
+    root: '',
+    arrow: '',
+    header: '',
+    title: '',
+    content: '',
+    description: '',
+  },
   children,
-  type,
+  type = 'light',
   title,
-  description,
-  width,
-  position,
-  arrow,
-  delay,
+  description = '',
+  width = 'auto',
+  position = 'top',
+  arrow = true,
+  delay = 0,
   ...rest
 }) => {
   const colorType = Object.freeze({
@@ -117,26 +125,6 @@ Tooltip.propTypes = {
   position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
   arrow: PropTypes.bool,
   delay: PropTypes.number,
-}
-
-Tooltip.defaultProps = {
-  classes: {
-    container: '',
-    root: '',
-    arrow: '',
-    header: '',
-    title: '',
-    content: '',
-    description: '',
-  },
-  onClose: () => {},
-  type: 'light',
-  title: '',
-  description: '',
-  width: 'auto',
-  position: 'top',
-  arrow: true,
-  delay: 0,
 }
 
 Tooltip.displayName = 'Tooltip'

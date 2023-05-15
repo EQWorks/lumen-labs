@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const Pdf = ({ className, size, ...props }) => {
+const Pdf = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -30,6 +34,5 @@ const Pdf = ({ className, size, ...props }) => {
 }
 
 Pdf.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Pdf.defaultProps = { className: '', size: '' }
 
 export default Pdf

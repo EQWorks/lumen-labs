@@ -8,7 +8,11 @@ const _generateElement = (Element) => ({ tagName, displayName }) => {
   return Component
 }
 
-const LayoutElement = ({ children, tagName, className }) => (
+const LayoutElement = ({
+  children,
+  tagName,
+  className = 'w-full',
+}) => (
   React.createElement(tagName, { className }, children)
 )
 
@@ -17,6 +21,5 @@ LayoutElement.propTypes = {
   tagName: PropTypes.string.isRequired,
   className: PropTypes.string,
 }
-LayoutElement.defaultProps = { className: 'w-full' }
 
 export const generateElement = _generateElement(LayoutElement)

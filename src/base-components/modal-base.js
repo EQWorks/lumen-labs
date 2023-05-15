@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import { Dialog } from '@headlessui/react'
 
 
-const ModalBase = forwardRef(({ classes, children, open, closeModal, ...rest }, ref) => {
+const ModalBase = forwardRef(({
+  classes = { root: '', main: '', overlay: '' },
+  children,
+  open = false,
+  closeModal = () => {},
+  ...rest
+}, ref) => {
   const modalClasses = Object.freeze({
     root: `${classes.root} min-h-screen flex justify-center items-center`,
     main: `${classes.main} flex justify-center items-center transition-all transform`,
@@ -34,11 +40,6 @@ ModalBase.propTypes = {
   classes: PropTypes.object,
   open: PropTypes.bool.isRequired,
   closeModal: PropTypes.func,
-}
-ModalBase.defaultProps = {
-  classes: { root: '', main: '', overlay: '' },
-  open: false,
-  closeModal: () => {},
 }
 
 ModalBase.displayName = 'ModalBase'

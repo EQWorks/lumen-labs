@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const DownloadBold = ({ className, size, ...props }) => {
+const DownloadBold = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -28,6 +32,5 @@ const DownloadBold = ({ className, size, ...props }) => {
 }
 
 DownloadBold.propTypes = { className: PropTypes.string, size: PropTypes.string }
-DownloadBold.defaultProps = { className: '', size: '' }
 
 export default DownloadBold

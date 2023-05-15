@@ -4,7 +4,12 @@ import PropTypes from 'prop-types'
 import PanelBase from './panel-base'
 
 
-const AccordionBase = React.forwardRef(({ children, className, onChange, defaultActivePanels }, ref) => {
+const AccordionBase = React.forwardRef(({
+  children,
+  className = 'w-full',
+  onChange = () => {},
+  defaultActivePanels = [],
+}, ref) => {
   const [open, setOpen] = useState([])
   useEffect(() => {
     setOpen(defaultActivePanels)
@@ -26,11 +31,6 @@ AccordionBase.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   defaultActivePanels: PropTypes.array,
-}
-AccordionBase.defaultProps = {
-  className: 'w-full',
-  onChange: () => {},
-  defaultActivePanels: [],
 }
 
 AccordionBase.displayName = 'AccordionBase'

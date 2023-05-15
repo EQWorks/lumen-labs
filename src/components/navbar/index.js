@@ -5,7 +5,11 @@ import NavbarHeader from './navbar-header'
 import NavbarItem from './navbar-item'
 
 
-const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
+const Navbar = forwardRef(({
+  children,
+  classes = { root: '', items: '' },
+  ...rest
+}, ref) => {
   const navbarClasses = Object.freeze({
     root: `navbar__root ${classes.root} w-screen h-16 px-10 flex items-center justify-between`,
     items: `navbar__items ${classes.items} flex items-center justify-center`,
@@ -54,10 +58,6 @@ const Navbar = forwardRef(({ children, classes, ...rest }, ref) => {
 Navbar.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.objectOf(PropTypes.string),
-}
-
-Navbar.defaultProps = {
-  classes: { root: '', items: '' },
 }
 
 Navbar.displayName = 'Navbar'

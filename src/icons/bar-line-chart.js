@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const BarLineChart = ({ className, size, ...props }) => {
+const BarLineChart = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -31,6 +35,5 @@ const BarLineChart = ({ className, size, ...props }) => {
 }
 
 BarLineChart.propTypes = { className: PropTypes.string, size: PropTypes.string }
-BarLineChart.defaultProps = { className: '', size: '' }
 
 export default BarLineChart

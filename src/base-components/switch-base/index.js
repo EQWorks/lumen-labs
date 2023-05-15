@@ -4,7 +4,22 @@ import PropTypes from 'prop-types'
 import './switch-base.css'
 
 
-const SwitchBase = forwardRef(({ classes, id, checked, onChange, label, disabled, tabIndex, children, ...rest }, ref) => {
+const SwitchBase = forwardRef(({
+  classes = {
+    root: '',
+    container: '',
+    button: '',
+    label: '',
+  },
+  id,
+  checked = false,
+  onChange,
+  label = '',
+  disabled = false,
+  tabIndex = 1,
+  children,
+  ...rest
+}, ref) => {
   const switchClasses = Object.freeze({
     root: `${classes.root} flex items-center`,
     container: `${classes.container ? classes.container : 'w-9 h-4 bg-secondary-300'} relative flex items-center justify-between`,
@@ -60,19 +75,6 @@ SwitchBase.propTypes = {
   disabled: PropTypes.bool,
   tabIndex: PropTypes.number,
   children: PropTypes.node,
-}
-
-SwitchBase.defaultProps = {
-  classes: {
-    root: '',
-    container: '',
-    button: '',
-    label: '',
-  },
-  label: '',
-  checked: false,
-  disabled: false,
-  tabIndex: 1,
 }
 
 SwitchBase.displayName = 'SwitchBase'

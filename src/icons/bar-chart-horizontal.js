@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const BarChartHorizontal = ({ className, size, ...props }) => {
+const BarChartHorizontal = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -46,6 +50,5 @@ const BarChartHorizontal = ({ className, size, ...props }) => {
 }
 
 BarChartHorizontal.propTypes = { className: PropTypes.string, size: PropTypes.string }
-BarChartHorizontal.defaultProps = { className: '', size: 'lg' }
 
 export default BarChartHorizontal

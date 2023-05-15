@@ -6,7 +6,15 @@ import { concatStateColor, concatTargetColor } from '../utils/concat-color'
 import { ButtonBase } from '../base-components'
 
 
-const Chip = forwardRef(({ classes, children, startIcon, endIcon, color, selectable, ...rest }, ref) => {
+const Chip = forwardRef(({
+  classes = { chip: '', content: '', startIcon: '', endIcon: '' },
+  children,
+  startIcon = null,
+  endIcon = null,
+  color = 'primary',
+  selectable = true,
+  ...rest
+}, ref) => {
   const borderElementsColor = concatStateColor(color, 'border', ['focus', 'hover'], [500])
   const buttonColor = concatTargetColor(color, ['bg', 'border', 'text'], [100, 100, 500])
 
@@ -35,14 +43,6 @@ Chip.propTypes = {
   endIcon: PropTypes.node,
   color: PropTypes.string,
   selectable: PropTypes.bool,
-}
-
-Chip.defaultProps = {
-  classes: { chip: '', content: '', startIcon: '', endIcon: '' },
-  startIcon: null,
-  endIcon: null,
-  color: 'primary',
-  selectable: true,
 }
 
 Chip.displayName = 'Chip'

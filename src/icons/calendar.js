@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5 h-2.5',
 })
 
-const Calendar = ({ className, size, ...props }) => (
+const Calendar = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 15 15"
@@ -47,6 +51,5 @@ const Calendar = ({ className, size, ...props }) => (
 
 
 Calendar.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Calendar.defaultProps = { className: '', size: '' }
 
 export default Calendar

@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const ReturnRight = ({ className, size, ...props }) => {
+const ReturnRight = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -34,6 +38,5 @@ const ReturnRight = ({ className, size, ...props }) => {
 }
 
 ReturnRight.propTypes = { className: PropTypes.string, size: PropTypes.string, color: PropTypes.string }
-ReturnRight.defaultProps = { className: '', size: '' }
 
 export default ReturnRight

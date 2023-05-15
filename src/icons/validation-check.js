@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const ValidationCheck = ({ className, size, ...props }) => (
+const ValidationCheck = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -29,6 +33,5 @@ const ValidationCheck = ({ className, size, ...props }) => (
 )
 
 ValidationCheck.propTypes = { className: PropTypes.string, size: PropTypes.string }
-ValidationCheck.defaultProps = { className: '', size: '' }
 
 export default ValidationCheck

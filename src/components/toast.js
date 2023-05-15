@@ -10,18 +10,29 @@ import { makeStyles } from '../utils/make-styles'
 
 
 const Toast = forwardRef(({
-  classes,
-  variant,
-  open,
-  onClose,
-  type,
-  color,
-  title,
-  description,
-  button,
-  icon,
-  timeOut,
-  onTimeOut,
+  classes = {
+    root: '',
+    button: '',
+    header: '',
+    title: '',
+    content: '',
+    description: '',
+    icon: '',
+    endIcon: '',
+    rootProgress: '',
+    contentProgress: '',
+  },
+  variant = 'horizontal',
+  open = true,
+  onClose = () => {},
+  type = 'light',
+  color = 'info',
+  title = '',
+  description = '',
+  button = null,
+  icon = null,
+  timeOut = 0,
+  onTimeOut = () => {},
   ...rest
 }, ref) => {
   const size = {
@@ -201,32 +212,6 @@ Toast.propTypes = {
   icon: PropTypes.node,
   timeOut: PropTypes.number,
   onTimeOut: PropTypes.func,
-}
-
-Toast.defaultProps = {
-  classes: {
-    root: '',
-    button: '',
-    header: '',
-    title: '',
-    content: '',
-    description: '',
-    icon: '',
-    endIcon: '',
-    rootProgress: '',
-    contentProgress: '',
-  },
-  variant: 'horizontal',
-  open: true,
-  onClose: () => {},
-  type: 'light',
-  color: 'info',
-  title: '',
-  description: '',
-  button: null,
-  icon: null,
-  timeOut: 0,
-  onTimeOut: () => {},
 }
 
 Toast.displayName = 'Toast'

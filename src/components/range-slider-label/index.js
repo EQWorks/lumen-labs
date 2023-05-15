@@ -9,7 +9,35 @@ import { RangeSliderBase } from '../../base-components'
 import './range-slider-label.css'
 
 
-const RangeSliderLabel = ({ classes, width, color, min, max, values, onChange, labelFormat, tooltipFormat, showLabel, showTooltip, singleSlider, disabled, ...rest }) => {
+const RangeSliderLabel = ({
+  classes = {
+    sliderContainer: '',
+    thumb: '',
+    slider: '',
+    sliderTrack: '',
+    sliderRange: '',
+    label: '',
+    tooltip: '',
+  },
+  width = 'w-48',
+  color = {
+    thumb: 'interactive',
+    sliderTrack: 'interactive',
+    sliderRange: 'interactive',
+    tooltip: 'interactive',
+  },
+  min,
+  max,
+  values,
+  onChange,
+  labelFormat = [],
+  tooltipFormat = [],
+  showLabel = true,
+  showTooltip = true,
+  singleSlider = false,
+  disabled = false,
+  ...rest
+}) => {
   const tooltipColor = concatTargetColor(color.tooltip, ['bg'], [500])
   //pseudo elements dynamic color
   const tooltipTailColor = getTailwindConfigColor(`${color.tooltip}-500`)
@@ -135,31 +163,6 @@ RangeSliderLabel.propTypes = {
   showTooltip: PropTypes.bool,
   singleSlider: PropTypes.bool,
   disabled: PropTypes.bool,
-}
-
-RangeSliderLabel.defaultProps = {
-  classes: {
-    sliderContainer: '',
-    thumb: '',
-    slider: '',
-    sliderTrack: '',
-    sliderRange: '',
-    label: '',
-    tooltip: '',
-  },
-  color: {
-    thumb: 'interactive',
-    sliderTrack: 'interactive',
-    sliderRange: 'interactive',
-    tooltip: 'interactive',
-  },
-  width: 'w-48',
-  labelFormat: [],
-  tooltipFormat: [],
-  showLabel: true,
-  showTooltip: true,
-  singleSlider: false,
-  disabled: false,
 }
 
 export default RangeSliderLabel

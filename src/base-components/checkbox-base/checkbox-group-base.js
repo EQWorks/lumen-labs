@@ -14,13 +14,13 @@ const generateStyles = (props) => makeStyles({
 })
 
 const CheckboxGroupBase = React.forwardRef(({
-  classes,
+  classes = { root: '', checkboxClasses: {}, gap: 2.5 },
   options,
-  align,
-  disabled,
-  defaultValues,
-  onChange,
-  StyledCheckbox,
+  align = 'vertical',
+  disabled = false,
+  defaultValues = [],
+  onChange = () => {},
+  StyledCheckbox = null,
 }, ref) => {
   const styles = generateStyles({ gridCols: Array(options.length).fill('auto').join(' ') })
   const alignStyleRoot = align === 'horizontal' ? `${styles.gridCols}` : 'grid-rows'
@@ -76,14 +76,6 @@ CheckboxGroupBase.propTypes = {
   defaultValues: PropTypes.array,
   onChange: PropTypes.func,
   StyledCheckbox: PropTypes.elementType,
-}
-CheckboxGroupBase.defaultProps = {
-  classes: { root: '', checkboxClasses: {}, gap: 2.5 },
-  align: 'vertical',
-  disabled: false,
-  defaultValues: [],
-  onChange: () => {},
-  StyledCheckbox: null,
 }
 
 CheckboxGroupBase.displayName = 'CheckboxGroupBase'

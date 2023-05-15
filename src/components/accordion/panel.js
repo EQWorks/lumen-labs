@@ -38,7 +38,18 @@ const colorConfig = ({ color }) => {
   })
 }
 
-const Panel = ({ children, classes, variant, color, ...props }) => {
+const Panel = ({
+  children,
+  classes = {
+    icon: '',
+    iconRoot: '',
+    header: '',
+    details: 'h-10',
+  },
+  variant = 'default',
+  color = '',
+  ...props
+}) => {
   const colors = useMemo(() => colorConfig({ color }), [color])
   const _classes = {
     icon: `panel__icon-container ${classes.icon} ${colors[variant]?.icon || ''} ${variants[variant].icon || ''}`,
@@ -65,17 +76,6 @@ Panel.propTypes = {
   color: PropTypes.string,
   variant: PropTypes.string,
   alignIcon: PropTypes.string,
-}
-Panel.defaultProps = {
-  classes: {
-    icon: '',
-    iconRoot: '',
-    header: '',
-    details: 'h-10',
-  },
-  color: '',
-  variant: 'default',
-  alignIcon: 'start',
 }
 
 export default Panel

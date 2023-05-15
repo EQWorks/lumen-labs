@@ -7,7 +7,10 @@ const articleClasses = Object.freeze({
   article: 'w-full h-3 my-3.5 bg-neutral-300 rounded-sm',
 })
 
-const Article = forwardRef(({ title, article }, ref) => (
+const Article = forwardRef(({
+  title = '',
+  article = '',
+}, ref) => (
   <div className='skeleton_article__root-container'>
     <div className={`${articleClasses.title} ${title}`} />
     {
@@ -20,10 +23,6 @@ const Article = forwardRef(({ title, article }, ref) => (
 Article.propTypes = {
   title: PropTypes.string,
   article: PropTypes.string,
-}
-Article.defaultProps = {
-  title: '',
-  article: '',
 }
 
 Article.displayName = 'Article'

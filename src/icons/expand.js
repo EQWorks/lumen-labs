@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Expand = ({ className, size, ...props }) => (
+const Expand = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 10 10"
@@ -25,6 +29,5 @@ const Expand = ({ className, size, ...props }) => (
 )
 
 Expand.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Expand.defaultProps = { className: '', size: 'lg' }
 
 export default Expand

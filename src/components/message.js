@@ -46,7 +46,13 @@ const bgColors = Object.freeze({
   error: 'bg-error-100',
 })
 
-const Message = ({ classes, variant, title, description, showIcon }) => {
+const Message = ({
+  classes = { root: '', messageContainer: '', title: '', description: '' },
+  variant = 'default',
+  title = '',
+  description,
+  showIcon = true,
+}) => {
   return (
     <div className={`message__root-container p-1 rounded-sm ${bgColors[variant]}`}>
       <div className={`message__main-container scrollbar overflow-auto flex flex-row justify-start items-start p-1.5 rounded-sm ${bgColors[variant]} ${classes.root}`}>
@@ -72,12 +78,6 @@ Message.propTypes = {
   variant: PropTypes.string,
   title: PropTypes.string,
   showIcon: PropTypes.bool,
-}
-Message.defaultProps = {
-  classes: { root: '', messageContainer: '', title: '', description: '' },
-  variant: 'default',
-  title: '',
-  showIcon: true,
 }
 
 export default Message

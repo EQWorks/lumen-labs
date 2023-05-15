@@ -5,7 +5,12 @@ import { makeStyles, LinearAnimation } from '../utils/make-styles'
 
 
 const ProgressBar = forwardRef(({
-  classes, animate, direction, duration, progress, ...rest
+  classes = { root: '', content: '' },
+  animate = false,
+  direction = 'rtl',
+  duration = 10,
+  progress = 100,
+  ...rest
 }, ref) => {
   const progressBarClasses = Object.freeze({
     root: `progressBar__root-container ${classes.root} h-5px w-full bg-primary-100`,
@@ -38,14 +43,6 @@ ProgressBar.propTypes = {
   direction: PropTypes.string,
   duration: PropTypes.number,
   progress: PropTypes.number,
-}
-
-ProgressBar.defaultProps = {
-  classes: { root: '', content: '' },
-  animate: false,
-  direction: 'rtl',
-  duration: 10,
-  progress: 100,
 }
 
 ProgressBar.displayName = 'ProgressBar'

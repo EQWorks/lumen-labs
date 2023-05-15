@@ -7,7 +7,12 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Copy = ({ className, size, stroke, ...props }) => {
+const Copy = ({
+  className = '',
+  size = 'lg',
+  stroke = '#3174D5',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -26,6 +31,5 @@ const Copy = ({ className, size, stroke, ...props }) => {
 }
 
 Copy.propTypes = { className: PropTypes.string, size: PropTypes.string, stroke: PropTypes.string }
-Copy.defaultProps = { className: '', size: 'lg', stroke: '#3174D5' }
 
 export default Copy

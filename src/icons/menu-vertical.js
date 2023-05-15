@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const MenuVertical = ({ className, size, ...props }) => {
+const MenuVertical = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -22,6 +26,5 @@ const MenuVertical = ({ className, size, ...props }) => {
 }
 
 MenuVertical.propTypes = { className: PropTypes.string, size: PropTypes.string }
-MenuVertical.defaultProps = { className: '', size: '' }
 
 export default MenuVertical

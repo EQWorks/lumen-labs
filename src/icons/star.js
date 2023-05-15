@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Star = ({ className, size, ...props }) => (
+const Star = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 25 25"
@@ -21,6 +25,5 @@ const Star = ({ className, size, ...props }) => (
 )
 
 Star.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Star.defaultProps = { className: '', size: 'lg' }
 
 export default Star

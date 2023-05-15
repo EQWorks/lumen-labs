@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Undo = ({ className, size, ...props }) => (
+const Undo = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 -.3 13 15"
@@ -31,6 +35,5 @@ const Undo = ({ className, size, ...props }) => (
 )
 
 Undo.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Undo.defaultProps = { className: '', size: '' }
 
 export default Undo

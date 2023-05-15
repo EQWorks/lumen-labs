@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const Spin = ({ className, size, ...props }) => (
+const Spin = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg className={`${iconSize[size]} ${className}`} viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <g clipPath="url(#clip0_892_3212)">
       <path d="M13.2985 7.88645C13.5614 7.88645 13.7745 7.67334 13.7745 7.41045C13.7745 7.14756 13.5614 6.93445 13.2985 6.93445C13.0356 6.93445 12.8225 7.14756 12.8225 7.41045C12.8225 7.67334 13.0356 7.88645 13.2985 7.88645Z" fill="white"/>
@@ -121,6 +125,5 @@ const Spin = ({ className, size, ...props }) => (
 )
 
 Spin.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Spin.defaultProps = { className: '', size: '' }
 
 export default Spin

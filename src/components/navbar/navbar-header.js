@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 
 const NavbarHeader = forwardRef(({
-  classes,
+  classes = { headerContainer: '' },
   children,
-  onClick,
+  onClick = () => {},
   ...rest
 }, ref) => {
   const navbarHeaderClasses = Object.freeze({
@@ -28,11 +28,6 @@ NavbarHeader.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string),
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
-}
-
-NavbarHeader.defaultProps = {
-  classes: { headerContainer: '' },
-  onClick: () => {},
 }
 
 NavbarHeader.displayName = 'NavbarHeader'

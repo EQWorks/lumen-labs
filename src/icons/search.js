@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5, h-2.5',
 })
 
-const Search = ({ className, size, ...props }) => (
+const Search = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -36,6 +40,5 @@ const Search = ({ className, size, ...props }) => (
 )
 
 Search.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Search.defaultProps = { className: '', size: '' }
 
 export default Search

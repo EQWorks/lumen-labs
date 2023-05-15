@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const BrooklynDatabase = ({ className, ...props }) => {
+const BrooklynDatabase = ({
+  className = 'w-40 h-40',
+  ...props
+}) => {
   return (
     <svg
       className={className}
@@ -48,6 +51,5 @@ const BrooklynDatabase = ({ className, ...props }) => {
 }
 
 BrooklynDatabase.propTypes = { className: PropTypes.string }
-BrooklynDatabase.defaultProps = { className: 'w-40 h-40' }
 
 export default BrooklynDatabase

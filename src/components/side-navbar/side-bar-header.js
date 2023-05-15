@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 
 const SideBarHeader = forwardRef(({
-  classes,
+  classes = { headerContainer: '' },
   children,
-  onClick,
+  onClick = () => {},
   ...rest
 }, ref) => {
   const sideBarHeaderClasses = Object.freeze({
@@ -29,11 +29,6 @@ SideBarHeader.propTypes = {
   classes: PropTypes.object,
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
-}
-
-SideBarHeader.defaultProps = {
-  classes: { headerContainer: '' },
-  onClick: () => {},
 }
 
 SideBarHeader.displayName = 'SideBarHeader'

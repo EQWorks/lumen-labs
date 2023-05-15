@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Play = ({ className, size, ...props }) => {
+const Play = ({
+  className = '',
+  size = 'lg',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -22,6 +26,5 @@ const Play = ({ className, size, ...props }) => {
 }
 
 Play.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Play.defaultProps = { className: '', size: 'lg' }
 
 export default Play

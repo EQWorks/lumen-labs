@@ -66,7 +66,26 @@ const Text = (error, progress, time) => {
 }
 
 const FileIndicator = forwardRef(({
-  classes, animate, direction, duration, fileName, fileSize, progress, time, pause, error = false, ...rest
+  classes = {
+    fileName: '',
+    container: '',
+    barContainer: '',
+    content: '',
+    pause: '',
+    enabledButton: '',
+    disableButton: '',
+    completeButton: '',
+  },
+  animate = false,
+  direction = 'rtl',
+  duration = 10,
+  fileName = null,
+  fileSize = null,
+  progress = 100,
+  time = null,
+  pause = () => null,
+  error = false,
+  ...rest
 }, ref) => {
   const style = customClasses(progress)
 
@@ -120,28 +139,6 @@ FileIndicator.propTypes = {
   time: PropTypes.number,
   pause: PropTypes.func,
   error: PropTypes.bool,
-}
-
-FileIndicator.defaultProps = {
-  classes: {
-    fileName: '',
-    container: '',
-    barContainer: '',
-    content: '',
-    pause: '',
-    enabledButton: '',
-    disableButton: '',
-    completeButton: '',
-  },
-  animate: false,
-  direction: 'rtl',
-  duration: 10,
-  fileName: null,
-  fileSize: null,
-  progress: 100,
-  time: null,
-  pause: () => null,
-  error: false,
 }
 
 FileIndicator.displayName = 'FileIndicator'

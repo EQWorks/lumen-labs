@@ -44,18 +44,18 @@ const _textareaBaseClasses = ({ focus, root, filled, disabled }) => ({
 })
 
 const Area = ({
-  classes,
-  size,
-  inputProps,
-  label,
-  value,
-  maxLength,
-  helperText,
-  disabled,
-  onChange,
-  onSubmit,
-  onFocus,
-  onBlur,
+  classes = { root: '', container: '' },
+  size = 'md',
+  inputProps = {},
+  label = '',
+  value = '',
+  maxLength = NaN,
+  helperText = '',
+  disabled = false,
+  onChange = () => {},
+  onSubmit = () => {},
+  onFocus = () => {},
+  onBlur = () => {},
   ...rest
 }) => {
   const [filled, setFilled] = useState(false)
@@ -123,20 +123,6 @@ Area.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-}
-Area.defaultProps = {
-  classes: { root: '', container: '' },
-  size: 'md',
-  inputProps: {},
-  label: '',
-  value: '',
-  maxLength: NaN,
-  helperText: '',
-  disabled: false,
-  onSubmit: () => {},
-  onChange: () => {},
-  onFocus: () => {},
-  onBlur: () => {},
 }
 
 export default Area

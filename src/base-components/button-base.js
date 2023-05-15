@@ -2,17 +2,16 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 
-const ButtonBase = forwardRef((
-  {
-    children,
-    classes,
-    startIcon,
-    endIcon,
-    onClickStartIcon,
-    onClickEndIcon,
-    ...rest
-  },
-  ref,
+const ButtonBase = forwardRef(({
+  children,
+  classes = { button: '', content: '', startIcon: '', endIcon: '' },
+  startIcon = null,
+  endIcon = null,
+  onClickStartIcon = () => {},
+  onClickEndIcon = () => {},
+  ...rest
+},
+ref,
 ) => {
   return (
     <button
@@ -43,13 +42,6 @@ ButtonBase.propTypes = {
   endIcon: PropTypes.node,
   onClickStartIcon: PropTypes.func,
   onClickEndIcon: PropTypes.func,
-}
-ButtonBase.defaultProps = {
-  classes: { button: '', content: '', startIcon: '', endIcon: '' },
-  startIcon: null,
-  endIcon: null,
-  onClickStartIcon: () => {},
-  onClickEndIcon: () => {},
 }
 
 ButtonBase.displayName = 'ButtonBase'

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 
 const SideBarFooter = forwardRef(({
-  classes,
+  classes = { footerContainer: '' },
   children,
-  onClick,
+  onClick = () => {},
   ...rest
 }, ref) => {
   const sideBarFooterClasses = Object.freeze({
@@ -29,11 +29,6 @@ SideBarFooter.propTypes = {
   classes: PropTypes.object,
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
-}
-
-SideBarFooter.defaultProps = {
-  classes: { footerContainer: '' },
-  onClick: () => {},
 }
 
 SideBarFooter.displayName = 'SideBarFooter'

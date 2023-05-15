@@ -8,7 +8,11 @@ const iconSize = Object.freeze({
   sm: 'w-2.5 h-2.5',
 })
 
-const Delete = ({ className, size, ...props }) => (
+const Delete = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 140 140"
@@ -29,6 +33,5 @@ const Delete = ({ className, size, ...props }) => (
 )
 
 Delete.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Delete.defaultProps = { className: '', size: '' }
 
 export default Delete

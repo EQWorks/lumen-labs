@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Cycle = ({ className, size, ...props }) => (
+const Cycle = ({
+  className = '',
+  size = '',
+  ...props
+}) => (
   <svg
     className={`${iconSize[size]} ${className}`}
     viewBox="0 0 15 15"
@@ -24,6 +28,5 @@ const Cycle = ({ className, size, ...props }) => (
 )
 
 Cycle.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Cycle.defaultProps = { className: '', size: '' }
 
 export default Cycle

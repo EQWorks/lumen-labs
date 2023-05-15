@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const Filter = ({ className, size, ...props }) => {
+const Filter = ({
+  className = '',
+  size = null,
+  ...props
+}) => {
   return (
     <svg
       className={`${size ? iconSize[size] : ''} ${className}`}
@@ -25,6 +29,5 @@ const Filter = ({ className, size, ...props }) => {
 }
 
 Filter.propTypes = { className: PropTypes.string, size: PropTypes.string }
-Filter.defaultProps = { className: '', size: null }
 
 export default Filter

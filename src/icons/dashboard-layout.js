@@ -7,7 +7,11 @@ const iconSize = Object.freeze({
   md: 'w-3 h-3',
   sm: 'w-2.5, h-2.5',
 })
-const DashboardLayout = ({ className, size, ...props }) => {
+const DashboardLayout = ({
+  className = '',
+  size = '',
+  ...props
+}) => {
   return (
     <svg
       className={`${iconSize[size]} ${className}`}
@@ -40,6 +44,5 @@ const DashboardLayout = ({ className, size, ...props }) => {
 }
 
 DashboardLayout.propTypes = { className: PropTypes.string, size: PropTypes.string }
-DashboardLayout.defaultProps = { className: '', size: '' }
 
 export default DashboardLayout

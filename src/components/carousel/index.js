@@ -18,12 +18,19 @@ const customStyle =  makeStyles({
     },
 
     '& .carousel-prev-next__container': {
-      '& .active': {
+      '& .--active': {
         cursor: 'pointer',
       },
 
-      '& .disabled': {
+      '& .--disabled': {
         cursor: 'not-allowed',
+      },
+
+      '& .carousel-pagination__container': {
+        '& .carousel-pagination__item.--selected': {
+          color: 'white',
+          backgroundColor: 'black',
+        },
       },
     },
   },
@@ -37,29 +44,41 @@ const Carousel = forwardRef(({ children, classes, variant, nextIcon, prevIcon, o
     root: `carousel__root ${classes.root || ''} w-full inline-flex flex-col overflow-hidden ${customStyle.root}`,
     mainContainer: `carousel__main-container ${classes.mainContainer || ''} flex z-0`,
     prevNextContainer: `carousel-prev-next__container ${classes.prevNextContainer || ''} flex`,
-    prevIconContainer: `carousel-prev-icon__container ${classes.prevIconContainer || ''}`,
-    nextIconContainer: `carousel-next-icon__container ${classes.nextIconContainer || ''}`,
+    paginationContainer: `carousel-pagination__container ${classes.paginationContainer || ''} flex`,
+    paginationItem: `carousel-pagination__item ${classes.paginationItem || ''} w-5 text-center`,
+    prevIconContainer: `carousel-prev-icon__container ${classes.prevIconContainer || ''} self-center`,
+    nextIconContainer: `carousel-next-icon__container ${classes.nextIconContainer || ''} self-center`,
   })
 
-  const { moveNext, movePrev, isDisabled, currentIndex } = useCarousel(
+  const { moveNext, movePrev, movePagination, isDisabled, currentIndex, slideNumber } = useCarousel(
     carouselContainerRef, variant, children.length,
   )
 
   const handleOnMoveNext = e => {
     e.stopPropagation()
-    moveNext(e)
+    moveNext(e, 1)
     onClickNext(e)
   }
 
-  const handleOnMovePrev= e => {
+  const handleOnMovePrev = e => {
     e.stopPropagation()
-    movePrev(e)
+    movePrev(e, 1)
     onClickPrev(e)
   }
 
   const handleTouchStart = (e) => {
     const touchDown = e.touches[0].clientX
     setTouchPosition(touchDown)
+  }
+
+  const handlePaginationOnClick = (e, num) => {
+    if (num > currentIndex + 1) {
+      movePagination(e, num)
+    }
+
+    if (num < currentIndex + 1) {
+      movePagination(e, num)
+    }
   }
 
   const handleTouchMove = (e) => {
@@ -111,10 +130,21 @@ const Carousel = forwardRef(({ children, classes, variant, nextIcon, prevIcon, o
         ))}
       </div>
       <div className={carouselClasses.prevNextContainer}>
-        <div className={`${carouselClasses.prevIconContainer} ${isDisabled('prev') ? 'disabled' : 'active'}`} onClick={handleOnMovePrev}>
+        <div className={`${carouselClasses.prevIconContainer} ${isDisabled('prev') ? '--disabled' : '--active'}`} onClick={handleOnMovePrev}>
           {prevIcon ? prevIcon : <ChevronLeft size='lg'/>}
         </div>
-        <div className={`${carouselClasses.nextIconContainer} ${isDisabled('next') ? 'disabled' : 'active'}`} onClick={handleOnMoveNext}>
+        <div className={carouselClasses.paginationContainer}>
+          {[...Array(slideNumber).keys()].map((i) => (
+            <div
+              key={`pagination-item-${i}`}
+              className={`${carouselClasses.paginationItem} ${i === currentIndex ? '--selected' : 'cursor-pointer'}`}
+              onClick={ e => handlePaginationOnClick(e, i)}
+            >
+              {i + 1}
+            </div>
+          ))}
+        </div>
+        <div className={`${carouselClasses.nextIconContainer} ${isDisabled('next') ? '--disabled' : '--active'}`} onClick={handleOnMoveNext}>
           {nextIcon ? nextIcon : <ChevronRight size='lg'/>}
         </div>
       </div>
@@ -128,6 +158,8 @@ Carousel.propTypes = {
     root: PropTypes.string,
     mainContainer: PropTypes.string,
     prevNextContainer: PropTypes.string,
+    paginationContainer: PropTypes.string,
+    paginationItem: PropTypes.string,
     prevIconContainer: PropTypes.string,
     nextIconContainer: PropTypes.string,
   }),
@@ -143,6 +175,8 @@ Carousel.defaultProps = {
     root: '',
     mainContainer: '',
     prevNextContainer: '',
+    paginationContainer: '',
+    paginationItem: '',
     prevIconContainer: '',
     nextIconContainer: '',
   },

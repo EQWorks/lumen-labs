@@ -83,31 +83,38 @@ const getContainerMargin = (element, marginSide) => {
 
 export const useCarousel = (carouselRef, variant, length) => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [slideNumber, setSlideNumber] = useState(0)
 
-  const movePrev = () => {
+  const movePrev = (_, num = 1) => {
     if (carouselRef.current !== null && currentIndex > 0) {
       if (variant === 'multi') {
-        setCurrentIndex((prevState) => prevState - 1)
+        setCurrentIndex((prevState) => prevState - num)
       }
 
       if (variant === 'single') {
-        setCurrentIndex(currentIndex - 1)
+        setCurrentIndex(currentIndex - num)
       }
     }
   }
 
-  const moveNext = () => {
+  const moveNext = (_, num = 1) => {
     if (carouselRef.current !== null) {
       if (
         variant === 'multi' && currentIndex < Math.ceil((length / Math.floor(carouselRef.current.offsetWidth /
           carouselRef.current.childNodes[0].clientWidth) - 1))
       ) {
-        setCurrentIndex((prevState) => prevState + 1)
+        setCurrentIndex((prevState) => prevState + num)
       }
 
       if (variant === 'single' && currentIndex < length - 1) {
-        setCurrentIndex(currentIndex + 1)
+        setCurrentIndex(currentIndex + num)
       }
+    }
+  }
+
+  const movePagination = (_, num) => {
+    if (carouselRef.current !== null) {
+      setCurrentIndex(num)
     }
   }
 
@@ -140,8 +147,10 @@ export const useCarousel = (carouselRef, variant, length) => {
 
       carouselRef.current.scrollLeft =
         (carouselRef.current.offsetWidth - calcOffsetWidth) * currentIndex
-    }
-  }, [currentIndex, carouselRef])
 
-  return { moveNext, movePrev, isDisabled, currentIndex }
+      setSlideNumber(Math.ceil((carouselRef.current.childNodes[0].clientWidth * length) / (carouselRef.current.offsetWidth - calcOffsetWidth)))
+    }
+  }, [currentIndex, carouselRef, length, setSlideNumber])
+
+  return { moveNext, movePrev, movePagination, isDisabled, currentIndex, slideNumber }
 }

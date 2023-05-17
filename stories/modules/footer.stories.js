@@ -142,7 +142,6 @@ export const CustomStyle = () => (
 const customLinkStyle = makeStyles({
   root: {
     minHeight: '0rem',
-    height: '12.5rem',
     paddingLeft: '7.5rem',
     paddingRight: '7.5rem',
     paddingTop: '2.547rem',
@@ -156,6 +155,22 @@ const customLinkStyle = makeStyles({
   },
   logo: {
     height: 'auto',
+  },
+  downloadContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '1rem',
+  },
+  downloadLinkContainer: {
+    display: 'flex',
+    gap: '2rem',
+  },
+  downloadLink: {
+    color: 'yellow',
+  },
+  downloadMessage: {
+    color: 'white',
+    marginBottom: '1rem',
   },
   links: {
     width: 'fit-content',
@@ -194,11 +209,17 @@ export const CustomLinks = () => (
     type='horizontal'
     customLinks={['Link 1', 'Link 2']}
     description='Lorem ipsum dolor sit amet.'
+    downloadLinks={['Download1', 'Download2']}
+    downloadMessage='Lorem ipsum dolor sit amet.'
     copyrightMessage='© 2023 Company. All rights reserved.'
     classes={{
       root: customLinkStyle.root,
       content: customLinkStyle.content,
       logo: customLinkStyle.logo,
+      downloadContainer: customLinkStyle.downloadContainer,
+      downloadLinkContainer: customLinkStyle.downloadLinkContainer,
+      downloadLink: customLinkStyle.downloadLink,
+      downloadMessage: customLinkStyle.downloadMessage,
       links: customLinkStyle.links,
       quickLinks: customLinkStyle.quickLinks,
       copyrightMsg: customLinkStyle.copyrightMsg,

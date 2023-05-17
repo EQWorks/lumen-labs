@@ -51,6 +51,10 @@ const Footer = ({
     social: '',
     socialIconButtons: '',
     socialIcon: '',
+    downloadContainer: '',
+    downloadLinkContainer: '',
+    downloadLink: '',
+    downloadMessage: '',
     links: '',
     quickLinkHeading: '',
     linkList: '',
@@ -61,6 +65,8 @@ const Footer = ({
   description = '',
   copyrightMessage = '',
   socialIcons = [],
+  downloadLinks = [],
+  downloadMessage = '',
   quickLinks = [],
   customLinks = [],
   type = 'horizontal',
@@ -75,6 +81,10 @@ const Footer = ({
     socialIconButtons: `footer__socialIconButtons-container ${classes.socialIconButtons} focus:outline-none inline-flex justify-center
     items-center cursor-pointer bg-primary-800 border border-primary-800 hover:border-primary-100 active:bg-primary-900 text-secondary-50`,
     socialIcon: `footer__socialIcon-container ${classes.socialIcon}`,
+    downloadContainer: `footer__download-container ${classes.downloadContainer}`,
+    downloadLinkContainer: `footer__download-link-container ${classes.downloadLinkContainer}`,
+    downloadLink: `footer__download-link ${classes.downloadLink}`,
+    downloadMessage: `footer__download-message ${classes.downloadMessage}`,
     links: `footer__links-container ${classes.links} inline-flex justify-between`,
     quickLinkHeading: `footer__quickLinkHeading-container ${classes.quickLinkHeading} uppercase font-bold text-secondary-200`,
     linkList: `footer__linkList-container ${classes.linkList} list-none`,
@@ -88,20 +98,42 @@ const Footer = ({
         <div className={`${footerClasses.info} ${styles.infoContainer}`}>
           <div className={`${footerClasses.logo} ${styles.logo}`}>{logo}</div>
           <p className={`${footerClasses.description} ${styles.description}`}>{description}</p>
-          {socialIcons.length > 0 && <div className={`${footerClasses.social}`}>
-            {socialIcons.map(({ Icon, link }, i) => (
-              <button
-                key={i}
-                onClick={() => window.open(link, '_blank')}
-                className={`${footerClasses.socialIconButtons} ${styles.socialIconButtons}`}
-              >
-                <Icon key={i} className={`${footerClasses.socialIcon} ${styles.socialIcons}`} />
-              </button>
-            ))}
-          </div>}
+          {socialIcons.length > 0 &&
+            <div className={`${footerClasses.social}`}>
+              {socialIcons.map(({ Icon, link }, i) => (
+                <button
+                  key={i}
+                  onClick={() => window.open(link, '_blank')}
+                  className={`${footerClasses.socialIconButtons} ${styles.socialIconButtons}`}
+                >
+                  <Icon key={i} className={`${footerClasses.socialIcon} ${styles.socialIcons}`} />
+                </button>
+              ))}
+            </div>
+          }
+          {/* to be used for mobile screens only */}
+          {
+            Array.isArray(downloadLinks)
+            && downloadLinks.length > 0
+            && type === 'horizontal'
+            && <div className={footerClasses.downloadContainer}>
+              <div className={footerClasses.downloadLinkContainer}>
+                {downloadLinks.map((link, i) => (
+                  <div key={i} className={footerClasses.downloadLink}>
+                    {link}
+                  </div>
+                ))}
+              </div>
+              {downloadMessage &&
+                <div className={footerClasses.downloadMessage}>
+                  {downloadMessage}
+                </div>
+              }
+            </div>
+          }
         </div>
 
-        <div className={`${footerClasses.links}`}>
+        <div className={footerClasses.links}>
           {
             Array.isArray(quickLinks)
             && quickLinks.length > 0
@@ -179,6 +211,8 @@ Footer.propTypes = {
   logo: PropTypes.element.isRequired,
   description: PropTypes.string,
   socialIcons: PropTypes.array,
+  downloadLinks: PropTypes.array,
+  downloadMessage: PropTypes.string,
   copyrightMessage: PropTypes.string,
   quickLinks: PropTypes.array,
   customLinks: PropTypes.array,

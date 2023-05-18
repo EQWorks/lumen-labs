@@ -27,7 +27,7 @@ const customStyle =  makeStyles({
       },
 
       '& .carousel-pagination__container': {
-        '& .carousel-pagination__item.--selected': {
+        '& .carousel-pagination-item__container.--selected': {
           color: 'white',
           backgroundColor: 'black',
         },
@@ -45,7 +45,7 @@ const Carousel = forwardRef(({ children, classes, variant, nextIcon, prevIcon, o
     mainContainer: `carousel__main-container ${classes.mainContainer || ''} flex z-0`,
     prevNextContainer: `carousel-prev-next__container ${classes.prevNextContainer || ''} flex`,
     paginationContainer: `carousel-pagination__container ${classes.paginationContainer || ''} flex`,
-    paginationItem: `carousel-pagination__item ${classes.paginationItem || ''} w-5 text-center`,
+    paginationItem: `carousel-pagination-item__container ${classes.paginationItem || ''} w-5 text-center`,
     prevIconContainer: `carousel-prev-icon__container ${classes.prevIconContainer || ''} self-center`,
     nextIconContainer: `carousel-next-icon__container ${classes.nextIconContainer || ''} self-center`,
   })
@@ -72,11 +72,11 @@ const Carousel = forwardRef(({ children, classes, variant, nextIcon, prevIcon, o
   }
 
   const handlePaginationOnClick = (e, num) => {
-    if (num > currentIndex + 1) {
+    if (num > currentIndex) {
       movePagination(e, num)
     }
 
-    if (num < currentIndex + 1) {
+    if (num < currentIndex) {
       movePagination(e, num)
     }
   }

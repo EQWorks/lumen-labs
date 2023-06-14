@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import PanelBase from './panel-base'
@@ -10,10 +10,8 @@ const AccordionBase = React.forwardRef(({
   onChange = () => {},
   defaultActivePanels = [],
 }, ref) => {
-  const [open, setOpen] = useState([])
-  useEffect(() => {
-    setOpen(defaultActivePanels)
-  }, [defaultActivePanels])
+  const [open, setOpen] = useState([...defaultActivePanels])
+
   return (
     <div ref={ref} className={`accordion__base-container ${className} inline-flex flex-col`}>
       {React.Children.map(children, (child) => {

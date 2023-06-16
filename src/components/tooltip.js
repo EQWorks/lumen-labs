@@ -52,13 +52,16 @@ const Tooltip = ({
   })
 
   const tooltipClasses = Object.freeze({
-    root: `tooltip__root-container tooltip absolute p-2.5 invisible opacity-0 rounded-sm shadow-dark-10 z-20 transition-all duration-500 ${classes.root && classes.root} ${colorType[type].root} ${tooltipPosition[position]}`,
-    arrow: `tooltip__arrow-container tooltip w-2.5 h-2.5 absolute invisible opacity-0 transform rotate-45 z-20 transition-all duration-500 ${classes.arrow} ${arrowStyles[position]} ${colorType[type].root}`,
-    header: `tooltip__header-container header text-xs font-bold tracking-md leading-1.33 capitalize ${(title && description) && 'mb-5px'} ${classes.header && classes.header} ${colorType[type].header}`,
+    root: `tooltip__root-container tooltip ${classes.root && classes.root} absolute p-2.5 invisible opacity-0 rounded-sm
+      shadow-dark-10 z-20 transition-all duration-500  ${colorType[type].root} ${tooltipPosition[position]}`,
+    arrow: `tooltip__arrow-container tooltip ${classes.arrow} w-2.5 h-2.5 absolute invisible opacity-0 transform
+      rotate-45 z-20 transition-all duration-500 ${arrowStyles[position]} ${colorType[type].root}`,
+    header: `tooltip__header-container header ${classes.header && classes.header} text-xs font-bold
+      tracking-md leading-1.33 capitalize ${(title && description) && 'mb-5px'} ${colorType[type].header}`,
     title: `tooltip__title-container title ${classes.title && classes.title}`,
     content: `tooltip__content-container content ${classes.content && classes.content}`,
-    description: `tooltip__description-container description text-xxs font-normal tracking-md leading-1.2 
-      ${classes.description && classes.description} ${colorType[type].description}`,
+    description: `tooltip__description-container description ${classes.description && classes.description}
+      text-xxs font-normal tracking-md leading-1.2 ${colorType[type].description}`,
   })
 
   const tooltipRef = useRef(null)

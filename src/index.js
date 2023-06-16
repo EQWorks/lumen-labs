@@ -44,6 +44,7 @@ export { default as Skeleton } from './components/skeleton'
 export { default as RadioGroup } from './components/radio-group'
 export { default as Radio } from './components/radio'
 export { default as Carousel } from './components/carousel'
+export { default as Tabs } from './components/tabs'
 
 export { makeStyles, LinearAnimation } from './utils/make-styles'
 export { getTailwindConfigColor } from './utils/tailwind-config-color'

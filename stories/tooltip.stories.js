@@ -269,3 +269,24 @@ export const Delay = () => {
     </>
   )
 }
+
+export const CustomStyling = () => {
+  return (
+    <>
+      <p className={labelClass}>Custom Styling</p>
+      <Tooltip
+        title='Tooltip'
+        description='Lorem ipsum dolor sit amet, adipiscing elit. Tincidunt at in quis amet vestibulum aliquet dignissim at nunc.'
+        width='16.875rem'
+        arrow={true}
+        position='right'
+        classes={{
+          root: 'rounded-xl',
+          title: 'font-bold text-xs text-red-500',
+        }}
+      >
+        <Chip>Tooltip</Chip>
+      </Tooltip>
+    </>
+  )
+}

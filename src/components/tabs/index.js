@@ -70,7 +70,7 @@ const Tabs = forwardRef(({
         {React.Children.map(children, (child) => {
           if (
             React.isValidElement(child)
-          && child.type.__docgenInfo.displayName === 'Panel'
+          && (child.type.__docgenInfo.displayName === 'Panel' || child.type.displayName === 'Panel')
           && child.props.id === selected
           ) {
             return React.cloneElement(child)

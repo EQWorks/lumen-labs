@@ -35,7 +35,7 @@ const Accordion = ({
       {React.Children.map(children, (child) => {
         if (
           React.isValidElement(child)
-          && (child.type.__docgenInfo.displayName === 'Panel' || child.type.displayName === 'Panel')
+          && (child.type.__docgenInfo?.displayName === 'Panel' || child.type.displayName === 'Panel')
         ) {
           return React.cloneElement(child, { variant, color: _color })
         }
@@ -43,7 +43,7 @@ const Accordion = ({
       {React.Children.map(children, (child) => {
         if (
           React.isValidElement(child)
-          && (child.type.__docgenInfo.displayName === 'DetailedPanel' || child.type.displayName === 'DetailedPanel')
+          && (child.type.__docgenInfo?.displayName === 'DetailedPanel' || child.type.displayName === 'DetailedPanel')
         ) {
           return React.cloneElement(child)
         }

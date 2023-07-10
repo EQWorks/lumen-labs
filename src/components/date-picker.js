@@ -614,7 +614,7 @@ const DatePicker = ({
 
   const onDayClickSingle = (e, d, multi) => {
     e.stopPropagation()
-    !hideInput && !customTrigger && resetFocus()
+    // !hideInput && !customTrigger && resetFocus()
     const parseDay = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, d)
 
     if (multi) {

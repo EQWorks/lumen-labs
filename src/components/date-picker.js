@@ -262,7 +262,7 @@ const DatePicker = ({
   )
   const [dayCounter, setDayCounter] = useState(0)
 
-  const [inputVal, setInputVal] = useState(defaultSelected ? moment(defaultDate[0]).format('MM/DD/YYYY') : '')
+  const [inputVal, setInputVal] = useState(defaultSelected ? moment(defaultDate[0]).format('MM/DD/YYYY') : null)
   const [rangeVal, setRangeVal] = useState({
     start: defaultSelected ? moment(defaultDate[0]).format('MM/DD/YYYY') : '',
     end: defaultSelected && defaultDate[1] ? moment(defaultDate[1]).format('MM/DD/YYYY') : '',
@@ -300,7 +300,7 @@ const DatePicker = ({
 
   const enforceValue = () => {
     if (variant === 'single') {
-      setInputVal(formatStartDay ? moment(calendarState.selectedStartDay).format('MM/DD/YYYY') : '')
+      setInputVal(formatStartDay ? moment(calendarState.selectedStartDay).format('MM/DD/YYYY') : null)
     } else {
       setRangeVal({
         start: formatStartDay ? moment(calendarState.selectedStartDay).format('MM/DD/YYYY') : '',
@@ -312,7 +312,7 @@ const DatePicker = ({
 
   const cleanInput = () => {
     if (variant === 'single') {
-      setInputVal('')
+      setInputVal(null)
     } else {
       setRangeVal({
         start: '',
@@ -661,7 +661,7 @@ const DatePicker = ({
         })
 
         if (variant === 'single') {
-          setInputVal('')
+          setInputVal(null)
         } else {
           setRangeVal({
             ...rangeVal,

@@ -614,6 +614,9 @@ const DatePicker = ({
 
   const onDayClickSingle = (e, d, multi) => {
     e.stopPropagation()
+    // This line was commented out because it was causing issues with
+    // the NextJS Paymi app. Having an undefined inputValue and
+    // resetting focus on the single variant would throw an error
     // !hideInput && !customTrigger && resetFocus()
     const parseDay = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, d)
 

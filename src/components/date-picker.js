@@ -210,6 +210,7 @@ const DatePicker = ({
   defaultDate = [new Date()],
   minDate = null,
   maxDate = null,
+  startIcon = null,
   label = {
     title: '',
     classes: {
@@ -791,18 +792,18 @@ const DatePicker = ({
     let currMonthDays = []
     for (let d = 1; d <= getDaysInMonth(multi ? dateObjectMulti : dateObject); d++) {
       const parseDay = moment(multi ? getISODateFormat(dateObjectMulti, d) : getISODateFormat(dateObject, d)).format('YYYY-MM-DD')
-      let selectedClass = 'hover:text-interactive-600 hover:border hover:border-interactive-500'
+      let selectedClass = 'hover:text-interactive-600 hover:border hover:border-interactive-500 hover-day__container'
       let selectedRangeClass = 'cursor-pointer'
       let disableDay = false
 
       if (moment(selectedStartDay).format('YYYY-MM-DD') === parseDay ||
         moment(selectedEndDay).format('YYYY-MM-DD') === parseDay
       ) {
-        selectedClass = 'bg-interactive-500 text-interactive-50 rounded-sm font-bold'
+        selectedClass = 'bg-interactive-500 text-interactive-50 rounded-sm font-bold selected-day__container'
       }
       else if (d == getCurrentDay(multi ? dateObjectMulti : dateObject)) {
         if (moment().format('YYYY-MM') === moment(multi ? dateObjectMulti : dateObject).format('YYYY-MM')) {
-          selectedClass = 'border border-secondary-400'
+          selectedClass = 'border border-secondary-400 current-day__container'
         }
       }
 
@@ -1042,14 +1043,24 @@ const DatePicker = ({
           setFocus(true)
         }}
         startIcon={
-          <Calendar
-            className='text-secondary-600'
-            size='md'
-            onClick={(e) => {
-              e.stopPropagation()
-              setFocus(true)
-            }}
-          />
+          startIcon ?
+            React.cloneElement(startIcon, {
+              className: 'text-secondary-600 date-picker__icon-container',
+              size:'lg',
+              onClick: (e) => {
+                e.stopPropagation()
+                setFocus(true)
+              },
+            })
+            :
+            <Calendar
+              className='text-secondary-600'
+              size='md'
+              onClick={(e) => {
+                e.stopPropagation()
+                setFocus(true)
+              }}
+            />
         }
         placeholder='MM/DD/YYYY'
         maxLength='10'
@@ -1224,6 +1235,7 @@ DatePicker.propTypes = {
   onCancel: PropTypes.func,
   onSelectDay: PropTypes.func,
   onDeleteInput: PropTypes.func,
+  startIcon: PropTypes.Element,
   defaultDate: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.instanceOf(Date),

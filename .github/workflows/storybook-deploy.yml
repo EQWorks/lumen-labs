@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.build-publish.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v3
@@ -31,14 +31,18 @@ jobs:
       - run: yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
-          
+      
+      - name: Build Storybook
+        run: |
+          yarn build-storybook --output-dir github-pages
+
       - name: Upload
         uses: actions/upload-pages-artifact@v1.0.8
         with: 
           path: github-pages
   
       - name: Deploy to GitHub Pages
-        id: deploy
+        id: deployment
         uses: actions/deploy-pages@v1
         with:
           token: ${{ github.token }}

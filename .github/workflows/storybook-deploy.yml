@@ -2,8 +2,6 @@ name: Storybook Build & Deploy
 
 on:
   push:
-    tags:
-      - 's*-alpha*' # just added for testing PURPOSES
     branches:
       - main
 

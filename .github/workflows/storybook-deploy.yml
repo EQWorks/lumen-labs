@@ -1,8 +1,9 @@
 name: Storybook Build & Deploy
 
 on:
-  workflow_dispatch: # just added for testing purposes
   push:
+    tags:
+      - 'v*-alpha*' # just added for testing PURPOSES
     branches:
       - main
 

@@ -323,17 +323,17 @@ const DatePicker = ({
     }
   }
 
-  const resetFocus = () => {
-    if (variant === 'single') {
-      inputSingleRef.current.childNodes[2].focus()
-    } else {
-      if (rangeVal.selected === 'end') {
-        inputEndRef.current.childNodes[1].focus()
-      } else {
-        inputStartRef.current.childNodes[1].focus()
-      }
-    }
-  }
+  // const resetFocus = () => {
+  //   if (variant === 'single') {
+  //     inputSingleRef.current.childNodes[2].focus()
+  //   } else {
+  //     if (rangeVal.selected === 'end') {
+  //       inputEndRef.current.childNodes[1].focus()
+  //     } else {
+  //       inputStartRef.current.childNodes[1].focus()
+  //     }
+  //   }
+  // }
 
   if (!componentIsActive && open) {
     enforceValue()
@@ -353,7 +353,10 @@ const DatePicker = ({
 
   const onSelectMonthDropdown = (e, val, multi) => {
     e.stopPropagation()
-    resetFocus()
+    // This line was commented out because it was causing issues with
+    // the NextJS Paymi app. Having an undefined inputValue and
+    // resetting focus on the single variant would throw an error
+    // resetFocus()
     const monthNo = moment().month(val).format('M')
 
     if (multi) {
@@ -405,7 +408,10 @@ const DatePicker = ({
 
   const onSelectYear = (e, val, multi) => {
     e.stopPropagation()
-    resetFocus()
+    // This line was commented out because it was causing issues with
+    // the NextJS Paymi app. Having an undefined inputValue and
+    // resetting focus on the single variant would throw an error
+    // resetFocus()
 
     const { dateObject, dateObjectMulti } = calendarState
     const _dateObjectMulti = moment(dateObjectMulti).set('year', val || getYear(dateObjectMulti))
@@ -475,7 +481,10 @@ const DatePicker = ({
   }
 
   const onPrev = () => {
-    resetFocus()
+    // This line was commented out because it was causing issues with
+    // the NextJS Paymi app. Having an undefined inputValue and
+    // resetting focus on the single variant would throw an error
+    // resetFocus()
 
     setCalendarState({
       ...calendarState,
@@ -484,7 +493,10 @@ const DatePicker = ({
   }
 
   const onNext = () => {
-    resetFocus()
+    // This line was commented out because it was causing issues with
+    // the NextJS Paymi app. Having an undefined inputValue and
+    // resetting focus on the single variant would throw an error
+    // resetFocus()
 
     if (variant === 'multi') {
       setCalendarState({

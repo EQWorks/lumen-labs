@@ -1045,8 +1045,7 @@ const DatePicker = ({
         startIcon={
           startIcon ?
             React.cloneElement(startIcon, {
-              className: 'text-secondary-600 date-picker__icon-container',
-              size:'lg',
+              className: 'date-picker__icon-container',
               onClick: (e) => {
                 e.stopPropagation()
                 setFocus(true)

@@ -48,6 +48,7 @@ const Carousel = forwardRef(({
     nextIconContainer: '',
   },
   variant = 'multi',
+  setPage = 0,
   nextIcon = null,
   prevIcon = null,
   onClickNext = () => {},
@@ -67,8 +68,15 @@ const Carousel = forwardRef(({
     nextIconContainer: `carousel-next-icon__container ${classes.nextIconContainer || ''} self-center`,
   })
 
-  const { moveNext, movePrev, movePagination, isDisabled, currentIndex, slideNumber } = useCarousel(
-    carouselContainerRef, variant, children.length,
+  const {
+    moveNext,
+    movePrev,
+    movePagination,
+    isDisabled,
+    currentIndex,
+    slideNumber,
+  } = useCarousel(
+    carouselContainerRef, variant, children.length, setPage,
   )
 
   const handleOnMoveNext = e => {
@@ -181,6 +189,7 @@ Carousel.propTypes = {
     nextIconContainer: PropTypes.string,
   }),
   variant: PropTypes.oneOf(['single', 'multi']),
+  setPage: PropTypes.number,
   nextIcon: PropTypes.node,
   prevIcon: PropTypes.node,
   onClickNext: PropTypes.func,

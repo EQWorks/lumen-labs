@@ -81,8 +81,8 @@ const getContainerMargin = (element, marginSide) => {
   return Number(getStyle[marginSide].replace(/\D/g, ''))
 }
 
-export const useCarousel = (carouselRef, variant, length) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
+export const useCarousel = (carouselRef, variant, length, setPage) => {
+  const [currentIndex, setCurrentIndex] = useState(setPage || 0)
   const [slideNumber, setSlideNumber] = useState(0)
 
   const movePrev = (_, num = 1) => {

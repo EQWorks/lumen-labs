@@ -14,7 +14,6 @@ const customStyle =  makeStyles({
       scrollbarWidth: 'none',
       scrollSnapType: 'x mandatory',
       scrollBehavior: 'smooth',
-      touchAction: 'pan-x',
     },
 
     '& .carousel-prev-next__container': {
@@ -48,7 +47,7 @@ const Carousel = forwardRef(({
     nextIconContainer: '',
   },
   variant = 'multi',
-  setPage = 0,
+  initialPage = 0,
   nextIcon = null,
   prevIcon = null,
   onClickNext = () => {},
@@ -76,7 +75,7 @@ const Carousel = forwardRef(({
     currentIndex,
     slideNumber,
   } = useCarousel(
-    carouselContainerRef, variant, children.length, setPage,
+    carouselContainerRef, variant, children.length, initialPage,
   )
 
   const handleOnMoveNext = e => {
@@ -189,7 +188,7 @@ Carousel.propTypes = {
     nextIconContainer: PropTypes.string,
   }),
   variant: PropTypes.oneOf(['single', 'multi']),
-  setPage: PropTypes.number,
+  initialPage: PropTypes.number,
   nextIcon: PropTypes.node,
   prevIcon: PropTypes.node,
   onClickNext: PropTypes.func,

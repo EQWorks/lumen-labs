@@ -52,6 +52,7 @@ const Carousel = forwardRef(({
   prevIcon = null,
   onClickNext = () => {},
   onClickPrev = () => {},
+  onClickPagination = () => {},
   ...rest
 }, ref) => {
   const [touchPosition, setTouchPosition] = useState(null)
@@ -81,13 +82,13 @@ const Carousel = forwardRef(({
   const handleOnMoveNext = e => {
     e.stopPropagation()
     moveNext(e, 1)
-    onClickNext(e)
+    onClickNext(e, slideNumber === currentIndex + 1 ? currentIndex : currentIndex + 1)
   }
 
   const handleOnMovePrev = e => {
     e.stopPropagation()
     movePrev(e, 1)
-    onClickPrev(e)
+    onClickPrev(e, currentIndex === 0 ? currentIndex : currentIndex - 1)
   }
 
   const handleTouchStart = (e) => {
@@ -103,6 +104,8 @@ const Carousel = forwardRef(({
     if (num < currentIndex) {
       movePagination(e, num)
     }
+
+    onClickPagination(e, num)
   }
 
   const handleTouchMove = (e) => {
@@ -193,6 +196,7 @@ Carousel.propTypes = {
   prevIcon: PropTypes.node,
   onClickNext: PropTypes.func,
   onClickPrev: PropTypes.func,
+  onClickPagination: PropTypes.func,
 }
 
 Carousel.displayName = 'Carousel'

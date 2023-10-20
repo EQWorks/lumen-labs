@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Card, Carousel, Layout, makeStyles } from '../src'
 
@@ -99,11 +99,14 @@ export const Multi = () => {
   )
 }
 
-export const single = () => {
+export const Single = () => {
   return (
     <div className={customClasses.CarouselContainer}>
       <Carousel
         variant='single'
+        onClickNext={handleOnClickNext}
+        onClickPrev={handleOnClickPrev}
+        onClickPagination={handleOnClickPagination}
       >
         {[...Array(7).keys()].map(i => (
           renderCustom(i)

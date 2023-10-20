@@ -99,7 +99,7 @@ export const Multi = () => {
   )
 }
 
-export const single = () => {
+export const Single = () => {
   return (
     <div className={customClasses.CarouselContainer}>
       <Carousel

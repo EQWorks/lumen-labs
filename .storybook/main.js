@@ -9,7 +9,14 @@ module.exports = {
   'addons': [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-postcss',
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
+      },
+    },
   ],
   webpackFinal: async (config) => {
     config.node = {
@@ -23,6 +30,7 @@ module.exports = {
           loader: 'postcss-loader',
           options: {
             postcssOptions: {
+              implementation: require('postcss'),
               plugins: [require('tailwindcss'), require('autoprefixer')],
             },
           },

@@ -223,6 +223,7 @@ const DatePicker = ({
   customTrigger = null,
   dateFormat = 'MM/DD/YYYY',
   rangeOfYears = 10,
+  fixedRange = false,
   actionButtons = false,
   hideInput = false,
   defaultSelected = false,
@@ -431,49 +432,64 @@ const DatePicker = ({
   }
 
   const renderYearDropdown = (multi) => {
-    const nextTen = moment()
-      .set('year', getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject))
-      .add(rangeOfYears, 'year')
-      .format('Y')
-    const prevTen = moment()
-      .set('year', getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject))
-      .subtract(rangeOfYears, 'year')
-      .format('Y')
-
-    const nextTenYear = getDates(getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject), nextTen).map(data => (data))
-    const prevTenYear = getDates(prevTen, getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)).map(data => (data))
-    prevTenYear.pop()
+    const selectedYear = getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)
     let selectableYears = []
 
-    if (variant === 'multi') {
-      if (multi) {
-        prevTenYear.forEach(data => {
-          if (Number(data) >= Number(getYear(calendarState.dateObject))) {
-            selectableYears.push(data)
-          }
-        })
-        selectableYears = [...selectableYears, ...nextTenYear]
-      } else {
-        nextTenYear.pop()
-        nextTenYear.forEach(data => {
-          if (Number(data) <= Number(getYear(calendarState.dateObjectMulti))) {
-            selectableYears.push(data)
-          }
-        })
-        selectableYears = [...selectableYears.reverse(), ...prevTenYear.reverse()]
-      }
+    if (fixedRange) {
+      const isStart = rangeVal.selected === 'start'
+      const isEnd = rangeVal.selected === 'end'
+      const formatMinDate = minDate && moment(minDate).format('YYYY-MM-DD')
+      const formatMaxDate = maxDate && moment(maxDate).format('YYYY-MM-DD')
+      const minYear = formatMinDate ? moment(formatMinDate).format('Y') : moment().subtract(rangeOfYears, 'year').format('Y')
+      const startYear = calendarState.selectedStartDay && isEnd ? moment(calendarState.selectedStartDay).format('Y') : minYear
+      const maxYear = formatMaxDate ? moment(formatMaxDate).format('Y') : moment().add(rangeOfYears, 'year').format('Y')
+      const endYear = calendarState.selectedEndDay && isStart ? moment(calendarState.selectedEndDay).format('Y') : maxYear
+
+      selectableYears = getDates(startYear, endYear).map(data => (data))
     } else {
-      selectableYears = [...prevTenYear, ...nextTenYear]
+      const nextTen = moment()
+        .set('year', selectedYear)
+        .add(rangeOfYears, 'year')
+        .format('Y')
+      const prevTen = moment()
+        .set('year', selectedYear)
+        .subtract(rangeOfYears, 'year')
+        .format('Y')
+
+      const nextTenYear = getDates(selectedYear, nextTen).map(data => (data))
+      const prevTenYear = getDates(prevTen, selectedYear).map(data => (data))
+      prevTenYear.pop()
+
+      if (variant === 'multi') {
+        if (multi) {
+          prevTenYear.forEach(data => {
+            if (Number(data) >= Number(getYear(calendarState.dateObject))) {
+              selectableYears.push(data)
+            }
+          })
+          selectableYears = [...selectableYears, ...nextTenYear]
+        } else {
+          nextTenYear.pop()
+          nextTenYear.forEach(data => {
+            if (Number(data) <= Number(getYear(calendarState.dateObjectMulti))) {
+              selectableYears.push(data)
+            }
+          })
+          selectableYears = [...selectableYears.reverse(), ...prevTenYear.reverse()]
+        }
+      } else {
+        selectableYears = [...prevTenYear, ...nextTenYear]
+      }
     }
 
     return (
       <DropdownSelect
         classes={dropdownClasses}
         data={selectableYears}
-        value={getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}
+        value={selectedYear}
         onSelect={(e, val) => { onSelectYear(e, val, multi) }}
         endIcon={<ChevronDown className='stroke-current text-secondary-800' size='sm' />}
-        placeholder={getYear(multi ? calendarState.dateObjectMulti : calendarState.dateObject)}
+        placeholder={selectedYear}
         allowClear={false}
         simple
       />
@@ -1264,6 +1280,7 @@ DatePicker.propTypes = {
     PropTypes.instanceOf(null),
   ]),
   rangeOfYears: PropTypes.number,
+  fixedRange: PropTypes.bool,
   customTrigger: PropTypes.node,
   dateFormat: PropTypes.string,
   actionButtons: PropTypes.bool,

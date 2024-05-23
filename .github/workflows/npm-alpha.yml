@@ -5,12 +5,17 @@ on:
     tags:
       - 'v*-alpha*'
 
+permissions:
+  contents: read
+  packages: write
+
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 14.x
           registry-url: https://npm.pkg.github.com/
@@ -23,7 +28,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 14.x
           registry-url: https://registry.npmjs.org/

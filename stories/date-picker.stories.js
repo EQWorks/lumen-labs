@@ -221,3 +221,18 @@ export const Custom = () => {
     </div>
   )
 }
+
+export const FixedRange = () => {
+  return (
+    <div className=''>
+      <DatePicker
+        label={{
+          title: 'Date Picker',
+        }}
+        fixedRange={true}
+        minDate={'2020-01-01'}
+        maxDate={moment()}
+      />
+    </div>
+  )
+}

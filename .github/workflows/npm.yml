@@ -6,16 +6,21 @@ on:
       - 'v*' # proceeds eg: v1.0
       - '!v*-*' # skips eg: v1.2.99-beta1, v3.5.0-test, etc.
 
+permissions:
+  contents: read
+  packages: write
+
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout designated tagged commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 14.x
           registry-url: https://npm.pkg.github.com/
@@ -28,7 +33,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 14.x
           registry-url: https://registry.npmjs.org/

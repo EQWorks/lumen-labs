@@ -156,6 +156,7 @@ const TextField  = ({
   onSubmit = null,
   variant = 'default',
   linkedFields = 0,
+  refocus = false,
   ...rest
 }) => {
   const [filled, setFilled] = useState(false)
@@ -343,6 +344,7 @@ const TextField  = ({
         deleteButton={!disabled && deleteButton}
         required={required}
         maxLength={maxLength}
+        refocus={refocus}
         {...rest}
       />
       {variant !== 'borderless' && renderFooter({ helperText, maxLength, value, textFieldClasses })}
@@ -368,6 +370,7 @@ TextField.propTypes = {
   onSubmit: PropTypes.func,
   variant: PropTypes.string,
   linkedFields: PropTypes.number,
+  refocus: PropTypes.bool,
 }
 
 TextField.Area = Area

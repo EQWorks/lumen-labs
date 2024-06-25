@@ -55,6 +55,7 @@ const DropdownSelect = ({
     type: '',
     dividerContainer: '',
     innerButton: '',
+    noOptionsMessage: '',
   },
   data = [],
   button = null,
@@ -76,6 +77,8 @@ const DropdownSelect = ({
   simple = false,
   preventDeselect = false,
   onOpenClose = () => {},
+  alwaysOpen = false,
+  noOptionsMessage = 'No options',
   ...rest
 }) => {
   const [options, setOptions] = useState([])
@@ -86,7 +89,7 @@ const DropdownSelect = ({
   ), [multiSelect, simple])
   const [selectedOptions, setSelectedOptions] = useState(defaultValue || value || fallbackEmptyValue)
   const [selectLimit, setSelectLimit] = useState(0)
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(alwaysOpen)
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
 
   useEffect(() => {
@@ -120,6 +123,7 @@ const DropdownSelect = ({
     endIcon: 'dropdown-select__end-icon-container ml-2.5 fill-current stroke-current',
     selected: 'dropdown-select__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
     selectedOptionTitle: `dropdown-select__selected-title-container ${classes.selectedOptionTitle ? classes.selectedOptionTitle : 'mr-2.5 text-secondary-800'}`,
+    noOptionsMessage: `dropdown-select__no-options-message-container  text-secondary-600 flex items-center justify-center p-2.5 text-center ${classes.noOptionsMessage}`,
   })
 
   const dropdownClasses = Object.freeze({
@@ -131,29 +135,32 @@ const DropdownSelect = ({
   })
 
   useEffect(() => {
-    let initialOptions = []
-    let length = 0
+    if (!disabled){
+      let initialOptions = []
+      let length = 0
 
-    finalData?.forEach((el) => {
-      el.items.forEach((item) => {
-        initialOptions.push(item)
-        length++
+      finalData?.forEach((el) => {
+        el.items.forEach((item) => {
+          initialOptions.push(item)
+          length++
+        })
       })
-    })
+      setSelectLimit(length)
+      setOptions(initialOptions)
+    }
+  }, [finalData, disabled])
 
-    setSelectLimit(length)
-    setOptions(initialOptions)
-  }, [finalData, limit])
-
-  if (!componentIsActive && open) {
+  if (!alwaysOpen && !componentIsActive && open) {
     setOpen(!open)
     onOpenClose(!open)
   }
 
   const onClickSelect = () => {
     setComponentIsActive((state) => !state)
-    setOpen(!open)
-    onOpenClose(!open)
+    if (!alwaysOpen){
+      setOpen(!open)
+      onOpenClose(!open)
+    }
   }
 
   const renderSelectedOptions = () => {
@@ -300,19 +307,22 @@ const DropdownSelect = ({
       {...rest}
     >
       <ul>
-        {finalData && finalData.map((el, index) => {
-          return (
-            <Menu.Item
-              as="li"
-              key={`list-container-${index}`}
-              className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
-            >
-              {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
-              {renderList(el)}
-              {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
-            </Menu.Item>
-          )
-        })}
+        {!(finalData?.length > 0 && finalData[0]?.items?.length) ?
+          <div className={`no-options-message ${dropdownSelectClasses.noOptionsMessage}`}>
+            {noOptionsMessage}
+          </div> : finalData.map((el, index) => {
+            return (
+              <Menu.Item
+                as="li"
+                key={`list-container-${index}`}
+                className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
+              >
+                {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
+                {renderList(el)}
+                {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
+              </Menu.Item>
+            )
+          })}
       </ul>
     </DropdownBase>
   )
@@ -371,6 +381,8 @@ DropdownSelect.propTypes = {
   simple: PropTypes.bool,
   preventDeselect: PropTypes.bool,
   onOpenClose: PropTypes.func,
+  alwaysOpen: PropTypes.bool,
+  noOptionsMessage: PropTypes.string,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

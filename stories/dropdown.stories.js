@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
 import { DropdownBase } from '../src/base-components'
-import { DropdownSelect, DropdownSelectSteps, DropdownAutoComplete, DropdownAutoCenter, Button } from '../src'
+import {
+  DropdownSelect,
+  DropdownSelectSteps,
+  DropdownAutoComplete,
+  DropdownAutoCenter,
+  DropdownMultiSearch,
+  Button,
+} from '../src'
 
 import { ArrowDown, Search, ArrowUpDown } from '../src/icons'
 import {
@@ -15,6 +22,7 @@ import {
   sampleDataSteps,
   sampleDataLinked,
   sampleDataSubLinked,
+  categoriesData,
 } from './data/dropdown-data'
 
 
@@ -596,6 +604,40 @@ export const Disabled = () => {
           disabled
         />
       </div>
+    </div>
+  )
+}
+
+export const DropdownMultiSearchSelection = () => {
+  const filter = {
+    label: 'categories',
+    multiSelect: true,
+    options: categoriesData,
+    searchable: true,
+  }
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    // mimic API call
+    const timer = setTimeout(() => {
+      setData(filter.options)
+    }, 3000)
+
+    // Cleanup timeout on unmount
+    return () => clearTimeout(timer)
+  }, [filter.options])
+
+  return (
+    <div className='flex gap-3'>
+      <DropdownMultiSearch
+        data={data}
+        disabled={!data.length} />
+      <DropdownMultiSearch
+        data={data}
+        disabled={!data.length} />
+      <DropdownMultiSearch
+        data={data}
+        disabled={!data.length} />
     </div>
   )
 }

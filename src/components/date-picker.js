@@ -532,8 +532,7 @@ const DatePicker = ({
 
     const { selectedStartDay } = calendarState
     const parseDay = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, d)
-    let _start = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, moment(rangeVal.start, 'MM/DD/YYYY').format('DD'))
-    let _end = getISODateFormat(multi ? calendarState.dateObjectMulti : calendarState.dateObject, moment(rangeVal.end, 'MM/DD/YYYY').format('DD'))
+    let _rangeVal = rangeVal
 
     if (!customTrigger && !hideInput) {
       if (rangeVal.selected === 'start') {
@@ -547,14 +546,13 @@ const DatePicker = ({
         } else {
           inputStartRef.current.childNodes[1].focus()
         }
-
-        setRangeVal({
+        _rangeVal = {
           ...rangeVal,
           start: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatEndDay ? rangeVal.selected : 'end',
-        })
+        }
 
-        _start = parseDay
+        setRangeVal(_rangeVal)
       } else if (rangeVal.selected === 'end') {
         setCalendarState({
           ...calendarState,
@@ -566,14 +564,13 @@ const DatePicker = ({
         } else {
           inputEndRef.current.childNodes[1].focus()
         }
-
-        setRangeVal({
+        _rangeVal = {
           ...rangeVal,
           end: moment(parseDay).format('MM/DD/YYYY'),
           selected: formatStartDay ? rangeVal.selected : 'start',
-        })
+        }
 
-        _end = parseDay
+        setRangeVal(_rangeVal)
       }
     } else {
       if (formatStartDay > d) {
@@ -582,14 +579,12 @@ const DatePicker = ({
           selectedStartDay: parseDay,
           selectedEndDay: selectedStartDay,
         })
-
-        setRangeVal({
+        _rangeVal = {
           start: moment(parseDay).format('MM/DD/YYYY'),
           end: moment(selectedStartDay).format('MM/DD/YYYY'),
-        })
+        }
 
-        _start = parseDay
-        _end = moment(selectedStartDay).format('MM/DD/YYYY')
+        setRangeVal(_rangeVal)
       }
       else if (formatStartDay == d || formatEndDay == d) {
         setCalendarState({
@@ -597,48 +592,40 @@ const DatePicker = ({
           selectedStartDay: null,
           selectedEndDay:  null,
         })
-
-        setRangeVal({
+        _rangeVal = {
           start: '',
           end: '',
-        })
+        }
 
-        _start = '',
-        _end = ''
+        setRangeVal(_rangeVal)
       }
       else if (selectedStartDay) {
         setCalendarState({
           ...calendarState,
           selectedEndDay: parseDay,
         })
-
-        setRangeVal({
+        _rangeVal = {
           ...rangeVal,
           end: moment(parseDay).format('MM/DD/YYYY'),
-        })
+        }
 
-        _end = parseDay
+        setRangeVal(_rangeVal)
       }
       else {
         setCalendarState({
           ...calendarState,
           selectedStartDay: parseDay,
         })
-
-        setRangeVal({
+        _rangeVal = {
           ...rangeVal,
           start: moment(parseDay).format('MM/DD/YYYY'),
-        })
+        }
 
-        _start = parseDay
+        setRangeVal(_rangeVal)
       }
     }
 
-    onSelectDay(e, {
-      start: getDayFormat(_start, dateFormat),
-      end: getDayFormat(_end, dateFormat),
-      selected: getDayFormat(parseDay, dateFormat),
-    })
+    onSelectDay(e, _rangeVal)
   }
 
   const onDayClickSingle = (e, d, multi) => {

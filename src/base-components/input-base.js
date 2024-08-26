@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useRef } from 'react'
+import React, { useState, forwardRef, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { Delete } from '../icons'
@@ -21,6 +21,7 @@ const InputBase = forwardRef(({
   size = 'md',
   required = false,
   disabled = false,
+  refocus = false,
   ...rest
 }, ref) => {
   const baseClasses = Object.freeze({
@@ -62,6 +63,14 @@ const InputBase = forwardRef(({
     inputRef.current.focus()
     onDelete(e)
     onChange(e)
+  }
+
+  useEffect(() => {
+    _setPlaceholder(placeholder)
+  }, [placeholder])
+
+  if (refocus) {
+    inputRef.current.focus()
   }
 
   return (
@@ -109,6 +118,7 @@ InputBase.propTypes = {
   size: PropTypes.string,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
+  refocus: PropTypes.bool,
 }
 
 InputBase.displayName = 'InputBase'

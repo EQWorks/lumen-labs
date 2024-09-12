@@ -107,7 +107,6 @@ const Button = ({
   }
 
   const handleClick = e => {
-    e.stopPropagation()
     if (typeof rest?.onClick === 'function') {
       rest.onClick(e)
     }

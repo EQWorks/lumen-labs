@@ -38,10 +38,12 @@ const NavbarItem = forwardRef(({
       {...rest}
     >
       <div className={NavbarItemClasses.contentContainer}>
-        <div className={`${isSelected ? NavbarItemClasses.iconActive : NavbarItemClasses.icon}`}>
-          {React.cloneElement(icon, { ...icon.props })}
-        </div>
-        <div className={`${isSelected ? NavbarItemClasses.textActive : NavbarItemClasses.text}`}>{label}</div>
+        {icon &&
+          <div className={`${isSelected ? NavbarItemClasses.iconActive : NavbarItemClasses.icon}`}>
+            {React.cloneElement(icon, { ...icon.props })}
+          </div>
+        }
+        {label && <div className={`${isSelected ? NavbarItemClasses.textActive : NavbarItemClasses.text}`}>{label}</div>}
       </div>
     </div>
   )

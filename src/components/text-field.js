@@ -110,7 +110,7 @@ const _borderlessClasses = ({ root, input, isEdited, error, focus, disabled }) =
 
 const renderLabel = ({ label, required, textFieldClasses }) => (
   <div className='textfield__label-container flex flex-row'>
-    {label && <p className={textFieldClasses.label}>{label}</p>}
+    {label && <label className={textFieldClasses.label}>{label}</label>}
     {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
   </div>
 )

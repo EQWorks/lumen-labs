@@ -7,10 +7,10 @@ import { useCarousel } from '../../hooks/carousel'
 import { ChevronLeft, ChevronRight } from '../../icons'
 
 
-const customStyle =  makeStyles({
+const styles = (isPagination) => makeStyles({
   root: {
     '& .carousel__main-container': {
-      overflow: 'hidden',
+      overflowX: isPagination ? 'hidden' : 'scroll',
       scrollbarWidth: 'none',
       scrollSnapType: 'x mandatory',
       scrollBehavior: 'smooth',
@@ -32,6 +32,14 @@ const customStyle =  makeStyles({
         },
       },
     },
+
+    '& .carousel-scroll-progress__container': {
+      '& .carousel-scroll-progress__content-container': {
+        '& .carousel-scroll-progress-bar': {
+          transition: 'width 1s',
+        },
+      },
+    },
   },
 })
 
@@ -45,8 +53,12 @@ const Carousel = forwardRef(({
     paginationItem: '',
     prevIconContainer: '',
     nextIconContainer: '',
+    scrollProgressContainer: '',
+    scrollProgressContentContainer: '',
+    scrollProgressBar: '',
   },
   variant = 'multi',
+  isPagination = true,
   initialPage = 0,
   nextIcon = null,
   prevIcon = null,
@@ -55,18 +67,11 @@ const Carousel = forwardRef(({
   onClickPagination = () => {},
   ...rest
 }, ref) => {
-  const [touchPosition, setTouchPosition] = useState(null)
   const carouselContainerRef = useRef(null)
-
-  const carouselClasses = Object.freeze({
-    root: `carousel__root ${classes.root || ''} w-full inline-flex flex-col overflow-hidden ${customStyle.root}`,
-    mainContainer: `carousel__main-container ${classes.mainContainer || ''} flex z-0`,
-    prevNextContainer: `carousel-prev-next__container ${classes.prevNextContainer || ''} flex`,
-    paginationContainer: `carousel-pagination__container ${classes.paginationContainer || ''} flex`,
-    paginationItem: `carousel-pagination-item__container ${classes.paginationItem || ''} w-5 text-center`,
-    prevIconContainer: `carousel-prev-icon__container ${classes.prevIconContainer || ''} self-center`,
-    nextIconContainer: `carousel-next-icon__container ${classes.nextIconContainer || ''} self-center`,
-  })
+  const [touchPosition, setTouchPosition] = useState(null)
+  const [isMouseDown, setIsMouseDown] = useState(false)
+  const [startX, setStartX] = useState(null)
+  const [scrollLeft, setScrollLeft] = useState(null)
 
   const {
     moveNext,
@@ -75,9 +80,24 @@ const Carousel = forwardRef(({
     isDisabled,
     currentIndex,
     slideNumber,
+    scrollProgressWidth,
   } = useCarousel(
     carouselContainerRef, variant, children.length, initialPage,
   )
+
+  const customStyle = styles(isPagination)
+  const carouselClasses = Object.freeze({
+    root: `carousel__root ${classes.root || ''} w-full inline-flex flex-col overflow-hidden ${customStyle.root}`,
+    mainContainer: `carousel__main-container ${classes.mainContainer || ''} flex z-0`,
+    prevNextContainer: `carousel-prev-next__container ${classes.prevNextContainer || ''} flex`,
+    paginationContainer: `carousel-pagination__container ${classes.paginationContainer || ''} flex`,
+    paginationItem: `carousel-pagination-item__container ${classes.paginationItem || ''} w-5 text-center`,
+    prevIconContainer: `carousel-prev-icon__container ${classes.prevIconContainer || ''} self-center`,
+    nextIconContainer: `carousel-next-icon__container ${classes.nextIconContainer || ''} self-center`,
+    scrollProgressContainer: `carousel-scroll-progress__container ${classes.scrollProgressContainer || ''} mt-4 pr-4 pl-4 w-full`,
+    scrollProgressContentContainer: `carousel-scroll-progress__content-container ${classes.scrollProgressContentContainer || ''} w-full bg-red-200`,
+    scrollProgressBar: `carousel-scroll-progress-bar ${classes.scrollProgressBar || ''} h-2 bg-red-500 overflow-hidden`,
+  })
 
   const handleOnMoveNext = e => {
     e.stopPropagation()
@@ -94,6 +114,33 @@ const Carousel = forwardRef(({
   const handleTouchStart = (e) => {
     const touchDown = e.touches[0].clientX
     setTouchPosition(touchDown)
+  }
+
+  const handleMouseDown = (e) => {
+    if (carouselContainerRef.current) {
+      setStartX(e.pageX - - carouselContainerRef?.current?.offsetLeft)
+      setScrollLeft(carouselContainerRef?.current?.scrollLeft)
+      setIsMouseDown(true)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setIsMouseDown(false)
+  }
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false)
+  }
+
+  const handleMouseMove = (e) => {
+    if (!isMouseDown) return
+    e.preventDefault()
+
+    if (carouselContainerRef.current) {
+      const x = e.pageX - carouselContainerRef?.current?.offsetLeft
+      const speed = (x - startX)*1
+      carouselContainerRef.current.scrollLeft = scrollLeft - speed
+    }
   }
 
   const handlePaginationOnClick = (e, num) => {
@@ -140,22 +187,22 @@ const Carousel = forwardRef(({
     return rc
   }
 
-  return (
-    <div
-      ref={ref}
-      className={carouselClasses.root}
-      {...rest}
-    >
-      <div
-        ref={carouselContainerRef}
-        className={carouselClasses.mainContainer}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-      >
-        {React.Children.map(children, (child, index) => (
-          renderCarouselItems(child, index)
-        ))}
-      </div>
+  const renderCarouselFooter = () => {
+    if (variant === 'multi' && isPagination === false) {
+      return (
+        <div
+          className={carouselClasses.scrollProgressContainer}
+        >
+          <div
+            className={carouselClasses.scrollProgressContentContainer}
+          >
+            <div className={carouselClasses.scrollProgressBar} style={{ width: scrollProgressWidth }}></div>
+          </div>
+        </div>
+      )
+    }
+
+    return (
       <div className={carouselClasses.prevNextContainer}>
         <div className={`${carouselClasses.prevIconContainer} ${isDisabled('prev') ? '--disabled' : '--active'}`} onClick={handleOnMovePrev}>
           {prevIcon ? prevIcon : <ChevronLeft size='lg'/>}
@@ -175,6 +222,30 @@ const Carousel = forwardRef(({
           {nextIcon ? nextIcon : <ChevronRight size='lg'/>}
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div
+      ref={ref}
+      className={carouselClasses.root}
+      {...rest}
+    >
+      <div
+        ref={carouselContainerRef}
+        className={carouselClasses.mainContainer}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+      >
+        {React.Children.map(children, (child, index) => (
+          renderCarouselItems(child, index)
+        ))}
+      </div>
+      {renderCarouselFooter()}
     </div>
   )
 })
@@ -189,8 +260,12 @@ Carousel.propTypes = {
     paginationItem: PropTypes.string,
     prevIconContainer: PropTypes.string,
     nextIconContainer: PropTypes.string,
+    scrollProgressContainer: PropTypes.string,
+    scrollProgressContentContainer: PropTypes.string,
+    scrollProgressBar: PropTypes.string,
   }),
   variant: PropTypes.oneOf(['single', 'multi']),
+  isPagination: PropTypes.boolean,
   initialPage: PropTypes.number,
   nextIcon: PropTypes.node,
   prevIcon: PropTypes.node,

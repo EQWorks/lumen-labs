@@ -84,6 +84,9 @@ const getContainerMargin = (element, marginSide) => {
 export const useCarousel = (carouselRef, variant, length, initialPage) => {
   const [currentIndex, setCurrentIndex] = useState(initialPage || 0)
   const [slideNumber, setSlideNumber] = useState(0)
+  const [x, setX] = useState(carouselRef?.current?.scrollLeft || 0)
+  const [totalX, setTotalX] = useState(carouselRef?.current?.scrollWidth || 0)
+  const [scrollBar, setScrollBar] = useState(carouselRef?.current?.clientWidth || 0)
 
   const movePrev = (_, num = 1) => {
     if (carouselRef.current !== null && currentIndex > 0) {
@@ -152,5 +155,21 @@ export const useCarousel = (carouselRef, variant, length, initialPage) => {
     }
   }, [currentIndex, carouselRef, length, setSlideNumber])
 
-  return { moveNext, movePrev, movePagination, isDisabled, currentIndex, slideNumber }
+  useEffect(() => {
+    if (carouselRef !== null && carouselRef?.current !== null) {
+      carouselRef.current.addEventListener('scroll', () => setX(carouselRef?.current?.scrollLeft))
+      setTotalX(carouselRef?.current?.scrollWidth)
+      setScrollBar(carouselRef?.current?.clientWidth)
+    }
+  }, [carouselRef, x])
+
+  return {
+    moveNext,
+    movePrev,
+    movePagination,
+    isDisabled,
+    currentIndex,
+    slideNumber,
+    scrollProgressWidth: `${((x + scrollBar) / totalX) * 100}%`,
+  }
 }

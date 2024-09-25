@@ -91,7 +91,19 @@ export const Multi = () => {
   return (
     <div className={customClasses.CarouselContainer}>
       <Carousel>
-        {[...Array(7).keys()].map(i => (
+        {[...Array(10).keys()].map(i => (
+          renderCustom(i)
+        ))}
+      </Carousel>
+    </div>
+  )
+}
+
+export const MultiScroll = () => {
+  return (
+    <div className={customClasses.CarouselContainer}>
+      <Carousel isPagination={false}>
+        {[...Array(10).keys()].map(i => (
           renderCustom(i)
         ))}
       </Carousel>

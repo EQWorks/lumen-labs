@@ -118,7 +118,7 @@ const Carousel = forwardRef(({
 
   const handleMouseDown = (e) => {
     if (carouselContainerRef.current) {
-      setStartX(e.pageX - - carouselContainerRef?.current?.offsetLeft)
+      setStartX(e.pageX - - (carouselContainerRef?.current?.offsetLeft > 100 ? 100 : carouselContainerRef?.current?.offsetLeft))
       setScrollLeft(carouselContainerRef?.current?.scrollLeft)
       setIsMouseDown(true)
     }
@@ -137,7 +137,7 @@ const Carousel = forwardRef(({
     e.preventDefault()
 
     if (carouselContainerRef.current) {
-      const x = e.pageX - carouselContainerRef?.current?.offsetLeft
+      const x = e.pageX - (carouselContainerRef?.current?.offsetLeft > 100 ? 100 : carouselContainerRef?.current?.offsetLeft)
       const speed = (x - startX)*1
       carouselContainerRef.current.scrollLeft = scrollLeft - speed
     }

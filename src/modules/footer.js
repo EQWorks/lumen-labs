@@ -5,7 +5,6 @@ import { makeStyles } from '../utils/make-styles'
 
 
 const styles = makeStyles({
-  root: { minHeight: '455px' },
   content: { padding: '80px 150px 80px 150px' },
   logo: { width: '145px', height: '80px' },
   infoContainer: { width: '500px' },
@@ -93,7 +92,7 @@ const Footer = ({
   })
 
   return (
-    <div className={`${footerClasses.root} ${styles.root}`}>
+    <div className={`${footerClasses.root}`}>
       <div className={`${footerClasses.content} ${styles.content}`}>
         <div className={`${footerClasses.info} ${styles.infoContainer}`}>
           <div className={`${footerClasses.logo} ${styles.logo}`}>{logo}</div>

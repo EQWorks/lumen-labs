@@ -34,6 +34,7 @@ const _modalSize = (size) => {
 
 const Modal = forwardRef(({
   classes = {
+    parentRoot: '',
     root: '',
     main: '',
     overlay: '',
@@ -52,6 +53,7 @@ const Modal = forwardRef(({
   })
 
   const modalBaseClasses = Object.freeze({
+    parentRoot: `modal__parent-root-container ${classes.parentRoot}`,
     root: `modal__root-container ${classes.root} px-10 py-5`,
     main: `modal__main-container ${classes.main}`,
     overlay: `modal__overlay-container ${classes.overlay} bg-secondary-700 opacity-70`,

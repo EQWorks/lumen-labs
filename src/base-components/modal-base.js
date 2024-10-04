@@ -4,13 +4,14 @@ import { Dialog } from '@headlessui/react'
 
 
 const ModalBase = forwardRef(({
-  classes = { root: '', main: '', overlay: '' },
+  classes = { parentRoot: '', root: '', main: '', overlay: '' },
   children,
   open = false,
   closeModal = () => {},
   ...rest
 }, ref) => {
   const modalClasses = Object.freeze({
+    parentRoot: `${classes.parentRoot} fixed inset-0 z-10 overflow-y-auto`,
     root: `${classes.root} min-h-screen flex justify-center items-center`,
     main: `${classes.main} flex justify-center items-center transition-all transform`,
     overlay: `${classes.overlay} fixed inset-0`,
@@ -20,7 +21,7 @@ const ModalBase = forwardRef(({
     <Dialog
       ref={ref}
       as="div"
-      className='fixed inset-0 z-10 overflow-y-auto'
+      className={modalClasses.parentRoot}
       open={open}
       onClose={closeModal}
       {...rest}

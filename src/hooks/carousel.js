@@ -151,9 +151,9 @@ export const useCarousel = (carouselRef, variant, length, initialPage) => {
       carouselRef.current.scrollLeft =
         (carouselRef.current.offsetWidth - calcOffsetWidth) * currentIndex
 
-      setSlideNumber(Math.ceil((carouselRef.current.childNodes[0].clientWidth * length) / (carouselRef.current.offsetWidth - calcOffsetWidth)))
+      setSlideNumber(variant === 'single' ? length : Math.ceil((carouselRef.current.childNodes[0].clientWidth * length) / (carouselRef.current.offsetWidth - calcOffsetWidth)))
     }
-  }, [currentIndex, carouselRef, length, setSlideNumber])
+  }, [currentIndex, carouselRef, length, setSlideNumber, variant])
 
   useEffect(() => {
     if (carouselRef !== null && carouselRef?.current !== null) {

@@ -188,6 +188,8 @@ const Carousel = forwardRef(({
   }
 
   const renderCarouselFooter = () => {
+    const length = Number.isInteger(slideNumber) ? slideNumber : children.length
+
     if (variant === 'multi' && isPagination === false) {
       return (
         <div
@@ -208,7 +210,7 @@ const Carousel = forwardRef(({
           {prevIcon ? prevIcon : <ChevronLeft size='lg'/>}
         </div>
         <div className={carouselClasses.paginationContainer}>
-          {[...Array(slideNumber).keys()].map((i) => (
+          {[...Array(length).keys()].map((i) => (
             <div
               key={`pagination-item-${i}`}
               className={`${carouselClasses.paginationItem} ${i === currentIndex ? '--selected' : 'cursor-pointer'}`}

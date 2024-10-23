@@ -30,6 +30,7 @@ const DropdownMultiSearch = ({
   disabled = false,
   onOpenClose = () => {},
   noOptionsMessage = '',
+  clearSearch = true,
   ...rest
 }) => {
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
@@ -108,7 +109,7 @@ const DropdownMultiSearch = ({
     onSelect(selected)
     setSelectedFilters(selected)
     setFilteredOptions(data)
-    setSearchTerm('')
+    clearSearch && setSearchTerm('')
   }
 
   useEffect(() => {
@@ -189,6 +190,7 @@ DropdownMultiSearch.propTypes = {
   overflow: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
   noOptionsMessage: PropTypes.string,
+  clearSearch: PropTypes.bool,
 }
 
 DropdownMultiSearch.displayName = 'DropdownMultiSearch'

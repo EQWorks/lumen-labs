@@ -108,8 +108,10 @@ const DropdownMultiSearch = ({
   const handleOnSelect = (_, selected) => {
     onSelect(selected)
     setSelectedFilters(selected)
-    setFilteredOptions(data)
-    clearSearch && setSearchTerm('')
+    if (clearSearch) {
+      setFilteredOptions(data)
+      setSearchTerm('')
+    }
   }
 
   useEffect(() => {

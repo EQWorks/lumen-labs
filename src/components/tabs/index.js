@@ -48,6 +48,12 @@ const Tabs = forwardRef(({
 
   const handleClick = (id) => setSelected(id)
 
+  const handleKeyDown = (event, id) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      handleClick(id)
+    }
+  }
+
   return (
     <div className={`${tabsClasses.root}`} {...props}>
       <div className={tabsClasses.header}>
@@ -57,8 +63,11 @@ const Tabs = forwardRef(({
             return (
               <div
                 ref={ref}
+                tabIndex={0}
                 onClick={() => handleClick(child.props.id)}
+                onKeyDown={(event) => handleKeyDown(event, child.props.id)}
                 className={`${tabsClasses.headerText} ${selected === child.props.id && tabsClasses.selectedTab} ${headerStyles.header}`}
+                aria-selected={selected === child.props.id}
               >
                 {child.props.id}
               </div>
@@ -66,7 +75,7 @@ const Tabs = forwardRef(({
           }
         })}
       </div>
-      <div className={`${tabsClasses.panel}`}>
+      <div className={`${tabsClasses.panel}`} tabIndex={0}>
         {React.Children.map(children, (child) => {
           if (
             React.isValidElement(child)

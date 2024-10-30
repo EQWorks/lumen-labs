@@ -83,7 +83,7 @@ const DetailedPanel = forwardRef(({
         tabIndex={open.includes(id) ? 0 : -1}
         className={clsx(detailedPanelClasses.details, {
           ['max-h-full opacity-100']: open.includes(id),
-          ['max-h-0 opacity-0 overflow-hidden']: !open.includes(id),
+          ['max-h-0 opacity-0 overflow-hidden hidden']: !open.includes(id),
         })}>
         {children}
       </div>

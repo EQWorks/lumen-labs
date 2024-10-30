@@ -97,6 +97,23 @@ const Radio = forwardRef(({
     radioLabel,
   } = classes
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      handleChange(e)
+    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      moveFocus(1) // Move to the next radio
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      moveFocus(-1) // Move to the previous radio
+    }
+  }
+
+  const moveFocus = (direction) => {
+    const radios = Array.from(document.querySelectorAll(`input[name="${name}"]`))
+    const currentIndex = radios.findIndex((radio) => radio.checked)
+    let newIndex = (currentIndex + direction + radios.length) % radios.length
+    radios[newIndex].focus()
+  }
+
   return (
     <div
       ref={ref}
@@ -109,6 +126,7 @@ const Radio = forwardRef(({
         disabled={disabled}
         className={`radio__input ${radioInput || ''} ${customClasses.radioInput} ${radioClasses.input} `}
         onChange={e => handleChange(e)}
+        onKeyDown={(e) => handleKeyDown(e)}
         checked={selected === value}
         {...rest}
       />

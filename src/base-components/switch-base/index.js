@@ -29,6 +29,12 @@ const SwitchBase = forwardRef(({
     disabled: 'cursor-not-allowed',
   })
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onChange(e)
+    }
+  }
+
   return (
     <div className={`switch-root ${switchClasses.root}`}>
       <input
@@ -46,6 +52,8 @@ const SwitchBase = forwardRef(({
         className={`switch-container ${switchClasses.container} ${disabled && switchClasses.disabled}`}
         htmlFor={`switch-checkbox-${id}`}
         tabIndex={disabled ? -1 : 1}
+        onKeyDown={(e) => !disabled && handleKeyDown(e)}
+        aria-checked={checked}
       >
         {children ?
           children

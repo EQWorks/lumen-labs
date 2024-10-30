@@ -50,6 +50,12 @@ const DetailedPanel = forwardRef(({
     return [...prev, id]
   })
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      handleClick()
+    }
+  }
+
   const [headerHeight, setHeaderHeight] = useState()
   const headerRef = useCallback((node) => setHeaderHeight(node?.getBoundingClientRect().height), [])
   const { height: detailsHeight, ref: detailsRef } = useResizeDetector()
@@ -62,8 +68,10 @@ const DetailedPanel = forwardRef(({
       className={detailedPanelClasses.detailedRoot}
     >
       <div
+        tabIndex={0}
         ref={headerRef}
         onClick={handleClick}
+        onKeyDown={(e) => handleKeyDown(e)}
         className={detailedPanelClasses.detailedInfo}
       >
         {header}
@@ -71,6 +79,8 @@ const DetailedPanel = forwardRef(({
       </div>
       <div
         ref={detailsRef}
+        aria-hidden={!open.includes(id)}
+        tabIndex={open.includes(id) ? 0 : -1}
         className={clsx(detailedPanelClasses.details, {
           ['max-h-full opacity-100']: open.includes(id),
           ['max-h-0 opacity-0 overflow-hidden']: !open.includes(id),

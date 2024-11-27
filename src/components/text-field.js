@@ -108,9 +108,9 @@ const _borderlessClasses = ({ root, input, isEdited, error, focus, disabled }) =
   }),
 })
 
-const renderLabel = ({ label, required, textFieldClasses }) => (
+const renderLabel = ({ label, required, textFieldClasses, id }) => (
   <div className='textfield__label-container flex flex-row'>
-    {label && <label className={textFieldClasses.label}>{label}</label>}
+    {label && <label className={textFieldClasses.label} htmlFor={id}>{label}</label>}
     {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
   </div>
 )
@@ -157,6 +157,7 @@ const TextField  = ({
   variant = 'default',
   linkedFields = 0,
   refocus = false,
+  id='',
   ...rest
 }) => {
   const [filled, setFilled] = useState(false)
@@ -166,7 +167,7 @@ const TextField  = ({
   const [linkedValues, setLinkedValues] = useState(new Array(linkedFields).fill(''))
   const [linkedIncompleteError, setLinkedIncompleteError] = useState(false)
 
-  const inputID = counter()
+  const inputID = counter(id)
   const { root = '', input = '', container = '' } = classes
   const inputSize = _inputSize({ size, variant })
   const textFieldClasses = _textFieldClasses({ container, inputSize, success, error: error || linkedIncompleteError, linkedFields })
@@ -291,7 +292,7 @@ const TextField  = ({
   if (variant === 'linked') {
     return (
       <div className={textFieldClasses.container.linked.outer}>
-        {label && renderLabel({ label, required, textFieldClasses })}
+        {label && renderLabel({ label, required, textFieldClasses, inputID })}
         <div className={textFieldClasses.container.linked.inner}>
           {linkedValues.map((val, i) => {
             return (
@@ -331,9 +332,10 @@ const TextField  = ({
         }
       }}
     >
-      {variant !== 'borderless' && label && renderLabel({ label, required, textFieldClasses })}
+      {variant !== 'borderless' && label && renderLabel({ label, required, textFieldClasses, id })}
       <InputBase
         {...inputProps}
+        id={id}
         classes={generateVariants({})[variant]}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -371,6 +373,7 @@ TextField.propTypes = {
   variant: PropTypes.string,
   linkedFields: PropTypes.number,
   refocus: PropTypes.bool,
+  id: PropTypes.string,
 }
 
 TextField.Area = Area

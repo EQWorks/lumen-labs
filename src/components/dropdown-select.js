@@ -319,7 +319,7 @@ const DropdownSelect = ({
               >
                 {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
                 {renderList(el)}
-                {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
+                {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`} onClick={el.divider.onClick}>{renderListItem(el.divider)}</div>}
               </Menu.Item>
             )
           })}

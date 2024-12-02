@@ -117,7 +117,7 @@ const DropdownSelect = ({
     contentHeader: `dropdown-select__content-header w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
     type: `dropdown-select__type-container px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
     description: `dropdown-select__description-container pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
-    dividerContainer: `dropdown-select__divider-container px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
+    dividerContainer: `dropdown-select__divider-container px-2.5 flex flex-row items-center font-bold text-secondary-600 border-b border-secondary-300 cursor-pointer 
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
     startIcon: 'dropdown-select__start-icon-container mr-2.5 fill-current stroke-current',
     endIcon: 'dropdown-select__end-icon-container ml-2.5 fill-current stroke-current',
@@ -318,8 +318,8 @@ const DropdownSelect = ({
                 className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
               >
                 {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
-                {renderList(el)}
                 {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`} onClick={el.divider.onClick}>{renderListItem(el.divider)}</div>}
+                {renderList(el)}
               </Menu.Item>
             )
           })}
@@ -351,6 +351,7 @@ DropdownSelect.propTypes = {
           title: PropTypes.string,
           startIcon: PropTypes.node,
           endIcon: PropTypes.node,
+          onClcik: PropTypes.func,
         }),
       }),
     ),

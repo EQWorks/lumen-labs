@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { DropdownSelect, TextField, makeStyles } from '..'
 import { useComponentIsActive } from '../hooks'
+import { Delete } from '../icons'
 
 
 const DropdownMultiSearch = ({
@@ -31,6 +32,7 @@ const DropdownMultiSearch = ({
   onOpenClose = () => {},
   noOptionsMessage = '',
   clearSearch = true,
+  deleteButton = true,
   ...rest
 }) => {
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
@@ -46,6 +48,10 @@ const DropdownMultiSearch = ({
   const styles = makeStyles({
     root: {
       position: 'relative',
+      heigh: '100%',
+      display: 'flex',
+      alignItems: 'center',
+
       '.dropdown-multi-search-textfield-root': {
         height: '2.35rem',
       },
@@ -114,9 +120,19 @@ const DropdownMultiSearch = ({
     }
   }
 
+  const handleDelete = () => {
+    setSelectedFilters([])
+  }
+
   useEffect(() => {
     setFilteredOptions(data)
   }, [data])
+
+  useEffect(() => {
+    if (value.length > 0) {
+      setSelectedFilters(value)
+    }
+  }, [value])
 
   if (!componentIsActive && openMenu) {
     setOpenMnu(false)
@@ -159,13 +175,18 @@ const DropdownMultiSearch = ({
         limit={data?.length}
         size={size}
         defaultValue={defaultValue}
-        value={value}
+        value={selectedFilters}
         onDelete={onDelete}
         startIcon={startIcon}
         endIcon={endIcon}
         onOpenClose={onOpenClose}
         {...rest}
       />
+      {deleteButton && selectedFilters.length > 0 &&
+        <div className={classes.endIcon} onMouseDown={handleDelete}>
+          <Delete className='ml-2 fill-current text-secondary-600 cursor-pointer' size={size}/>
+        </div>
+      }
     </div>
   )
 }
@@ -193,6 +214,7 @@ DropdownMultiSearch.propTypes = {
   disabled: PropTypes.bool,
   noOptionsMessage: PropTypes.string,
   clearSearch: PropTypes.bool,
+  deleteButton: PropTypes.bool,
 }
 
 DropdownMultiSearch.displayName = 'DropdownMultiSearch'

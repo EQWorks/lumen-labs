@@ -138,6 +138,7 @@ export const Simple = () => {
  *      title: string, name of the dividir
  *      startIcon: node, icon on left side of divider title
  *      endIcon: node, icon on right side of divider title
+ *      onClick: func, callback function onClick divider item
  *    }
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { DropdownSelect, TextField, makeStyles } from '..'
 import { useComponentIsActive } from '../hooks'
-import { Delete } from '../icons'
+import { includesAny } from '../utils/string'
 
 
 const DropdownMultiSearch = ({
@@ -62,7 +62,12 @@ const DropdownMultiSearch = ({
           color: openMenu || displayValue === defaultOption ? '#C8C8C8' : 'inherit',
         },
       },
-      '.dropdown-multi-search-textfield-container': {},
+      '.dropdown-multi-search-textfield-container': {
+        '& .textfield__end-icon-container': {
+          display: 'flex',
+          alignItems: 'center',
+        },
+      },
       '.dropdown-multi-search-dropdown-root':{
         position: 'absolute',
         display: 'block',
@@ -155,6 +160,9 @@ const DropdownMultiSearch = ({
         refocus={componentIsActive}
         size={size}
         disabled={disabled}
+        isPlaceholderValue={!openMenu && includesAny(displayValue, selectedFilters)}
+        onDelete={handleDelete}
+        deleteButton={deleteButton}
       />
       <DropdownSelect
         simple
@@ -182,11 +190,6 @@ const DropdownMultiSearch = ({
         onOpenClose={onOpenClose}
         {...rest}
       />
-      {deleteButton && selectedFilters.length > 0 &&
-        <div className={classes.endIcon} onMouseDown={handleDelete}>
-          <Delete className='ml-2 fill-current text-secondary-600 cursor-pointer' size={size}/>
-        </div>
-      }
     </div>
   )
 }

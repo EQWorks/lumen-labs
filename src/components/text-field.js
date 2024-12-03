@@ -108,10 +108,13 @@ const _borderlessClasses = ({ root, input, isEdited, error, focus, disabled }) =
   }),
 })
 
-const renderLabel = ({ label, required, textFieldClasses, id }) => (
-  <div className='textfield__label-container flex flex-row'>
-    {label && <label className={textFieldClasses.label} htmlFor={id}>{label}</label>}
-    {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
+const renderLabel = ({ label, required, textFieldClasses, id, labelOptions }) => (
+  <div className='textfield__label-container flex flex-row justify-between'>
+    <div className='textfield__label-text-container flex flex-row'>
+      {label && <label className={textFieldClasses.label} htmlFor={id}>{label}</label>}
+      {required && <span className='flex flex-row ml-5px text-error-500'>*</span>}
+    </div>
+    {labelOptions && labelOptions}
   </div>
 )
 const renderFooter = ({ helperText, maxLength, value, textFieldClasses }) => (
@@ -157,7 +160,9 @@ const TextField  = ({
   variant = 'default',
   linkedFields = 0,
   refocus = false,
-  id='',
+  id = '',
+  isPlaceholderValue = false,
+  labelOptions = null,
   ...rest
 }) => {
   const [filled, setFilled] = useState(false)
@@ -292,7 +297,7 @@ const TextField  = ({
   if (variant === 'linked') {
     return (
       <div className={textFieldClasses.container.linked.outer}>
-        {label && renderLabel({ label, required, textFieldClasses, inputID })}
+        {label && renderLabel({ label, required, textFieldClasses, inputID, labelOptions })}
         <div className={textFieldClasses.container.linked.inner}>
           {linkedValues.map((val, i) => {
             return (
@@ -332,7 +337,7 @@ const TextField  = ({
         }
       }}
     >
-      {variant !== 'borderless' && label && renderLabel({ label, required, textFieldClasses, id })}
+      {variant !== 'borderless' && label && renderLabel({ label, required, textFieldClasses, id, labelOptions })}
       <InputBase
         {...inputProps}
         id={id}
@@ -347,6 +352,7 @@ const TextField  = ({
         required={required}
         maxLength={maxLength}
         refocus={refocus}
+        isPlaceholderValue={isPlaceholderValue}
         {...rest}
       />
       {variant !== 'borderless' && renderFooter({ helperText, maxLength, value, textFieldClasses })}
@@ -374,6 +380,8 @@ TextField.propTypes = {
   linkedFields: PropTypes.number,
   refocus: PropTypes.bool,
   id: PropTypes.string,
+  isPlaceholderValue: PropTypes.bool,
+  labelOptions: PropTypes.node,
 }
 
 TextField.Area = Area

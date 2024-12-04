@@ -24,6 +24,7 @@ import {
   sampleDataSubLinked,
   categoriesData,
 } from './data/dropdown-data'
+import { useComponentIsActive } from '../src/hooks'
 
 
 export default {
@@ -88,16 +89,18 @@ export const Simple = () => {
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default</p>
-          <DropdownSelect simple
+          <DropdownSelect
+            simple
             data={sampleDataBasic}
             endIcon={<ArrowDown size='md' />}
             placeholder='Select a word'
-            initOpen
           />
         </div>
         <div>
           <p>multi</p>
-          <DropdownSelect simple multiSelect
+          <DropdownSelect
+            simple
+            multiSelect
             data={sampleDataBasic}
             endIcon={<ArrowDown size='lg' />}
             placeholder='Select some words'
@@ -518,7 +521,7 @@ export const CustomButton = () => {
   const button = <Button variant='outlined' size='lg'>Click me</Button>
   return (
     <>
-      <DropdownSelect data={sampleDataGroups} button={button} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType/>
+      <DropdownSelect data={sampleDataGroups} button={button} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType initOpen/>
     </>
   )
 }
@@ -634,8 +637,8 @@ export const DropdownMultiSearchSelection = () => {
     <div className='flex gap-3'>
       <DropdownMultiSearch
         clearSearch={false}
-        data={data}
-        disabled={!data.length}
+        data={sampleDataBasic}
+        initOpen
       />
       <DropdownMultiSearch
         data={data}
@@ -644,5 +647,46 @@ export const DropdownMultiSearchSelection = () => {
         data={data}
         disabled={!data.length} />
     </div>
+  )
+}
+
+export const InitialOpenWithAnotherDropdown = () => {
+  const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
+  const [show, setShow] = useState('')
+
+  const button = <Button variant='outlined' size='lg' onClick={() => setComponentIsActive(!componentIsActive)}>Click me</Button>
+
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5' ref={ref}>
+          <p>Default</p>
+          <DropdownSelect
+            simple
+            data={sampleDataBasic}
+            endIcon={<ArrowDown size='md' />}
+            placeholder='Select a word'
+            onSelect={(_,val) => {
+              setShow(val)
+            }}
+            button={button}
+            open={componentIsActive}
+          />
+        </div>
+        { show === 'test' &&
+          <div className='mr-5'>
+            <p>multi</p>
+            <DropdownSelect
+              simple
+              multiSelect
+              data={sampleDataBasic}
+              endIcon={<ArrowDown size='lg' />}
+              placeholder='Select some words'
+              initOpen
+            />
+          </div>
+        }
+      </div>
+    </>
   )
 }

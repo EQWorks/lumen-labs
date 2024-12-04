@@ -162,7 +162,8 @@ export const Simple = () => {
  * [allowClear] - bool, enable clearing button when an option is selected, default = true
  * [simple] - bool, accept arrays of strings instead of the more complex data shape outlined above, default = false
  * [preventDeselect] - bool, disable default deselect when an item is selected, default = false
- * [initOpen] - bool, enable open dropdown menu after it gets rendered
+ * [initOpen] - bool, enable open dropdown menu after it gets rendered, default = false
+ * [hideSelected] - bool, hide selected options from the list, default = false
  * [...rest] - any div element properties
  */
 

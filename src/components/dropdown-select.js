@@ -76,6 +76,7 @@ const DropdownSelect = ({
   allowClear = true,
   simple = false,
   preventDeselect = false,
+  hideSelected = false,
   onOpenClose = () => {},
   alwaysOpen = false,
   noOptionsMessage = 'No options',
@@ -129,7 +130,7 @@ const DropdownSelect = ({
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
     startIcon: 'dropdown-select__start-icon-container mr-2.5 fill-current stroke-current',
     endIcon: 'dropdown-select__end-icon-container ml-2.5 fill-current stroke-current',
-    selected: 'dropdown-select__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
+    selected: `dropdown-select__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100 ${hideSelected ? 'hidden' : ''}`,
     selectedOptionTitle: `dropdown-select__selected-title-container ${classes.selectedOptionTitle ? classes.selectedOptionTitle : 'mr-2.5 text-secondary-800'}`,
     noOptionsMessage: `dropdown-select__no-options-message-container  text-secondary-600 flex items-center justify-center p-2.5 text-center ${classes.noOptionsMessage}`,
   })
@@ -194,7 +195,7 @@ const DropdownSelect = ({
   }
 
   const renderList = ({ items, type }) => (
-    items.map((item, index) =>
+    items.map((item, index) => (
       <div
         key={`item-container-${index}`}
         className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`}
@@ -209,8 +210,8 @@ const DropdownSelect = ({
           {renderListItem(item)}
           {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
         </div>
-      </div>,
-    )
+      </div>
+    ))
   )
 
   const renderListItem = (item) => {
@@ -393,6 +394,7 @@ DropdownSelect.propTypes = {
   alwaysOpen: PropTypes.bool,
   noOptionsMessage: PropTypes.string,
   initOpen: PropTypes.bool,
+  hideSelected: PropTypes.bool,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

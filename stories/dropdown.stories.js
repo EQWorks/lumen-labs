@@ -92,6 +92,7 @@ export const Simple = () => {
             data={sampleDataBasic}
             endIcon={<ArrowDown size='md' />}
             placeholder='Select a word'
+            initOpen
           />
         </div>
         <div>
@@ -158,6 +159,7 @@ export const Simple = () => {
  * [allowClear] - bool, enable clearing button when an option is selected, default = true
  * [simple] - bool, accept arrays of strings instead of the more complex data shape outlined above, default = false
  * [preventDeselect] - bool, disable default deselect when an item is selected, default = false
+ * [initOpen] - bool, enable open dropdown menu after it gets rendered
  * [...rest] - any div element properties
  */
 
@@ -633,7 +635,8 @@ export const DropdownMultiSearchSelection = () => {
       <DropdownMultiSearch
         clearSearch={false}
         data={data}
-        disabled={!data.length} />
+        disabled={!data.length}
+      />
       <DropdownMultiSearch
         data={data}
         disabled={!data.length} />

@@ -79,6 +79,7 @@ const DropdownSelect = ({
   onOpenClose = () => {},
   alwaysOpen = false,
   noOptionsMessage = 'No options',
+  initOpen = false,
   ...rest
 }) => {
   const [options, setOptions] = useState([])
@@ -97,6 +98,13 @@ const DropdownSelect = ({
       setSelectedOptions(value || fallbackEmptyValue)
     }
   }, [fallbackEmptyValue, uncontrolled, value])
+
+  useEffect(() => {
+    if (initOpen && ref.current) {
+      setComponentIsActive(true)
+      setOpen(true)
+    }
+  }, [initOpen, ref, setComponentIsActive])
 
   const simpleData = useMemo(() => ([{ items: data.map(d => ({ title: d })) }]), [data])
   const simpleSelectedOptions = useMemo(() => (
@@ -384,6 +392,7 @@ DropdownSelect.propTypes = {
   onOpenClose: PropTypes.func,
   alwaysOpen: PropTypes.bool,
   noOptionsMessage: PropTypes.string,
+  initOpen: PropTypes.bool,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

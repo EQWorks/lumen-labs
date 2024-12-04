@@ -33,6 +33,7 @@ const DropdownMultiSearch = ({
   noOptionsMessage = '',
   clearSearch = true,
   deleteButton = true,
+  initOpen = true,
   ...rest
 }) => {
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
@@ -188,6 +189,7 @@ const DropdownMultiSearch = ({
         startIcon={startIcon}
         endIcon={endIcon}
         onOpenClose={onOpenClose}
+        initOpen={initOpen}
         {...rest}
       />
     </div>
@@ -218,6 +220,7 @@ DropdownMultiSearch.propTypes = {
   noOptionsMessage: PropTypes.string,
   clearSearch: PropTypes.bool,
   deleteButton: PropTypes.bool,
+  initOpen: PropTypes.bool,
 }
 
 DropdownMultiSearch.displayName = 'DropdownMultiSearch'

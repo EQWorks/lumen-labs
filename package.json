@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/lumen-labs",
-  "version": "0.1.0-alpha.128",
+  "version": "0.1.0-alpha.129",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.js",

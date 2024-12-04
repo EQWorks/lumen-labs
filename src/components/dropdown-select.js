@@ -9,14 +9,14 @@ import { useComponentIsActive } from '../hooks'
 import clsx from 'clsx'
 
 
-const _contentSize = (size) => {
+const _contentSize = (size, hideSelected) => {
   let contentSize = ''
 
   switch(size) {
   case 'lg':
     contentSize = {
       optionSize: 'mb-9px',
-      itemContainer: 'py-5px',
+      itemContainer: hideSelected ? '' : 'py-5px',
       contentContainer: 'py-5px',
       type: 'py-2.5',
       description: 'text-xs',
@@ -26,7 +26,7 @@ const _contentSize = (size) => {
   case 'md':
     contentSize = {
       optionSize: 'mb-5px',
-      itemContainer: 'py-3px',
+      itemContainer: hideSelected ? '' : 'py-3px',
       contentContainer: 'py-3px',
       type: 'py-1.5',
       description: 'text-11px',
@@ -117,7 +117,7 @@ const DropdownSelect = ({
   const finalSelectedOptions = useMemo(() => simple ? simpleSelectedOptions : selectedOptions, [selectedOptions, simple, simpleSelectedOptions])
   const finalData = useMemo(() => simple ? simpleData : data, [data, simple, simpleData])
 
-  const contentSize = _contentSize(size)
+  const contentSize = _contentSize(size, hideSelected)
   const dropdownSelectClasses = Object.freeze({
     listContainer: `dropdown-select__list-containercapitalize ${classes.listContainer}`,
     itemContainer: `dropdown-select__item-container text-secondary-600 ${contentSize.itemContainer}`,

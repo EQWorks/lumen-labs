@@ -254,7 +254,7 @@ export const MultiSelect = () => {
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default - horizontal</p>
-          <DropdownSelect data={sampleDataMultiselect} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' multiSelect/>
+          <DropdownSelect data={sampleDataMultiselect} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' multiSelect hideSelected/>
         </div>
         <div className='mr-5'>
           <p>Default - vertical</p>

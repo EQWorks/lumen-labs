@@ -387,4 +387,6 @@ TextField.propTypes = {
 
 TextField.Area = Area
 
+TextField.displayName = 'TextField'
+
 export default TextField

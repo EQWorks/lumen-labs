@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -141,7 +141,7 @@ const linkedValsFormatHelper = (value, linkedValues, linkedFields) => {
   return vals
 }
 
-const TextField  = ({
+const TextField = forwardRef(({
   classes = { root: '', input: '', container: '' },
   size = 'md',
   inputProps = {},
@@ -164,7 +164,7 @@ const TextField  = ({
   isPlaceholderValue = false,
   labelOptions = null,
   ...rest
-}) => {
+}, ref) => {
   const [filled, setFilled] = useState(false)
   const [value, setValue] = useState(false)
   const [focus, setFocus] = useState(false)
@@ -340,6 +340,7 @@ const TextField  = ({
       {variant !== 'borderless' && label && renderLabel({ label, required, textFieldClasses, id, labelOptions })}
       <InputBase
         {...inputProps}
+        ref={ref}
         id={id}
         classes={generateVariants({})[variant]}
         onFocus={handleFocus}
@@ -358,7 +359,7 @@ const TextField  = ({
       {variant !== 'borderless' && renderFooter({ helperText, maxLength, value, textFieldClasses })}
     </form>
   )
-}
+})
 
 TextField.propTypes = {
   classes: PropTypes.object,

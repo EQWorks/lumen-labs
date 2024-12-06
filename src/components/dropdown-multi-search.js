@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { DropdownSelect, TextField, makeStyles } from '..'
 import { useComponentIsActive } from '../hooks'
+import { includesAny } from '../utils/string'
 
 
 const DropdownMultiSearch = ({
@@ -31,32 +32,42 @@ const DropdownMultiSearch = ({
   onOpenClose = () => {},
   noOptionsMessage = '',
   clearSearch = true,
+  deleteButton = true,
+  initOpen = false,
   ...rest
 }) => {
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
   const [searchTerm, setSearchTerm] = useState('')
-  const [openMenu, setOpenMnu] = useState(false)
   const [filteredOptions, setFilteredOptions] = useState(data || [])
   const [selectedFilters, setSelectedFilters] = useState([])
 
   const defaultOption = 'any value'
   const displayValue = selectedFilters?.length ? selectedFilters.join(' or ') : defaultOption
-  const inputPlaceholder = openMenu ? 'Type to search' : `is ${displayValue}`
+  const inputPlaceholder = componentIsActive ? 'Type to search' : `is ${displayValue}`
 
   const styles = makeStyles({
     root: {
       position: 'relative',
+      heigh: '100%',
+      display: 'flex',
+      alignItems: 'center',
+
       '.dropdown-multi-search-textfield-root': {
         height: '2.35rem',
       },
       '.dropdown-multi-search-textfield-input': {
-        cursor: openMenu ? 'text' : 'pointer',
-        caretColor: openMenu ? 'inherit' : 'transparent',
+        cursor: componentIsActive ? 'text' : 'pointer',
+        caretColor: componentIsActive ? 'inherit' : 'transparent',
         '&::placeholder': {
-          color: openMenu || displayValue === defaultOption ? '#C8C8C8' : 'inherit',
+          color: componentIsActive || displayValue === defaultOption ? '#C8C8C8' : 'inherit',
         },
       },
-      '.dropdown-multi-search-textfield-container': {},
+      '.dropdown-multi-search-textfield-container': {
+        '& .textfield__end-icon-container': {
+          display: 'flex',
+          alignItems: 'center',
+        },
+      },
       '.dropdown-multi-search-dropdown-root':{
         position: 'absolute',
         display: 'block',
@@ -102,7 +113,6 @@ const DropdownMultiSearch = ({
   const handleOnClick = () => {
     onClick()
     setComponentIsActive( (state) => !state)
-    setOpenMnu(!openMenu)
   }
 
   const handleOnSelect = (_, selected) => {
@@ -114,15 +124,40 @@ const DropdownMultiSearch = ({
     }
   }
 
+  const handleDelete = (e) => {
+    if (searchTerm) {
+      setSearchTerm('')
+      onDelete(e, 'search')
+    }
+
+    if (!searchTerm && selectedFilters.length > 0) {
+      setSelectedFilters([])
+      onDelete(e, 'select')
+    }
+  }
+
   useEffect(() => {
     setFilteredOptions(data)
   }, [data])
 
-  if (!componentIsActive && openMenu) {
-    setOpenMnu(false)
-    setSearchTerm('')
-    setFilteredOptions(data)
-  }
+  useEffect(() => {
+    if (value.length > 0) {
+      setSelectedFilters(value)
+    }
+  }, [value])
+
+  useEffect(() => {
+    if (!componentIsActive) {
+      setSearchTerm('')
+      setFilteredOptions(data)
+    }
+  }, [componentIsActive, data])
+
+  useEffect(() => {
+    if (initOpen) {
+      setComponentIsActive(true)
+    }
+  }, [initOpen, setComponentIsActive])
 
   return (
     <div className={styles.root} ref={ref}>
@@ -139,12 +174,15 @@ const DropdownMultiSearch = ({
         refocus={componentIsActive}
         size={size}
         disabled={disabled}
+        isPlaceholderValue={!componentIsActive && includesAny(displayValue, selectedFilters)}
+        onDelete={handleDelete}
+        deleteButton={deleteButton}
       />
       <DropdownSelect
         simple
         multiSelect={true}
         classes={{
-          root: `${openMenu ? 'dropdown-multi-search-dropdown-root' : 'dropdown-multi-search-dropdown-root-close'} ${classes.dropdownRoot}`,
+          root: `${componentIsActive ? 'dropdown-multi-search-dropdown-root' : 'dropdown-multi-search-dropdown-root-close'} ${classes.dropdownRoot}`,
           button: `dropdown-multi-search-dropdown-button ${classes.dropdownButton}`,
           content: `dropdown-multi-search-dropdown-content ${classes.dropdownContent}`,
           innerButton: `dropdown-multi-search-dropdown-inner-button ${classes.dropdownInnerButton}`,
@@ -159,11 +197,12 @@ const DropdownMultiSearch = ({
         limit={data?.length}
         size={size}
         defaultValue={defaultValue}
-        value={value}
+        value={selectedFilters}
         onDelete={onDelete}
         startIcon={startIcon}
         endIcon={endIcon}
         onOpenClose={onOpenClose}
+        initOpen={initOpen}
         {...rest}
       />
     </div>
@@ -193,6 +232,8 @@ DropdownMultiSearch.propTypes = {
   disabled: PropTypes.bool,
   noOptionsMessage: PropTypes.string,
   clearSearch: PropTypes.bool,
+  deleteButton: PropTypes.bool,
+  initOpen: PropTypes.bool,
 }
 
 DropdownMultiSearch.displayName = 'DropdownMultiSearch'

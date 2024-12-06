@@ -24,6 +24,7 @@ import {
   sampleDataSubLinked,
   categoriesData,
 } from './data/dropdown-data'
+import { useComponentIsActive } from '../src/hooks'
 
 
 export default {
@@ -88,7 +89,8 @@ export const Simple = () => {
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default</p>
-          <DropdownSelect simple
+          <DropdownSelect
+            simple
             data={sampleDataBasic}
             endIcon={<ArrowDown size='md' />}
             placeholder='Select a word'
@@ -96,7 +98,9 @@ export const Simple = () => {
         </div>
         <div>
           <p>multi</p>
-          <DropdownSelect simple multiSelect
+          <DropdownSelect
+            simple
+            multiSelect
             data={sampleDataBasic}
             endIcon={<ArrowDown size='lg' />}
             placeholder='Select some words'
@@ -138,6 +142,7 @@ export const Simple = () => {
  *      title: string, name of the dividir
  *      startIcon: node, icon on left side of divider title
  *      endIcon: node, icon on right side of divider title
+ *      onClick: func, callback function onClick divider item
  *    }
  * [button] - node, custom onClick element to trigger select/dropdown menu
  * [size] - string, control component size - supported sizes ['md', 'lg'], default = 'md'
@@ -157,6 +162,8 @@ export const Simple = () => {
  * [allowClear] - bool, enable clearing button when an option is selected, default = true
  * [simple] - bool, accept arrays of strings instead of the more complex data shape outlined above, default = false
  * [preventDeselect] - bool, disable default deselect when an item is selected, default = false
+ * [initOpen] - bool, enable open dropdown menu after it gets rendered, default = false
+ * [hideSelected] - bool, hide selected options from the list, default = false
  * [...rest] - any div element properties
  */
 
@@ -247,7 +254,7 @@ export const MultiSelect = () => {
       <div className='flex flex-row'>
         <div className='mr-5'>
           <p>Default - horizontal</p>
-          <DropdownSelect data={sampleDataMultiselect} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' multiSelect/>
+          <DropdownSelect data={sampleDataMultiselect} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' multiSelect hideSelected/>
         </div>
         <div className='mr-5'>
           <p>Default - vertical</p>
@@ -515,7 +522,7 @@ export const CustomButton = () => {
   const button = <Button variant='outlined' size='lg'>Click me</Button>
   return (
     <>
-      <DropdownSelect data={sampleDataGroups} button={button} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType/>
+      <DropdownSelect data={sampleDataGroups} button={button} endIcon={<ArrowDown size='md'/>} placeholder='Select a subject' showType initOpen/>
     </>
   )
 }
@@ -630,15 +637,68 @@ export const DropdownMultiSearchSelection = () => {
   return (
     <div className='flex gap-3'>
       <DropdownMultiSearch
+        simple
         clearSearch={false}
-        data={data}
-        disabled={!data.length} />
+        data={sampleDataBasic}
+      />
       <DropdownMultiSearch
         data={data}
-        disabled={!data.length} />
+        disabled={!data.length}
+      />
       <DropdownMultiSearch
         data={data}
-        disabled={!data.length} />
+        disabled={!data.length}
+      />
     </div>
+  )
+}
+
+export const InitialOpenWithAnotherDropdown = () => {
+  const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()
+  const [show, setShow] = useState('')
+
+  const button = <Button variant='outlined' size='lg' onClick={() => setComponentIsActive(!componentIsActive)}>Click me</Button>
+
+  return (
+    <>
+      <div className='flex flex-row'>
+        <div className='mr-5' ref={ref}>
+          <p>Default</p>
+          <DropdownSelect
+            simple
+            data={sampleDataBasic}
+            endIcon={<ArrowDown size='md' />}
+            placeholder='Select a word'
+            onSelect={(_,val) => {
+              setShow(val)
+              setComponentIsActive(false)
+            }}
+            button={button}
+            open={componentIsActive}
+          />
+        </div>
+        <div className='mr-5'>
+          <p>multi</p>
+          <DropdownSelect
+            simple
+            multiSelect
+            data={sampleDataBasic}
+            endIcon={<ArrowDown size='lg' />}
+            placeholder='Select some words'
+            initOpen={show === 'hello'}
+          />
+        </div>
+        { show === 'test' &&
+          <div className='mr-5'>
+            <p>multi search</p>
+            <DropdownMultiSearch
+              clearSearch={false}
+              data={sampleDataBasic}
+              initOpen
+            />
+          </div>
+        }
+      </div>
+    </>
   )
 }

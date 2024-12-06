@@ -68,6 +68,7 @@ export const sampleDataDivider = [
     ],
     divider: {
       title: 'Reset',
+      onClick: () => {},
     },
   },
 ]

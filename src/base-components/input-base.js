@@ -22,6 +22,7 @@ const InputBase = forwardRef(({
   required = false,
   disabled = false,
   refocus = false,
+  isPlaceholderValue = false,
   ...rest
 }, ref) => {
   const baseClasses = Object.freeze({
@@ -92,7 +93,7 @@ const InputBase = forwardRef(({
       />
       {suffix && <span className={classes.suffix}>{suffix}</span>}
       {endIcon && !((value || _value) && hideIcon) && <div className={classes.endIcon}>{endIcon}</div>}
-      {deleteButton && (value || _value) &&
+      {deleteButton && (value || _value || isPlaceholderValue) &&
         <div className={classes.endIcon} onMouseDown={handleDelete}>
           <Delete className='fill-current text-secondary-600 cursor-pointer' size={size}/>
         </div>
@@ -119,6 +120,7 @@ InputBase.propTypes = {
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   refocus: PropTypes.bool,
+  isPlaceholderValue: PropTypes.bool,
 }
 
 InputBase.displayName = 'InputBase'

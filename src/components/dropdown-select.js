@@ -9,14 +9,14 @@ import { useComponentIsActive } from '../hooks'
 import clsx from 'clsx'
 
 
-const _contentSize = (size) => {
+const _contentSize = (size, hideSelected) => {
   let contentSize = ''
 
   switch(size) {
   case 'lg':
     contentSize = {
       optionSize: 'mb-9px',
-      itemContainer: 'py-5px',
+      itemContainer: hideSelected ? '' : 'py-5px',
       contentContainer: 'py-5px',
       type: 'py-2.5',
       description: 'text-xs',
@@ -26,7 +26,7 @@ const _contentSize = (size) => {
   case 'md':
     contentSize = {
       optionSize: 'mb-5px',
-      itemContainer: 'py-3px',
+      itemContainer: hideSelected ? '' : 'py-3px',
       contentContainer: 'py-3px',
       type: 'py-1.5',
       description: 'text-11px',
@@ -76,9 +76,11 @@ const DropdownSelect = ({
   allowClear = true,
   simple = false,
   preventDeselect = false,
+  hideSelected = false,
   onOpenClose = () => {},
   alwaysOpen = false,
   noOptionsMessage = 'No options',
+  initOpen = false,
   ...rest
 }) => {
   const [options, setOptions] = useState([])
@@ -98,6 +100,13 @@ const DropdownSelect = ({
     }
   }, [fallbackEmptyValue, uncontrolled, value])
 
+  useEffect(() => {
+    if (initOpen && ref.current) {
+      setComponentIsActive(true)
+      setOpen(true)
+    }
+  }, [initOpen, ref, setComponentIsActive])
+
   const simpleData = useMemo(() => ([{ items: data.map(d => ({ title: d })) }]), [data])
   const simpleSelectedOptions = useMemo(() => (
     multiSelect
@@ -108,7 +117,7 @@ const DropdownSelect = ({
   const finalSelectedOptions = useMemo(() => simple ? simpleSelectedOptions : selectedOptions, [selectedOptions, simple, simpleSelectedOptions])
   const finalData = useMemo(() => simple ? simpleData : data, [data, simple, simpleData])
 
-  const contentSize = _contentSize(size)
+  const contentSize = _contentSize(size, hideSelected)
   const dropdownSelectClasses = Object.freeze({
     listContainer: `dropdown-select__list-containercapitalize ${classes.listContainer}`,
     itemContainer: `dropdown-select__item-container text-secondary-600 ${contentSize.itemContainer}`,
@@ -117,11 +126,11 @@ const DropdownSelect = ({
     contentHeader: `dropdown-select__content-header w-full flex flex-row items-center justify-between cursor-pointer ${classes.contentHeader}`,
     type: `dropdown-select__type-container px-5px flex items-center font-semibold text-secondary-400 ${contentSize.type} ${classes.type}`,
     description: `dropdown-select__description-container pt-5px font-normal text-secondary-500 ${contentSize.description} ${classes.description}`,
-    dividerContainer: `dropdown-select__divider-container px-2.5 flex flex-row items-center font-bold text-secondary-600 border-t border-secondary-300 cursor-pointer 
+    dividerContainer: `dropdown-select__divider-container px-2.5 flex flex-row items-center font-bold text-secondary-600 border-b border-secondary-300 cursor-pointer 
       ${contentSize.dividerContainer} ${classes.dividerContainer}`,
     startIcon: 'dropdown-select__start-icon-container mr-2.5 fill-current stroke-current',
     endIcon: 'dropdown-select__end-icon-container ml-2.5 fill-current stroke-current',
-    selected: 'dropdown-select__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100',
+    selected: `dropdown-select__selected font-semibold text-secondary-900 bg-interactive-100 hover:text-secondary-900 hover:bg-interactive-100 ${hideSelected ? 'hidden' : ''}`,
     selectedOptionTitle: `dropdown-select__selected-title-container ${classes.selectedOptionTitle ? classes.selectedOptionTitle : 'mr-2.5 text-secondary-800'}`,
     noOptionsMessage: `dropdown-select__no-options-message-container  text-secondary-600 flex items-center justify-center p-2.5 text-center ${classes.noOptionsMessage}`,
   })
@@ -186,7 +195,7 @@ const DropdownSelect = ({
   }
 
   const renderList = ({ items, type }) => (
-    items.map((item, index) =>
+    items.map((item, index) => (
       <div
         key={`item-container-${index}`}
         className={`item-container-${index} ${dropdownSelectClasses.itemContainer}`}
@@ -201,8 +210,8 @@ const DropdownSelect = ({
           {renderListItem(item)}
           {item.description && <div className={`description-container-${index} ${dropdownSelectClasses.description}`}>{item.description}</div>}
         </div>
-      </div>,
-    )
+      </div>
+    ))
   )
 
   const renderListItem = (item) => {
@@ -273,12 +282,13 @@ const DropdownSelect = ({
   const onClickClose = (e, value) => {
     e.stopPropagation()
     handleOnClick('', value, 'chip')
+    onDelete(e, 'multi', value)
   }
 
   const onClickDelete = (e) => {
     e.stopPropagation()
     setSelectedOptions('')
-    onDelete(e)
+    onDelete(e, 'select')
   }
 
   return (
@@ -318,8 +328,8 @@ const DropdownSelect = ({
                 className={`list-container-${index} ${dropdownSelectClasses.listContainer}`}
               >
                 {showType && el.type && <label className={`type-container-${index} ${dropdownSelectClasses.type}`} htmlFor="span">{renderListItem(el.type)}</label>}
+                {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`} onClick={el.divider.onClick}>{renderListItem(el.divider)}</div>}
                 {renderList(el)}
-                {el.divider && <div className={`divider-container-${index} ${dropdownSelectClasses.dividerContainer}`}>{renderListItem(el.divider)}</div>}
               </Menu.Item>
             )
           })}
@@ -351,6 +361,7 @@ DropdownSelect.propTypes = {
           title: PropTypes.string,
           startIcon: PropTypes.node,
           endIcon: PropTypes.node,
+          onClcik: PropTypes.func,
         }),
       }),
     ),
@@ -383,6 +394,8 @@ DropdownSelect.propTypes = {
   onOpenClose: PropTypes.func,
   alwaysOpen: PropTypes.bool,
   noOptionsMessage: PropTypes.string,
+  initOpen: PropTypes.bool,
+  hideSelected: PropTypes.bool,
 }
 
 DropdownSelect.displayName = 'DropdownSelect'

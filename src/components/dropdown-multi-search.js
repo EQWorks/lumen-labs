@@ -33,7 +33,7 @@ const DropdownMultiSearch = ({
   noOptionsMessage = '',
   clearSearch = true,
   deleteButton = true,
-  initOpen = true,
+  initOpen = false,
   ...rest
 }) => {
   const { ref, componentIsActive, setComponentIsActive } = useComponentIsActive()

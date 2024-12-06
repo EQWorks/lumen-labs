@@ -14,8 +14,8 @@ export const useComponentIsActive = () => {
   }
 
   useEffect(() => {
-    document.addEventListener('click', outOfComponentClick)
-    return () => document.removeEventListener('click', outOfComponentClick)
+    document.addEventListener('pointerdown', outOfComponentClick)
+    return () => document.removeEventListener('pointerdown', outOfComponentClick)
   })
 
   return { ref, componentIsActive, setComponentIsActive }

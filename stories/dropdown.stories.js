@@ -639,7 +639,6 @@ export const DropdownMultiSearchSelection = () => {
       <DropdownMultiSearch
         clearSearch={false}
         data={sampleDataBasic}
-        initOpen
       />
       <DropdownMultiSearch
         data={data}
@@ -669,20 +668,29 @@ export const InitialOpenWithAnotherDropdown = () => {
             placeholder='Select a word'
             onSelect={(_,val) => {
               setShow(val)
+              setComponentIsActive(false)
             }}
             button={button}
             open={componentIsActive}
           />
         </div>
+        <div className='mr-5'>
+          <p>multi</p>
+          <DropdownSelect
+            simple
+            multiSelect
+            data={sampleDataBasic}
+            endIcon={<ArrowDown size='lg' />}
+            placeholder='Select some words'
+            initOpen={show === 'hello'}
+          />
+        </div>
         { show === 'test' &&
           <div className='mr-5'>
-            <p>multi</p>
-            <DropdownSelect
-              simple
-              multiSelect
+            <p>multi search</p>
+            <DropdownMultiSearch
+              clearSearch={false}
               data={sampleDataBasic}
-              endIcon={<ArrowDown size='lg' />}
-              placeholder='Select some words'
               initOpen
             />
           </div>

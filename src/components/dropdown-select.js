@@ -282,12 +282,13 @@ const DropdownSelect = ({
   const onClickClose = (e, value) => {
     e.stopPropagation()
     handleOnClick('', value, 'chip')
+    onDelete(e, 'multi')
   }
 
   const onClickDelete = (e) => {
     e.stopPropagation()
     setSelectedOptions('')
-    onDelete(e)
+    onDelete(e, 'select')
   }
 
   return (

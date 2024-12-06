@@ -124,13 +124,15 @@ const DropdownMultiSearch = ({
     }
   }
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
     if (searchTerm) {
       setSearchTerm('')
+      onDelete(e, 'search')
     }
 
     if (!searchTerm && selectedFilters.length > 0) {
       setSelectedFilters([])
+      onDelete(e, 'select')
     }
   }
 

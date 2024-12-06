@@ -637,15 +637,18 @@ export const DropdownMultiSearchSelection = () => {
   return (
     <div className='flex gap-3'>
       <DropdownMultiSearch
+        simple
         clearSearch={false}
         data={sampleDataBasic}
       />
       <DropdownMultiSearch
         data={data}
-        disabled={!data.length} />
+        disabled={!data.length}
+      />
       <DropdownMultiSearch
         data={data}
-        disabled={!data.length} />
+        disabled={!data.length}
+      />
     </div>
   )
 }
